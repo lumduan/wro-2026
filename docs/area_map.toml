@@ -1,0 +1,298 @@
+# area_map.toml — the ONLY hand-written part of data/field_spec.json
+#
+# This file carries human JUDGEMENT: which canonical ID corresponds to which
+# drawn path, and why. It carries NO coordinates — every number in
+# field_spec.json is re-derived from docs/extracted/.../vector/drawings.json by
+# tools/build_field_spec.py. The sizes and positions below are SELECTORS, not
+# data: they identify a path, and the builder hard-fails if a selector does not
+# resolve to exactly the declared number of paths.
+#
+# Selector predicate (ADR-015): fill AND size AND position, ALL of them.
+#   Fill alone is ambiguous almost everywhere and the ambiguity carries points —
+#   #4e5252 has six paths of identical size (120 pts) and #b5b5b6 has two
+#   (30 pts). 150 of 255 points are separated by POSITION alone.
+#
+#   match = "exact"  (default) -> the full predicate resolves to exactly 1 path
+#                                 position is a POINT + at_tol_mm
+#   match = "union"            -> N paths; expect_paths is MANDATORY
+#                                 position is a REGION: union_bbox_mm as an
+#                                 EQUALITY (containment against the paths' own
+#                                 union bbox is true by construction)
+#   inset_by = "<hex>"         -> polygon is the selected fill INSET to the named
+#                                 band's measured INNER VERTEX. Never an area
+#                                 subtraction — see ADR-015.
+#
+# `scoring` is declared EXPLICITLY on every area. No default, no inference:
+# ADR-013's completely_in predicate ranges only over scoring = true, and an area
+# that silently defaulted to true would make every mission unscoreable.
+
+[meta]
+source = "S2"
+frame = "MAT frame: origin bottom-left of the mat, +X right, +Y up, mm"
+border_match_tol_mm = 0.5   # ADR-015; justified by a sweep, not fitted
+
+# --------------------------------------------------------------------------- #
+# Scoring areas — 10 of them, 255 points
+# --------------------------------------------------------------------------- #
+
+# S1 p8: "place the cables in the grey areas between speakers and amplifier";
+# "Only one cable per area scores points" -> there are exactly TWO.
+# Both are QUADRILATERALS, not rectangles: area 16,514 mm2 against a bbox of
+# 24,942 mm2, so a bbox would overstate the target by 34 %.
+[areas.cable_area_upper]
+select = "#b5b5b6"
+size_mm = [114.469, 217.892]
+at_mm = [77.025, 936.064]
+at_tol_mm = 2.0
+scoring = true
+source = "S1 p8"
+
+[areas.cable_area_lower]
+select = "#b5b5b6"
+size_mm = [114.468, 217.892]
+at_mm = [77.025, 549.936]
+at_tol_mm = 2.0
+scoring = true
+source = "S1 p8"
+
+# S1 p10: "The microphone target area is the light green area on the stage."
+# The stage is #85604b, which spans [-13, 324, 535, 1182] and contains this.
+[areas.mic_target]
+select = "#c3d82d"
+size_mm = [79.7, 95.6]
+at_mm = [260.1, 743.0]
+at_tol_mm = 2.0
+scoring = true
+source = "S1 p10"
+
+# S1 p11: "the pink area in the bottom left corner including all the furniture,
+# but WITHOUT the grey border."
+# The pink fill INCLUDES that border, so the scoring polygon is the inset.
+# #d6d0cc is an L-band (six measured vertices) along the top and right edges,
+# ~6.3 mm thick; left and bottom are the mat edge. Taking its inner vertex gives
+# [0, 0, 393.809, 317.219] = 124,923.697 mm2, against the fill's 129,452.075.
+# Subtracting areas instead gives 124,920.48 and is WRONG — the band runs
+# 0.013 mm past the pink and the L-corner is not a clean rectangle difference.
+[areas.backstage]
+select = "#cf8fbb"
+inset_by = "#d6d0cc"
+size_mm = [400.135, 323.521]
+at_mm = [200.068, 161.761]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = false   # DESCRIPTIVE: the polygon is already the scoring
+                               # polygon. Do NOT inset a second time.
+source = "S1 p11"
+
+# S1 p11: "corresponding-coloured note target area (INCLUDING grey border)".
+# The scoring polygon is therefore the 79.7 mm #4e5252 outer square, not the
+# 47.8 mm coloured centre. Border = (outer - 47.800)/2 = 15.9495..15.9500.
+# All six share fill AND size, so position is the only discriminator.
+[areas.note_target_yellow]
+select = "#4e5252"
+size_mm = [79.7, 79.7]
+at_mm = [1065.315, 551.0]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#faef3b"
+source = "S1 p11"
+
+[areas.note_target_black]
+select = "#4e5252"
+size_mm = [79.7, 79.7]
+at_mm = [1221.115, 493.1]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#0a151e"
+source = "S1 p11"
+
+[areas.note_target_red]
+select = "#4e5252"
+size_mm = [79.699, 79.7]
+at_mm = [1381.361, 526.384]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#c92027"
+source = "S1 p11"
+
+[areas.note_target_green]
+select = "#4e5252"
+size_mm = [79.7, 79.7]
+at_mm = [1548.615, 595.1]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#1f7941"
+source = "S1 p11"
+
+[areas.note_target_blue]
+select = "#4e5252"
+size_mm = [79.7, 79.7]
+at_mm = [1690.215, 658.9]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#255aa9"
+source = "S1 p11"
+
+[areas.note_target_white]
+select = "#4e5252"
+size_mm = [79.7, 79.7]
+at_mm = [1858.215, 755.1]
+at_tol_mm = 2.0
+scoring = true
+includes_grey_border = true
+inner_fill = "#ffffff"
+source = "S1 p11"
+
+# --------------------------------------------------------------------------- #
+# Non-scoring areas — scoring = false, so ADR-013's predicate skips them
+# --------------------------------------------------------------------------- #
+
+# S4 7.8: "the start area of the robot is exclusively the white area within a
+# coloured border." On THIS mat the white area is a RASTER, not a vector fill —
+# which is why no #ffffff path exists inside the #24408f border. The selector is
+# therefore a raster placement rect. Measured 250.02 x 250.02 mm == the 5.1 robot
+# envelope plus 0.01 mm per side, so a full-size robot has effectively ZERO slack.
+# (NOT 250.0 - an earlier :.1f display rounded it, the same trap that briefly
+# confused the backstage band at 400.148 vs the pink at 400.135.)
+# AMBIGUITY(A9): 7.8 says "the white area" but 29.56 % of this interior is not
+# white (logo, band, text, QR). Boundary measured; interpretation open.
+[areas.start_area]
+select_raster = "p001_3832"
+size_mm = [250.02, 250.02]
+at_mm = [2175.5, 571.5]
+at_tol_mm = 2.0
+scoring = false            # not a scoring target; ADR-013 must skip it
+border_fill = "#24408f"    # the "coloured border" of 7.8, 11.5 mm wide
+source = "S4 7.8 + S1 p3 field diagram"
+
+# Large mat colour regions. They are in the spec because the sensor/navigation
+# model needs them (ADR-012); scoring = false keeps them out of the
+# completely_in predicate BY CONSTRUCTION rather than by convention.
+[areas.plaza]
+select = "#8d8f91"
+match = "union"
+expect_paths = 4
+union_bbox_mm = [388.702, 0.0, 2362.0, 1143.0]
+union_bbox_tol_mm = 0.5
+scoring = false
+source = "S2 geometry; no S1 mission references it"
+
+# NOTE: stage legitimately overruns the mat box (x0 = -13.169, y1 = 1182.364).
+# EXTRACTION_REPORT section 2 explains why: PDF artwork extends past the trim and
+# is clipped at render time. Containment is NOT asserted for scoring = false.
+[areas.stage]
+select = "#85604b"
+size_mm = [548.113, 858.86]
+at_mm = [260.887, 752.934]
+at_tol_mm = 2.0
+scoring = false
+source = "S1 p6 places the amplifier and speakers on the stage"
+
+# The four #979797 31.9 mm squares whose object semantics are NOT established.
+# None lies on the stage, yet S1 puts amp and both speakers on the stage and the
+# mic in the truck — so three of the four obvious candidates are excluded by repo
+# data alone. S1 p2 warns of markings unused at local/national events, and
+# S4 8.4 describes the 8 Oct 2026 Extra Day Challenge relocating objects on the
+# same mat. Recorded as unassigned rather than guessed: a wrong semantic in S5 is
+# read forward by every module without question; an empty slot is visibly empty.
+[areas.unassigned_marker_1]
+select = "#979797"
+size_mm = [31.9, 31.9]
+at_mm = [90.9, 101.85]
+at_tol_mm = 2.0
+scoring = false
+needs_verify = "S1-extra-mission"
+
+[areas.unassigned_marker_2]
+select = "#979797"
+size_mm = [31.9, 31.9]
+at_mm = [988.9, 715.25]
+at_tol_mm = 2.0
+scoring = false
+needs_verify = "S1-extra-mission"
+
+[areas.unassigned_marker_3]
+select = "#979797"
+size_mm = [31.9, 31.9]
+at_mm = [1779.3, 133.75]
+at_tol_mm = 2.0
+scoring = false
+needs_verify = "S1-extra-mission"
+
+[areas.unassigned_marker_4]
+select = "#979797"
+size_mm = [31.9, 31.9]
+at_mm = [2004.9, 1051.6]
+at_tol_mm = 2.0
+scoring = false
+needs_verify = "S1-extra-mission"
+
+# --------------------------------------------------------------------------- #
+# Start groups — membership only, NEVER poses (ADR-014)
+# --------------------------------------------------------------------------- #
+
+# `truck` gets no polygon: the two vehicles are disjoint (x 1055-1376 and
+# 1381-1703), nothing consumes it, and ADR-014 supersedes its role as a pose
+# source. If the sensor model later wants the vehicle bodies they enter as two
+# separate scoring = false areas under their OWN ids — never as `truck`.
+[start_groups.truck]
+kind = "start_group"
+members = ["mic", "instrument_guitar", "instrument_keyboard", "instrument_congas"]
+source = "S1 p4: instruments and microphone start at the lower end, in the truck"
+
+# --------------------------------------------------------------------------- #
+# Note start positions — S1 p7, the randomization
+# --------------------------------------------------------------------------- #
+# Four light-green #a0d187 squares take black/white/yellow/blue at random;
+# green and red are FIXED and carry their own colour. 4! = 24 permutations.
+# S4 9.6 randomizes AFTER quarantine and 10.2 forbids entering data by moving
+# robot parts, so the permutation can only be resolved by runtime sensing.
+
+[note_starts.note_start_rand_0]
+select = "#a0d187"
+size_mm = [31.9, 31.9]
+at_mm = [1231.0, 1059.55]
+at_tol_mm = 2.0
+randomizable = true
+
+[note_starts.note_start_rand_1]
+select = "#a0d187"
+size_mm = [31.9, 31.9]
+at_mm = [1362.9, 1059.55]
+at_tol_mm = 2.0
+randomizable = true
+
+[note_starts.note_start_rand_2]
+select = "#a0d187"
+size_mm = [31.9, 31.9]
+at_mm = [1758.6, 1059.55]
+at_tol_mm = 2.0
+randomizable = true
+
+[note_starts.note_start_rand_3]
+select = "#a0d187"
+size_mm = [31.9, 31.9]
+at_mm = [1890.5, 1059.55]
+at_tol_mm = 2.0
+randomizable = true
+
+[note_starts.note_start_fixed_red]
+select = "#c92027"
+size_mm = [31.9, 31.9]
+at_mm = [1494.8, 1059.55]
+at_tol_mm = 2.0
+randomizable = false
+note = "note_red"
+
+[note_starts.note_start_fixed_green]
+select = "#1f7941"
+size_mm = [31.9, 31.9]
+at_mm = [1626.699, 1059.55]
+at_tol_mm = 2.0
+randomizable = false
+note = "note_green"

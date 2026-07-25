@@ -1,0 +1,1935 @@
+{
+  "areas": {
+    "backstage": {
+      "area_mm2": 124923.697,
+      "bbox_mm": [
+        0.0,
+        0.0,
+        393.809,
+        317.219
+      ],
+      "border_detected": {
+        "area_mm2": 4531.66,
+        "fill_hex": "#d6d0cc",
+        "handled_by_inset": true
+      },
+      "clip_divergent": false,
+      "id": "backstage",
+      "polygon_constructed_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          393.809,
+          0.0
+        ],
+        [
+          393.809,
+          317.219
+        ],
+        [
+          0.0,
+          317.219
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          393.809,
+          0.0
+        ],
+        [
+          393.809,
+          317.219
+        ],
+        [
+          0.0,
+          317.219
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          200.068,
+          161.761
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": false,
+        "inset_by": "#d6d0cc",
+        "select": "#cf8fbb",
+        "size_mm": [
+          400.135,
+          323.521
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        33686,
+        41948
+      ],
+      "vertex_count": 4
+    },
+    "cable_area_lower": {
+      "area_mm2": 16513.808,
+      "bbox_mm": [
+        19.791,
+        440.99,
+        134.259,
+        658.882
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.287,
+      "dump_area_delta_mm2": 0.024,
+      "dump_area_mm2": 16513.832,
+      "id": "cable_area_lower",
+      "polygon_constructed_mm": [
+        [
+          55.77,
+          440.99
+        ],
+        [
+          19.791,
+          645.043
+        ],
+        [
+          98.28,
+          658.882
+        ],
+        [
+          134.259,
+          454.83
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          55.77,
+          440.99
+        ],
+        [
+          19.791,
+          645.043
+        ],
+        [
+          98.28,
+          658.882
+        ],
+        [
+          134.259,
+          454.83
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          77.025,
+          549.936
+        ],
+        "at_tol_mm": 2.0,
+        "select": "#b5b5b6",
+        "size_mm": [
+          114.468,
+          217.892
+        ],
+        "source": "S1 p8"
+      },
+      "source_seqnos": [
+        54098
+      ],
+      "vertex_count": 4
+    },
+    "cable_area_upper": {
+      "area_mm2": 16513.822,
+      "bbox_mm": [
+        19.791,
+        827.118,
+        134.26,
+        1045.01
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.287,
+      "dump_area_delta_mm2": 0.01,
+      "dump_area_mm2": 16513.832,
+      "id": "cable_area_upper",
+      "polygon_constructed_mm": [
+        [
+          55.771,
+          1045.01
+        ],
+        [
+          19.791,
+          840.957
+        ],
+        [
+          98.28,
+          827.118
+        ],
+        [
+          134.26,
+          1031.17
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          55.771,
+          1045.01
+        ],
+        [
+          19.791,
+          840.957
+        ],
+        [
+          98.28,
+          827.118
+        ],
+        [
+          134.26,
+          1031.17
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          77.025,
+          936.064
+        ],
+        "at_tol_mm": 2.0,
+        "select": "#b5b5b6",
+        "size_mm": [
+          114.469,
+          217.892
+        ],
+        "source": "S1 p8"
+      },
+      "source_seqnos": [
+        54096
+      ],
+      "vertex_count": 4
+    },
+    "mic_target": {
+      "area_mm2": 7619.32,
+      "bbox_mm": [
+        220.25,
+        695.2,
+        299.95,
+        790.8
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.175,
+      "dump_area_delta_mm2": 0.013,
+      "dump_area_mm2": 7619.307,
+      "id": "mic_target",
+      "polygon_constructed_mm": [
+        [
+          220.25,
+          695.2
+        ],
+        [
+          299.95,
+          695.2
+        ],
+        [
+          299.95,
+          790.8
+        ],
+        [
+          220.25,
+          790.8
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          220.25,
+          695.2
+        ],
+        [
+          299.95,
+          695.2
+        ],
+        [
+          299.95,
+          790.8
+        ],
+        [
+          220.25,
+          790.8
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          260.1,
+          743.0
+        ],
+        "at_tol_mm": 2.0,
+        "select": "#c3d82d",
+        "size_mm": [
+          79.7,
+          95.6
+        ],
+        "source": "S1 p10"
+      },
+      "source_seqnos": [
+        54095
+      ],
+      "vertex_count": 4
+    },
+    "note_target_black": {
+      "area_mm2": 6352.09,
+      "bbox_mm": [
+        1181.265,
+        453.25,
+        1260.965,
+        532.95
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.017,
+      "dump_area_mm2": 6352.073,
+      "id": "note_target_black",
+      "polygon_constructed_mm": [
+        [
+          1181.265,
+          453.25
+        ],
+        [
+          1260.965,
+          453.25
+        ],
+        [
+          1260.965,
+          532.95
+        ],
+        [
+          1181.265,
+          532.95
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1181.265,
+          453.25
+        ],
+        [
+          1260.965,
+          453.25
+        ],
+        [
+          1260.965,
+          532.95
+        ],
+        [
+          1181.265,
+          532.95
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1221.115,
+          493.1
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#0a151e",
+        "select": "#4e5252",
+        "size_mm": [
+          79.7,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54113
+      ],
+      "vertex_count": 4
+    },
+    "note_target_blue": {
+      "area_mm2": 6352.09,
+      "bbox_mm": [
+        1650.365,
+        619.05,
+        1730.065,
+        698.75
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.017,
+      "dump_area_mm2": 6352.073,
+      "id": "note_target_blue",
+      "polygon_constructed_mm": [
+        [
+          1650.365,
+          619.05
+        ],
+        [
+          1730.065,
+          619.05
+        ],
+        [
+          1730.065,
+          698.75
+        ],
+        [
+          1650.365,
+          698.75
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1650.365,
+          619.05
+        ],
+        [
+          1730.065,
+          619.05
+        ],
+        [
+          1730.065,
+          698.75
+        ],
+        [
+          1650.365,
+          698.75
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1690.215,
+          658.9
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#255aa9",
+        "select": "#4e5252",
+        "size_mm": [
+          79.7,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54115
+      ],
+      "vertex_count": 4
+    },
+    "note_target_green": {
+      "area_mm2": 6352.09,
+      "bbox_mm": [
+        1508.765,
+        555.25,
+        1588.465,
+        634.95
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.017,
+      "dump_area_mm2": 6352.073,
+      "id": "note_target_green",
+      "polygon_constructed_mm": [
+        [
+          1508.765,
+          555.25
+        ],
+        [
+          1588.465,
+          555.25
+        ],
+        [
+          1588.465,
+          634.95
+        ],
+        [
+          1508.765,
+          634.95
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1508.765,
+          555.25
+        ],
+        [
+          1588.465,
+          555.25
+        ],
+        [
+          1588.465,
+          634.95
+        ],
+        [
+          1508.765,
+          634.95
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1548.615,
+          595.1
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#1f7941",
+        "select": "#4e5252",
+        "size_mm": [
+          79.7,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54109
+      ],
+      "vertex_count": 4
+    },
+    "note_target_red": {
+      "area_mm2": 6352.01,
+      "bbox_mm": [
+        1341.511,
+        486.534,
+        1421.21,
+        566.234
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.063,
+      "dump_area_mm2": 6352.073,
+      "id": "note_target_red",
+      "polygon_constructed_mm": [
+        [
+          1341.511,
+          486.534
+        ],
+        [
+          1421.21,
+          486.534
+        ],
+        [
+          1421.21,
+          566.234
+        ],
+        [
+          1341.511,
+          566.234
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1341.511,
+          486.534
+        ],
+        [
+          1421.21,
+          486.534
+        ],
+        [
+          1421.21,
+          566.234
+        ],
+        [
+          1341.511,
+          566.234
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1381.361,
+          526.384
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#c92027",
+        "select": "#4e5252",
+        "size_mm": [
+          79.699,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54107
+      ],
+      "vertex_count": 4
+    },
+    "note_target_white": {
+      "area_mm2": 6352.09,
+      "bbox_mm": [
+        1818.365,
+        715.25,
+        1898.065,
+        794.95
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.02,
+      "dump_area_mm2": 6352.07,
+      "id": "note_target_white",
+      "polygon_constructed_mm": [
+        [
+          1818.365,
+          715.25
+        ],
+        [
+          1898.065,
+          715.25
+        ],
+        [
+          1898.065,
+          794.95
+        ],
+        [
+          1818.365,
+          794.95
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1818.365,
+          715.25
+        ],
+        [
+          1898.065,
+          715.25
+        ],
+        [
+          1898.065,
+          794.95
+        ],
+        [
+          1818.365,
+          794.95
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1858.215,
+          755.1
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#ffffff",
+        "select": "#4e5252",
+        "size_mm": [
+          79.7,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54117
+      ],
+      "vertex_count": 4
+    },
+    "note_target_yellow": {
+      "area_mm2": 6352.09,
+      "bbox_mm": [
+        1025.465,
+        511.15,
+        1105.165,
+        590.85
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.159,
+      "dump_area_delta_mm2": 0.017,
+      "dump_area_mm2": 6352.073,
+      "id": "note_target_yellow",
+      "polygon_constructed_mm": [
+        [
+          1025.465,
+          511.15
+        ],
+        [
+          1105.165,
+          511.15
+        ],
+        [
+          1105.165,
+          590.85
+        ],
+        [
+          1025.465,
+          590.85
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1025.465,
+          511.15
+        ],
+        [
+          1105.165,
+          511.15
+        ],
+        [
+          1105.165,
+          590.85
+        ],
+        [
+          1025.465,
+          590.85
+        ]
+      ],
+      "scoring": true,
+      "selector": {
+        "at_mm": [
+          1065.315,
+          551.0
+        ],
+        "at_tol_mm": 2.0,
+        "includes_grey_border": true,
+        "inner_fill": "#faef3b",
+        "select": "#4e5252",
+        "size_mm": [
+          79.7,
+          79.7
+        ],
+        "source": "S1 p11"
+      },
+      "source_seqnos": [
+        54111
+      ],
+      "vertex_count": 4
+    },
+    "plaza": {
+      "area_mm2": 2274402.819,
+      "bbox_mm": [
+        388.702,
+        0.0,
+        2362.0,
+        1143.0
+      ],
+      "clip_divergent": false,
+      "id": "plaza",
+      "path_count": 4,
+      "polygons_constructed_mm": [
+        [
+          [
+            388.702,
+            0.0
+          ],
+          [
+            951.162,
+            0.0
+          ],
+          [
+            951.162,
+            1143.0
+          ],
+          [
+            388.702,
+            1143.0
+          ]
+        ],
+        [
+          [
+            945.643,
+            0.0
+          ],
+          [
+            1508.101,
+            0.0
+          ],
+          [
+            1508.101,
+            1143.0
+          ],
+          [
+            945.643,
+            1143.0
+          ]
+        ],
+        [
+          [
+            1502.583,
+            0.0
+          ],
+          [
+            2065.043,
+            0.0
+          ],
+          [
+            2065.043,
+            1143.0
+          ],
+          [
+            1502.583,
+            1143.0
+          ]
+        ],
+        [
+          [
+            2059.524,
+            0.0
+          ],
+          [
+            2362.0,
+            0.0
+          ],
+          [
+            2362.0,
+            1143.0
+          ],
+          [
+            2059.524,
+            1143.0
+          ]
+        ]
+      ],
+      "polygons_visible_mm": [
+        [
+          [
+            388.702,
+            0.0
+          ],
+          [
+            951.162,
+            0.0
+          ],
+          [
+            951.162,
+            1143.0
+          ],
+          [
+            388.702,
+            1143.0
+          ]
+        ],
+        [
+          [
+            945.643,
+            0.0
+          ],
+          [
+            1508.101,
+            0.0
+          ],
+          [
+            1508.101,
+            1143.0
+          ],
+          [
+            945.643,
+            1143.0
+          ]
+        ],
+        [
+          [
+            1502.583,
+            0.0
+          ],
+          [
+            2065.043,
+            0.0
+          ],
+          [
+            2065.043,
+            1143.0
+          ],
+          [
+            1502.583,
+            1143.0
+          ]
+        ],
+        [
+          [
+            2059.524,
+            0.0
+          ],
+          [
+            2362.0,
+            0.0
+          ],
+          [
+            2362.0,
+            1143.0
+          ],
+          [
+            2059.524,
+            1143.0
+          ]
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "expect_paths": 4,
+        "match": "union",
+        "select": "#8d8f91",
+        "source": "S2 geometry; no S1 mission references it",
+        "union_bbox_mm": [
+          388.702,
+          0.0,
+          2362.0,
+          1143.0
+        ],
+        "union_bbox_tol_mm": 0.5
+      },
+      "source_seqnos": [
+        0,
+        8235,
+        17432,
+        26629
+      ]
+    },
+    "stage": {
+      "area_mm2": 389479.137,
+      "bbox_mm": [
+        -13.169,
+        323.504,
+        459.871,
+        1182.364
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 1.278,
+      "dump_area_delta_mm2": 0.287,
+      "dump_area_mm2": 389479.424,
+      "id": "stage",
+      "polygon_constructed_mm": [
+        [
+          400.135,
+          323.504
+        ],
+        [
+          -13.169,
+          323.504
+        ],
+        [
+          -13.169,
+          1182.364
+        ],
+        [
+          400.135,
+          1182.364
+        ],
+        [
+          401.616,
+          1177.436
+        ],
+        [
+          405.664,
+          1163.073
+        ],
+        [
+          411.687,
+          1139.903
+        ],
+        [
+          419.093,
+          1108.556
+        ],
+        [
+          427.288,
+          1069.66
+        ],
+        [
+          435.68,
+          1023.844
+        ],
+        [
+          443.678,
+          971.738
+        ],
+        [
+          450.688,
+          913.971
+        ],
+        [
+          456.119,
+          851.171
+        ],
+        [
+          459.377,
+          783.968
+        ],
+        [
+          459.871,
+          712.99
+        ],
+        [
+          457.008,
+          638.868
+        ],
+        [
+          450.195,
+          562.228
+        ],
+        [
+          438.84,
+          483.702
+        ],
+        [
+          422.351,
+          403.918
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          400.135,
+          323.504
+        ],
+        [
+          -13.169,
+          323.504
+        ],
+        [
+          -13.169,
+          1182.364
+        ],
+        [
+          400.135,
+          1182.364
+        ],
+        [
+          401.616,
+          1177.436
+        ],
+        [
+          405.664,
+          1163.073
+        ],
+        [
+          411.687,
+          1139.903
+        ],
+        [
+          419.093,
+          1108.556
+        ],
+        [
+          427.288,
+          1069.66
+        ],
+        [
+          435.68,
+          1023.844
+        ],
+        [
+          443.678,
+          971.738
+        ],
+        [
+          450.688,
+          913.971
+        ],
+        [
+          456.119,
+          851.171
+        ],
+        [
+          459.377,
+          783.968
+        ],
+        [
+          459.871,
+          712.99
+        ],
+        [
+          457.008,
+          638.868
+        ],
+        [
+          450.195,
+          562.228
+        ],
+        [
+          438.84,
+          483.702
+        ],
+        [
+          422.351,
+          403.918
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          260.887,
+          752.934
+        ],
+        "at_tol_mm": 2.0,
+        "select": "#85604b",
+        "size_mm": [
+          548.113,
+          858.86
+        ],
+        "source": "S1 p6 places the amplifier and speakers on the stage"
+      },
+      "source_seqnos": [
+        40158
+      ],
+      "vertex_count": 19
+    },
+    "start_area": {
+      "area_mm2": 62510.0,
+      "bbox_mm": [
+        2050.49,
+        446.49,
+        2300.51,
+        696.51
+      ],
+      "clip_divergent": false,
+      "id": "start_area",
+      "needs_verify": "S6-startarea",
+      "polygon_constructed_mm": [
+        [
+          2050.49,
+          446.49
+        ],
+        [
+          2300.51,
+          446.49
+        ],
+        [
+          2300.51,
+          696.51
+        ],
+        [
+          2050.49,
+          696.51
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          2050.49,
+          446.49
+        ],
+        [
+          2300.51,
+          446.49
+        ],
+        [
+          2300.51,
+          696.51
+        ],
+        [
+          2050.49,
+          696.51
+        ]
+      ],
+      "raster_source": "p001_3832",
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          2175.5,
+          571.5
+        ],
+        "at_tol_mm": 2.0,
+        "border_fill": "#24408f",
+        "select_raster": "p001_3832",
+        "size_mm": [
+          250.02,
+          250.02
+        ],
+        "source": "S4 7.8 + S1 p3 field diagram"
+      },
+      "size_mm": [
+        250.02,
+        250.02
+      ],
+      "vertex_count": 4
+    },
+    "unassigned_marker_1": {
+      "area_mm2": 1017.61,
+      "bbox_mm": [
+        74.95,
+        85.9,
+        106.85,
+        117.8
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.064,
+      "dump_area_delta_mm2": 0.007,
+      "dump_area_mm2": 1017.603,
+      "id": "unassigned_marker_1",
+      "polygon_constructed_mm": [
+        [
+          74.95,
+          85.9
+        ],
+        [
+          106.85,
+          85.9
+        ],
+        [
+          106.85,
+          117.8
+        ],
+        [
+          74.95,
+          117.8
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          74.95,
+          85.9
+        ],
+        [
+          106.85,
+          85.9
+        ],
+        [
+          106.85,
+          117.8
+        ],
+        [
+          74.95,
+          117.8
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          90.9,
+          101.85
+        ],
+        "at_tol_mm": 2.0,
+        "needs_verify": "S1-extra-mission",
+        "select": "#979797",
+        "size_mm": [
+          31.9,
+          31.9
+        ]
+      },
+      "source_seqnos": [
+        54178
+      ],
+      "vertex_count": 4
+    },
+    "unassigned_marker_2": {
+      "area_mm2": 1017.61,
+      "bbox_mm": [
+        972.95,
+        699.3,
+        1004.85,
+        731.2
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.064,
+      "dump_area_delta_mm2": 0.003,
+      "dump_area_mm2": 1017.607,
+      "id": "unassigned_marker_2",
+      "polygon_constructed_mm": [
+        [
+          972.95,
+          699.3
+        ],
+        [
+          1004.85,
+          699.3
+        ],
+        [
+          1004.85,
+          731.2
+        ],
+        [
+          972.95,
+          731.2
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          972.95,
+          699.3
+        ],
+        [
+          1004.85,
+          699.3
+        ],
+        [
+          1004.85,
+          731.2
+        ],
+        [
+          972.95,
+          731.2
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          988.9,
+          715.25
+        ],
+        "at_tol_mm": 2.0,
+        "needs_verify": "S1-extra-mission",
+        "select": "#979797",
+        "size_mm": [
+          31.9,
+          31.9
+        ]
+      },
+      "source_seqnos": [
+        54187
+      ],
+      "vertex_count": 4
+    },
+    "unassigned_marker_3": {
+      "area_mm2": 1017.61,
+      "bbox_mm": [
+        1763.35,
+        117.8,
+        1795.25,
+        149.7
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.064,
+      "dump_area_delta_mm2": 0.006,
+      "dump_area_mm2": 1017.604,
+      "id": "unassigned_marker_3",
+      "polygon_constructed_mm": [
+        [
+          1763.35,
+          117.8
+        ],
+        [
+          1795.25,
+          117.8
+        ],
+        [
+          1795.25,
+          149.7
+        ],
+        [
+          1763.35,
+          149.7
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1763.35,
+          117.8
+        ],
+        [
+          1795.25,
+          117.8
+        ],
+        [
+          1795.25,
+          149.7
+        ],
+        [
+          1763.35,
+          149.7
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          1779.3,
+          133.75
+        ],
+        "at_tol_mm": 2.0,
+        "needs_verify": "S1-extra-mission",
+        "select": "#979797",
+        "size_mm": [
+          31.9,
+          31.9
+        ]
+      },
+      "source_seqnos": [
+        54181
+      ],
+      "vertex_count": 4
+    },
+    "unassigned_marker_4": {
+      "area_mm2": 1017.61,
+      "bbox_mm": [
+        1988.95,
+        1035.65,
+        2020.85,
+        1067.55
+      ],
+      "clip_divergent": false,
+      "dump_area_bound_mm2": 0.064,
+      "dump_area_delta_mm2": 0.006,
+      "dump_area_mm2": 1017.604,
+      "id": "unassigned_marker_4",
+      "polygon_constructed_mm": [
+        [
+          1988.95,
+          1035.65
+        ],
+        [
+          2020.85,
+          1035.65
+        ],
+        [
+          2020.85,
+          1067.55
+        ],
+        [
+          1988.95,
+          1067.55
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1988.95,
+          1035.65
+        ],
+        [
+          2020.85,
+          1035.65
+        ],
+        [
+          2020.85,
+          1067.55
+        ],
+        [
+          1988.95,
+          1067.55
+        ]
+      ],
+      "scoring": false,
+      "selector": {
+        "at_mm": [
+          2004.9,
+          1051.6
+        ],
+        "at_tol_mm": 2.0,
+        "needs_verify": "S1-extra-mission",
+        "select": "#979797",
+        "size_mm": [
+          31.9,
+          31.9
+        ]
+      },
+      "source_seqnos": [
+        54184
+      ],
+      "vertex_count": 4
+    }
+  },
+  "mat": {
+    "box_source": "TrimBox",
+    "frame": "origin bottom-left of the mat, +X right, +Y up, mm",
+    "height_mm": 1143.0,
+    "width_mm": 2361.999
+  },
+  "note_starts": {
+    "note_start_fixed_green": {
+      "centre_mm": [
+        1626.699,
+        1059.55
+      ],
+      "fill_hex": "#1f7941",
+      "id": "note_start_fixed_green",
+      "note_id": "note_green",
+      "polygon_constructed_mm": [
+        [
+          1610.749,
+          1043.6
+        ],
+        [
+          1642.649,
+          1043.6
+        ],
+        [
+          1642.649,
+          1075.5
+        ],
+        [
+          1610.749,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1610.749,
+          1043.6
+        ],
+        [
+          1642.649,
+          1043.6
+        ],
+        [
+          1642.649,
+          1075.5
+        ],
+        [
+          1610.749,
+          1075.5
+        ]
+      ],
+      "randomizable": false,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    },
+    "note_start_fixed_red": {
+      "centre_mm": [
+        1494.8,
+        1059.55
+      ],
+      "fill_hex": "#c92027",
+      "id": "note_start_fixed_red",
+      "note_id": "note_red",
+      "polygon_constructed_mm": [
+        [
+          1478.85,
+          1043.6
+        ],
+        [
+          1510.75,
+          1043.6
+        ],
+        [
+          1510.75,
+          1075.5
+        ],
+        [
+          1478.85,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1478.85,
+          1043.6
+        ],
+        [
+          1510.75,
+          1043.6
+        ],
+        [
+          1510.75,
+          1075.5
+        ],
+        [
+          1478.85,
+          1075.5
+        ]
+      ],
+      "randomizable": false,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    },
+    "note_start_rand_0": {
+      "centre_mm": [
+        1231.0,
+        1059.55
+      ],
+      "fill_hex": "#a0d187",
+      "id": "note_start_rand_0",
+      "polygon_constructed_mm": [
+        [
+          1215.05,
+          1043.6
+        ],
+        [
+          1246.95,
+          1043.6
+        ],
+        [
+          1246.95,
+          1075.5
+        ],
+        [
+          1215.05,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1215.05,
+          1043.6
+        ],
+        [
+          1246.95,
+          1043.6
+        ],
+        [
+          1246.95,
+          1075.5
+        ],
+        [
+          1215.05,
+          1075.5
+        ]
+      ],
+      "randomizable": true,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    },
+    "note_start_rand_1": {
+      "centre_mm": [
+        1362.9,
+        1059.55
+      ],
+      "fill_hex": "#a0d187",
+      "id": "note_start_rand_1",
+      "polygon_constructed_mm": [
+        [
+          1346.95,
+          1043.6
+        ],
+        [
+          1378.85,
+          1043.6
+        ],
+        [
+          1378.85,
+          1075.5
+        ],
+        [
+          1346.95,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1346.95,
+          1043.6
+        ],
+        [
+          1378.85,
+          1043.6
+        ],
+        [
+          1378.85,
+          1075.5
+        ],
+        [
+          1346.95,
+          1075.5
+        ]
+      ],
+      "randomizable": true,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    },
+    "note_start_rand_2": {
+      "centre_mm": [
+        1758.6,
+        1059.55
+      ],
+      "fill_hex": "#a0d187",
+      "id": "note_start_rand_2",
+      "polygon_constructed_mm": [
+        [
+          1742.65,
+          1043.6
+        ],
+        [
+          1774.55,
+          1043.6
+        ],
+        [
+          1774.55,
+          1075.5
+        ],
+        [
+          1742.65,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1742.65,
+          1043.6
+        ],
+        [
+          1774.55,
+          1043.6
+        ],
+        [
+          1774.55,
+          1075.5
+        ],
+        [
+          1742.65,
+          1075.5
+        ]
+      ],
+      "randomizable": true,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    },
+    "note_start_rand_3": {
+      "centre_mm": [
+        1890.5,
+        1059.55
+      ],
+      "fill_hex": "#a0d187",
+      "id": "note_start_rand_3",
+      "polygon_constructed_mm": [
+        [
+          1874.55,
+          1043.6
+        ],
+        [
+          1906.45,
+          1043.6
+        ],
+        [
+          1906.45,
+          1075.5
+        ],
+        [
+          1874.55,
+          1075.5
+        ]
+      ],
+      "polygon_visible_mm": [
+        [
+          1874.55,
+          1043.6
+        ],
+        [
+          1906.45,
+          1043.6
+        ],
+        [
+          1906.45,
+          1075.5
+        ],
+        [
+          1874.55,
+          1075.5
+        ]
+      ],
+      "randomizable": true,
+      "size_mm": [
+        31.9,
+        31.9
+      ]
+    }
+  },
+  "notes": [
+    "ADR-013: `scoring` is explicit on every area; completely_in ranges over scoring=true only. polygon_mm does not exist - both polygon fields are always emitted.",
+    "ADR-014: object start poses are run-time state; nominal + tolerance only.",
+    "AMBIGUITY(A9): the start-area boundary is measured; S4 7.8's 'white area' interpretation is open - 29.56% of that interior is not white."
+  ],
+  "object_start_poses": {
+    "amp": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p6: on the stage, left end of the field"
+    },
+    "cable_lower": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: close to the stage (left end), lower end of the field"
+    },
+    "cable_upper": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: close to the stage (left end), upper end of the field"
+    },
+    "clef": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p6: middle, at the left end of the staff lines"
+    },
+    "instrument_congas": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: lower end, in the truck"
+    },
+    "instrument_guitar": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: lower end, in the truck"
+    },
+    "instrument_keyboard": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: lower end, in the truck"
+    },
+    "mic": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p4: lower end, in the truck"
+    },
+    "note_black": {
+      "candidate_slots": [
+        "note_start_rand_0",
+        "note_start_rand_1",
+        "note_start_rand_2",
+        "note_start_rand_3"
+      ],
+      "kind": "randomized",
+      "nominal_start_pose_mm": null,
+      "source": "S1 p7 — assigned at randomization, so there is no fixed pose"
+    },
+    "note_blue": {
+      "candidate_slots": [
+        "note_start_rand_0",
+        "note_start_rand_1",
+        "note_start_rand_2",
+        "note_start_rand_3"
+      ],
+      "kind": "randomized",
+      "nominal_start_pose_mm": null,
+      "source": "S1 p7 — assigned at randomization, so there is no fixed pose"
+    },
+    "note_green": {
+      "kind": "measured",
+      "nominal_start_pose_mm": [
+        1626.699,
+        1059.55
+      ],
+      "placement_tolerance_mm": null,
+      "source": "S2 measured start square",
+      "start_id": "note_start_fixed_green"
+    },
+    "note_red": {
+      "kind": "measured",
+      "nominal_start_pose_mm": [
+        1494.8,
+        1059.55
+      ],
+      "placement_tolerance_mm": null,
+      "source": "S2 measured start square",
+      "start_id": "note_start_fixed_red"
+    },
+    "note_white": {
+      "candidate_slots": [
+        "note_start_rand_0",
+        "note_start_rand_1",
+        "note_start_rand_2",
+        "note_start_rand_3"
+      ],
+      "kind": "randomized",
+      "nominal_start_pose_mm": null,
+      "source": "S1 p7 — assigned at randomization, so there is no fixed pose"
+    },
+    "note_yellow": {
+      "candidate_slots": [
+        "note_start_rand_0",
+        "note_start_rand_1",
+        "note_start_rand_2",
+        "note_start_rand_3"
+      ],
+      "kind": "randomized",
+      "nominal_start_pose_mm": null,
+      "source": "S1 p7 — assigned at randomization, so there is no fixed pose"
+    },
+    "robot": {
+      "area_id": "start_area",
+      "kind": "start_area",
+      "source": "S4 7.8 — projection completely within the start area"
+    },
+    "speaker_a": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p6: on the stage, left end of the field"
+    },
+    "speaker_b": {
+      "kind": "nominal_pending",
+      "needs_measurement": true,
+      "nominal_start_pose_mm": null,
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "placement_tolerance_mm": null,
+      "source": "S1 p6: on the stage, left end of the field"
+    }
+  },
+  "provenance": {
+    "area_map": "docs/area_map.toml",
+    "drawings_json_sha256": "16688518966d5f91f60264bc97816b7e45486c56269b6d4825ff8e8e64375894",
+    "extraction_argv": [
+      "--quiet",
+      "all",
+      "docs/WRO-2026-GameMat-Elementary-Printing-File.pdf",
+      "docs/WRO-2026-RM-Elementary-BI-All.pdf",
+      "docs/WRO-2026-RoboMission-Elementary-Game-Rules.pdf",
+      "docs/WRO-2026-RoboMission-General-Rules.pdf"
+    ],
+    "extraction_precision": 3,
+    "output_precision": 3,
+    "s2_sha256": "8d58381fdcd9bc1784ae893e5b133707ca81f19aff51e31ca41c02276466c4d9",
+    "source": "S2",
+    "start_area_sidecar_sha256": "2d196dc1eb5580db873ad9ef13f0b2961a5cf48024f2e76e735a416de9393e6a",
+    "tool": {
+      "name": "build_field_spec",
+      "version": "1.0.0"
+    }
+  },
+  "randomization": {
+    "fixed": {
+      "note_green": "note_start_fixed_green",
+      "note_red": "note_start_fixed_red"
+    },
+    "note": "S4 9.6 randomizes AFTER quarantine and 10.2 forbids entering data by moving robot parts, so the permutation can only be resolved by runtime sensing.",
+    "notes": [
+      "note_black",
+      "note_white",
+      "note_yellow",
+      "note_blue"
+    ],
+    "permutations": 24,
+    "randomizable_slots": [
+      "note_start_rand_0",
+      "note_start_rand_1",
+      "note_start_rand_2",
+      "note_start_rand_3"
+    ],
+    "source": "S1 p7"
+  },
+  "schema_version": 1,
+  "start_groups": {
+    "truck": {
+      "kind": "start_group",
+      "members": [
+        "mic",
+        "instrument_guitar",
+        "instrument_keyboard",
+        "instrument_congas"
+      ],
+      "source": "S1 p4: instruments and microphone start at the lower end, in the truck"
+    }
+  },
+  "table": {
+    "note": "The table may exceed the mat by up to 5 mm per dimension and the mat registers against the RIGHT wall with Y centred, so slack accumulates toward -X. The stage-side missions (cables, mic, backstage, all at x < 535) sit at the far end of that error chain.",
+    "registration": {
+      "x": "right_wall",
+      "y": "centred"
+    },
+    "source": "S4 7.2 + S1 p3",
+    "tolerance_mm": 5.0,
+    "wall_height_mm": 50.0
+  }
+}

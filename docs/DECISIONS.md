@@ -21,6 +21,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-013](#adr-013) | `completely_in` domain via `scoring`; both polygon fields always emitted | accepted 2026-07-25 |
 | [ADR-014](#adr-014) | Initial object pose is run-time state, not a spec constant | accepted 2026-07-25 |
 | [ADR-015](#adr-015) | Selector: full predicate, per-entry cardinality, `inset_by` | accepted 2026-07-25 |
+| [ADR-016](#adr-016) | `manifest.json` describes the last run, not a merged history | accepted 2026-07-25 |
 
 ---
 
@@ -417,15 +418,15 @@ destroys the one property that makes hard-fail worth having.
 |---|---|
 | near-white vector fills in that bbox | **zero** |
 | `#24408f` shape | solid `re`, `area == bbox_area == 74,529` — not a frame |
-| raster placements overlapping it | `p001_3832`, 2953 × 2953 px, placed at **[2050.5, 446.5, 2300.5, 696.5] = 250.0 × 250.0 mm** |
+| raster placements overlapping it | `p001_3832`, 2953 × 2953 px, placed at **[2050.49, 446.49, 2300.51, 696.51] = 250.02 × 250.02 mm** |
 
 S1's own labelled field diagram (p3, image `p003_0003`) points its **"Start Area"** arrow
 directly at that panel. So under S4 §7.8 (*"the white area within a coloured border"*) the
 blue `#24408f` 273 mm rect **is** the coloured border (11.5 mm wide) and the **white area is a
 raster, not a vector path** — which is exactly why no `#ffffff` path exists.
 
-The white area measures **250.0 × 250.0 mm**, identical to the §5.1 robot envelope. A
-full-size robot therefore has **zero placement slack** in the start area; any real design
+The white area measures **250.02 × 250.02 mm** — the §5.1 robot envelope plus 0.01 mm per
+side. A full-size robot therefore has **effectively zero placement slack**; any real design
 needs to be smaller than 250 mm to have any. `start_area`'s selector is a **raster placement
 rect**, not a fill selector — the builder needs that path, and it is a schema question, not a
 cardinality one.
@@ -518,3 +519,52 @@ has a border.
 boundary*, not internal tidiness, and the same reasoning gitignores `docs/extracted/**/text/`
 and the S6 HTML snapshots. The uniqueness cap matters as much as the word cap: without it a
 long rule could be reassembled from several individually-compliant fragments.
+
+
+---
+
+## ADR-016
+
+### `manifest.json` describes the last run, not a merged history
+
+**Context.** `build_field_spec.py` pins its provenance to hashes recorded in
+`manifest.json` — `vector/drawings.json` and the `img/p001_3832.json` sidecar that
+`start_area` derives from. Running `pdf_extract.py probe docs/*.pdf` afterwards **rewrote the
+manifest with a single output**, and the builder failed with a bare `KeyError`. This was hit
+for real: the Definition-of-Done check in an earlier session re-ran `probe`, silently
+truncating the record of the preceding `all` run.
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Merge outputs into any existing manifest | the file becomes dependent on **run order**, so two clones with the same input can hold different manifests — this destroys the byte-identity guarantee that ADR-008/010 rest on |
+| Keep last-run semantics, fail clearly downstream | the manifest stays a faithful, reproducible record of exactly one command |
+| Write a separate always-append log | a second provenance source, i.e. one fact with two homes |
+
+**Decision.** Keep last-run semantics. `manifest.json` describes **exactly one command**, so
+it stays reproducible. `build_field_spec.py` validates up front that the manifest contains
+every output it intends to pin, and fails with the command needed to fix it:
+
+```
+docs/extracted/.../manifest.json describes command 'probe' and is missing
+['vector/drawings.json', 'img/p001_3832.json'].
+field_spec.json pins the whole extraction chain, so it needs a manifest from a full run:
+    uv run python tools/pdf_extract.py all docs/WRO-2026-GameMat-Elementary-Printing-File.pdf
+```
+
+**The footgun, and its guard.** `probe docs/*.pdf` is a Definition-of-Done command, and
+running it truncates all four manifests — this bit twice during the session that introduced
+the builder, the second time inside the verification sweep itself. So `pdf_extract.py` gained
+**`--no-manifest`** for read-only inspection:
+
+```bash
+uv run python tools/pdf_extract.py --no-manifest probe docs/*.pdf   # inspect, clobber nothing
+```
+
+Documenting the hazard was not enough; a flag that removes it is.
+
+**Consequence.** `field_spec.json` can only be built from a manifest produced by `all` (or by
+a run covering both `vector` and `images`). That is a real constraint on the workflow, and it
+is stated in the error rather than left to be rediscovered. The alternative — a merged
+manifest — would have traded a loud, one-line-fix failure for a silent loss of reproducibility.

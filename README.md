@@ -66,7 +66,11 @@ fill inventory, the report and the decision records — is committed.
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
 | `docs/plans/ROADMAP.md` | Phase dependency diagram and status. |
 | `tools/pdf_extract.py` | The extraction CLI. |
-| `data/` | `field_spec.json` (S5) lands here **later** — not yet. |
+| `data/field_spec.json` | **S5** — mat geometry, areas, start positions. Derived; never hand-edited. |
+| `data/scoring_model.json` | Missions, predicates, time rules, randomization. |
+| `docs/area_map.toml` | The only hand-written input to S5: canonical ID → drawn path, with citations. |
+| `docs/PHASE7_CONSTRAINTS.md` | Robot-design constraints, recorded before a chassis is chosen. |
+| `docs/FIELD_TEST_PLAN.md` | P1–P6, each naming the `ASSUME:` it replaces. |
 
 ## Setup
 
@@ -109,7 +113,7 @@ that conversion and every command calls it — there is deliberately no second c
 - **Cite the rule number, never an intermediate document.** Every rule this repo relies on is
   quoted and page-referenced in `docs/citations.json`, capped at 15 words per quote and one
   entry per rule (enforced by `tests/test_citations.py`).
-- Coordinates live in `data/field_spec.json`, nowhere else.
+- Coordinates live in `data/field_spec.json`, nowhere else — and they are **derived**, so edit `docs/area_map.toml` and re-run the builder rather than the JSON.
 
 ## Licence
 

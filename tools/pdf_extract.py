@@ -1588,7 +1588,8 @@ def _run_one(pdf: Path, args: argparse.Namespace, argv: Sequence[str]) -> None:
                 cmd_vector(ctx, doc, args)
         if command == "all":
             write_consolidated(ctx, doc)
-        ctx.write_manifest(command)
+        if not args.no_manifest:
+            ctx.write_manifest(command)
         if report is not None and not args.quiet:
             print_probe_table(report)
         if not args.quiet:
@@ -1609,6 +1610,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--precision", type=int, default=DEFAULT_PRECISION,
                         help=f"decimal places in emitted floats (default: {DEFAULT_PRECISION})")
     parser.add_argument("--quiet", action="store_true")
+    parser.add_argument(
+        "--no-manifest",
+        action="store_true",
+        help="do not write manifest.json. manifest.json records the LAST command "
+             "only (ADR-016), so a casual `probe docs/*.pdf` otherwise truncates the "
+             "record that build_field_spec.py pins its provenance to. Use this for "
+             "read-only inspection.",
+    )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -1666,7 +1675,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ("bbox", None), ("name", None), ("pages_list", None),
         ("colorspace", "rgb"), ("px_per_mm", DEFAULT_PX_PER_MM),
         ("min_pixels", 0), ("max_mpix", DEFAULT_MAX_MPIX),
-        ("force", False), ("fallback", True),
+        ("force", False), ("fallback", True), ("no_manifest", False),
     ):
         if not hasattr(args, name):
             setattr(args, name, value)

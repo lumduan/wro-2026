@@ -50,9 +50,9 @@ goes as an ADR with the arithmetic shown; do not assert a topology without it.**
 ## 2 · Start heading is coupled to footprint
 
 S4 §7.8 requires the robot's **projection** to be completely within the start area, and the
-start area is **exactly 250.0 × 250.0 mm** — `MEASURED(S2)`, the same figure as the §5.1
-envelope. So the constraint binds at every heading, and there is **zero** slack at maximum
-legal size.
+start area measures **250.02 × 250.02 mm** — `MEASURED(S2)`, i.e. the §5.1 envelope plus
+**0.02 mm total, 0.01 mm per side.** The constraint binds at every heading and the slack at
+maximum legal size is, for practical purposes, **zero**.
 
 **For a SQUARE footprint only:**
 

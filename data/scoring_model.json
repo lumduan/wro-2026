@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "source": "S1 (missions and points) + S4 (run procedure) + S6 (overrides)",
+  "note": "Rules only. This file does NOT implement a scorer - that is Phase 6. Every mission references a canonical ID frozen in CLAUDE.md 5.3 (ADR-012) and cites the rule it comes from; quotes are in docs/citations.json.",
+  "max_score": 255,
+
+  "predicates": {
+    "damaged": {
+      "rule": "S4 7.7",
+      "quote_ref": "S4/7.7",
+      "effect": "score = 0 for that object",
+      "scope": "GLOBAL - evaluated ABOVE every mission block, not inside the bonus block",
+      "note": "A correctly-placed but damaged note scores 0, not 20. S1's scoring sheet never states this; it comes from the general rules. Deliberate damage can also disqualify the round, and 7.7 covers objects that score nothing."
+    },
+    "completely_in": {
+      "rule": "S1 p9",
+      "quote_ref": "S1/p9/completely-in",
+      "definition": "the object touches the corresponding area and no other area on the mat",
+      "implementation": "contains(target.polygon_visible_mm, object.footprint) AND for every area a where a.scoring and a.id != target.id: not intersects(a.polygon_visible_mm, object.footprint)",
+      "domain": "areas with scoring == true ONLY (ADR-013)",
+      "ambiguity": "A7",
+      "ambiguity_note": "The domain is a FORCED reading, not a conservative choice: every scoring target except backstage is drawn on top of a larger fill, so a literal reading of 'no other area on the mat' would make the game unscoreable."
+    },
+    "upright": {
+      "rule": "S6 2026-06-30 (Elementary)",
+      "quote_ref": "S6/QA/2026-06-30/upright",
+      "primary_test": "the object's base is fully in contact with the mat",
+      "definition_note": "The S6 answer defines NOT upright as 'not fully touching the floor' - a CONTACT predicate, not an angular one.",
+      "parameters": {
+        "upright_tolerance_deg": {
+          "value": 15.0,
+          "status": "ASSUME",
+          "demoted": true,
+          "note": "Retained as a parameter, but the contact test is what has official backing. Any result depending on the angle must be reported as a sweep (AS-6). Field test P5 replaces this with a measurement.",
+          "ambiguity": "A2"
+        }
+      }
+    },
+    "moved": {
+      "rule": "S1 p13",
+      "quote_ref": "S1/p13/moved",
+      "written_definition": "no longer touches its initial position AND is no longer upright",
+      "ambiguity": "A1",
+      "ambiguity_note": "The same S1 page awards 0 to a clef that is no longer upright while still in its initial position, which only follows if the conditions are OR-ed. OPEN, routed to S6.",
+      "parameters": {
+        "moved_semantics": {
+          "value": "or",
+          "allowed": ["or", "and"],
+          "status": "ASSUME",
+          "note": "OR is the stricter reading, so plans built on it do not over-promise."
+        }
+      },
+      "reference_pose": {
+        "source": "run-time state, NEVER a spec constant",
+        "rule": "S4 10.8 scores the end-of-attempt field state; 9.6 has judges re-set tables between rounds",
+        "note": "moved() compares against THAT RUN's initial pose (ADR-014). field_spec.json carries only nominal_start_pose_mm + placement_tolerance_mm."
+      }
+    },
+    "held_by_mechanism": {
+      "rule": "S6 2026-06-30 (Elementary)",
+      "quote_ref": "S6/QA/2026-06-30/upright",
+      "effect": "scores at the PARTIAL tier, not zero",
+      "ambiguity": "A5",
+      "ambiguity_note": "RESOLVED, and the old conservative default of 0 was WRONG - it understated achievable score by 10 points per held object.",
+      "strategy_consequence": "The abort policy INVERTS: when the clock runs out mid-placement, leave the object in the target area rather than retreating with it. Half credit beats nothing."
+    },
+    "robot_overlap": {
+      "rule": "S6 2026-06-30, by implication",
+      "effect": "the robot is not 'an area on the mat'; its presence does not break completely_in",
+      "ambiguity": "A3",
+      "evidence_class": "IMPLICATION, not an explicit statement - the judge scored a microphone as 'completely inside' while the gripper was still holding it, deducting only for uprightness."
+    }
+  },
+
+  "missions": [
+    {
+      "id": "m1_connect_amplifier",
+      "title": "Connect the amplifier with the speakers",
+      "source": "S1 p8",
+      "objects": ["cable_upper", "cable_lower"],
+      "targets": ["cable_area_upper", "cable_area_lower"],
+      "count": 2,
+      "each": 15,
+      "max": 30,
+      "partial": {
+        "points": 5,
+        "ratio": 0.3333,
+        "condition": "only partly in the grey area OR not upright"
+      },
+      "full_condition": "completely_in(cable, grey area) AND upright",
+      "constraint": "only ONE cable per area scores points (S1 p8)",
+      "note": "Partial credit here is 5/15 = 33.3 %, NOT the 50 % that applies to the microphone and notes. A sloppy cable placement is worth 5; a sloppy note 10."
+    },
+    {
+      "id": "m2_prepare_show_microphone",
+      "title": "Prepare the show - microphone",
+      "source": "S1 p9-p10",
+      "objects": ["mic"],
+      "targets": ["mic_target"],
+      "count": 1,
+      "each": 20,
+      "max": 20,
+      "partial": {
+        "points": 10,
+        "ratio": 0.5,
+        "condition": "only partly in the microphone target area OR not upright"
+      },
+      "full_condition": "completely_in(mic, mic_target) AND upright"
+    },
+    {
+      "id": "m2_prepare_show_instruments",
+      "title": "Prepare the show - instruments",
+      "source": "S1 p10-p11",
+      "objects": ["instrument_guitar", "instrument_keyboard", "instrument_congas"],
+      "targets": ["backstage"],
+      "count": 3,
+      "each": 15,
+      "max": 45,
+      "partial": null,
+      "full_condition": "completely_in(instrument, backstage)",
+      "note": "No uprightness requirement and no partial credit. backstage EXCLUDES the grey border, so its polygon is the inset [0,0,393.809,317.219], not the pink fill (ADR-015 inset_by). All three instruments may score in the same area - unlike the cables, which are one per area."
+    },
+    {
+      "id": "m3_play_the_song",
+      "title": "Play the song",
+      "source": "S1 p11-p12",
+      "objects": ["note_red", "note_blue", "note_green", "note_yellow", "note_white", "note_black"],
+      "targets": ["note_target_red", "note_target_blue", "note_target_green", "note_target_yellow", "note_target_white", "note_target_black"],
+      "pairing": "each note scores only in its CORRESPONDING-COLOURED target; wrong colour scores 0",
+      "count": 6,
+      "each": 20,
+      "max": 120,
+      "partial": {
+        "points": 10,
+        "ratio": 0.5,
+        "condition": "only partly in the corresponding target OR not upright"
+      },
+      "full_condition": "completely_in(note, matching target INCLUDING its grey border) AND upright",
+      "note": "The target area INCLUDES the grey border (S1 p11), so the scoring polygon is the 79.7 mm outer square, not the 47.8 mm coloured centre. This mission is 120/255 = 47 % of the total."
+    },
+    {
+      "id": "m4_bonus",
+      "title": "Bonus points",
+      "source": "S1 p13",
+      "entries": [
+        {"objects": ["clef"], "count": 1, "each": 10, "max": 10},
+        {"objects": ["speaker_a", "speaker_b"], "count": 2, "each": 10, "max": 20},
+        {"objects": ["amp"], "count": 1, "each": 10, "max": 10}
+      ],
+      "each": 10,
+      "max": 40,
+      "partial": null,
+      "full_condition": "NOT damaged AND NOT moved",
+      "floor_not_prize": {
+        "rule": "S6 2026-06-17 (all age groups)",
+        "quote_ref": "S6/QA/2026-06-17/bonus",
+        "statement": "bonus points can be awarded even if the robot never leaves the start area, provided the bonus objects are not moved or damaged",
+        "consequence": "A run that starts and immediately stops scores 40/255. Bonus points cannot be EARNED, only LOST.",
+        "expected_value_form": "E[delta_score] = P(success) * points - P(collision) * 40",
+        "note": "Every mission's EV must be written this way, never as a gross point gain. The 40 is an explicit term in every row of any strategy decision table."
+      },
+      "note": "speaker_a and speaker_b are distinct IDs precisely because bonus scores 10 EACH to a max of 20 - a singular `speaker` could not express which one toppled."
+    }
+  ],
+
+  "time": {
+    "attempt_seconds": 120,
+    "rule": "S4 10.1",
+    "recorded_in": "full seconds (S4 10.8)",
+    "return_to_start_required": false,
+    "return_to_start_rule": "S4 10.7 lists every way an attempt ends; no return requirement appears",
+    "forced_120s": [
+      {
+        "condition": "the team finishes without having solved a (partial) task that yields positive points",
+        "rule": "S4 10.12",
+        "ambiguity": "A8",
+        "ambiguity_note": "OPEN: does a bonus-only run count as 'solving a task'? Bonus points are positive and on the season-challenge sheet, but passively not damaging an object is arguably not solving anything. Default: forced to 120 s."
+      },
+      {
+        "condition": "the robot loses a controller, motor or sensor",
+        "rule": "S4 10.4",
+        "also": "score is 0",
+        "note": "Other shed parts are free and stay on the field. This makes part_detachment a DESIGN constraint, not a simulator detail - and 5.1's post-start size freedom actively encourages deployable mechanisms."
+      },
+      {
+        "condition": "disqualification",
+        "rule": "S4 10.11",
+        "also": "worst possible score"
+      }
+    ],
+    "ranking": {
+      "rule": "S4 10.13",
+      "order": ["score", "time"],
+      "note": "Time is a pure tie-break, so it ranks below E[score] and below Var[score] in any objective function.",
+      "ambiguity": "A4",
+      "ambiguity_status": "RESOLVED - the conservative default was correct"
+    }
+  },
+
+  "randomization": {
+    "source": "S1 p7",
+    "randomized_notes": ["note_black", "note_white", "note_yellow", "note_blue"],
+    "slots": ["note_start_rand_0", "note_start_rand_1", "note_start_rand_2", "note_start_rand_3"],
+    "fixed": {"note_red": "note_start_fixed_red", "note_green": "note_start_fixed_green"},
+    "permutations": 24,
+    "scored_against": "the randomization at the beginning of the run (S4 10.8)",
+    "runtime_only": {
+      "rules": ["S4 9.6", "S4 10.2", "S4 5.7"],
+      "statement": "randomization happens AFTER the robots are in quarantine, entering data by adjusting the position or orientation of robot parts is prohibited, and no team action is permitted after randomization",
+      "consequence": "The 24 permutations can only be resolved by RUNTIME SENSING. This is the premise of every mission program."
+    }
+  },
+
+  "derived_facts": {
+    "notes_share_of_total": 0.4706,
+    "bonus_share_of_total": 0.1569,
+    "partial_credit_is_not_uniform": {
+      "cable": 0.3333,
+      "microphone": 0.5,
+      "note": 0.5,
+      "instrument": null,
+      "bonus": null,
+      "explanation": "Anti-pattern #7 previously asserted a uniform 50 %. Any EV comparison between 'many rough placements' and 'few precise ones' that assumed uniformity is invalid."
+    }
+  }
+}

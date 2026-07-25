@@ -15,7 +15,7 @@ Listed in **precedence order**. S4 §4.4: general rules < game document < Q&A < 
 | S4 | RoboMission General Rules PDF (Jan 15 2026, 31 pp) | robot limits, run procedure, table setup, tie-break | ✅ acquired 2026-07-25 |
 | S2 | Game Mat printing PDF | ALL geometry: coordinates, area sizes, mat colours | ✅ **VECTOR**, 50,479 paths |
 | S3 | Building Instructions PDF | game-object dimensions, mass, grip points | ⚠️ **DEGRADED** — fully rasterized |
-| S5 | `data/field_spec.json` (derived) | single source of truth read by all code | ⬜ not yet built |
+| S5 | `data/field_spec.json` (derived) | single source of truth read by all code | ✅ built 2026-07-25 |
 
 Rule: no rule/number/dimension may be stated unless it traces to S1–S4 or S6.
 **Never substitute memory of prior-season WRO rules** — the 2026 general rules changed.
@@ -40,7 +40,7 @@ figures here are **international level** until the Thai National Organizer confi
 | S3 | `docs/WRO-2026-RM-Elementary-BI-All.pdf` |
 | S4 | `docs/WRO-2026-RoboMission-General-Rules.pdf` |
 | S6 | `docs/s6-qa-snapshot-<date>.html` → indexed into `docs/s6_index.json` |
-| S5 | `data/field_spec.json` — **does not exist yet** |
+| S5 | `data/field_spec.json` + `data/scoring_model.json` |
 
 Source documents are gitignored (they are WRO's, not ours). `README.md` lists the expected
 filenames and sha256s; `docs/citations.json` carries the quoted rules.
@@ -123,7 +123,7 @@ consequence-if-wrong line.
 
 ---
 
-## 5.6 Scoring model (frozen v1, from S1 — for reference, not to be implemented yet)
+## 5.6 Scoring model (frozen v1 — machine-readable in `data/scoring_model.json`)
 
 Max 255. Cables 2×15=30 (partial 5). Microphone 20 (partial 10). Instruments 3×15=45.
 Notes 6×20=120 (partial 10). Bonus: clef 10, speakers 2×10=20, amp 10.

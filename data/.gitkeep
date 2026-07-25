@@ -1,5 +1,9 @@
-# data/field_spec.json (S5) lands here LATER.
+# data/field_spec.json (S5) was built on 2026-07-25 by tools/build_field_spec.py.
 #
-# It is the single source of truth read by all code, and it is NOT created until
-# docs/EXTRACTION_REPORT.md has been reviewed by a human and the extraction quality
-# accepted. See docs/plans/ROADMAP.md phases 1 -> 2.
+# It is DERIVED, never hand-edited: change docs/area_map.toml (judgement) or the
+# extraction, then re-run the builder. It needs a manifest from a full `all` run
+# because it pins the whole extraction chain -- see ADR-016.
+#
+#     uv run python tools/build_field_spec.py
+#
+# data/scoring_model.json holds the rules; it has no scorer (that is Phase 6).

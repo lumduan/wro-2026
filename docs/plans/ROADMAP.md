@@ -7,8 +7,8 @@
 ```mermaid
 flowchart TD
     P0["0 · Extraction toolchain<br/>DONE — S2 confirmed VECTOR"] --> P1["1 · Human review gate<br/>DONE — cleared 2026-07-25"]
-    P1 --> P2["2 · field_spec.json<br/>HALTED on ADR-013/014/015"]
-    P1 --> P3["3 · Scoring model from S1"]
+    P1 --> P2["2 · field_spec.json<br/>DONE — S5 frozen"]
+    P1 --> P3["3 · Scoring model<br/>DONE"]
     P1 --> P4["4 · Game-object spec from S3"]
     P2 --> P6["6 · Simulator<br/>needs 2 + 3 + 4"]
     P3 --> P6
@@ -27,8 +27,8 @@ flowchart TD
     classDef decision fill:#fde0e0,stroke:#d05555,color:#8f2e2e
     classDef goal     fill:#ede0fb,stroke:#8a5cd8,color:#4d2e8f
 
-    class P0,P1,P5 done
-    class P2,P3 active
+    class P0,P1,P2,P3,P5 done
+    class P4 ready
     class P4,P6,P7,P8 blocked
     class P9 goal
 ```
@@ -37,8 +37,8 @@ flowchart TD
 |---|---|---|---|
 | **0 · Extraction toolchain** | ✅ DONE | `tools/pdf_extract.py` (45 tests green), `docs/extracted/` for all 3 sources, `docs/EXTRACTION_REPORT.md`. **S2 confirmed VECTOR** (50,479 paths); mat measured **2361.999 × 1143.000 mm**; two runs byte-identical across 9,124 outputs | — |
 | **1 · Human review gate** | ✅ DONE | extraction accepted 2026-07-25 | — |
-| **2 · `field_spec.json`** | 🟡 **HALTED** | §5.3 ID table **frozen** (ADR-012); all 10 scoring areas located; `start_area` resolved | awaiting sign-off on **ADR-013/014/015** before builder code |
-| **3 · Scoring model (S1)** | 🟡 QUEUED | corrections C1–C8 applied to §5.6; `scoring_model.json` follows phase 2 | needs ADR sign-off |
+| **2 · `field_spec.json`** | ✅ **DONE** | **S5 built** by `tools/build_field_spec.py` from `docs/area_map.toml` — no hand-written coordinates. 17 areas (10 scoring), 6 note starts, 17 object start poses. Full-chain determinism verified. | — |
+| **3 · Scoring model (S1)** | ✅ **DONE** | `data/scoring_model.json` — missions, predicates, time rules, randomization. Maxima sum to 255 and `max == each × count` per rule, both tested. | — |
 | **4 · Object spec (S3)** | 🔵 **READY — re-scoped** | S4 §7.4: elements are WRO Brick Set 45811/45819 ⇒ LEGO geometry is a constant. **Count studs × 8.0 mm** rather than measure rasters | none — much cheaper than believed |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Simulator** | ⬜ BLOCKED | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). **Parameter acquisition can run in PARALLEL with phase 4** — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs phase 4's objects | needs 2 **AND** 3 **AND** 4 |
@@ -46,7 +46,7 @@ flowchart TD
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor** | needs 6 AND 7 |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
-> **Both original bottlenecks are cleared.** S4 and S6 are in hand and the review gate has
+> **Phases 0, 1, 2, 3 and 5 are DONE.** Both original bottlenecks are cleared. S4 and S6 are in hand and the review gate has
 > passed. The single remaining blocker is a **sign-off on three schema decisions**
 > (ADR-013/014/015) whose consequences outlive this session — they are otherwise decided
 > implicitly by whoever writes the builder. Phase 4 is now the cheapest it will ever be

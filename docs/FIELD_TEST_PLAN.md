@@ -103,7 +103,8 @@ whether it cannot** — cameras are prohibited (§5.2.7), so there is no fallbac
 ### P2 · Start-area placement repeatability
 
 Place the robot in the start area **20 times** against the printed edge; measure the pose each
-time. The start area is **exactly 250.0 × 250.0 mm** with zero slack, so this number sets the
+time. The start area measures **250.02 × 250.02 mm** — 0.01 mm per side over the envelope,
+i.e. effectively zero slack — so this number sets the
 usable chassis width directly.
 
 Run it **with and without a start frame (§10.3)** — that quantifies what the frame buys.
