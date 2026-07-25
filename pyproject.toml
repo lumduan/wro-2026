@@ -2,6 +2,9 @@
 name = "wro-2026"
 version = "0.1.0"
 description = "WRO 2026 RoboMission Elementary — document extraction toolchain"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Sarat Sonsuk" }]
 requires-python = ">=3.12"
 dependencies = [
     # Primary PDF engine: content-stream vector access (get_drawings), page

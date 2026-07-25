@@ -90,3 +90,14 @@ that conversion and every command calls it — there is deliberately no second c
   `NEEDS-VERIFY(S4):` and left open. Prior-season WRO rules are not a substitute — the 2026
   general rules changed.
 - Coordinates live in `data/field_spec.json`, nowhere else.
+
+## Licence
+
+[MIT](LICENSE) — © 2026 Sarat Sonsuk.
+
+The licence covers **this repository's** contents: the toolchain, its tests and the analysis
+documents. It does not cover and cannot grant rights in WRO's source PDFs, which are
+© 2026 World Robot Olympiad Association Ltd and are deliberately not distributed here.
+
+"World Robot Olympiad" and the WRO logo are trademarks of the World Robot Olympiad
+Association Ltd. This project is not affiliated with or endorsed by WRO.
