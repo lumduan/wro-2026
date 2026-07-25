@@ -60,6 +60,9 @@ MM_PER_PT: Final = 25.4 / 72.0
 PT_PER_MM: Final = 72.0 / 25.4
 
 BEZIER_SEGMENTS: Final = 16          # ADR-004: fixed subdivision, never adaptive
+#: Slack when testing whether a path lies inside the page box, in mm. Artwork
+#: routinely touches or marginally overruns the trim edge.
+_BOX_TOLERANCE_MM: Final = 1.0
 DEFAULT_PRECISION: Final = 3         # ADR-008: 1 um
 DEFAULT_PX_PER_MM: Final = 4.0
 DEFAULT_MAX_MPIX: Final = 200.0
@@ -922,10 +925,39 @@ def _derotate(page: fitz.Page, rect: fitz.Rect) -> fitz.Rect:
     return out
 
 
+def _encode_image(doc: fitz.Document, xref: int) -> tuple[bytes, str, str]:
+    """Encode one image XObject, never dropping it.
+
+    PNG carries only gray/RGB. S2 uses ``Separation(DeviceCMYK, All)`` images —
+    a 1-channel spot colourspace PyMuPDF refuses to write as PNG — so a plain
+    ``tobytes("png")`` silently loses them. Escalate instead:
+
+    1. pixmap -> PNG (the common case, and CMYK converts cleanly)
+    2. force the pixmap through RGB, then PNG
+    3. fall back to the embedded stream in its native encoding, losing nothing
+
+    Returns ``(payload, suffix, method)``.
+    """
+    pixmap = fitz.Pixmap(doc, xref)
+    if pixmap.colorspace is None or pixmap.n - pixmap.alpha > 3:
+        pixmap = fitz.Pixmap(fitz.csRGB, pixmap)
+    try:
+        return (pixmap.tobytes("png"), "png", "pixmap_png")
+    except Exception:
+        pass
+    try:
+        return (fitz.Pixmap(fitz.csRGB, pixmap).tobytes("png"), "png", "rgb_png")
+    except Exception:
+        pass
+    info = doc.extract_image(xref)
+    return (info["image"], str(info["ext"]), "native_" + str(info["ext"]))
+
+
 def cmd_images(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) -> dict[str, Any]:
     saved = 0
     skipped = 0
     failed: list[dict[str, Any]] = []
+    fallback_used: dict[str, int] = {}
 
     for number, page in enumerate(doc, start=1):
         frame = MatFrame.from_page(page)
@@ -939,17 +971,15 @@ def cmd_images(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
 
             stem = f"img/p{number:03d}_{index:04d}"  # ADR-002: 4-digit index
             try:
-                pixmap = fitz.Pixmap(doc, xref)
-                if pixmap.colorspace is not None and pixmap.n - pixmap.alpha >= 4:
-                    pixmap = fitz.Pixmap(fitz.csRGB, pixmap)  # CMYK -> RGB for PNG
-                png = pixmap.tobytes("png")
-                pixmap = None
+                payload, suffix, method = _encode_image(doc, xref)
             except Exception as exc:
                 failed.append({"page": number, "xref": xref, "error": str(exc)})
                 continue
 
-            ctx.write(f"{stem}.png", png)
+            ctx.write(f"{stem}.{suffix}", payload)
             saved += 1
+            if method != "pixmap_png":
+                fallback_used[method] = fallback_used.get(method, 0) + 1
 
             placements = []
             try:
@@ -984,7 +1014,9 @@ def cmd_images(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
                     "placement_mm": placements,
                     "placement_count": len(placements),
                     "native_px_per_mm": native_ppmm,
-                    "png_sha256": sha256_bytes(png),
+                    "format": suffix,
+                    "encode_method": method,
+                    "image_sha256": sha256_bytes(payload),
                 },
             )
 
@@ -993,10 +1025,18 @@ def cmd_images(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
             f"NEEDS-VERIFY: {len(failed)} embedded image(s) could not be decoded; "
             "see params.images.failed in manifest.json"
         )
+    for method, count in sorted(fallback_used.items()):
+        ctx.note(
+            f"ASSUME: {count} image(s) were written via the '{method}' fallback "
+            "because their colourspace (e.g. Separation/DeviceN spot) has no PNG "
+            "representation; pixel values are NOT sRGB and must not be colour-sampled "
+            "without checking the source colourspace in the sidecar JSON."
+        )
     ctx.params["images"] = {
         "min_pixels": args.min_pixels,
         "saved": saved,
         "skipped_below_min_pixels": skipped,
+        "encode_methods": dict(sorted(fallback_used.items())),
         "failed": failed,
     }
     return {"saved": saved, "skipped": skipped, "failed": len(failed)}
@@ -1200,6 +1240,8 @@ def cmd_vector(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
 
         union: list[float] | None = None
         page_paths = 0
+        painted = 0
+        inside_box = 0
 
         for entry in entries:
             items, polygon = _path_points_and_items(entry, frame)
@@ -1250,6 +1292,14 @@ def cmd_vector(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
                         max(union[3], bbox[3]),
                     ]
                 )
+                painted += 1
+                if (
+                    bbox[0] >= -_BOX_TOLERANCE_MM
+                    and bbox[1] >= -_BOX_TOLERANCE_MM
+                    and bbox[2] <= frame.width_mm + _BOX_TOLERANCE_MM
+                    and bbox[3] <= frame.height_mm + _BOX_TOLERANCE_MM
+                ):
+                    inside_box += 1
 
             if fill is not None and entry.get("type") in ("f", "fs"):
                 bucket = fills.setdefault(
@@ -1287,22 +1337,33 @@ def cmd_vector(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
                         "page": number,
                     }
 
-        # Self-check: extracted geometry must land inside the declared page box.
-        # A wrong transform produces coordinates that look entirely plausible in
-        # isolation, so this is the only cheap way to catch it on real files.
+        # Self-check on the MAT-frame transform. A wrong transform yields
+        # coordinates that look entirely plausible in isolation, so this is the
+        # only cheap way to catch it on a real file.
+        #
+        # The union bbox alone is NOT a usable test: PDF artwork legitimately
+        # extends past the trim and is clipped at render time, so a few off-page
+        # decorative paths push the union outside the box while the transform is
+        # perfectly correct. Two signals that do discriminate:
+        #   * no overlap at all  -> the transform is certainly wrong
+        #   * most paths outside -> the transform is probably wrong
         mat = [0.0, 0.0, R(frame.width_mm), R(frame.height_mm)]
-        tolerance = 1.0  # mm; artwork legitimately touches or slightly overruns trim
-        inside = union is None or (
-            union[0] >= mat[0] - tolerance
-            and union[1] >= mat[1] - tolerance
-            and union[2] <= mat[2] + tolerance
-            and union[3] <= mat[3] + tolerance
+        share_inside = (inside_box / painted) if painted else None
+        overlaps = union is None or (
+            union[2] > 0
+            and union[3] > 0
+            and union[0] < frame.width_mm
+            and union[1] < frame.height_mm
         )
-        if not inside:
+        suspect = (not overlaps) or (
+            share_inside is not None and painted >= 20 and share_inside < 0.6
+        )
+        if suspect:
             ctx.note(
-                f"NEEDS-VERIFY: page {number} vector union bbox {union} falls outside "
-                f"the {mat} mm page box by more than {tolerance} mm - check the "
-                "MAT-frame transform before trusting these coordinates"
+                f"NEEDS-VERIFY: page {number} MAT-frame self-check failed - "
+                f"{inside_box}/{painted} painted paths fall inside the {mat} mm page "
+                f"box (union {union}). Verify the transform before trusting these "
+                "coordinates."
             )
         pages_meta.append(
             {
@@ -1312,8 +1373,18 @@ def cmd_vector(ctx: RunContext, doc: fitz.Document, args: argparse.Namespace) ->
                 "self_check": {
                     "union_bbox_mm": union,
                     "page_box_mm": mat,
-                    "union_within_page_box": bool(inside),
-                    "tolerance_mm": tolerance,
+                    "painted_paths": painted,
+                    "painted_paths_inside_box": inside_box,
+                    "share_inside_box": R(share_inside) if share_inside is not None else None,
+                    "union_overlaps_page_box": bool(overlaps),
+                    "verdict": "suspect" if suspect else "ok",
+                    "tolerance_mm": _BOX_TOLERANCE_MM,
+                    "note": (
+                        "Paths outside the page box are normal: PDF artwork may "
+                        "extend past the trim and is clipped at render time. Only a "
+                        "non-overlapping union, or a majority of paths outside, "
+                        "indicates a broken transform."
+                    ),
                 },
             }
         )

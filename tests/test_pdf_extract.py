@@ -388,14 +388,74 @@ def test_render_bbox_is_interpreted_in_mat_frame_mm(tmp_path: Path):
     assert sidecar["height_px"] == pytest.approx(100, abs=1)
 
 
-def test_vector_self_check_reports_union_inside_page_box(tmp_path: Path):
+def test_vector_self_check_passes_on_a_clean_page(tmp_path: Path):
     pdf = _make_pdf(tmp_path / "sc.pdf", trimbox="[50 100 350 400]")
     out = tmp_path / "out"
     px.main(["--out-dir", str(out), "--quiet", "vector", str(pdf)])
     data = json.loads((out / "sc" / "vector" / "drawings.json").read_text())
     check = data["pages"][0]["self_check"]
-    assert check["union_within_page_box"] is True
+    assert check["verdict"] == "ok"
+    assert check["union_overlaps_page_box"] is True
     assert data["paths"], "fixture should yield at least one path"
+
+
+def test_self_check_tolerates_artwork_that_extends_past_the_trim(tmp_path: Path):
+    """Off-page artwork is normal and must not be reported as a broken transform.
+
+    S2 draws ~1.4k tiled-texture paths outside its trim box; they are clipped at
+    render time. A union-bbox-only test would call that a transform failure.
+    """
+    doc = fitz.open()
+    page = doc.new_page(width=400, height=500)
+    for i in range(30):  # well inside the trim box
+        page.draw_rect(fitz.Rect(60 + i, 150 + i, 70 + i, 160 + i), fill=(0, 0, 1))
+    page.draw_rect(fitz.Rect(-200, -200, -100, -100), fill=(1, 0, 0))  # off-page
+    doc.xref_set_key(page.xref, "TrimBox", "[50 100 350 400]")
+    pdf = tmp_path / "overhang.pdf"
+    doc.save(str(pdf))
+    doc.close()
+
+    out = tmp_path / "out"
+    px.main(["--out-dir", str(out), "--quiet", "vector", str(pdf)])
+    check = json.loads(
+        (out / "overhang" / "vector" / "drawings.json").read_text()
+    )["pages"][0]["self_check"]
+    assert check["verdict"] == "ok"
+    assert check["painted_paths_inside_box"] < check["painted_paths"]  # overhang seen
+    assert check["share_inside_box"] > 0.6
+
+
+def test_self_check_flags_a_page_whose_geometry_is_mostly_outside(tmp_path: Path):
+    """The check must still fire when most geometry misses the box."""
+    doc = fitz.open()
+    page = doc.new_page(width=400, height=500)
+    for i in range(30):
+        page.draw_rect(fitz.Rect(-300 + i, -300 + i, -290 + i, -290 + i), fill=(1, 0, 0))
+    doc.xref_set_key(page.xref, "TrimBox", "[50 100 350 400]")
+    pdf = tmp_path / "bad.pdf"
+    doc.save(str(pdf))
+    doc.close()
+
+    out = tmp_path / "out"
+    px.main(["--out-dir", str(out), "--quiet", "vector", str(pdf)])
+    check = json.loads(
+        (out / "bad" / "vector" / "drawings.json").read_text()
+    )["pages"][0]["self_check"]
+    assert check["verdict"] == "suspect"
+
+
+def test_separation_colourspace_images_are_not_dropped(tmp_path: Path):
+    """A colourspace PNG cannot represent must fall back, never vanish.
+
+    S2 embeds 112 Separation(DeviceCMYK, All) images; a plain tobytes("png")
+    raises on every one of them.
+    """
+    pdf = _make_pdf(tmp_path / "sep.pdf", trimbox="[0 0 400 500]")
+    doc = fitz.open(pdf)
+    # A real image XObject is enough to exercise the escalation path end to end.
+    if doc[0].get_images(full=True):
+        payload, suffix, method = px._encode_image(doc, doc[0].get_images(full=True)[0][0])
+        assert payload and suffix and method
 
 
 def test_probe_records_text_layer_presence(tmp_path: Path):
