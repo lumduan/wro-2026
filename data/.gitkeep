@@ -1,0 +1,5 @@
+# data/field_spec.json (S5) lands here LATER.
+#
+# It is the single source of truth read by all code, and it is NOT created until
+# docs/EXTRACTION_REPORT.md has been reviewed by a human and the extraction quality
+# accepted. See docs/plans/ROADMAP.md phases 1 -> 2.

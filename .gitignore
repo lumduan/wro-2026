@@ -1,0 +1,20 @@
+# --- Python / uv ---
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# --- Generated extraction artifacts ---
+# Rasters are large and fully regenerable from the source PDFs via
+# `tools/pdf_extract.py`; manifest.json records a sha256 for every one of them,
+# so integrity stays auditable without committing the bytes. See DECISIONS.md ADR-001.
+docs/extracted/**/render/
+docs/extracted/**/img/
+
+# Git has no size-based ignore rule. The ">5 MB PNG" constraint is enforced
+# structurally instead: every PNG this toolchain emits lands in either render/
+# or img/, both of which are ignored above. If a PNG ever appears outside those
+# two directories, that is a bug in the tool, not something to paper over here.
+*.tmp
+scratch/

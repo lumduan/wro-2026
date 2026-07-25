@@ -1,0 +1,30 @@
+[project]
+name = "wro-2026"
+version = "0.1.0"
+description = "WRO 2026 RoboMission Elementary — document extraction toolchain"
+requires-python = ">=3.12"
+dependencies = [
+    # Primary PDF engine: content-stream vector access (get_drawings), page
+    # rasterisation with explicit scale, image XObject extraction. ADR-006.
+    "pymupdf>=1.24",
+    # Text/table fallback only. ADR-006.
+    "pdfplumber>=0.11",
+    # Raster post-processing where PyMuPDF's Pixmap path is awkward
+    # (CMYK JPEG round-trips, SMask compositing). ADR-006.
+    "pillow>=10.4",
+    # Vectorised shoelace area + pixel sampling. ADR-006.
+    "numpy>=2.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[tool.uv]
+# This repo is a set of scripts, not an installable package. Without this,
+# `uv run` attempts to build/install the project and fails.
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["tools"]
+testpaths = ["tests"]
+addopts = "-q"
