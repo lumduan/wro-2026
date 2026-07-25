@@ -1,0 +1,40 @@
+{
+  "notes": [
+    "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from CropBox [176/177 page(s): 2, 3, 4, 5, 6, 7, ... (+170 more)]"
+  ],
+  "outputs": {
+    "probe.json": {
+      "bytes": 575496,
+      "sha256": "b95cf5a3ce0273116082a0957b9857828668d78325595c12e64c64ab148223dc"
+    }
+  },
+  "run": {
+    "argv": [
+      "--quiet",
+      "probe",
+      "docs/WRO-2026-GameMat-Elementary-Printing-File.pdf",
+      "docs/WRO-2026-RM-Elementary-BI-All.pdf",
+      "docs/WRO-2026-RoboMission-Elementary-Game-Rules.pdf"
+    ],
+    "command": "probe",
+    "params": {
+      "probe": {}
+    },
+    "precision": 3,
+    "utc": "2026-07-25T10:12:30Z"
+  },
+  "schema_version": 1,
+  "source": {
+    "bytes": 15358983,
+    "name": "WRO-2026-RM-Elementary-BI-All.pdf",
+    "sha256": "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a"
+  },
+  "tool": {
+    "mupdf": "1.29.0",
+    "name": "pdf_extract",
+    "pymupdf": "1.28.0",
+    "python": "3.13.11",
+    "schema_version": 1,
+    "version": "1.0.0"
+  }
+}

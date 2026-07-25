@@ -1,0 +1,293 @@
+{
+  "area_note": "total_area_mm2 sums UNCLIPPED path areas; a clipped path contributes more than it visibly covers.",
+  "colour_note": "ASSUME: RGB from a profile-less CMYK conversion. Do NOT map these to canonical area IDs without a CMYK render cross-check.",
+  "distinct_fills": 8,
+  "fills": [
+    {
+      "bbox_mm": [
+        23.107,
+        34.22,
+        186.831,
+        177.201
+      ],
+      "bbox_size_mm": [
+        163.724,
+        142.981
+      ],
+      "fill_hex": "#ff9933",
+      "fill_rgb": [
+        1.0,
+        0.6,
+        0.2
+      ],
+      "largest_path": {
+        "area_mm2": 23409.416,
+        "bbox_mm": [
+          23.107,
+          34.22,
+          186.831,
+          177.201
+        ],
+        "page": 2,
+        "seqno": 222
+      },
+      "pages": [
+        2
+      ],
+      "path_count": 1,
+      "total_area_mm2": 23409.416
+    },
+    {
+      "bbox_mm": [
+        25.061,
+        106.2,
+        184.404,
+        237.857
+      ],
+      "bbox_size_mm": [
+        159.343,
+        131.657
+      ],
+      "fill_hex": "#f2f2f2",
+      "fill_rgb": [
+        0.94902,
+        0.94902,
+        0.94902
+      ],
+      "largest_path": {
+        "area_mm2": 1145.519,
+        "bbox_mm": [
+          25.146,
+          223.633,
+          184.319,
+          230.83
+        ],
+        "page": 14,
+        "seqno": 145
+      },
+      "pages": [
+        14
+      ],
+      "path_count": 88,
+      "total_area_mm2": 13201.421
+    },
+    {
+      "bbox_mm": [
+        24.977,
+        28.984,
+        184.658,
+        268.845
+      ],
+      "bbox_size_mm": [
+        159.681,
+        239.861
+      ],
+      "fill_hex": "#000000",
+      "fill_rgb": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "largest_path": {
+        "area_mm2": 24.443,
+        "bbox_mm": [
+          25.146,
+          99.004,
+          169.503,
+          99.173
+        ],
+        "page": 14,
+        "seqno": 802
+      },
+      "pages": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "path_count": 863,
+      "total_area_mm2": 2953.704
+    },
+    {
+      "bbox_mm": [
+        118.249,
+        49.32,
+        162.674,
+        53.341
+      ],
+      "bbox_size_mm": [
+        44.425,
+        4.021
+      ],
+      "fill_hex": "#ed1c24",
+      "fill_rgb": [
+        0.930419,
+        0.110903,
+        0.141451
+      ],
+      "largest_path": {
+        "area_mm2": 7.902,
+        "bbox_mm": [
+          127.524,
+          49.413,
+          130.493,
+          53.324
+        ],
+        "page": 1,
+        "seqno": 55
+      },
+      "pages": [
+        1
+      ],
+      "path_count": 9,
+      "total_area_mm2": 45.44
+    },
+    {
+      "bbox_mm": [
+        135.904,
+        49.32,
+        155.081,
+        53.324
+      ],
+      "bbox_size_mm": [
+        19.177,
+        4.004
+      ],
+      "fill_hex": "#0072bc",
+      "fill_rgb": [
+        0.0,
+        0.44567,
+        0.736202
+      ],
+      "largest_path": {
+        "area_mm2": 7.901,
+        "bbox_mm": [
+          144.231,
+          49.413,
+          147.201,
+          53.324
+        ],
+        "page": 1,
+        "seqno": 62
+      },
+      "pages": [
+        1
+      ],
+      "path_count": 8,
+      "total_area_mm2": 43.313
+    },
+    {
+      "bbox_mm": [
+        37.677,
+        155.9,
+        81.28,
+        234.724
+      ],
+      "bbox_size_mm": [
+        43.603,
+        78.824
+      ],
+      "fill_hex": "#161026",
+      "fill_rgb": [
+        0.086275,
+        0.062745,
+        0.149004
+      ],
+      "largest_path": {
+        "area_mm2": 11.075,
+        "bbox_mm": [
+          37.677,
+          234.47,
+          81.28,
+          234.724
+        ],
+        "page": 8,
+        "seqno": 170
+      },
+      "pages": [
+        8,
+        9,
+        11
+      ],
+      "path_count": 3,
+      "total_area_mm2": 33.225
+    },
+    {
+      "bbox_mm": [
+        156.177,
+        49.413,
+        163.239,
+        52.236
+      ],
+      "bbox_size_mm": [
+        7.062,
+        2.823
+      ],
+      "fill_hex": "#231f20",
+      "fill_rgb": [
+        0.13669,
+        0.12195,
+        0.125292
+      ],
+      "largest_path": {
+        "area_mm2": 19.934,
+        "bbox_mm": [
+          156.177,
+          49.413,
+          163.239,
+          52.236
+        ],
+        "page": 1,
+        "seqno": 44
+      },
+      "pages": [
+        1
+      ],
+      "path_count": 4,
+      "total_area_mm2": 20.934
+    },
+    {
+      "bbox_mm": [
+        156.543,
+        49.807,
+        162.817,
+        51.82
+      ],
+      "bbox_size_mm": [
+        6.274,
+        2.013
+      ],
+      "fill_hex": "#ffffff",
+      "fill_rgb": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "largest_path": {
+        "area_mm2": 8.631,
+        "bbox_mm": [
+          156.543,
+          49.807,
+          162.817,
+          51.82
+        ],
+        "page": 1,
+        "seqno": 45
+      },
+      "pages": [
+        1
+      ],
+      "path_count": 2,
+      "total_area_mm2": 13.235
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f"
+}

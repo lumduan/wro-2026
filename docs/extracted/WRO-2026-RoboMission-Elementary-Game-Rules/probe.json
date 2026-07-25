@@ -1,0 +1,2537 @@
+{
+  "document": {
+    "colour": {
+      "devicecmyk_refs": 0,
+      "devicergb_refs": 1,
+      "has_separation_colorspace": false,
+      "icc_component_counts": [
+        3
+      ],
+      "output_condition_identifiers": [],
+      "output_intent_subtypes": [],
+      "separation_count": 0
+    },
+    "image_xobjects_orphaned": 10,
+    "image_xobjects_page_referenced": 58,
+    "image_xobjects_total": 68,
+    "is_encrypted": false,
+    "is_repaired": false,
+    "metadata": {
+      "author": "Karen Bebelaar",
+      "creationDate": "D:20260113140305Z00'00'",
+      "creator": "Word",
+      "format": "PDF 1.4",
+      "modDate": "D:20260113140305Z00'00'",
+      "producer": "macOS Version 26.2 (Build 25C56) Quartz PDFContext",
+      "title": "WRO-2026-RoboMission-Elementary-FINAL"
+    },
+    "page_count": 15,
+    "pdf_version": "PDF 1.4",
+    "xref_length": 223
+  },
+  "pages": [
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 92,
+          "CS": 1,
+          "Do": 11,
+          "ET": 92,
+          "Q": 125,
+          "S": 2,
+          "SC": 1,
+          "TJ": 29,
+          "Tj": 63,
+          "W": 29,
+          "c": 224,
+          "cm": 105,
+          "cs": 6,
+          "f": 23,
+          "gs": 5,
+          "h": 16,
+          "k": 9,
+          "l": 136,
+          "m": 34,
+          "n": 29,
+          "q": 125,
+          "re": 23,
+          "sc": 6
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 383,
+          "content_stream_paint_ops": 25,
+          "get_drawings_extended_entries": 55,
+          "get_drawings_items": 366,
+          "get_drawings_paint_items": 337,
+          "get_drawings_paths": 25,
+          "items_per_construction_op": 0.956,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 366,
+        "paths": 25
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAD+Gibson-Book (embedded)",
+        "AAAAAE+Gibson-Book (embedded)",
+        "AAAAAF+Gibson-Book (embedded)",
+        "AAAAAG+Gibson-Book (embedded)",
+        "AAAAAH+Gibson-Book (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAL+ArialMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 10,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 415,
+            "smask_xref": 30,
+            "width_px": 1839,
+            "xref": 16
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 490,
+            "smask_xref": 31,
+            "width_px": 880,
+            "xref": 17
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 86,
+            "smask_xref": 32,
+            "width_px": 433,
+            "xref": 18
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 245,
+            "smask_xref": 33,
+            "width_px": 1230,
+            "xref": 19
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 53,
+            "smask_xref": 34,
+            "width_px": 801,
+            "xref": 20
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 226,
+            "smask_xref": 35,
+            "width_px": 1320,
+            "xref": 23
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 169,
+            "smask_xref": 36,
+            "width_px": 1144,
+            "xref": 24
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 262,
+            "smask_xref": 37,
+            "width_px": 262,
+            "xref": 25
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 156,
+            "smask_xref": 0,
+            "width_px": 156,
+            "xref": 26
+          }
+        ]
+      },
+      "page": 1,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 13,
+        "chars": 430,
+        "has_text_layer": true,
+        "stripped_chars": 424
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 657,
+          "CS": 1,
+          "Do": 2,
+          "ET": 657,
+          "Q": 668,
+          "S": 1,
+          "SC": 1,
+          "TJ": 208,
+          "Tj": 449,
+          "W": 7,
+          "cm": 660,
+          "cs": 5,
+          "f": 1,
+          "gs": 1,
+          "h": 4,
+          "l": 12,
+          "m": 4,
+          "n": 7,
+          "q": 668,
+          "re": 5,
+          "sc": 6
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 17,
+          "content_stream_paint_ops": 2,
+          "get_drawings_extended_entries": 9,
+          "get_drawings_items": 8,
+          "get_drawings_paint_items": 1,
+          "get_drawings_paths": 1,
+          "items_per_construction_op": 0.471,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 0.5,
+          "verdict": "ok"
+        },
+        "items": 8,
+        "paths": 1
+      },
+      "font_count": 10,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAP+Arial-BoldMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAV+Arial-BoldMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAAAY+SymbolMT (embedded)",
+        "AAAABA+ArialMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 2,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          }
+        ]
+      },
+      "page": 2,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 27,
+        "chars": 2738,
+        "has_text_layer": true,
+        "stripped_chars": 2733
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 394,
+          "Do": 3,
+          "ET": 394,
+          "Q": 403,
+          "TJ": 138,
+          "Tj": 256,
+          "W": 6,
+          "cm": 397,
+          "cs": 2,
+          "h": 3,
+          "l": 9,
+          "m": 3,
+          "n": 6,
+          "q": 403,
+          "re": 3,
+          "sc": 2
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 12,
+          "content_stream_paint_ops": 0,
+          "get_drawings_extended_entries": 7,
+          "get_drawings_items": 6,
+          "get_drawings_paint_items": 0,
+          "get_drawings_paths": 0,
+          "items_per_construction_op": 0.5,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": null,
+          "verdict": "ok"
+        },
+        "items": 6,
+        "paths": 0
+      },
+      "font_count": 5,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAV+Arial-BoldMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 3,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 779,
+            "smask_xref": 0,
+            "width_px": 1389,
+            "xref": 63
+          }
+        ]
+      },
+      "page": 3,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 9,
+        "chars": 1098,
+        "has_text_layer": true,
+        "stripped_chars": 1091
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 251,
+          "Do": 7,
+          "ET": 251,
+          "Q": 277,
+          "TJ": 57,
+          "Tj": 194,
+          "W": 20,
+          "cm": 258,
+          "cs": 11,
+          "f": 44,
+          "h": 51,
+          "l": 153,
+          "m": 51,
+          "n": 20,
+          "q": 277,
+          "re": 13,
+          "sc": 17
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 166,
+          "content_stream_paint_ops": 44,
+          "get_drawings_extended_entries": 65,
+          "get_drawings_items": 64,
+          "get_drawings_paint_items": 44,
+          "get_drawings_paths": 44,
+          "items_per_construction_op": 0.386,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 64,
+        "paths": 44
+      },
+      "font_count": 9,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAV+Arial-BoldMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABC+Arial-BoldMT (embedded)",
+        "AAAABE+Arial-ItalicMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 7,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 71
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 72
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 73
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 74
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 75
+          }
+        ]
+      },
+      "page": 4,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 12,
+        "chars": 707,
+        "has_text_layer": true,
+        "stripped_chars": 703
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 239,
+          "Do": 5,
+          "ET": 239,
+          "Q": 257,
+          "TJ": 60,
+          "Tj": 179,
+          "W": 14,
+          "cm": 244,
+          "cs": 7,
+          "f": 36,
+          "h": 41,
+          "l": 123,
+          "m": 41,
+          "n": 14,
+          "q": 257,
+          "re": 9,
+          "sc": 11
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 132,
+          "content_stream_paint_ops": 36,
+          "get_drawings_extended_entries": 51,
+          "get_drawings_items": 50,
+          "get_drawings_paint_items": 36,
+          "get_drawings_paths": 36,
+          "items_per_construction_op": 0.379,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 50,
+        "paths": 36
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABC+Arial-BoldMT (embedded)",
+        "AAAABE+Arial-ItalicMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 5,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 79
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 80
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 81
+          }
+        ]
+      },
+      "page": 5,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 9,
+        "chars": 691,
+        "has_text_layer": true,
+        "stripped_chars": 681
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 286,
+          "Do": 7,
+          "ET": 286,
+          "Q": 312,
+          "TJ": 64,
+          "Tj": 222,
+          "W": 20,
+          "cm": 293,
+          "cs": 11,
+          "f": 44,
+          "h": 51,
+          "l": 153,
+          "m": 51,
+          "n": 20,
+          "q": 312,
+          "re": 13,
+          "sc": 16
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 166,
+          "content_stream_paint_ops": 44,
+          "get_drawings_extended_entries": 65,
+          "get_drawings_items": 64,
+          "get_drawings_paint_items": 44,
+          "get_drawings_paths": 44,
+          "items_per_construction_op": 0.386,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 64,
+        "paths": 44
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABC+Arial-BoldMT (embedded)",
+        "AAAABE+Arial-ItalicMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 7,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 85
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 86
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 87
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 88
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 89
+          }
+        ]
+      },
+      "page": 6,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 12,
+        "chars": 766,
+        "has_text_layer": true,
+        "stripped_chars": 756
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 204,
+          "Do": 3,
+          "ET": 204,
+          "Q": 213,
+          "TJ": 68,
+          "Tj": 136,
+          "W": 6,
+          "cm": 207,
+          "cs": 2,
+          "f": 1,
+          "h": 4,
+          "l": 12,
+          "m": 4,
+          "n": 6,
+          "q": 213,
+          "re": 3,
+          "sc": 3
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 15,
+          "content_stream_paint_ops": 1,
+          "get_drawings_extended_entries": 8,
+          "get_drawings_items": 7,
+          "get_drawings_paint_items": 1,
+          "get_drawings_paths": 1,
+          "items_per_construction_op": 0.467,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 7,
+        "paths": 1
+      },
+      "font_count": 7,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAY+SymbolMT (embedded)",
+        "AAAABC+Arial-BoldMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 3,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 776,
+            "smask_xref": 0,
+            "width_px": 1380,
+            "xref": 93
+          }
+        ]
+      },
+      "page": 7,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 6,
+        "chars": 594,
+        "has_text_layer": true,
+        "stripped_chars": 584
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 309,
+          "Do": 6,
+          "ET": 309,
+          "Q": 342,
+          "TJ": 97,
+          "Tj": 212,
+          "W": 25,
+          "cm": 315,
+          "cs": 20,
+          "f": 68,
+          "h": 74,
+          "l": 222,
+          "m": 74,
+          "n": 25,
+          "q": 342,
+          "re": 19,
+          "sc": 25
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 241,
+          "content_stream_paint_ops": 68,
+          "get_drawings_extended_entries": 94,
+          "get_drawings_items": 93,
+          "get_drawings_paint_items": 68,
+          "get_drawings_paths": 68,
+          "items_per_construction_op": 0.386,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 93,
+        "paths": 68
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAV+Arial-BoldMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABG+Wingdings-Regular (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 6,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 99
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 100
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 101
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 102
+          }
+        ]
+      },
+      "page": 8,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 14,
+        "chars": 883,
+        "has_text_layer": true,
+        "stripped_chars": 879
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 271,
+          "Do": 5,
+          "ET": 271,
+          "Q": 301,
+          "TJ": 80,
+          "Tj": 191,
+          "W": 23,
+          "cm": 276,
+          "cs": 19,
+          "f": 78,
+          "h": 83,
+          "l": 249,
+          "m": 83,
+          "n": 23,
+          "q": 301,
+          "re": 18,
+          "sc": 23
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 267,
+          "content_stream_paint_ops": 78,
+          "get_drawings_extended_entries": 102,
+          "get_drawings_items": 101,
+          "get_drawings_paint_items": 78,
+          "get_drawings_paths": 78,
+          "items_per_construction_op": 0.378,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 101,
+        "paths": 78
+      },
+      "font_count": 6,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABG+Wingdings-Regular (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 5,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 107
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 108
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 109
+          }
+        ]
+      },
+      "page": 9,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 17,
+        "chars": 806,
+        "has_text_layer": true,
+        "stripped_chars": 802
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 193,
+          "Do": 8,
+          "ET": 193,
+          "Q": 228,
+          "TJ": 58,
+          "Tj": 135,
+          "W": 28,
+          "cm": 201,
+          "cs": 18,
+          "f": 73,
+          "h": 81,
+          "l": 243,
+          "m": 81,
+          "n": 28,
+          "q": 228,
+          "re": 20,
+          "sc": 22
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 263,
+          "content_stream_paint_ops": 73,
+          "get_drawings_extended_entries": 102,
+          "get_drawings_items": 101,
+          "get_drawings_paint_items": 73,
+          "get_drawings_paths": 73,
+          "items_per_construction_op": 0.384,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 101,
+        "paths": 73
+      },
+      "font_count": 5,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAABE+Arial-ItalicMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 8,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 113
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 578,
+            "xref": 114
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 115
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 116
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 117
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 118
+          }
+        ]
+      },
+      "page": 10,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 13,
+        "chars": 561,
+        "has_text_layer": true,
+        "stripped_chars": 557
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 319,
+          "Do": 5,
+          "ET": 319,
+          "Q": 349,
+          "TJ": 105,
+          "Tj": 214,
+          "W": 23,
+          "cm": 324,
+          "cs": 19,
+          "f": 78,
+          "h": 83,
+          "l": 249,
+          "m": 83,
+          "n": 23,
+          "q": 349,
+          "re": 18,
+          "sc": 23
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 267,
+          "content_stream_paint_ops": 78,
+          "get_drawings_extended_entries": 102,
+          "get_drawings_items": 101,
+          "get_drawings_paint_items": 78,
+          "get_drawings_paths": 78,
+          "items_per_construction_op": 0.378,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 101,
+        "paths": 78
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABE+Arial-ItalicMT (embedded)",
+        "AAAABG+Wingdings-Regular (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 5,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 433,
+            "smask_xref": 0,
+            "width_px": 577,
+            "xref": 122
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 123
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 124
+          }
+        ]
+      },
+      "page": 11,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 15,
+        "chars": 948,
+        "has_text_layer": true,
+        "stripped_chars": 944
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 133,
+          "Do": 7,
+          "ET": 133,
+          "Q": 158,
+          "TJ": 39,
+          "Tj": 94,
+          "W": 20,
+          "cm": 140,
+          "cs": 10,
+          "f": 34,
+          "h": 41,
+          "l": 123,
+          "m": 41,
+          "n": 20,
+          "q": 158,
+          "re": 13,
+          "sc": 16
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 136,
+          "content_stream_paint_ops": 34,
+          "get_drawings_extended_entries": 55,
+          "get_drawings_items": 54,
+          "get_drawings_paint_items": 34,
+          "get_drawings_paths": 34,
+          "items_per_construction_op": 0.397,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 54,
+        "paths": 34
+      },
+      "font_count": 5,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 7,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 128
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 129
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 130
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 131
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 396,
+            "smask_xref": 0,
+            "width_px": 528,
+            "xref": 132
+          }
+        ]
+      },
+      "page": 12,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 10,
+        "chars": 373,
+        "has_text_layer": true,
+        "stripped_chars": 361
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 377,
+          "Do": 11,
+          "ET": 377,
+          "Q": 430,
+          "TJ": 108,
+          "Tj": 269,
+          "W": 43,
+          "cm": 388,
+          "cs": 30,
+          "f": 96,
+          "h": 107,
+          "l": 321,
+          "m": 107,
+          "n": 43,
+          "q": 430,
+          "re": 32,
+          "sc": 31
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 353,
+          "content_stream_paint_ops": 96,
+          "get_drawings_extended_entries": 140,
+          "get_drawings_items": 139,
+          "get_drawings_paint_items": 96,
+          "get_drawings_paths": 96,
+          "items_per_construction_op": 0.394,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 139,
+        "paths": 96
+      },
+      "font_count": 8,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAP+Arial-BoldMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAT+ArialMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABG+Wingdings-Regular (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 11,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 136
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 137
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 138
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 139
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 140
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 141
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 142
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 143
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 277,
+            "smask_xref": 0,
+            "width_px": 370,
+            "xref": 144
+          }
+        ]
+      },
+      "page": 13,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 21,
+        "chars": 1036,
+        "has_text_layer": true,
+        "stripped_chars": 1028
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 415,
+          "Do": 2,
+          "ET": 415,
+          "Q": 544,
+          "TJ": 112,
+          "Tj": 303,
+          "W": 100,
+          "cm": 417,
+          "cs": 124,
+          "f": 402,
+          "h": 404,
+          "l": 1212,
+          "m": 404,
+          "n": 100,
+          "q": 544,
+          "re": 98,
+          "sc": 233
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 1310,
+          "content_stream_paint_ops": 402,
+          "get_drawings_extended_entries": 503,
+          "get_drawings_items": 502,
+          "get_drawings_paint_items": 402,
+          "get_drawings_paths": 402,
+          "items_per_construction_op": 0.383,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": 1.0,
+          "verdict": "ok"
+        },
+        "items": 502,
+        "paths": 402
+      },
+      "font_count": 9,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAP+Arial-BoldMT (embedded)",
+        "AAAAAR+Arial-BoldMT (embedded)",
+        "AAAAAX+Arial-BoldMT (embedded)",
+        "AAAABI+Arial-BoldMT (embedded)",
+        "AAAABK+ArialMT (embedded)",
+        "AAAABM+TimesNewRomanPS-BoldMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 2,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          }
+        ]
+      },
+      "page": 14,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 29,
+        "chars": 1211,
+        "has_text_layer": true,
+        "stripped_chars": 1199
+      }
+    },
+    {
+      "drawings": {
+        "content_stream_ops": {
+          "BT": 254,
+          "Do": 4,
+          "ET": 254,
+          "Q": 265,
+          "TJ": 80,
+          "Tj": 174,
+          "W": 8,
+          "cm": 258,
+          "cs": 2,
+          "h": 4,
+          "l": 12,
+          "m": 4,
+          "n": 8,
+          "q": 265,
+          "re": 4,
+          "sc": 2
+        },
+        "cross_check": {
+          "content_stream_construction_ops": 16,
+          "content_stream_paint_ops": 0,
+          "get_drawings_extended_entries": 9,
+          "get_drawings_items": 8,
+          "get_drawings_paint_items": 0,
+          "get_drawings_paths": 0,
+          "items_per_construction_op": 0.5,
+          "items_per_construction_op_note": "informational only - MuPDF collapses m/l/l/l/h quads into one `re` item, so values well below 1.0 are normal",
+          "paths_per_paint_op": null,
+          "verdict": "ok"
+        },
+        "items": 8,
+        "paths": 0
+      },
+      "font_count": 7,
+      "fonts": [
+        "AAAAAC+TimesNewRomanPSMT (embedded)",
+        "AAAAAJ+ArialMT (embedded)",
+        "AAAAAN+ArialMT (embedded)",
+        "AAAAAP+Arial-BoldMT (embedded)",
+        "AAAAAY+SymbolMT (embedded)",
+        "AAAABC+Arial-BoldMT (embedded)",
+        "AAAABM+TimesNewRomanPS-BoldMT (embedded)"
+      ],
+      "frame": {
+        "box_source": "MediaBox",
+        "box_used_mm_size": [
+          209.903,
+          297.039
+        ],
+        "box_used_pt": [
+          0.0,
+          0.0,
+          595.0,
+          842.0
+        ],
+        "boxes_pdf_space": {
+          "ArtBox": null,
+          "BleedBox": null,
+          "CropBox": null,
+          "MediaBox": {
+            "pt": [
+              0.0,
+              0.0,
+              595.0,
+              842.0
+            ],
+            "size_mm": [
+              209.903,
+              297.039
+            ],
+            "size_pt": [
+              595.0,
+              842.0
+            ]
+          },
+          "TrimBox": null
+        },
+        "has_bleed": false,
+        "note": "origin = bottom-left of the box named by box_source; +X right, +Y up; units mm. For the game-mat PDF this frame IS the MAT frame.",
+        "notes": [
+          "NEEDS-VERIFY(S2): TrimBox missing, mat boundary derived from MediaBox"
+        ],
+        "rotation": 0,
+        "semantic": "page_trim_frame",
+        "used_minus_mediabox_pt": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "images": {
+        "count": 4,
+        "native": [
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "DCTDecode",
+            "height_px": 7016,
+            "smask_xref": 0,
+            "width_px": 4961,
+            "xref": 5
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 208,
+            "smask_xref": 59,
+            "width_px": 920,
+            "xref": 44
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 217,
+            "smask_xref": 0,
+            "width_px": 217,
+            "xref": 157
+          },
+          {
+            "bpc": 8,
+            "colorspace": "ICCBased",
+            "filter": "FlateDecode",
+            "height_px": 303,
+            "smask_xref": 159,
+            "width_px": 303,
+            "xref": 158
+          }
+        ]
+      },
+      "page": 15,
+      "page_rect_pt": [
+        0.0,
+        0.0,
+        595.0,
+        842.0
+      ],
+      "rotation": 0,
+      "text": {
+        "blocks": 14,
+        "chars": 754,
+        "has_text_layer": true,
+        "stripped_chars": 748
+      }
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "bytes": 7468185,
+    "name": "WRO-2026-RoboMission-Elementary-Game-Rules.pdf",
+    "sha256": "3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f"
+  },
+  "tool": {
+    "mupdf": "1.29.0",
+    "name": "pdf_extract",
+    "pymupdf": "1.28.0",
+    "python": "3.13.11",
+    "schema_version": 1,
+    "version": "1.0.0"
+  }
+}

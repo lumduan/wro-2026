@@ -6,7 +6,7 @@
 
 ```mermaid
 flowchart TD
-    P0["0 · Extraction toolchain<br/>ACTIVE — this session"] --> P1["1 · Human review gate<br/>needs 0"]
+    P0["0 · Extraction toolchain<br/>DONE — S2 confirmed VECTOR"] --> P1["1 · Human review gate<br/>ACTIVE — read EXTRACTION_REPORT"]
     P1 --> P2["2 · field_spec.json<br/>geometry freeze"]
     P1 --> P3["3 · Scoring model from S1"]
     P1 --> P4["4 · Game-object spec from S3"]
@@ -27,7 +27,7 @@ flowchart TD
     classDef decision fill:#fde0e0,stroke:#d05555,color:#8f2e2e
     classDef goal     fill:#ede0fb,stroke:#8a5cd8,color:#4d2e8f
 
-    class P0 active
+    class P0 done
     class P1,P5 decision
     class P2,P3,P4,P6,P7,P8 blocked
     class P9 goal
@@ -35,8 +35,8 @@ flowchart TD
 
 | Phase | Status | What it is | Blocker |
 |---|---|---|---|
-| **0 · Extraction toolchain** | 🟡 ACTIVE | `tools/pdf_extract.py`, `docs/extracted/`, `docs/EXTRACTION_REPORT.md` | — |
-| **1 · Human review gate** | 🟥 BLOCKED | read the extraction report; accept or reject geometry quality | operator only — needs 0 |
+| **0 · Extraction toolchain** | ✅ DONE | `tools/pdf_extract.py` (45 tests green), `docs/extracted/` for all 3 sources, `docs/EXTRACTION_REPORT.md`. **S2 confirmed VECTOR** (50,479 paths); mat measured **2361.999 × 1143.000 mm**; two runs byte-identical across 9,124 outputs | — |
+| **1 · Human review gate** | 🟥 **ACTIVE** | read `docs/EXTRACTION_REPORT.md`; accept or reject geometry quality | operator only — **this is the next action** |
 | **2 · `field_spec.json`** | ⬜ BLOCKED | freeze mat geometry; map fills → canonical area IDs; freeze the `CLAUDE.md` §5.3 ID table | needs 1 |
 | **3 · Scoring model (S1)** | ⬜ BLOCKED | `CLAUDE.md` §5.6 frozen v1 → machine-readable; 24 note permutations | needs 1 |
 | **4 · Object spec (S3)** | ⬜ BLOCKED | dimensions, mass, grip points per game object | needs 1 |
@@ -81,16 +81,27 @@ surface it and wait.
 
 ## 2 · Phase detail
 
-### Phase 0 — Extraction toolchain 🟡 ACTIVE
+### Phase 0 — Extraction toolchain ✅ DONE (2026-07-25)
 
-Build `tools/pdf_extract.py` and turn S1/S2/S3 into machine-readable, human-reviewable
-artifacts. Deliverables: the CLI, `tests/test_pdf_extract.py`, `docs/extracted/**`,
-`docs/EXTRACTION_REPORT.md`, `docs/ASSUMPTIONS.md`.
+Delivered: `tools/pdf_extract.py`, `tests/test_pdf_extract.py` (45 tests green),
+`docs/extracted/**` for all three sources, `docs/EXTRACTION_REPORT.md`,
+`docs/ASSUMPTIONS.md`.
 
-Explicitly out of scope: `data/field_spec.json`, fill-colour → area-ID mapping, robot
-design, strategy, simulator.
+Findings that change what downstream phases can assume:
 
-### Phase 1 — Human review gate 🟥
+| Finding | Effect |
+|---|---|
+| **S2 is VECTOR** — 50,479 paths, 0.9998 paths per painting op | phase 2 can be mm-exact; geometry is not sampling-limited |
+| **Mat = 2361.999 × 1143.000 mm** from TrimBox | the `2362 × 1143` assumption is confirmed, not assumed |
+| **S2 has zero bleed** (TrimBox == MediaBox) | raised a new `NEEDS-VERIFY(S4)` about a physical mat border — see phase 5 |
+| **S3 is fully rasterized** — 1/177 pages with a text layer, 0 vector paths | phase 4 is visual-reading work, not parsing work. Budget accordingly. |
+| S1 text + scoring tables extract cleanly (13,596 chars, GFM tables) | phase 3 is straightforward |
+| S1 p13 confirms `AMBIGUITY(A1)` verbatim | the register's OR default stands |
+
+Explicitly out of scope and **not** done: `data/field_spec.json`, fill-colour → area-ID
+mapping, robot design, strategy, simulator.
+
+### Phase 1 — Human review gate 🟥 ACTIVE
 
 A person reads `docs/EXTRACTION_REPORT.md` and decides whether the extraction is trustworthy
 enough to freeze geometry against. This gate exists because a wrong coordinate transform
@@ -116,6 +127,13 @@ Per-object dimensions, mass and grip points from the building instructions.
 Obtain "WRO RoboMission General Rules 2026". Authoritative for robot limits, run procedure,
 restarts, tie-break and table setup. Resolves A3, A4, A5, A6 and every open
 `NEEDS-VERIFY(S4)` in `docs/EXTRACTION_REPORT.md`.
+
+Phase 0 added one more, and it is the highest-consequence of the set:
+
+> Does the competition-supplied mat carry a **border beyond the artwork trim edge**, and is
+> it laid flush to the table walls? S2 declares zero bleed, so if the physical mat has an
+> unprinted margin, **every** MAT-frame coordinate is offset by a constant that no internal
+> consistency check could reveal. (`AS-5`)
 
 **This is the highest-leverage item on the board and it is blocked by nothing.**
 

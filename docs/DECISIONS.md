@@ -15,6 +15,8 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-007](#adr-007) | `render --colorspace {rgb,cmyk,gray}` added to the spec | accepted |
 | [ADR-008](#adr-008) | Float precision defaults to 3 decimals (1 µm) | accepted |
 | [ADR-009](#adr-009) | Clip paths are retained in the vector dump | accepted |
+| [ADR-010](#adr-010) | `vector/drawings.json` is gitignored; the fill inventory is not | accepted |
+| [ADR-011](#adr-011) | Images escalate through fallbacks rather than being dropped | accepted |
 
 ---
 
@@ -179,3 +181,64 @@ their nesting `level`, alongside normal fill/stroke paths.
 **Consequence.** `drawings.json` is larger and consumers must be clip-aware. In exchange, the
 next session can reconstruct the clip stack and compute *visible* area rather than trusting a
 number that silently overstates coverage.
+
+---
+
+## ADR-010
+
+### `vector/drawings.json` is gitignored; `fills_by_colour.json` is committed
+
+**Context.** S2's mat artwork is vector, and richly so: 55,746 drawing entries carrying
+~307k path items, of which ~275k are cubic Béziers. Serialised at 3-decimal precision that
+is roughly 120 MB of JSON for a single page. Git stores each revision whole, so every re-run
+that changes one coordinate adds another ~120 MB blob to history forever.
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Commit `drawings.json` | repo is self-contained; history grows ~120 MB per regeneration |
+| Reduce precision further | 2 decimals saves maybe 15 %; still ~100 MB, and loses resolution for no real gain |
+| Filter to "significant" paths | invents a threshold, i.e. a judgement call this session is explicitly not allowed to make (§6) |
+| Gitignore it, commit the inventory | repo stays reviewable; full dump regenerates byte-identically |
+
+**Decision.** Gitignore `docs/extracted/**/vector/drawings.json`. Commit
+`vector/fills_by_colour.json` (small, and it *is* the raw inventory the extraction report
+is asked to present). `manifest.json` records the sha256 and byte length of the ignored
+dump, so its integrity is still auditable from git.
+
+**Consequence.** A fresh clone must run `pdf_extract.py vector <pdf>` before it has path
+geometry. That is one command and it is deterministic, which is the same trade already
+accepted in ADR-001 for rasters. The alternative — a multi-hundred-megabyte git history
+built out of regenerable derived data — is worse, and filtering the dump would have
+required exactly the kind of judgement call this session must not make.
+
+---
+
+## ADR-011
+
+### Images escalate through fallbacks rather than being dropped
+
+**Context.** The first full run of S2 reported *112 embedded images could not be decoded*:
+`pixmap must be grayscale or rgb to write as png`. They are all
+`Separation(DeviceCMYK, All)` — a 1-channel spot colourspace with no PNG representation.
+The naive `pixmap.tobytes("png")` path silently loses every one of them.
+
+**Decision.** `_encode_image()` escalates: pixmap → PNG, then forced RGB → PNG, then the
+embedded stream in its **native** encoding (typically JPEG) via `doc.extract_image()`. The
+method used is recorded per image in the sidecar (`encode_method`) and aggregated in
+`manifest.json`, and any non-default method raises an `ASSUME:` note.
+
+**Outcome on the real file.** All 112 recovered at step 2 (forced RGB), so `img/` stayed
+all-PNG and step 3 was not exercised on S2. It is kept regardless: it is the only step that
+cannot fail, and a future source with a DeviceN or stencil colourspace will need it.
+
+**Consequence.** No image is ever dropped, and the sidecar states plainly when pixel values
+are not sRGB. The cost is a potentially mixed-format `img/` directory, which is why the
+sidecar carries `format` explicitly rather than the filename extension being assumed
+`.png`.
+
+**This also sharpens [AS-2](ASSUMPTIONS.md#as-2):** the spot colourspace is
+`Separation(DeviceCMYK, All)` — the `All` separant, conventionally used for printer's marks
+that must appear on every plate. That is evidence for, but not proof of, "technical layer,
+not artwork".

@@ -12,6 +12,12 @@ __pycache__/
 docs/extracted/**/render/
 docs/extracted/**/img/
 
+# The S2 vector dump is ~120 MB of JSON for a single page (55k paths, 275k
+# Beziers). Git stores every revision whole, so committing it would add that
+# much to history on each regeneration. fills_by_colour.json IS committed --
+# it is the raw inventory the extraction report presents. See ADR-010.
+docs/extracted/**/vector/drawings.json
+
 # Git has no size-based ignore rule. The ">5 MB PNG" constraint is enforced
 # structurally instead: every PNG this toolchain emits lands in either render/
 # or img/, both of which are ignored above. If a PNG ever appears outside those
