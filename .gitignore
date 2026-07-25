@@ -5,6 +5,21 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
+# --- Third-party source documents: NOT redistributed ---
+# S1/S2/S3 are (c) 2026 World Robot Olympiad Association Ltd. This repository
+# publishes the toolchain and our own analysis, not WRO's documents. Download
+# them yourself from the WRO site into docs/ -- README.md lists the expected
+# filenames and sha256s, and pdf_extract.py records the hash of whatever it
+# actually read, so a substituted file is detectable.
+docs/*.pdf
+
+# Text extractions reproduce the rulebook verbatim, so they are local-only for
+# the same reason. Regenerate with:  uv run python tools/pdf_extract.py all <pdf>
+docs/extracted/**/text/
+docs/extracted/WRO-2026-GameMat-Elementary-Printing-File/WRO-2026-GameMat-Elementary-Printing-File.md
+docs/extracted/WRO-2026-RM-Elementary-BI-All/WRO-2026-RM-Elementary-BI-All.md
+docs/extracted/WRO-2026-RoboMission-Elementary-Game-Rules/WRO-2026-RoboMission-Elementary-Game-Rules.md
+
 # --- Generated extraction artifacts ---
 # Rasters are large and fully regenerable from the source PDFs via
 # `tools/pdf_extract.py`; manifest.json records a sha256 for every one of them,

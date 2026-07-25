@@ -8,12 +8,41 @@ Current state and dependencies: [`docs/plans/ROADMAP.md`](docs/plans/ROADMAP.md)
 
 ---
 
+## Getting the source documents
+
+**The WRO source PDFs are not in this repository.** They are © 2026 World Robot Olympiad
+Association Ltd; this repo publishes the toolchain and our own analysis, not WRO's
+documents. Download them from the WRO website and drop them in `docs/`:
+
+| Expected filename | Role | sha256 (the copy this analysis was built from) |
+|---|---|---|
+| `WRO-2026-RoboMission-Elementary-Game-Rules.pdf` | S1 — missions, scoring, randomization | `3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f` |
+| `WRO-2026-GameMat-Elementary-Printing-File.pdf` | S2 — all field geometry | `8d58381fdcd9bc1784ae893e5b133707ca81f19aff51e31ca41c02276466c4d9` |
+| `WRO-2026-RM-Elementary-BI-All.pdf` | S3 — game-object dimensions | `ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a` |
+
+`pdf_extract.py` records the sha256 of whatever it actually read into `manifest.json`, so a
+different revision of a source document is detectable rather than silently mixed in. Then:
+
+```bash
+uv sync
+uv run python tools/pdf_extract.py all docs/*.pdf
+```
+
+Extraction is deterministic — same input hash + same params ⇒ byte-identical output — so
+regenerating reproduces exactly what `docs/EXTRACTION_REPORT.md` describes.
+
+Text extractions (`docs/extracted/*/text/`) are gitignored for the same copyright reason:
+they reproduce the rulebook verbatim. Everything else — the structural probe, the vector
+fill inventory, the report and the decision records — is committed.
+
 ## Where things are
 
 | Path | What |
 |---|---|
-| `docs/*.pdf` | S1–S3 source documents. **Read-only. Never modified.** |
+| `docs/*.pdf` | S1–S3 source documents. **Not committed** (see above). Read-only. Never modified. |
 | `docs/extracted/<pdf-stem>/` | Machine-readable extraction output. Generated — never hand-edit. |
+| `docs/extracted/*/probe.json` | Structural report: boxes in pt+mm, rotation, colourspaces, fonts, op counts. |
+| `docs/extracted/*/vector/fills_by_colour.json` | Raw fill-colour inventory from the mat, in mm. |
 | `docs/EXTRACTION_REPORT.md` | Human-readable verdict on extraction quality. |
 | `docs/ASSUMPTIONS.md` | Every `ASSUME:` with its consequence-if-wrong. |
 | `docs/AMBIGUITIES.md` | Ambiguity register A1–A6 with conservative defaults. |
