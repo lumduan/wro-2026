@@ -1121,7 +1121,6 @@
     "argv": [
       "--quiet",
       "all",
-      "docs/WRO-2026-GameMat-Elementary-Printing-File.pdf",
       "docs/WRO-2026-RM-Elementary-BI-All.pdf",
       "docs/WRO-2026-RoboMission-Elementary-Game-Rules.pdf",
       "docs/WRO-2026-RoboMission-General-Rules.pdf"
@@ -1220,7 +1219,7 @@
       }
     },
     "precision": 3,
-    "utc": "2026-07-25T15:56:01Z"
+    "utc": "2026-07-25T15:57:03Z"
   },
   "schema_version": 1,
   "source": {
