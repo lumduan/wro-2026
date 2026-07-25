@@ -13,6 +13,11 @@ __pycache__/
 # actually read, so a substituted file is detectable.
 docs/*.pdf
 
+# S6 (official Q&A) snapshots are third-party content for the same reason.
+# docs/s6_index.json IS committed -- it carries the per-answer timestamp tuples
+# that change detection diffs on, without redistributing the answers.
+docs/s6-qa-snapshot-*.html
+
 # Text extractions reproduce the rulebook verbatim, so they are local-only for
 # the same reason. Regenerate with:  uv run python tools/pdf_extract.py all <pdf>
 docs/extracted/**/text/

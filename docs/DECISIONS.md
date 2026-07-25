@@ -2,7 +2,8 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-25`
+`last_reviewed: 2026-07-25` · ADR-013/014/015 are schema decisions whose consequences
+outlive the session; **no builder code is written until they are signed off.**
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -17,6 +18,10 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-009](#adr-009) | Clip paths are retained in the vector dump | accepted |
 | [ADR-010](#adr-010) | `vector/drawings.json` is gitignored; the fill inventory is not | accepted |
 | [ADR-011](#adr-011) | Images escalate through fallbacks rather than being dropped | accepted |
+| [ADR-012](#adr-012) | Canonical ID table frozen (first freeze, not a rename) | accepted |
+| [ADR-013](#adr-013) | `completely_in` gets a declared domain via a `scoring` flag | **PROPOSED — awaiting sign-off** |
+| [ADR-014](#adr-014) | Initial object pose is run-time state, not a spec constant | **PROPOSED — awaiting sign-off** |
+| [ADR-015](#adr-015) | Selector cardinality is declared per entry | **PROPOSED — awaiting sign-off** |
 
 ---
 
@@ -242,3 +247,186 @@ sidecar carries `format` explicitly rather than the filename extension being ass
 `Separation(DeviceCMYK, All)` — the `All` separant, conventionally used for printer's marks
 that must appear on every plate. That is evidence for, but not proof of, "technical layer,
 not artwork".
+
+
+---
+
+## ADR-012
+
+### Canonical ID table frozen
+
+**Context.** `CLAUDE.md` §5.3 had been a `NEEDS-VERIFY(S1)` stub since session 1: the
+original brief's ID table arrived empty and no table existed anywhere in the repo. Both
+`field_spec.json` (keys) and `scoring_model.json` (references) need it, so it blocked both.
+
+**Options.** Derive names from S1 vocabulary · adopt an operator-supplied table verbatim ·
+keep deferring.
+
+**Decision.** Freeze the operator-supplied table **verbatim**, in `CLAUDE.md` §5.3. This is a
+**first freeze, not a rename** — nothing was renamed because nothing existed. An earlier
+in-session proposal (`grey_area_*`, `microphone_target_area`, `backstage_area`,
+`note_start_slot_{1..4}`) is **discarded**; the supplied table wins in every case, including
+zero-indexed `note_start_rand_{0..3}` and the short forms `mic` / `amp`.
+
+**Two additions resolved here.**
+
+1. **`unassigned_marker_{1..4}`** for the four `#979797` 31.9 mm squares at (90.9, 101.8),
+   (988.9, 715.2), (1779.3, 133.8), (2004.9, 1051.6). An earlier hypothesis mapped them to
+   clef / amp / speakers / mic. **Repo data excludes three of those four**: none of the
+   markers lies on the stage `#85604b` `[-13, 324, 535, 1182]`, yet S1 puts the amplifier and
+   both speakers *on the stage* and the microphone *in the truck*. S1 p2 warns of markings
+   unused at local/national events, and S4 §8.4 describes the Extra Day Challenge relocating
+   objects on the same mat (S1 dates it 8 Oct 2026). `NEEDS-VERIFY(S1-extra-mission)`.
+2. **`stage` and `plaza` enter the spec at `scoring: false`.** The sensor/navigation model
+   needs the large mat colour regions, and ADR-013's predicate ranges only over
+   `scoring: true`, so their presence is safe **by construction rather than by convention**.
+
+**Consequence.** Instance-distinguishing IDs are mandatory where scoring needs them: bonus
+awards 10 per speaker to a max of 20, so a singular `speaker` could not express which one
+toppled. Recording the marker IDs as *unassigned* rather than guessing keeps a wrong semantic
+out of S5 — every downstream module reads S5 without question, whereas an empty slot is
+visibly empty.
+
+---
+
+## ADR-013
+
+### `completely_in` gets a declared domain — **PROPOSED**
+
+**Context.** S1 p9 defines *completely in* as touching the corresponding area **and no other
+area on the mat**. "Area on the mat" is undefined. The mat carries **580 distinct fills**;
+`field_spec.json` will carry roughly a dozen polygons. Every scoring target except
+`backstage` is drawn on top of a larger fill:
+
+| target | enclosing fill |
+|---|---|
+| `mic_target` `#c3d82d` `[220.2, 695.2, 299.9, 790.8]` | `stage` `#85604b` `[-13, 324, 535, 1182]` |
+| `note_target_*` ×6, `start_area` | `plaza` `#8d8f91` `[389, 0, 2362, 1143]` |
+| `backstage` `#cf8fbb` `[0, 0, 400.1, 323.5]` | none — runs to the mat corner |
+
+If `stage` or `plaza` enter the spec unflagged and the predicate iterates every area, **no
+object can score anywhere.** That failure is silent at build time and surfaces only when the
+scorer runs, in Phase 6.
+
+**Options.**
+
+| option | verdict |
+|---|---|
+| scoring areas only | works, but leaves the flag implicit and fragile |
+| **all spec areas behind an explicit `scoring` flag** | **proposed** |
+| all 580 mat fills | **rejected** — not implementable from a dozen polygons, and it is the reading that makes the game unscoreable |
+
+**Decision (proposed).**
+
+```
+areas: { id, polygon_mm, scoring: bool, includes_grey_border: bool, ... }
+
+completely_in(obj, target) :=
+    contains(target.polygon, obj.footprint)
+    AND ∀ a ∈ areas where a.scoring ∧ a.id ≠ target.id :
+        ¬intersects(a.polygon, obj.footprint)
+```
+
+`scoring` is declared **explicitly on every area** — no default, no inference — and that is
+asserted by test.
+
+**Consequence.** A7's default is recorded as a **forced** reading, not a conservative choice:
+any literal reading of "no other area on the mat" makes the game unscoreable, so full
+containment is the only implementable one. A register that presents a forced reading as a
+chosen one invites a later session to "reconsider" it.
+
+---
+
+## ADR-014
+
+### Initial object pose is run-time state, not a spec constant — **PROPOSED**
+
+**Context.** The schema needs `object_start_poses` for all 16 objects. Precise coordinates
+exist for **six**:
+
+| object | precise start pose? |
+|---|---|
+| `note_*` ×6 | ✅ the six 31.9 mm squares at y = 1059.5 |
+| `clef`, `amp`, `speaker_a`, `speaker_b` | ❌ no marker (see ADR-012) |
+| `cable_upper`, `cable_lower` | ❌ S1 says only "close to the stage, upper and lower end" |
+| `mic`, `instrument_*` ×3 | ❌ "in the truck" — the truck is artwork, not a marker |
+
+Bonus scoring needs exactly the four in the first ❌ row.
+
+**Decision (proposed).** Change the semantics rather than hunt for coordinates. `moved` is
+judged against where the object stood at the start of **that run**, not against a constant in
+a spec file — S4 §10.8 scores the end-of-attempt field state and §9.6 has judges re-set the
+tables between rounds.
+
+```
+field_spec.json      nominal_start_pose_mm + placement_tolerance_mm   (ASSUME:)
+simulator, per seed  initial_pose = nominal + setup noise
+scorer, moved()      compares against THAT RUN's initial_pose, never the spec value
+```
+
+**Consequence.** Unblocks all ten objects, keeps the spec honest about measured versus
+assumed, and pulls setup variance into the Monte-Carlo where S4 §7.10 says it belongs.
+
+**Why low absolute precision on `nominal_start_pose_mm` is acceptable** — recorded so a later
+session does not chase accuracy nothing consumes:
+
+- **Bonus scoring does not use it.** `moved` compares against that run's initial pose and the
+  object's own footprint — a relative quantity; the footprint comes from Phase 4's stud count,
+  not from the mat.
+- **Route planning does use it**, but tolerates roughly ±20 mm, because S4 §9.6 and §10.2
+  force the robot to sense its way in regardless.
+
+---
+
+## ADR-015
+
+### Selector cardinality is declared per entry — **PROPOSED**
+
+**Context.** A global "exactly one path" rule makes the builder's hard-fail valuable, but it
+is wrong for at least three entries measured in the repo:
+
+| area | paths | measured | required |
+|---|---:|---|---|
+| `truck` `#afbbdf` / `#4d7489` | 2 + 2 | **two separate vehicles**, x 1055–1376 and 1381–1703 | `union`, `expect_paths = 2` |
+| `plaza` `#8d8f91` | **4** | largest is 642,893 of 2,274,403 mm² = **28 %** | `union`, `expect_paths = 4` |
+| `stage` `#85604b` | 1 | 389,479 mm², single `re` | `exact` |
+
+`largest` on `plaza` would silently take about a quarter of it and the builder would report
+success.
+
+**Decision (proposed).**
+
+```toml
+[areas.truck]
+match        = "union"    # "exact" (default) | "union" | "largest"
+expect_paths = 2          # MANDATORY when match = "union"
+```
+
+`expect_paths` is **not optional**: a bare `union` silently absorbs any path added later and
+destroys the one property that makes hard-fail worth having.
+
+**Two sub-decisions to settle at sign-off.**
+
+1. **Does `truck` need a polygon at all?** Under ADR-014 it may be only a label on a
+   start-pose group. Decide deliberately; do not let the builder discover it.
+2. **`start_area` — now RESOLVED, see below.** Its cardinality is not a vector-path question.
+
+**`start_area` resolution (2026-07-25).** The earlier candidate — a `#ffffff` path inside the
+`#24408f` border — does not exist. Three checks settled it:
+
+| check | result |
+|---|---|
+| near-white vector fills in that bbox | **zero** |
+| `#24408f` shape | solid `re`, `area == bbox_area == 74,529` — not a frame |
+| raster placements overlapping it | `p001_3832`, 2953 × 2953 px, placed at **[2050.5, 446.5, 2300.5, 696.5] = 250.0 × 250.0 mm** |
+
+S1's own labelled field diagram (p3, image `p003_0003`) points its **"Start Area"** arrow
+directly at that panel. So under S4 §7.8 (*"the white area within a coloured border"*) the
+blue `#24408f` 273 mm rect **is** the coloured border (11.5 mm wide) and the **white area is a
+raster, not a vector path** — which is exactly why no `#ffffff` path exists.
+
+The white area measures **250.0 × 250.0 mm**, identical to the §5.1 robot envelope. A
+full-size robot therefore has **zero placement slack** in the start area; any real design
+needs to be smaller than 250 mm to have any. `start_area`'s selector is a **raster placement
+rect**, not a fill selector — the builder needs that path, and it is a schema question, not a
+cardinality one.

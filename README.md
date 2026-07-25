@@ -19,6 +19,21 @@ documents. Download them from the WRO website and drop them in `docs/`:
 | `WRO-2026-RoboMission-Elementary-Game-Rules.pdf` | S1 — missions, scoring, randomization | `3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f` |
 | `WRO-2026-GameMat-Elementary-Printing-File.pdf` | S2 — all field geometry | `8d58381fdcd9bc1784ae893e5b133707ca81f19aff51e31ca41c02276466c4d9` |
 | `WRO-2026-RM-Elementary-BI-All.pdf` | S3 — game-object dimensions | `ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a` |
+| `WRO-2026-RoboMission-General-Rules.pdf` | S4 — robot limits, run procedure, table setup | `90a28d8bf77f628227e5f544ec57b5230d620f3ae581f092bed1fda23de9e795` |
+
+**S6** is the official Q&A at `wro-association.org/competition/questions-answers/`. It sits
+**above** S1 and S4 in the precedence hierarchy (S4 §4.4) and is live and unversioned, so it
+is snapshotted rather than linked:
+
+```bash
+curl -o docs/s6-qa-snapshot-$(date +%F).html \
+     https://wro-association.org/competition/questions-answers/
+uv run python tools/s6_index.py docs/s6-qa-snapshot-$(date +%F).html
+```
+
+`docs/s6_index.json` (committed) holds the per-answer `(question, author, timestamp)` tuples.
+**Diff on those, never on the page's HTTP `Last-Modified` header** — that is a render/cache
+timestamp on this site and moves on theme edits independently of content.
 
 `pdf_extract.py` records the sha256 of whatever it actually read into `manifest.json`, so a
 different revision of a source document is detectable rather than silently mixed in. Then:
@@ -39,13 +54,15 @@ fill inventory, the report and the decision records — is committed.
 
 | Path | What |
 |---|---|
-| `docs/*.pdf` | S1–S3 source documents. **Not committed** (see above). Read-only. Never modified. |
+| `docs/*.pdf` | S1–S4 source documents. **Not committed** (see above). Read-only. Never modified. |
 | `docs/extracted/<pdf-stem>/` | Machine-readable extraction output. Generated — never hand-edit. |
 | `docs/extracted/*/probe.json` | Structural report: boxes in pt+mm, rotation, colourspaces, fonts, op counts. |
 | `docs/extracted/*/vector/fills_by_colour.json` | Raw fill-colour inventory from the mat, in mm. |
 | `docs/EXTRACTION_REPORT.md` | Human-readable verdict on extraction quality. |
 | `docs/ASSUMPTIONS.md` | Every `ASSUME:` with its consequence-if-wrong. |
-| `docs/AMBIGUITIES.md` | Ambiguity register A1–A6 with conservative defaults. |
+| `docs/AMBIGUITIES.md` | Ambiguity register A1–A8; four resolved by S4/S6. |
+| `docs/citations.json` | Every cited rule, quoted and page-referenced. |
+| `docs/s6_index.json` | Q&A answer timestamps — the change-detection diff target. |
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
 | `docs/plans/ROADMAP.md` | Phase dependency diagram and status. |
 | `tools/pdf_extract.py` | The extraction CLI. |
@@ -85,10 +102,13 @@ that conversion and every command calls it — there is deliberately no second c
 
 ## Ground rules
 
-- No rule, number or dimension may be stated unless it traces to S1–S3.
-- **S4 (RoboMission General Rules 2026) is missing.** Anything needing it is tagged
-  `NEEDS-VERIFY(S4):` and left open. Prior-season WRO rules are not a substitute — the 2026
-  general rules changed.
+- No rule, number or dimension may be stated unless it traces to S1, S2, S4 or S6.
+- **S6 (official Q&A) outranks everything** and has already overwritten two S4 clauses.
+  Re-read it before any scoring or robot-limit claim. Prior-season WRO rules are never a
+  substitute — the 2026 general rules changed.
+- **Cite the rule number, never an intermediate document.** Every rule this repo relies on is
+  quoted and page-referenced in `docs/citations.json`, capped at 15 words per quote and one
+  entry per rule (enforced by `tests/test_citations.py`).
 - Coordinates live in `data/field_spec.json`, nowhere else.
 
 ## Licence

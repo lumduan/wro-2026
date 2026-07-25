@@ -283,7 +283,8 @@ vector JSON. Zero differing files across 9,124 compared outputs.
 | `vector/fills_by_colour.json` (S2) | 340,140 B | ✅ committed — this is the raw inventory §4 presents |
 | `img/` (S2, 4,448 rasters) | 38 MB | ❌ gitignored — `ADR-001` |
 | `render/full_4pxmm.png` | 5.6 MB | ❌ gitignored |
-| `probe.json`, `text/`, `manifest.json` | 2.5 MB | ✅ committed |
+| `probe.json`, `manifest.json`, `citations.json` | 2.5 MB | ✅ committed |
+| `text/` (verbatim rulebook text) | — | ❌ gitignored since the publish commit — **corrected 2026-07-25**; rule citations live in `docs/citations.json` instead |
 
 Ignored artifacts still carry a sha256 and byte length in `manifest.json`, so their
 integrity is auditable from git even though the bytes are not stored. Regeneration is one

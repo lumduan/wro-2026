@@ -16,7 +16,7 @@ document cannot drift apart silently.
 | [AS-2](#as-2) | The single `/Separation` spot colourspace is not artwork | `probe` | one printed feature is missing from the fill inventory |
 | [AS-3](#as-3) | `area_mm2` uses fixed 16-segment Bézier flattening | `vector` (ADR-004) | curved-shape areas carry a small error; rectangles are exact |
 | [AS-4](#as-4) | `area_mm2` is computed **before** clipping | `vector` (ADR-009) | a clipped path's area overstates what is visible on the mat |
-| [AS-5](#as-5) | The printed mat equals the TrimBox exactly | `probe` (zero bleed) | the physical mat has a border the coordinates do not account for |
+| [AS-5](#as-5) | ~~The printed mat equals the TrimBox exactly~~ | **RESOLVED** S4 §7.2 | — (kept for the record; see below) |
 | [AS-6](#as-6) | "upright" means tilt ≤ 15° from the start pose | `AMBIGUITY(A2)` | simulator scores runs the referee would not, or hides viable strategies |
 | [AS-7](#as-7) | The MAT frame equals the S2 page-trim frame | `MatFrame` | every coordinate downstream is offset by the same constant error |
 
@@ -119,8 +119,21 @@ would be invisible in the data (all areas stay self-consistent) and would only s
 systematic miss on the physical table. This is the highest-consequence assumption in this
 document.
 
-**Open question.** `NEEDS-VERIFY(S4)`: does the competition-supplied mat carry a border
-beyond the artwork trim edge, and is it laid flush to the table walls?
+### RESOLVED 2026-07-25 — S4 §7.2
+
+> *"dimensions of a WRO mat are 2362 mm x 1143 mm"* — game tables are the same size or
+> max ±5 mm in each dimension; the official border height is 50 mm.
+
+The printed mat **is** the TrimBox: 2362 × 1143 mm, matching the measured 2361.999 × 1143.000
+to within 1.1 µm. The "borders" are the **50 mm table walls**, not a print margin. The entry
+is kept rather than deleted so the reasoning stays auditable.
+
+**What replaces it** is not zero uncertainty but a *different* one: S4 §7.2 allows the table
+to exceed the mat by up to 5 mm, and S1 p3 says to lay the mat against the short wall nearest
+the start area (the right) and centre it in the other axis. So the registration datum is
+X = right wall, Y = centred — up to 5 mm of slack accumulates toward −X, and the stage-side
+missions (cables, mic, backstage, all at x < 535) sit at the far end of that error chain.
+That is now `table.tolerance_mm` data in `field_spec.json`, not an assumption.
 
 ---
 
