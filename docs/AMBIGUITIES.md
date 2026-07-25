@@ -19,6 +19,7 @@ so submitting them is an action, not a wait.
 | A5 | **RESOLVED** S6 2026-06-30 | Do objects still held by the mechanism at time-out score? | old default **no** was WRONG — they score at the **partial tier** |
 | A6 | **RESOLVED** (international) S4 5.x | Max motors/sensors, start-size envelope, EV3+SPIKE mixing | S4 §5.1 250³ · §5.2.8 **4 motors** · §5.2.7 **cameras prohibited** · §5.2 brand mixing allowed. `NEEDS-VERIFY(NO-TH)` at national scope |
 | A7 | **OPEN** — route: S6 | "completely in" says *no other area on the mat*, but "area" is undefined and the mat carries 580 distinct fills | Full containment in the target polygon. This is a **FORCED** reading, not a conservative choice — see below |
+| A9 | **OPEN** — route: S6 | S4 §7.8 defines the start area as "the white area within a coloured border", but 29.56 % of this mat's start-area interior is **not white** (logo, band, text, QR). The *boundary* is measured; the *interpretation* is not. | the measured 250.0 × 250.0 mm placement rect |
 | A8 | **OPEN** — route: S6 | Bonus-only run (40 pts, no mission solved): actual elapsed time, or forced 120 s under S4 §10.12? | forced 120 s |
 
 ---
@@ -147,3 +148,27 @@ sheet, but passively not damaging an object is arguably not "solving a task".
 - **Route:** `NEEDS-VERIFY(S6)` — submitted 2026-07-25.
 - **Consequence if wrong:** affects tie-break among bonus-floor runs only. Low stakes, but it
   is the kind of thing that decides a placement.
+
+
+## A9 — the §7.8 start-area interpretation (added 2026-07-25)
+
+**The geometry is resolved. The interpretation is not.** Separating the two matters here.
+
+`MEASURED(S2)`: the start area is the 250.0 × 250.0 mm raster placement rect
+`[2050.5, 446.5, 2300.5, 696.5]`, inside an 11.5 mm `#24408f` border. Evidence: the outer
+20 px ring of that raster is 100.000 % one colour (`#fefefd`, 234,640 px, zero non-white); the
+continuous all-white margin is 8.21–29.12 mm per side, so it is not a self-framing raster; and
+S1's own labelled field diagram (p3) points its "Start Area" arrow directly at that panel.
+
+**But S4 §7.8 says "the white area", and 29.56 % of that interior is not white** — it carries
+the WRO logo, a yellow band, text and a QR code. Whether §7.8's description is meant to
+describe this mat literally, or whether the whole bordered panel is the start area regardless
+of what is printed on it, is unanswered.
+
+- **Default:** the whole 250.0 × 250.0 mm panel is the start area. Any narrower reading would
+  make the start area smaller than the §5.1 robot envelope, which cannot be intended.
+- **Route:** `NEEDS-VERIFY(S6-startarea)` — submitted 2026-07-25 with A1 and A8.
+- **Consequence if wrong:** the usable start footprint shrinks below 250 mm and every chassis
+  width derived from `PHASE7_CONSTRAINTS.md` §2 moves with it.
+- **Status:** operator action remains **blocking-advisory, not closed**, even though the
+  boundary itself is measured.

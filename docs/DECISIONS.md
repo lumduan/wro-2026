@@ -2,8 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-25` · ADR-013/014/015 are schema decisions whose consequences
-outlive the session; **no builder code is written until they are signed off.**
+`last_reviewed: 2026-07-25` · ADR-013/014/015 signed off 2026-07-25; the builder may proceed.
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -19,9 +18,9 @@ outlive the session; **no builder code is written until they are signed off.**
 | [ADR-010](#adr-010) | `vector/drawings.json` is gitignored; the fill inventory is not | accepted |
 | [ADR-011](#adr-011) | Images escalate through fallbacks rather than being dropped | accepted |
 | [ADR-012](#adr-012) | Canonical ID table frozen (first freeze, not a rename) | accepted |
-| [ADR-013](#adr-013) | `completely_in` gets a declared domain via a `scoring` flag | **PROPOSED — awaiting sign-off** |
-| [ADR-014](#adr-014) | Initial object pose is run-time state, not a spec constant | **PROPOSED — awaiting sign-off** |
-| [ADR-015](#adr-015) | Selector cardinality is declared per entry | **PROPOSED — awaiting sign-off** |
+| [ADR-013](#adr-013) | `completely_in` domain via `scoring`; both polygon fields always emitted | accepted 2026-07-25 |
+| [ADR-014](#adr-014) | Initial object pose is run-time state, not a spec constant | accepted 2026-07-25 |
+| [ADR-015](#adr-015) | Selector: full predicate, per-entry cardinality, `inset_by` | accepted 2026-07-25 |
 
 ---
 
@@ -291,7 +290,7 @@ visibly empty.
 
 ## ADR-013
 
-### `completely_in` gets a declared domain — **PROPOSED**
+### `completely_in` gets a declared domain — accepted
 
 **Context.** S1 p9 defines *completely in* as touching the corresponding area **and no other
 area on the mat**. "Area on the mat" is undefined. The mat carries **580 distinct fills**;
@@ -339,7 +338,7 @@ chosen one invites a later session to "reconsider" it.
 
 ## ADR-014
 
-### Initial object pose is run-time state, not a spec constant — **PROPOSED**
+### Initial object pose is run-time state, not a spec constant — accepted
 
 **Context.** The schema needs `object_start_poses` for all 16 objects. Precise coordinates
 exist for **six**:
@@ -380,7 +379,7 @@ session does not chase accuracy nothing consumes:
 
 ## ADR-015
 
-### Selector cardinality is declared per entry — **PROPOSED**
+### Selector: full predicate, per-entry cardinality, and `inset_by` — accepted
 
 **Context.** A global "exactly one path" rule makes the builder's hard-fail valuable, but it
 is wrong for at least three entries measured in the repo:
@@ -430,3 +429,92 @@ full-size robot therefore has **zero placement slack** in the start area; any re
 needs to be smaller than 250 mm to have any. `start_area`'s selector is a **raster placement
 rect**, not a fill selector — the builder needs that path, and it is a schema question, not a
 cardinality one.
+
+
+---
+
+## ADR-013 addendum — the polygon field schema
+
+**Context.** Emitting `polygon_visible_mm` *only* where clipping diverges makes the field set
+conditional. Every invariant that names `polygon_mm` then reads a field whose meaning changes
+with the data. The sharp case: `area_mm2` from the dump is **pre-clip always** (AS-4), so if
+the spec's area bound to *visible* on a genuinely clipped area, the cross-check would compare
+a clipped area against a pre-clip one and miss its 0.724 mm² bound by thousands — and the
+cheapest fix would be widening the bound, destroying the invariant.
+
+**Decision.**
+
+```
+polygon_constructed_mm   always present
+polygon_visible_mm       always present; EQUAL to constructed when there is no divergence
+clip_divergent: bool     explicit
+area_mm2                 binds to CONSTRUCTED
+visible_area_mm2         a separate named field if/when wanted
+```
+
+**`polygon_mm` does not exist.** No invariant can read a field that may be absent.
+
+**Measured, not assumed.** Reconstructing the clip stack with correct `q`/`Q` scoping — a clip
+leaves scope as soon as an entry at level ≤ its own appears — every scoring path in S2 sits at
+**level 0**, so no clip is ever in scope:
+
+| areas | paths | active clips | `clip_divergent` |
+|---|---:|---:|---|
+| backstage · mic_target · cable ×2 · note_target ×6 · plaza ×4 · stage | 15 | **0** | **false, all** |
+
+So the two polygons are equal throughout the current mat and the cross-check bound is safe.
+The builder still implements the reconstruction, so the guarantee survives a mat revision that
+does clip something.
+
+**Consequence.** Slight redundancy in the file; no conditional schema; every invariant names
+its field exactly.
+
+---
+
+## ADR-015 addendum — full predicate, `inset_by`, and the publication boundary
+
+**The predicate is fill AND size AND position.** `match` governs how many paths the **full**
+predicate may resolve to — *not* how many share a fill. Fill alone is ambiguous almost
+everywhere, and the ambiguity carries points:
+
+| fill | paths | discriminator | at stake |
+|---|---:|---|---:|
+| `#4e5252` | 6 | **position** — all six are note targets, same fill *and* same 79.7 mm size | 120 pts |
+| `#b5b5b6` | 2 | **position only** — both cable areas are 16,514 mm², 114.5 × 217.9, identical | 30 pts |
+| `#a0d187` | 4 | position — the four randomized start squares | — |
+| `#c92027` / `#1f7941` | 2 each | size or position — target inner 47.8 mm vs fixed start 31.9 mm | — |
+
+Position takes a **point + tolerance** under `match = "exact"` and a **region** under
+`match = "union"`. `union` additionally requires `expect_paths`, and asserts `union_bbox_mm`
+as an **equality** — a containment test against the paths' own union bbox is true by
+construction and guards nothing.
+
+**`inset_by` — a new selector verb.** `backstage` is S1's pink area *excluding* its grey
+border, and that polygon is not any path in the dump. `inset_by` consumes a **measured vertex**
+of the named band, never an area subtraction:
+
+```toml
+[areas.backstage]
+select   = "#cf8fbb"
+inset_by = "#d6d0cc"    # the L-band's INNER VERTEX
+# -> [0, 0, 393.809, 317.219]   all four values from measured paths
+```
+
+Deriving it by subtracting areas gives 124,920.48 instead of the correct **124,923.697**,
+because the band runs 0.013 mm past the pink and the L-corner is not a clean rectangle
+difference. **Never derive a polygon area by subtracting another path's area.** `backstage`
+is `inset_by`'s only user today.
+
+**Border detection is a process, not an accident.** `backstage`'s border was found by tripping
+over a dropped to-do. The reusable form is a **border signature**: a different-hex fill whose
+bbox matches the area's on all four edges within `BORDER_MATCH_TOL_MM = 0.5`, with
+`area/bbox < 0.5`. The tolerance is justified by a sweep, not fitted: the positive fires from
+0.02 mm (the real edge delta is 0.013) and holds to 10 mm, while all other scoring areas stay
+negative at **every** tolerance from 0.001 to 10 mm. Run over all 255 points, only `backstage`
+has a border.
+
+**Publication boundary.** This repository is **public**. `docs/citations.json`'s caps —
+≤ 15 words per quote, one entry per `(source, rule)` — are therefore the *publication
+boundary*, not internal tidiness, and the same reasoning gitignores `docs/extracted/**/text/`
+and the S6 HTML snapshots. The uniqueness cap matters as much as the word cap: without it a
+long rule could be reassembled from several individually-compliant fragments.

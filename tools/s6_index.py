@@ -81,11 +81,51 @@ def parse(path: Path) -> dict[str, Any]:
     }
 
 
+def _key(entry: dict[str, str]) -> tuple[str, str, str]:
+    return (entry["timestamp"], entry["author"], entry["question"][:160])
+
+
+def check(snapshot: Path, committed: Path) -> int:
+    """Diff a fresh snapshot against the committed index. **Both directions.**
+
+    Guarding only against disappearance is the trap: a *new* answer is the whole
+    reason to re-read S6, and S6 outranks S4. An eleventh entry must pause and
+    report, not pass silently.
+    """
+    fresh = {_key(e): e for e in parse(snapshot)["entries"]}
+    known = {_key(e): e for e in json.loads(committed.read_text())["entries"]}
+
+    added = [fresh[k] for k in fresh.keys() - known.keys()]
+    removed = [known[k] for k in known.keys() - fresh.keys()]
+
+    if not added and not removed:
+        print(f"S6 unchanged: {len(fresh)} entries match {committed}")
+        return 0
+
+    print(f"S6 CHANGED - {len(added)} added, {len(removed)} removed")
+    for entry in sorted(added, key=lambda e: e["timestamp"]):
+        print(f"  + {entry['timestamp']}  {entry['author']:<20} {entry['question'][:70]}")
+    for entry in sorted(removed, key=lambda e: e["timestamp"]):
+        print(f"  - {entry['timestamp']}  {entry['author']:<20} {entry['question'][:70]}")
+    print("\nS6 outranks S1 and S4 (S4 4.4). Re-read before any scoring or")
+    print("robot-limit claim, then regenerate docs/s6_index.json.")
+    return 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("snapshot", type=Path)
     parser.add_argument("-o", "--out", type=Path, default=Path("docs/s6_index.json"))
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="compare against the committed index; exit 1 on ANY delta. "
+             "Network-facing, so it is a manual/scheduled step, never part of pytest.",
+    )
     args = parser.parse_args(argv)
+
+    if args.check:
+        return check(args.snapshot, args.out)
 
     index = parse(args.snapshot)
     args.out.write_bytes(json_bytes(index))

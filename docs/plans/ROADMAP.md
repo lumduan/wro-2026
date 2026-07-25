@@ -41,8 +41,8 @@ flowchart TD
 | **3 · Scoring model (S1)** | 🟡 QUEUED | corrections C1–C8 applied to §5.6; `scoring_model.json` follows phase 2 | needs ADR sign-off |
 | **4 · Object spec (S3)** | 🔵 **READY — re-scoped** | S4 §7.4: elements are WRO Brick Set 45811/45819 ⇒ LEGO geometry is a constant. **Count studs × 8.0 mm** rather than measure rasters | none — much cheaper than believed |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
-| **6 · Simulator** | ⬜ BLOCKED | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2) | needs 2 **AND** 3 **AND** 4 |
-| **7 · Robot design** | ⬜ BLOCKED | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited** | needs 4 (5 now DONE) |
+| **6 · Simulator** | ⬜ BLOCKED | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). **Parameter acquisition can run in PARALLEL with phase 4** — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs phase 4's objects | needs 2 **AND** 3 **AND** 4 |
+| **7 · Robot design** | ⬜ BLOCKED | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited** | **dependency set reduced to {4}** — it needs 4 AND 5; 5 is DONE, 4 has not run |
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor** | needs 6 AND 7 |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 

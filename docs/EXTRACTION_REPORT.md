@@ -155,6 +155,11 @@ Top 20 by total area, from `vector/fills_by_colour.json`:
 
 ### Four caveats that will bite whoever maps these to area IDs
 
+0. **Superseded 2026-07-25 — a scoring area is not always its own fill.** `backstage`'s fill
+   `#cf8fbb` **includes** a 6.3 mm grey border (`#d6d0cc`) that S1 explicitly excludes, so the
+   scoring polygon is the *inset*, 124,923.697 mm², not the fill's 129,452.075. A border
+   signature sweep over all 255 points found this is the **only** such case. Never assume the
+   selected fill is the scoring polygon.
 1. **`total_area_mm2` is not printed area.** Areas are unclipped and overlapping fills are
    double-counted. The 580 fills sum to **5,673,520 mm²** against a mat of
    **2,699,765 mm²** — a 2.1× overcount. Use it to rank candidates, never to measure.
@@ -231,7 +236,7 @@ single-pixel or mean-based sample.
 |---|---|---|
 | 6 | Is the `Separation(DeviceCMYK, All)` content printer's marks or artwork? | 112 images use it. The `All` separant conventionally means printer's marks, but that is convention, not proof (`AS-2`). Check by diffing an RGB render against a CMYK render at the same scale. |
 | 7 | `AMBIGUITY(A1)` — "moved" is AND or OR? | **S1 text now extracted verbatim, and it confirms the conflict.** Page 13 defines: *"The game object is considered as moved if it no longer touches its initial position **and** is no longer upright"* — while the same page's caption grid awards *"0 points (not upright anymore)"*. The register's OR default stands. |
-| 8 | Which fills correspond to which canonical areas? | Deliberately not answered (§6). Next session, with `field_spec.json`. |
+| 8 | Which fills correspond to which canonical areas? | **ANSWERED 2026-07-25.** All 10 scoring areas identified and cross-checked against S1's labelled field diagram (p3): `backstage` `#cf8fbb` **inset to `[0,0,393.809,317.219]`** (S1 excludes the grey border `#d6d0cc`) · `mic_target` `#c3d82d` · `cable_area_upper/lower` `#b5b5b6` · six `note_target_*` `#4e5252` 79.699–79.700 mm outer squares · `start_area` = a 250.0 × 250.0 mm **raster** placement rect. See `data/field_spec.json` and ADR-012/013/015. |
 | 9 | Do S3's object dimensions exist anywhere machine-readable? | No — S3 is rasterized (§1). Phase 4 is visual-reading work. |
 
 ### Not an open question
