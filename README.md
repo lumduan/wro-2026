@@ -93,7 +93,7 @@ that conversion and every command calls it — there is deliberately no second c
 
 ## Licence
 
-[MIT](LICENSE) — © 2026 Sarat Sonsuk.
+[MIT](LICENSE) — © 2026 Sarat Sonsuk. Scope details in [NOTICE](NOTICE).
 
 The licence covers **this repository's** contents: the toolchain, its tests and the analysis
 documents. It does not cover and cannot grant rights in WRO's source PDFs, which are

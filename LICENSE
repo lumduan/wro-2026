@@ -19,22 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-SCOPE NOTE (not part of the MIT terms above)
-
-This licence covers the contents of this repository: the extraction toolchain,
-its tests, and the analysis documents written for this project.
-
-It does NOT cover, and cannot grant any rights in, the WRO 2026 source
-documents this project reads:
-
-  - WRO-2026-RoboMission-Elementary-Game-Rules.pdf
-  - WRO-2026-GameMat-Elementary-Printing-File.pdf
-  - WRO-2026-RM-Elementary-BI-All.pdf
-
-Those are (c) 2026 World Robot Olympiad Association Ltd and are deliberately
-not distributed here. Obtain them from WRO directly. "World Robot Olympiad"
-and the WRO logo are trademarks of the World Robot Olympiad Association Ltd;
-this project is not affiliated with or endorsed by WRO.

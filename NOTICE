@@ -1,0 +1,37 @@
+NOTICE — scope of the MIT licence, and third-party material
+
+This file is informational. It does not modify the MIT terms in LICENSE, and it
+is kept separate from LICENSE so that automated licence detection reads this
+project as plain MIT.
+
+WHAT THE LICENCE COVERS
+
+  The contents of this repository: the extraction toolchain (tools/), its tests
+  (tests/), and the analysis documents written for this project (docs/*.md,
+  CLAUDE.md, README.md) together with the generated JSON under docs/extracted/.
+
+WHAT IT DOES NOT COVER
+
+  The WRO 2026 source documents this project reads:
+
+    - WRO-2026-RoboMission-Elementary-Game-Rules.pdf
+    - WRO-2026-GameMat-Elementary-Printing-File.pdf
+    - WRO-2026-RM-Elementary-BI-All.pdf
+
+  Those are Copyright (c) 2026 World Robot Olympiad Association Ltd. They are
+  deliberately NOT distributed in this repository and no rights in them are
+  granted here. Obtain them from WRO directly; README.md lists the expected
+  filenames and the sha256 of each copy this analysis was built from.
+
+  Text extractions that reproduce the rulebook verbatim
+  (docs/extracted/*/text/) are likewise not distributed. Regenerate them
+  locally once you have the source PDFs:
+
+    uv run python tools/pdf_extract.py all docs/*.pdf
+
+TRADEMARKS AND AFFILIATION
+
+  "World Robot Olympiad" and the WRO logo are trademarks of the World Robot
+  Olympiad Association Ltd. This project is an independent team's engineering
+  work and is not affiliated with, sponsored by, or endorsed by the World Robot
+  Olympiad Association Ltd.
