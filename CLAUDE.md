@@ -196,6 +196,16 @@ squares on the upper edge ⇒ **4! = 24 permutations**. `green` and `red` are fi
 S4 §9.6 randomizes **after** quarantine and §10.2 forbids entering data by moving robot
 parts ⇒ **the 24 permutations can only be handled by runtime sensing.**
 
+**The permutation has a price, and manipulator capacity sets it** (ADR-029). Carrying one note
+at a time, the 24 permutations spread the note tour over **1000 mm — 15.2 %**. Carrying all six
+makes the tour **permutation-invariant**: the spread is exactly 0, because collecting every note
+before delivering any visits the same point set whatever the draw. Not a smooth trend — it
+*rises* again from capacity 3 to 4. `data/travel_budget.json`.
+
+**Travel is a budget too.** S4 §10.1 gives 120 s. The six notes alone need a mean **63.3 mm/s at
+capacity 1** and 24.9 at capacity 6 — straight-line, no turns, no pick-and-place (AS-11), so
+every figure is a floor. Never report a strategy without the speed it assumes.
+
 ---
 
 ## 5.7 Anti-patterns
@@ -207,6 +217,9 @@ parts ⇒ **the 24 permutations can only be handled by runtime sensing.**
 5. Optimizing for 255/255 without reporting `P(success)`
 6. Prose paragraphs where a table or diagram fits
 7. Assuming partial credit is a uniform 50% — the cable is 5/15 = 33.3% (see §5.6)
+8. Costing a mission by the distance to its **target**. That omits the leg that fetches the
+   object, and the error runs both ways — at the unluckiest permutation the omission makes
+   `points_per_metre` *anti-correlated* with true cost (ADR-029). Use `fetch_leg_mm`.
 
 ---
 

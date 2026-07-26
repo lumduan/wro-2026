@@ -71,6 +71,13 @@ until you type a number.
 
 → closes: **P7** (first half); `mass_g` for every object; half of ADR-022's gate.
 
+**A note's mass now has a second consumer, and it is a big one.** ADR-029 shows that manipulator
+**carry capacity** is worth 2213 mm off the worst-case note tour going from 1 to 2, and that
+carrying **all six** removes the randomization from the travel budget entirely — an exact zero,
+not a small number. What a mechanism can lift at once is set by note mass and grip geometry, so
+this measurement and A3 together decide how much of that is reachable. Weigh a single note
+carefully; it is the number that scales.
+
 ### A3 · Grip points — the measurement that closes a decision
 
 For each of the 12 placement objects, find where a mechanism can hold it without the object
@@ -208,7 +215,20 @@ shape, then re-run `tools/run_sensitivity.py` against it.
 
 Acceleration limit, slip threshold, minimum controllable speed — **per platform**.
 
-→ feeds: `dynamics.py`, which does not exist yet and is parameterless by design until this runs.
+**This test now has a number to beat.** `data/travel_budget.json` gives the mean speed the six
+notes alone demand inside S4 §10.1's 120 seconds, straight-line and with no time for turns or
+pick-and-place:
+
+| carry capacity | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---:|---:|---:|---:|---:|---:|
+| **required mm/s, worst permutation** | **63.3** | 44.8 | 36.5 | 35.3 | 32.0 | **24.9** |
+
+Every figure is a **floor** (AS-11) — the real path is longer than a straight line and pick-place
+time is pure clock. So measure the achievable mean speed and compare: a capacity whose floor the
+robot cannot clear on paper is already ruled out, and the six notes are only 120 of 255 points.
+
+→ feeds: `dynamics.py`, which does not exist yet and is parameterless by design until this runs;
+and the capacity decision ADR-022 left open, together with **A2/A3**.
 
 ---
 

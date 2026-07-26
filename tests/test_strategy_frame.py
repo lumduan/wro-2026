@@ -180,10 +180,41 @@ def test_the_nearest_note_is_far_denser_in_points_than_a_cable(rows: dict):
 
 def test_the_artefact_refuses_to_order_missions(frame: dict):
     scope = frame["scope"]
-    assert "costs" in scope["answers"] and "risks" in scope["answers"]
+    assert "how far each target is from the start area" in scope["answers"]
+    assert "risk" in scope["answers"]
     assert "order" in scope["does_not_answer"]
     assert "anti-pattern #3" in scope["why_not"]
     assert "nominal_pending" in scope["why_not"]
+
+
+def test_the_artefact_no_longer_claims_to_cost_a_mission(frame: dict):
+    """ADR-029. It measures start-to-target and omits the leg that fetches.
+
+    The old wording — "what each mission costs in travel" — is the thing that
+    was wrong, so it must not come back.
+    """
+    scope = frame["scope"]
+    assert "what each mission costs in travel" not in scope["answers"]
+    correction = scope["corrected_2026_07_26"]
+    assert "OMITS the leg that fetches" in correction
+    assert "note_yellow" in correction and "note_white" in correction
+    assert "B0" in scope["fetch_leg_coverage"]
+
+
+def test_every_mission_says_whether_its_fetch_leg_is_known(frame: dict):
+    known = {r["object_id"] for r in frame["missions"] if r["fetch_leg_mm"]}
+    assert known == {"note_black", "note_white", "note_yellow", "note_blue",
+                     "note_green", "note_red"}, "only the notes have known starts"
+    for row in frame["missions"]:
+        assert row["round_trip_excludes_fetch_leg"] is True
+        assert row["points_per_metre_is_not_a_mission_ranking"] is True
+        if row["fetch_leg_mm"] is None:
+            assert row["fetch_leg_status"] == "nominal_pending"
+            assert "B0" in row["fetch_leg_note"]
+        else:
+            assert row["fetch_leg_mm"]["min"] <= row["fetch_leg_mm"]["max"]
+            assert (row["fetch_leg_status"] == "fixed") == (
+                row["fetch_leg_mm"]["min"] == row["fetch_leg_mm"]["max"])
 
 
 def test_no_collision_probability_is_asserted(frame: dict):

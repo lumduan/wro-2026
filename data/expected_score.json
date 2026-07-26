@@ -11,7 +11,7 @@
     "inputs": {
       "placement_sensitivity": "cdc174d2fe3f8b31493c65d148251aedb43d73419611e1a38f5cc5afae3f474a",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "strategy_frame": "edd56302f70a33d707d03de8390be5996eee9537751e0371cf28007a767e973a"
+      "strategy_frame": "a24a35e0966edaf9bf1784ed803bb016599ce0fb5fa815e7375c895747545a7b"
     },
     "p_collision_grid": [
       0.0,

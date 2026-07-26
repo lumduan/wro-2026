@@ -31,10 +31,15 @@
         "risk_40": 0.375
       },
       "distance_from_start_mm": 2098.586,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m1_connect_amplifier",
       "object_id": "cable_lower",
       "points": 15,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 3.574,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 4197.172,
       "sigma_for_p90_mm": {
         "contact": 14.074,
@@ -55,10 +60,15 @@
         "risk_40": 0.375
       },
       "distance_from_start_mm": 2129.907,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m1_connect_amplifier",
       "object_id": "cable_upper",
       "points": 15,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 3.521,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 4259.813,
       "sigma_for_p90_mm": {
         "contact": 14.096,
@@ -79,10 +89,15 @@
         "risk_40": 0.375
       },
       "distance_from_start_mm": 2021.217,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m2_prepare_show_instruments",
       "object_id": "instrument_congas",
       "points": 15,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 3.711,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 4042.434,
       "sigma_for_p90_mm": {
         "contact": 45.0,
@@ -103,10 +118,15 @@
         "risk_40": 0.375
       },
       "distance_from_start_mm": 2021.217,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m2_prepare_show_instruments",
       "object_id": "instrument_guitar",
       "points": 15,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 3.711,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 4042.434,
       "sigma_for_p90_mm": {
         "contact": 45.0,
@@ -127,10 +147,15 @@
         "risk_40": 0.375
       },
       "distance_from_start_mm": 2021.217,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m2_prepare_show_instruments",
       "object_id": "instrument_keyboard",
       "points": 15,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 3.711,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 4042.434,
       "sigma_for_p90_mm": {
         "contact": 45.0,
@@ -151,10 +176,15 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 1923.063,
+      "fetch_leg_mm": null,
+      "fetch_leg_note": "the object's start pose is nominal_pending in field_spec.json; measure it on a set-up field - work order B0",
+      "fetch_leg_status": "nominal_pending",
       "mission_id": "m2_prepare_show_microphone",
       "object_id": "mic",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 5.2,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 3846.125,
       "sigma_for_p90_mm": {
         "contact": 12.478,
@@ -175,10 +205,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 957.6,
+      "fetch_leg_mm": {
+        "max": 1629.679,
+        "min": 1422.74
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "randomized_over_four_slots",
       "mission_id": "m3_play_the_song",
       "object_id": "note_black",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 10.443,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 1915.2,
       "sigma_for_p90_mm": {
         "contact": 11.339,
@@ -199,10 +237,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 493.093,
+      "fetch_leg_mm": {
+        "max": 1672.568,
+        "min": 1013.093
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "randomized_over_four_slots",
       "mission_id": "m3_play_the_song",
       "object_id": "note_blue",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 20.28,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 986.185,
       "sigma_for_p90_mm": {
         "contact": 11.37,
@@ -223,10 +269,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 627.329,
+      "fetch_leg_mm": {
+        "max": 1205.39,
+        "min": 1205.39
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "fixed",
       "mission_id": "m3_play_the_song",
       "object_id": "note_green",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 15.941,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 1254.658,
       "sigma_for_p90_mm": {
         "contact": 11.26,
@@ -247,10 +301,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 795.42,
+      "fetch_leg_mm": {
+        "max": 1382.683,
+        "min": 1382.683
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "fixed",
       "mission_id": "m3_play_the_song",
       "object_id": "note_red",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 12.572,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 1590.84,
       "sigma_for_p90_mm": {
         "contact": 11.181,
@@ -271,10 +333,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 366.577,
+      "fetch_leg_mm": {
+        "max": 1760.343,
+        "min": 871.328
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "randomized_over_four_slots",
       "mission_id": "m3_play_the_song",
       "object_id": "note_white",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 27.279,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 733.154,
       "sigma_for_p90_mm": {
         "contact": 11.376,
@@ -295,10 +365,18 @@
         "risk_40": 0.5
       },
       "distance_from_start_mm": 1110.374,
+      "fetch_leg_mm": {
+        "max": 1598.002,
+        "min": 1501.678
+      },
+      "fetch_leg_note": "start area -> the note -> its target, straight-line. See data/travel_budget.json for the tour over all 24 permutations.",
+      "fetch_leg_status": "randomized_over_four_slots",
       "mission_id": "m3_play_the_song",
       "object_id": "note_yellow",
       "points": 20,
+      "points_per_metre_is_not_a_mission_ranking": true,
       "points_per_metre_round_trip": 9.006,
+      "round_trip_excludes_fetch_leg": true,
       "round_trip_mm": 2220.749,
       "sigma_for_p90_mm": {
         "contact": 11.196,
@@ -360,8 +438,10 @@
   },
   "schema_version": 1,
   "scope": {
-    "answers": "what each mission costs in travel and risks in bonus points",
+    "answers": "how far each target is from the start area, and how many bonus points a route to it puts at risk",
+    "corrected_2026_07_26": "This block previously claimed to answer 'what each mission costs in travel'. It does not: distance_from_start_mm measures start_area to target and OMITS the leg that fetches the object. The values are what they compute; the claim was wrong. The error runs both ways - note_yellow overstated by ~650 mm, note_white understated by up to 1027 mm - so points_per_metre_round_trip does not preserve the ranking it appears to give. See ADR-029 and data/travel_budget.json.",
     "does_not_answer": "which missions to attempt, or in what order",
+    "fetch_leg_coverage": "computed for the six notes, whose start geometry is known; null for the two cables, the microphone and the three instruments, which are nominal_pending until work order B0",
     "why_not": "Mission ordering needs sigma from field tests P2/P3 and the object pickup locations, 15 of which are nominal_pending with null coordinates (ADR-014). CLAUDE.md 5.7 anti-pattern #3 forbids claiming one strategy beats another without simulator evidence."
   },
   "zones": [

@@ -30,6 +30,16 @@ places them apart. A route through the stage exposes the 30-point amp/speaker
 cluster; a route along the staff lines exposes the 10-point clef. Which figure
 applies decides whether a mission can ever be not-worth-attempting, so all three
 tiers are swept and **40 is retained as the conservative default**.
+
+**Corrected 2026-07-26 (ADR-029).** ``distance_from_start_mm`` measures the start
+area to the target and **omits the leg that fetches the object**. The numbers are
+what they compute; the claim attached to them — *"what each mission costs in
+travel"* — was not supported, and the error runs **both ways**: ``note_yellow``
+overstated by ~650 mm, ``note_white`` understated by up to 1027 mm. So
+``points_per_metre_round_trip`` does not preserve the ranking it appears to give,
+and now says so. Where the object's start is known — the six notes — a real
+``fetch_leg_mm`` is emitted beside it; the other six are ``nominal_pending``
+until work order **B0**. Full treatment in ``data/travel_budget.json``.
 """
 
 from __future__ import annotations
@@ -47,6 +57,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pdf_extract import R, RS, json_bytes, sha256_file  # noqa: E402
 from sim.geometry import bbox, centroid  # noqa: E402
 from sim.scoring import Scorer  # noqa: E402
+from sim.travel import NoteField, distance as travel_distance  # noqa: E402
 
 TOOL_VERSION: Final = "1.0.0"
 SCHEMA_VERSION: Final = 1
@@ -115,6 +126,35 @@ def build() -> dict[str, Any]:
     # stage cluster's 30.
     stage_right_edge = bbox(stage)[2]
 
+    # ADR-029: the fetch leg, wherever the object's start is actually known.
+    note_field = NoteField(field)
+
+    def fetch_leg(object_id: str, target: list[tuple[float, float]]) -> dict[str, Any]:
+        """start -> the object -> its target, or why that cannot be computed."""
+        if object_id not in note_field.targets:
+            return {
+                "fetch_leg_mm": None,
+                "fetch_leg_status": "nominal_pending",
+                "fetch_leg_note": (
+                    "the object's start pose is nominal_pending in field_spec.json; "
+                    "measure it on a set-up field - work order B0"
+                ),
+            }
+        destination = note_field.targets[object_id]
+        origins = (note_field.slots if object_id in note_field.randomized
+                   else (note_field.fixed_starts[object_id],))
+        legs = sorted(travel_distance(note_field.start, o) + travel_distance(o, destination)
+                      for o in origins)
+        return {
+            "fetch_leg_mm": {"min": R(legs[0]), "max": R(legs[-1])},
+            "fetch_leg_status": ("randomized_over_four_slots"
+                                 if object_id in note_field.randomized else "fixed"),
+            "fetch_leg_note": (
+                "start area -> the note -> its target, straight-line. See "
+                "data/travel_budget.json for the tour over all 24 permutations."
+            ),
+        }
+
     rows: list[dict[str, Any]] = []
     for object_id, (target_id, x, y, _theta) in sorted(scorer.nominal_placements().items()):
         target = scorer.scoring_areas[target_id]
@@ -131,9 +171,14 @@ def build() -> dict[str, Any]:
             "target_id": target_id,
             "points": value,
             "zone": zone,
+            # ADR-029: start area to target ONLY. The leg that fetches the object
+            # is not in here — see `fetch_leg_mm` beside it.
             "distance_from_start_mm": R(distance),
             "round_trip_mm": R(2 * distance),
+            "round_trip_excludes_fetch_leg": True,
             "points_per_metre_round_trip": R(value / (2 * distance / 1000.0)),
+            "points_per_metre_is_not_a_mission_ranking": True,
+            **fetch_leg(object_id, target),
             "bonus_clusters_exposed": [c["id"] for c in exposed],
             "bonus_points_exposed": exposed_points,
             "sigma_for_p90_mm": {
@@ -177,13 +222,30 @@ def build() -> dict[str, Any]:
             "risk_tiers_swept": list(RISK_TIERS),
         },
         "scope": {
-            "answers": "what each mission costs in travel and risks in bonus points",
+            "answers": (
+                "how far each target is from the start area, and how many bonus "
+                "points a route to it puts at risk"
+            ),
             "does_not_answer": "which missions to attempt, or in what order",
             "why_not": (
                 "Mission ordering needs sigma from field tests P2/P3 and the object "
                 "pickup locations, 15 of which are nominal_pending with null "
                 "coordinates (ADR-014). CLAUDE.md 5.7 anti-pattern #3 forbids "
                 "claiming one strategy beats another without simulator evidence."
+            ),
+            "corrected_2026_07_26": (
+                "This block previously claimed to answer 'what each mission costs in "
+                "travel'. It does not: distance_from_start_mm measures start_area to "
+                "target and OMITS the leg that fetches the object. The values are what "
+                "they compute; the claim was wrong. The error runs both ways - "
+                "note_yellow overstated by ~650 mm, note_white understated by up to "
+                "1027 mm - so points_per_metre_round_trip does not preserve the "
+                "ranking it appears to give. See ADR-029 and data/travel_budget.json."
+            ),
+            "fetch_leg_coverage": (
+                "computed for the six notes, whose start geometry is known; null for "
+                "the two cables, the microphone and the three instruments, which are "
+                "nominal_pending until work order B0"
             ),
         },
         "geometry": {
@@ -254,14 +316,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"    {z['zone']:<7} {z['count']:>2} objects  {z['points']:>3} pts  "
               f"{z['distance_min_mm']:>6.0f}-{z['distance_max_mm']:<6.0f} mm from start  "
               f"risks {z['bonus_points_exposed']} bonus pts")
-    print(f"\n  {'mission':<22} {'pts':>4} {'dist':>7} {'pts/m':>7} {'risk':>5} "
+    print(f"\n  {'mission':<22} {'pts':>4} {'to target':>9} {'+fetch leg':>16} {'risk':>5} "
           f"{'breakeven P(coll) @ P(succ)=1':>30}")
     for r in spec["missions"]:
         be = r["breakeven_p_collision_at_p_success_1"]
         flag = "  <- always worth it" if r["always_worth_attempting_at_exposed_risk"] else ""
-        print(f"  {r['object_id']:<22} {r['points']:>4} {r['distance_from_start_mm']:>7.0f} "
-              f"{r['points_per_metre_round_trip']:>7.1f} {r['bonus_points_exposed']:>5} "
+        leg = r["fetch_leg_mm"]
+        if leg is None:
+            fetch = "B0"
+        elif leg["min"] == leg["max"]:
+            fetch = f"{leg['min']:.0f}"
+        else:
+            fetch = f"{leg['min']:.0f}-{leg['max']:.0f}"
+        print(f"  {r['object_id']:<22} {r['points']:>4} {r['distance_from_start_mm']:>9.0f} "
+              f"{fetch:>16} {r['bonus_points_exposed']:>5} "
               f"  10:{be['risk_10']:.2f}  30:{be['risk_30']:.2f}  40:{be['risk_40']:.2f}{flag}")
+    print("\n  points_per_metre_round_trip is emitted but is NOT a mission ranking:")
+    print("  it omits the fetch leg (ADR-029). See data/travel_budget.json.")
     return 0
 
 

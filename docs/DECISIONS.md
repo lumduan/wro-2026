@@ -34,6 +34,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-026](#adr-026) | Expected value carries the partial tier; measurement paths ship inert | accepted 2026-07-27 |
 | [ADR-027](#adr-027) | The objective is `E[max of N rounds]`, not `E[score]` of one attempt | accepted 2026-07-26 |
 | [ADR-028](#adr-028) | A rounded probability is not a probability distribution | accepted 2026-07-26 |
+| [ADR-029](#adr-029) | Travel is a budget; capacity buys it; `strategy_frame` never costed a mission | accepted 2026-07-26 |
 
 ---
 
@@ -1238,3 +1239,99 @@ support. Every one was an error in what a number *meant*, not in what it compute
 caught by a test of the producing code — because the producing code was right. The guard that
 works is the one that asserts a **relationship the number must satisfy**: sums to one, never
 exceeds the maximum, agrees with the artefact it was derived from.
+
+---
+
+## ADR-029
+
+**Travel is a budget, manipulator capacity is what buys it, and `strategy_frame` never costed a mission.**
+`2026-07-26 · accepted`
+
+### Part 1 — the 120 seconds nobody had costed
+
+**Context.** Eight phases went into **accuracy**. Nothing asked whether a run fits the two
+minutes S4 §10.1 allows. `attempt_seconds: 120` sat in `data/scoring_model.json` and was quoted
+in three documents; no artefact ever turned geometry into distance, and no document named a speed
+the robot must reach. CLAUDE.md §5.7 anti-pattern #5 forbids optimising for 255/255 without
+reporting `P(success)` — a strategy that places perfectly and runs out of clock fails the same
+way, and was invisible.
+
+**Decision.** `sim/travel.py` computes the exact minimum tour to fetch and deliver the notes, by
+DP over `(notes remaining, current position)` with batches of at most `capacity`.
+`tools/build_travel_budget.py` → `data/travel_budget.json` publishes it, plus the **required mean
+speed** — the time analogue of the required placement accuracy already in
+`placement_sensitivity.json`. A number for field test **P6** to test against.
+
+**Scope.** The six notes only — 120 of 255 points, and the only objects whose start geometry is
+known. The other six are `nominal_pending` until work order **B0**.
+
+### Part 2 — capacity deletes the randomization, and it is a phase change
+
+S1 p7 assigns four notes to four slots at randomization; S4 §9.6 does it **after** quarantine, so
+the draw is fresh every round. Exact over all 24 permutations:
+
+| capacity | min | median | **max** | **spread** | required mm/s at 120 s |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 6592 | 7038 | **7592** | **999.6** | 63.3 |
+| 2 | 4721 | 5283 | **5379** | 657.8 | 44.8 |
+| 3 | 3952 | 4315 | **4378** | 425.8 | 36.5 |
+| 4 | 3683 | 4173 | **4236** | **552.3** | 35.3 |
+| 5 | 3413 | 3601 | **3839** | 425.4 | 32.0 |
+| 6 | 2986 | 2986 | **2986** | **0.0** | 24.9 |
+
+**Capacity 1 → 2 takes 2213 mm off the worst case — 29 %, the largest single step in the
+project so far.** And at capacity 6 the spread is **exactly zero**, structurally: a robot that
+collects every note before delivering any visits the same set of points whatever the permutation,
+so the tour length cannot depend on which colour is in which slot.
+
+**It is a phase change, not the end of a slope.** Distance falls monotonically with capacity — a
+tour feasible at *k* is feasible at *k+1* — but the **spread does not**: it *rises* from 426 at
+capacity 3 to 552 at capacity 4. A mechanism that carries *most* of the notes buys distance
+without buying predictability. All six capacities are published for exactly this reason; the
+1/2/3/6 subset would have implied a smooth trend to zero that does not exist.
+
+**Capacity also makes sensing free.** §10.2 forbids entering the permutation before the run, so
+it must be read at runtime (`PHASE7_CONSTRAINTS.md` §5). At high capacity the robot passes every
+slot anyway; at capacity 1 it must spend a scanning pass or commit blind.
+
+**This does not choose a capacity.** That needs note mass and grip geometry — work order
+**A2/A3** — and **ADR-022** left the mechanism open deliberately. This says what each choice buys.
+
+### Part 3 — `strategy_frame.json` was not costing a mission
+
+`tools/build_strategy_frame.py` computes `distance = _distance(start, centroid(target))`: **start
+area to target**. The object's own starting position never enters, so the leg that *fetches* it is
+missing. The values are what they compute; the claim attached to them — `scope.answers`, *"what
+each mission costs in travel"* — was not supported.
+
+The error runs **both ways**, so it is not a bound in either direction:
+
+| note | `2 × d(start, target)` | true fetch-and-deliver | |
+|---|---:|---:|---|
+| `note_yellow` | 2221 | 1502 – 1598 | **overstates** ~650 |
+| `note_white` | 733 | 871 – 1760 | **understates** up to 1027 |
+
+**So `points_per_metre_round_trip` does not preserve the ranking it appears to give — and how
+badly is itself randomized.** Against the true fetch-and-deliver cost, Spearman ρ is:
+
+- **+1.000 at the luckiest permutation** — the metric is *exactly right*
+- **−0.486 at the unluckiest** — the metric is *anti-correlated*
+
+All six notes change rank between the two, `note_white` moving from 1st to 6th. The mechanism is
+simple: ranking by distance to *target* flatters any target near the start area regardless of
+where its object begins, and `note_white`'s target is the closest to start while its note can
+begin 1760 mm away. Which draw you get is decided after quarantine.
+
+**Decision.** Fix the claim, not the number — the ADR-026 precedent. `scope.answers` now says
+what it measures; `round_trip_excludes_fetch_leg` and
+`points_per_metre_is_not_a_mission_ranking` are explicit flags; a real `fetch_leg_mm` is emitted
+for the six notes and `null` with a B0 pointer for the rest; the console summary leads with the
+fetch leg instead of the misleading points-per-metre.
+
+**Fourth instance of the same failure class** — ADR-024 (a flat ×40 that should have been 30 or
+10), ADR-026 (a scaling rule attached to correct values), ADR-028 (rounded probabilities used as
+a distribution), and now a distance used as a mission cost. Every one was an error in what a
+number *meant*, none was caught by testing the producing code, because the producing code was
+right. The guards that work assert a **relationship the number must satisfy** — and the one added
+here is the sharpest yet: the published metric is checked against an independently computed
+ranking, at both ends of the randomization.

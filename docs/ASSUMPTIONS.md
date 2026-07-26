@@ -8,7 +8,7 @@ Emitted assumptions also appear verbatim in the `notes` array of the relevant
 `docs/extracted/<pdf-stem>/manifest.json`, so the machine-readable record and this
 document cannot drift apart silently.
 
-`last_reviewed: 2026-07-27`
+`last_reviewed: 2026-07-26`
 
 | ID | Assumption | Source | Consequence if wrong |
 |---|---|---|---|
@@ -22,6 +22,7 @@ document cannot drift apart silently.
 | [AS-8](#as-8) | Placement error is Gaussian and isotropic in x and y | `sim.sensitivity` | the required-accuracy figures shift; the ORDERING of missions by difficulty does not |
 | [AS-9](#as-9) | Heading error is 0.5° per mm of placement σ | `sim.sensitivity` | cable and note requirements tighten or loosen together; the cable is most exposed |
 | [AS-10](#as-10) | Placement outcomes are independent across the 12 missions | `sim.rounds` | run variance is understated, so the best-of-N premium is a **lower** bound — the conclusion is safe, the magnitude is not |
+| [AS-11](#as-11) | Travel is straight-line centre-to-centre, with no time for turns or pick/place | `sim.travel` | every distance and required speed is a **lower** bound; clearing it is necessary, never sufficient |
 
 ---
 
@@ -249,3 +250,32 @@ The same asymmetry does *not* protect the mean: `E[X]` is unaffected by correlat
 **Replaced by.** Field test **B5**, which measures per-placement error directly. Repeating a
 full run rather than a single placement would additionally give the within-run correlation, and
 is the cheapest way to turn this bound into a number.
+
+
+## AS-11
+
+### Travel is straight-line, and costs nothing but distance
+
+**The assumption.** `sim.travel` measures centre-to-centre Euclidean distance between the start
+area, each note's start slot and its target. Three things are therefore absent: **turning radius**
+(a differential drive cannot follow a corner), **acceleration and deceleration** at every waypoint,
+and **pick and place actuation time**, which is pure clock with no distance at all.
+
+It matches `tools/build_strategy_frame.py`, which has measured distance the same way since Phase
+8, so the two artefacts stay comparable.
+
+**Consequence if wrong — and it is wrong, knowably, in one direction only.** Every distance here
+is a **lower bound** on the path a robot actually drives, and every required speed is a **floor**
+it must clear. That asymmetry is what makes the figures usable: a capacity that cannot meet
+63.3 mm/s on paper certainly cannot meet it on the table, so the numbers can rule a design *out*
+but never rule one *in*. Clearing them is necessary, never sufficient.
+
+The **comparisons** are far more robust than the absolute values. All six capacities are measured
+the same way, so the shape of the curve — capacity 1 → 2 saving 29 %, the spread rising from
+capacity 3 to 4, and the exact zero at full capacity — survives any uniform inflation of path
+length. The zero in particular is structural (ADR-029) and holds under any distance metric that
+depends only on the point set visited.
+
+**Replaced by.** Field test **P6** (motor characterisation) gives real speed, acceleration and
+minimum controllable speed per platform; **P3** gives drift per 90° of turn, which is what turns
+a waypoint count into a time penalty.

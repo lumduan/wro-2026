@@ -1,0 +1,338 @@
+{
+  "bounds": {
+    "consequence": "A required speed here is a floor the robot must clear, not a prediction that it will. Clearing it is necessary, never sufficient.",
+    "why_a_lower_bound": "Straight-line centre-to-centre distance. A real path carries turning radius, acceleration and deceleration, and neither pick nor place actuation time is included. Matches tools/build_strategy_frame.py, so the two are comparable."
+  },
+  "capacity_curve": [
+    {
+      "capacity": 1,
+      "distinct_tour_lengths": 24,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 7053.79,
+          "n": 1
+        },
+        {
+          "mm": 6889.899,
+          "n": 2
+        },
+        {
+          "mm": 6812.999,
+          "n": 3
+        }
+      ],
+      "max_mm": 7591.976,
+      "median_mm": 7037.914,
+      "min_mm": 6592.332,
+      "permutation_invariant": false,
+      "required_speed_mm_s": {
+        "at_median": 58.649,
+        "at_worst_permutation": 63.266
+      },
+      "sd_mm": 290.56,
+      "spread_mm": 999.644
+    },
+    {
+      "capacity": 2,
+      "distinct_tour_lengths": 11,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 5138.832,
+          "n": 1
+        },
+        {
+          "mm": 5010.051,
+          "n": 2
+        },
+        {
+          "mm": 4927.087,
+          "n": 3
+        }
+      ],
+      "max_mm": 5378.813,
+      "median_mm": 5282.548,
+      "min_mm": 4720.982,
+      "permutation_invariant": false,
+      "required_speed_mm_s": {
+        "at_median": 44.021,
+        "at_worst_permutation": 44.823
+      },
+      "sd_mm": 252.038,
+      "spread_mm": 657.831
+    },
+    {
+      "capacity": 3,
+      "distinct_tour_lengths": 4,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 4243.776,
+          "n": 1
+        },
+        {
+          "mm": 4163.588,
+          "n": 2
+        },
+        {
+          "mm": 4110.75,
+          "n": 3
+        }
+      ],
+      "max_mm": 4377.681,
+      "median_mm": 4315.157,
+      "min_mm": 3951.866,
+      "permutation_invariant": false,
+      "required_speed_mm_s": {
+        "at_median": 35.96,
+        "at_worst_permutation": 36.481
+      },
+      "sd_mm": 155.64,
+      "spread_mm": 425.815
+    },
+    {
+      "capacity": 4,
+      "distinct_tour_lengths": 5,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 4031.045,
+          "n": 1
+        },
+        {
+          "mm": 3908.473,
+          "n": 2
+        },
+        {
+          "mm": 3831.348,
+          "n": 3
+        }
+      ],
+      "max_mm": 4235.674,
+      "median_mm": 4173.149,
+      "min_mm": 3683.409,
+      "permutation_invariant": false,
+      "required_speed_mm_s": {
+        "at_median": 34.776,
+        "at_worst_permutation": 35.297
+      },
+      "sd_mm": 246.496,
+      "spread_mm": 552.265
+    },
+    {
+      "capacity": 5,
+      "distinct_tour_lengths": 5,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 3621.811,
+          "n": 1
+        },
+        {
+          "mm": 3528.707,
+          "n": 2
+        },
+        {
+          "mm": 3483.207,
+          "n": 3
+        }
+      ],
+      "max_mm": 3838.596,
+      "median_mm": 3601.15,
+      "min_mm": 3413.218,
+      "permutation_invariant": false,
+      "required_speed_mm_s": {
+        "at_median": 30.01,
+        "at_worst_permutation": 31.988
+      },
+      "sd_mm": 167.145,
+      "spread_mm": 425.378
+    },
+    {
+      "capacity": 6,
+      "distinct_tour_lengths": 1,
+      "expected_best_of_n_mm": [
+        {
+          "mm": 2985.707,
+          "n": 1
+        },
+        {
+          "mm": 2985.707,
+          "n": 2
+        },
+        {
+          "mm": 2985.707,
+          "n": 3
+        }
+      ],
+      "max_mm": 2985.707,
+      "median_mm": 2985.707,
+      "min_mm": 2985.707,
+      "permutation_invariant": true,
+      "required_speed_mm_s": {
+        "at_median": 24.881,
+        "at_worst_permutation": 24.881
+      },
+      "sd_mm": 0.0,
+      "spread_mm": 0.0
+    }
+  ],
+  "corrects": {
+    "adr": "ADR-029",
+    "artefact": "data/strategy_frame.json",
+    "pattern": "Fourth instance of a correct computation carrying a claim it cannot support - see ADR-024, ADR-026, ADR-028.",
+    "ranking_validity": {
+      "mechanism": "Ranking by distance to TARGET flatters any target near the start area regardless of where its object begins.",
+      "note": "The metric is not uniformly wrong - it is EXACTLY right on the luckiest permutation and ANTI-CORRELATED on the unluckiest, and S4 9.6 decides which after quarantine. note_white ranks first on the model and last at the worst draw: its target is the closest to the start area while its note can begin 1760 mm away.",
+      "spearman_at_best_permutation": 1.0,
+      "spearman_at_worst_permutation": -0.486
+    },
+    "what": "distance_from_start_mm and round_trip_mm measure start_area to target and omit the leg that fetches the object. The claim in scope.answers, 'what each mission costs in travel', is therefore not supported.",
+    "why_it_matters": "The error runs both ways, so points_per_metre_round_trip does not preserve the ranking it appears to give."
+  },
+  "headline": {
+    "capacity_deletes_randomization_variance": true,
+    "capacity_one_to_two_saves_mm": 2213.163,
+    "phase_change_not_a_slope": "Total travel falls monotonically with capacity - a tour feasible at k is feasible at k+1 - but the SPREAD does not: it runs 1000, 658, 426, 552, 425, 0, rising again from capacity 3 to 4. Only carrying every note at once removes the randomization, so a mechanism that carries 'most' of them buys distance without buying predictability. All six capacities are published so the curve cannot be read as a smooth trend to zero.",
+    "sensing_interaction": "S4 10.2 forbids entering the permutation before the run, so it must be sensed. At high capacity the robot passes every slot anyway and sensing is free; at capacity 1 it must spend a scanning pass or commit blind.",
+    "spread_is_not_monotone_in_capacity": true,
+    "why_structural": "At full capacity the robot collects every note before delivering any, so it visits the same set of points whatever the permutation - the four slots and the six targets. The tour length cannot depend on which colour sits in which slot. The zero is structural, not numerical."
+  },
+  "per_note": [
+    {
+      "error_mm": {
+        "max": -285.521,
+        "min": -492.46
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1629.679,
+        "min": 1422.74
+      },
+      "note_id": "note_black",
+      "points": 20,
+      "randomized": true,
+      "strategy_frame_direction": "overstates",
+      "strategy_frame_round_trip_mm": 1915.2,
+      "target_id": "note_target_black"
+    },
+    {
+      "error_mm": {
+        "max": 1027.189,
+        "min": 138.174
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1760.343,
+        "min": 871.328
+      },
+      "note_id": "note_white",
+      "points": 20,
+      "randomized": true,
+      "strategy_frame_direction": "understates",
+      "strategy_frame_round_trip_mm": 733.154,
+      "target_id": "note_target_white"
+    },
+    {
+      "error_mm": {
+        "max": -622.747,
+        "min": -719.071
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1598.002,
+        "min": 1501.678
+      },
+      "note_id": "note_yellow",
+      "points": 20,
+      "randomized": true,
+      "strategy_frame_direction": "overstates",
+      "strategy_frame_round_trip_mm": 2220.749,
+      "target_id": "note_target_yellow"
+    },
+    {
+      "error_mm": {
+        "max": 686.383,
+        "min": 26.908
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1672.568,
+        "min": 1013.093
+      },
+      "note_id": "note_blue",
+      "points": 20,
+      "randomized": true,
+      "strategy_frame_direction": "understates",
+      "strategy_frame_round_trip_mm": 986.185,
+      "target_id": "note_target_blue"
+    },
+    {
+      "error_mm": {
+        "max": -49.268,
+        "min": -49.268
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1205.39,
+        "min": 1205.39
+      },
+      "note_id": "note_green",
+      "points": 20,
+      "randomized": false,
+      "strategy_frame_direction": "overstates",
+      "strategy_frame_round_trip_mm": 1254.658,
+      "target_id": "note_target_green"
+    },
+    {
+      "error_mm": {
+        "max": -208.157,
+        "min": -208.157
+      },
+      "fetch_and_deliver_mm": {
+        "max": 1382.683,
+        "min": 1382.683
+      },
+      "note_id": "note_red",
+      "points": 20,
+      "randomized": false,
+      "strategy_frame_direction": "overstates",
+      "strategy_frame_round_trip_mm": 1590.84,
+      "target_id": "note_target_red"
+    }
+  ],
+  "provenance": {
+    "capacities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "inputs": {
+      "field_spec": "d1516be53dc53b385e24d0b559f7fb05992d8a42d2fab0f6d3d4629a0dd1ddf4",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
+      "strategy_frame": "a24a35e0966edaf9bf1784ed803bb016599ce0fb5fa815e7375c895747545a7b"
+    },
+    "permutation_count": 24,
+    "round_counts": [
+      1,
+      2,
+      3
+    ],
+    "tool": {
+      "name": "build_travel_budget",
+      "version": "1.0.0"
+    }
+  },
+  "rules": {
+    "s1_p7": "four notes are randomly assigned to the four light-green squares",
+    "s4_10_1": "Each robot attempt is 2 minutes",
+    "s4_10_2": "not allowed to enter data to a program by changing positions or orientation of robot parts",
+    "s4_9_6": "prepare the competition tables for the next round (including possible randomization of game objects)"
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "how far the six notes are to fetch and deliver, how that varies over the 24 randomization permutations, and the mean speed each capacity demands to fit 120 s",
+    "capacity_gated_on": "note mass and grip geometry - work order A2/A3. ADR-022 left the manipulator mechanism open and this does not close it.",
+    "covers": "the six notes only - 120 of 255 points",
+    "does_not_choose_a_capacity": true,
+    "does_not_cover": "the two cables, the microphone and the three instruments: their start poses are nominal_pending in field_spec.json (work order B0)",
+    "every_distance_is_a_lower_bound": true,
+    "lower_bound_assumption": "AS-11",
+    "speed_is_not_measured": true,
+    "speed_source": "field test P6 (motor characterisation) measures it"
+  }
+}
