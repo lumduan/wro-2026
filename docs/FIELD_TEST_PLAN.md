@@ -1,6 +1,6 @@
 # Field test plan — two drive platforms as measuring instruments
 
-`last_reviewed: 2026-07-27`
+`last_reviewed: 2026-07-27` · **all hardware is held; nothing here is blocked**
 
 ## Why this exists
 
@@ -96,12 +96,38 @@ One trap worth stating: **Pybricks `turn()` is clockwise-positive** while the MA
 contract are counter-clockwise-positive (`CLAUDE.md` §5.2). Both backends must negate; getting
 it wrong mirrors every mission. A test asserts both files say so.
 
-`NEEDS-VERIFY(toolchain-alt)`: verified for Pybricks specifically. `ev3dev` /
-`python-ev3dev2` and LEGO's own SPIKE app were **not** exhaustively surveyed; if a single
-toolchain does exist via one of those, the two-implementation decision should be revisited
-before `RobotIO` hardens.
+~~`NEEDS-VERIFY(toolchain-alt)`~~ — **DISCHARGED 2026-07-27.** The note asked for `ev3dev` /
+`python-ev3dev2` and LEGO's own SPIKE app to be surveyed before `RobotIO` hardened. `RobotIO`
+hardened in ADR-023, so this ran late. The answer is unchanged:
 
-Sources: `docs.pybricks.com/en/latest/hubs/` · `pybricks.com/ev3-micropython/`
+| Family | EV3 | SPIKE Prime |
+|---|---|---|
+| Pybricks v2.x (ev3dev image) | ✓ | ✗ |
+| Pybricks v3/v4 (six modern hubs) | ✗ | ✓ |
+| `ev3dev` / `python-ev3dev2` | ✓ | **✗** — SPIKE runs embedded MicroPython on an M4; ev3dev is a Linux distribution for EV3/BrickPi. `ev3dev-lang-python` issue #614 treats SPIKE support as an aspiration |
+| LEGO SPIKE App | **✗** — EV3 Classroom is a separate application | ✓ |
+
+⇒ **No single toolchain targets both**, now checked against three families rather than one.
+ADR-023's two-implementation decision stands.
+
+### Platform availability — both are end-of-life
+
+Not a blocker (the hardware is held) but it bears on spares and on how long the toolchains stay
+installable. From LEGO Education's own pages, read 2026-07-27:
+
+- **SPIKE Prime end of sale: 30 June 2026** — already past.
+- SPIKE App supported to **30 June 2031**; the software stays online after, without updates.
+- Spare parts stocked **until 2028** (two years after last sale).
+- **EV3 retired 2021**; EV3 Lab and EV3 Classroom are both listed under "retired products".
+
+`NEEDS-VERIFY(ev3-download-window)`: several third-party summaries state the EV3 app download
+ends **31 July 2026**. LEGO's own retired-products and EV3 software pages carry **no such date**,
+so it is recorded as unconfirmed rather than repeated as fact. Archiving both toolchains locally
+is cheap insurance either way.
+
+Sources: `docs.pybricks.com/en/latest/hubs/` · `pybricks.com/ev3-micropython/` ·
+`github.com/ev3dev/ev3dev-lang-python` issue 614 · `education.lego.com/en-us/spike-update-2026/` ·
+`education.lego.com/en-us/downloads/retiredproducts/`
 
 ---
 
@@ -151,16 +177,17 @@ of that error chain. Also measure mat waviness, bumps, and whether the table is 
 
 → replaces: `table.tolerance_mm` as a nominal figure in `field_spec.json`
 
-### P5 · Upright, as a contact test — **BLOCKED on physical game objects**
+### P5 · Upright, as a contact test — **RUNNABLE**
 
 The S6 answer of 2026-06-30 defines *not upright* as **not fully touching the floor**. With a
 physical game object, measure the tilt angle at which the base **first lifts**.
 
 → replaces: AS-6 / `upright_tolerance_deg = 15°`
 
-**Blocked** until physical game objects exist — i.e. on acquiring WRO Brick Set 45811 /
-Expansion 45819. Listed here so it is visibly blocked rather than looking runnable.
-(Phase 4 no longer gates it: the geometry is done, the parts are not in hand.)
+**Unblocked 2026-07-27.** The game objects are held (WRO Brick Set 45811 + Expansion 45819).
+This was recorded as blocked from Phase 4 onward on the strength of an operator answer of
+"partially / not sure yet" that was never re-asked — see ADR-025. Sequenced as **A5** in
+`docs/HARDWARE_SESSION.md`.
 
 ### P7 · Object mass and grip points — **the measurement ADR-022 waits on**
 
@@ -190,19 +217,19 @@ Acceleration limit, slip threshold, and minimum controllable speed — **per pla
 
 ## Phase 4 interaction
 
-Whether the team holds **WRO Brick Set 45811** and **Expansion Set 45819** is not yet certain,
-so both routes stay documented:
+**Resolved 2026-07-27: the team holds both sets.** The table below is kept because the
+stud-counting route was the one actually taken and it worked — Phase 4 closed with all 16
+objects mapped. It is now the thing calipers **check** rather than the thing they replace:
 
 | | Phase 4 method | P5 |
 |---|---|---|
 | **Sets held** | measure physical parts with calipers — closes A7 (note base vs the 79.699 mm target), grip points, and P5 in one afternoon. Stud-counting becomes the **cross-check**, not the source. | runnable |
 | **Not held** | count studs in the S3 page rasters × 8.00 mm (S4 §7.4: elements are LEGO System/Technic, so stud pitch is a known constant) | waits |
 
-**Superseded 2026-07-27.** Phases 4 and 6 are both DONE, so this sentence no longer describes
-the project. The stud-counting route was taken and it worked: all 16 objects are mapped with
-contact footprints, and A7 is closed against three independent sources.
+**Superseded twice, 2026-07-27.** First: phases 4 and 6 are DONE, so "the sole remaining item
+on the critical path" no longer described the project. Second, and larger: **the sets are held.**
+Nothing on this page is blocked.
 
-What the sets now gate is different and larger: **every `mass_g` (null for all 16 objects), the
-manipulator mechanism (ADR-022), and every field test on this page.** Resolving the procurement
-question is still the highest-leverage action available — for different reasons than when this
-was written.
+What the sets were said to gate — every `mass_g`, the manipulator mechanism (ADR-022), and every
+field test here — is now simply *work to be done*, ordered in `docs/HARDWARE_SESSION.md`. The
+highest-leverage action is no longer a purchase; it is an afternoon with a scale and calipers.

@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **S6 re-verified (unchanged) · Phase 8 part 1 — mission cost and risk are framed.**
+`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED — all hardware is held (ADR-025). The work order is `docs/HARDWARE_SESSION.md`.**
 
 ## 0 · At a glance
 
@@ -13,10 +13,10 @@ flowchart TD
     P2 --> P6["6 · Scorer + accuracy sweep<br/>DONE — 255 verified, sigma table built"]
     P3 --> P6
     P4 --> P6
-    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>budget + RobotIO done, mechanism waits on mass"]
+    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>budget + RobotIO done, mechanism needs A2+A3"]
     P4 --> P7
-    SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
-    SETS --> FT["F · Field tests P1-P6<br/>BLOCKED — needs the sets"]
+    HW["H · Hardware — ALL HELD<br/>robot sets, game objects, mat, table"] --> P7
+    HW --> FT["F · Field tests + bench work<br/>READY — docs/HARDWARE_SESSION.md"]
     P6 --> P8["8 · Strategy selection<br/>inputs framed, ordering needs F"]
     P7 --> P8
     P5 --> P8
@@ -32,9 +32,9 @@ flowchart TD
 
     class P0,P1,P2,P3,P4,P5,P6 done
     class P7 ready
-    class SETS decision
+    class HW done
     class P8 active
-    class FT blocked
+    class FT ready
     class P9 goal
 ```
 
@@ -47,25 +47,30 @@ flowchart TD
 | **4 · Object spec (S3)** | ✅ **DONE** | `data/object_spec.json`: **all 16 objects mapped, no unresolved spans.** Boundaries re-derived from the cream **run-preview box** (ADR-019), which corrected three of part 1's page ranges and its step count. Contact footprints for every object on a containment path except the keyboard, which is **bounded** at ≤ 56 × 56 mm. **Cables measured at 128.0 mm — they do not fit across their 79.70 mm target area, so placement orientation is forced** (figure corrected 2026-07-27, ADR-021: the first published value read `bbox_mm` as the area). Parts inventory (pp. 176–177) gives canonical LEGO ids, cross-checked against the extraction | — |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Scorer + accuracy sweep** | ✅ **DONE** | `sim/` package (ADR-020) + `data/placement_sensitivity.json`. A perfect run verifies at **255/255**, a do-nothing run at the **40-point bonus floor**. All five open interpretations (A1/A2/A5/A7/A8) are named parameters, not hard-coded readings. The sweep reports **required placement accuracy per mission** under both A7 readings — see `docs/PHASE7_CONSTRAINTS.md` §7b. Dynamics deliberately **not** modelled: its every parameter is an unmeasured `ASSUME:` until the field tests run | — |
-| **F · Field tests P1–P6** | ⬜ **BLOCKED** | `docs/FIELD_TEST_PLAN.md`. Supply the σ that turns the accuracy *requirement* into a *prediction*, plus colour separation, odometry drift and table reality | needs the sets (**S**) |
-| **7 · Robot design** | 🔵 **budget + `RobotIO` done / ⏸ mechanism** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen | the **physical sets** — field test **P7** |
-| **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`), the ADR-022 mechanism decision, and every field test **P1–P7** | operator action |
-| **8 · Strategy selection** | 🟡 **inputs framed / ordering BLOCKED** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). Ordering still needs σ | needs **F** |
+| **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block A** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
+| **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **A2/A3** of the work order | — |
+| **H · Hardware** | ✅ **ALL HELD** | EV3 45544 · SPIKE Prime 45678 + 45681 · WRO Brick Set 45811 + Expansion 45819 · the printed mat · a competition-spec table. Recorded as a blocker from Phase 4 until 2026-07-27 on an operator answer that was never re-asked — see **ADR-025** | — |
+| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). Ordering still needs σ, which is work-order item **B5** | needs **B5** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
-> **Every phase that can be done from documents is now done (0–6).** What remains needs
-> physical hardware, and one purchase unblocks all of it: the sets gate `mass_g` for all 16
-> objects, the manipulator, and every field test that would supply σ.
+> **Every phase that can be done from documents is done (0–6), and nothing is blocked.** The
+> hardware is held — it always was. This roadmap said otherwise from Phase 4 until 2026-07-27
+> because an operator answer of *"partially / not sure yet"* was hardened into a blocker and
+> never re-asked (**ADR-025**).
 >
-> **The single highest-leverage action is acquiring WRO Brick Set 45811 and Expansion Set
-> 45819, and it is an operator action, not an engineering one.**
+> **The highest-leverage action is `docs/HARDWARE_SESSION.md` Block A — items A1 to A3.** No
+> robot is needed. A scale and a pair of calipers close the manipulator mechanism decision that
+> ADR-022 deliberately left open, fill in `mass_g` for all 16 objects, replace AS-6, upgrade two
+> bounds to measurements, and independently check Phase 4's entire stud-counting chain. It is
+> perhaps an afternoon.
 >
-> One engineering action is worth queueing behind it: **submit A7 to the official Q&A.** The
-> accuracy sweep shows that resolving `completely_in` to the contact patch rather than the
-> silhouette relaxes the note placement requirement from **σ ≈ 4.3 mm to σ ≈ 11.4 mm** — a
-> factor of 2.6 on the mission carrying 120 of 255 points. A7 was previously recorded as
-> "holds either way, nothing is blocked", which is true for feasibility and misleading for
-> design.
+> After that, **B5** — odometry drift — supplies σ and unblocks Phase 8's ordering.
+>
+> One action remains that no measurement can reach: **submit A7 to the official Q&A.** Resolving
+> `completely_in` to the contact patch rather than the silhouette relaxes the note placement
+> requirement from **σ ≈ 4.3 mm to σ ≈ 11.4 mm** — a factor of 2.6 on the mission carrying 120 of
+> 255 points. A7 was previously recorded as "holds either way, nothing is blocked", which is true
+> for feasibility and misleading for design.
 
 ### Why these edges
 
@@ -75,10 +80,10 @@ Drawn from stated constraints, not assumed ordering:
 |---|---|---|
 | **Fork** | 1 → {2, 3, 4} | geometry, scoring rules and object specs come from three *different* sources (S2 / S1 / S3) and never read each other |
 | **Join** | {2, 3, 4} → 6 | a simulator needs field geometry **and** a scoring model **and** object mass/dimensions |
-| **Join** | {4, 5, S} → 7 | gripper design needs object dimensions (S3) **and** robot limits (S4) **and** object mass, which only the physical sets provide; `CLAUDE.md` A6 |
-| **Independent root** | S | procurement is operator work — it waits on nothing in this repo, and nothing in this repo can substitute for it |
+| **Join** | {4, 5, H} → 7 | gripper design needs object dimensions (S3) **and** robot limits (S4) **and** object mass, which only the physical objects provide; `CLAUDE.md` A6 |
+| **Independent root** | H | the hardware waits on nothing and nothing in this repo substitutes for it — but it is **held**, so it gates only the doing |
 | **Join** | {5, 6, 7, F} → 8 | `CLAUDE.md` §5.7 anti-pattern #3 needs the scorer (6) and #5 needs `P(success)`, which needs σ from the field tests (F) |
-| **Fork** | S → {7, F} | one purchase unblocks both the manipulator and every field test; that is why it is the bottleneck rather than one blocker among several |
+| **Fork** | H → {7, F} | one purchase unblocks both the manipulator and every field test; that is why it is the bottleneck rather than one blocker among several |
 | **Independent root** | 5 | S4 acquisition is external/operator work — it waits on nothing in this repo |
 | **Gate** | 0 → 1 | session brief §6: extraction quality must be human-reviewed before geometry is frozen |
 

@@ -1,9 +1,9 @@
 """EV3 backend — Pybricks v2.x on ev3dev. **UNVERIFIED against hardware.**
 
 Every method below records the exact Pybricks call it will make and where that
-call is documented. Nothing here has been executed: the team does not yet hold
-the sets, and this file exists so that the scarce hardware window is spent
-measuring rather than writing code. Verification is then a checklist.
+call is documented. Nothing here has been executed yet — but the hardware is
+held, so this is now a checklist to work through rather than a placeholder.
+See ``docs/HARDWARE_SESSION.md`` item B1.
 
 Sources, read 2026-07-27:
 

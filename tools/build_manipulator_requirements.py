@@ -300,8 +300,11 @@ def build() -> dict[str, Any]:
         "gated_on": {
             "measurement": "object mass and grip points",
             "why": "mass_g is null for all 16 objects; no document contains it",
-            "closed_by": "WRO Brick Set 45811 + Expansion Set 45819 on a scale",
-            "field_test": "P5, and a new grip-point pass — see docs/FIELD_TEST_PLAN.md",
+            "closed_by": "WRO Brick Set 45811 + Expansion Set 45819 on a scale — HELD "
+                         "as of 2026-07-27 (ADR-025), so this is work to do, not to wait for",
+            "hardware_held": True,
+            "hardware_confirmed": "2026-07-27",
+            "work_order": "docs/HARDWARE_SESSION.md items A2 (mass) and A3 (grip points)",
         },
     }
 

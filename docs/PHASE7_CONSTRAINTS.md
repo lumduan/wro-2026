@@ -339,10 +339,10 @@ bounded at ≤ 56 × 56 mm rather than measured (`data/object_spec.json`, `footp
 | `amp`, `speaker_a`, `speaker_b` | not measured | scored for **not** being moved; off the containment path |
 
 **What still blocks a final manipulator: mass and grip points.** Neither can come from a
-building instruction. `mass_g` is `null` for all 16 objects and needs the physical sets on a
-scale — the still-open 45811/45819 procurement question, and the same thing that blocks field
-test P5.
+building instruction. `mass_g` is `null` for all 16 objects and needs the objects on a scale.
 
-So the gate has moved rather than opened: geometry is no longer the blocker, **the physical
-sets are**. A final **chassis** is permitted (A6 is closed at international scope). A final
-**manipulator** still is not, but the reason is now procurement, not analysis.
+**That is now an afternoon's work, not a purchase.** The sets are held — see ADR-025 and
+`docs/HARDWARE_SESSION.md` items **A2** and **A3**, which close ADR-022's gated half. A final
+**chassis** is permitted (A6 is closed at international scope). A final **manipulator** is not
+yet, but the only thing between here and it is a scale, a pair of calipers, and writing down
+what they say.

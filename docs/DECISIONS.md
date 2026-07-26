@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2); ADR-024 added 2026-07-27.
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2); ADR-024 and ADR-025 added 2026-07-27.
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -30,6 +30,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-022](#adr-022) | Motor budget: 2 drive + 0 yaw + 2 manipulator; mechanism gated on mass | accepted 2026-07-27 |
 | [ADR-023](#adr-023) | `RobotIO` is intent-level, and portability is linted, not assumed | accepted 2026-07-27 |
 | [ADR-024](#adr-024) | S6 is parsed structurally; the EV risk term is a worst case, not a constant | accepted 2026-07-27 |
+| [ADR-025](#adr-025) | An operator-dependent blocker carries the date it was last confirmed | accepted 2026-07-27 |
 
 ---
 
@@ -993,3 +994,61 @@ genuinely conditional, and they are also eight times less dense in points per me
 plus the pickup locations, 15 of which are `nominal_pending` with null coordinates (ADR-014).
 `CLAUDE.md` §5.7 anti-pattern #3 forbids claiming one strategy beats another without simulator
 evidence; this supplies the cost and risk inputs to that claim, not the claim.
+
+---
+
+## ADR-025
+
+**An operator-dependent blocker carries the date it was last confirmed.**
+`2026-07-27 · accepted`
+
+**Context.** From Phase 4 until today this repo recorded itself as blocked on procurement. Four
+documents said so — the ROADMAP carried an `S · WRO sets` node in red, `FIELD_TEST_PLAN` marked
+P5 "BLOCKED on physical game objects", `PHASE7_CONSTRAINTS` §8 said "the reason is now
+procurement, not analysis", and ADR-022 gated the manipulator mechanism on sets "the team does
+not yet hold". Four consecutive commit messages closed with some version of *"the sets are the
+one action that unblocks everything."*
+
+**It was never true.** The operator holds all of it: EV3 Core Set 45544, SPIKE Prime 45678 +
+Expansion 45681, WRO Brick Set 45811 + Expansion 45819, the printed mat, and a competition-spec
+table.
+
+**Root cause.** An operator answer of *"partially / not sure yet"*, given once, was written down
+as *blocked*. Nothing after that re-asked. Every later phase inherited the framing from the
+document before it, and each inheritance made it look better established — by the fourth
+repetition it read as a settled fact with four independent sources, when it had one ambiguous
+source and no date.
+
+The failure is not the original answer, which was honest. It is that **an expression of
+uncertainty was flattened into a state, and the state had no expiry.**
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Re-ask everything each session | thorough, and unworkable — most facts do not change |
+| Treat operator answers as durable | what happened; a "not sure yet" silently becomes permanent |
+| **Date every operator-dependent claim** | the claim carries its own staleness, and a reader can see when to re-ask |
+
+**Decision.** Any blocker that depends on operator state — hardware held, procurement, a
+national-organizer decision, a Q&A submission — is recorded with **the date it was last
+confirmed**. An undated one is treated as unverified, not as true. Ambiguous answers are
+recorded as *ambiguous* rather than resolved to whichever reading is more conservative: "not
+sure yet" is not a synonym for "no".
+
+This is the operator-state analogue of what `docs/ASSUMPTIONS.md` already does for `ASSUME:` —
+every one of those carries a consequence-if-wrong, and the point is the same. An assumption
+without a consequence is a guess; a blocker without a date is a rumour.
+
+**Consequence.** `docs/HARDWARE_SESSION.md` is the work order that should have existed six
+phases ago. The remaining operator-dependent items now carry dates:
+
+| Claim | State | Last confirmed |
+|---|---|---|
+| All hardware held | **yes** | 2026-07-27 |
+| `NEEDS-VERIFY(NO-TH)` — Thai National Organizer | unconfirmed | never asked |
+| A7 / A1 / A8 submitted to the official Q&A | not submitted | 2026-07-27 |
+
+**Scope.** This is about *recording* state, not about deciding anything. It does not license
+assuming an operator answer — the opposite: it forces the question to be re-asked rather than
+inherited.
