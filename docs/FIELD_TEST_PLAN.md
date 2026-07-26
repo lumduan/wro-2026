@@ -53,12 +53,24 @@ holds; it is a design constraint, not trivia.
 ## Step 1 — `RobotIO` and a trivial mission, before the full field test
 
 The project's core invariant is that mission code imports only `robot_io.RobotIO`, so one file
-runs on the simulator and on hardware. **That is currently an untested claim.** Two platforms
-is the strongest test it will ever get.
+runs on the simulator and on hardware.
 
-Write `RobotIO` and one trivial mission — **drive 500 mm, turn 90°, read a colour** — and run
-it on both hubs. That single result determines whether `RobotIO` needs one implementation or
-two, and it is far cheaper to learn now than after twelve mission programs exist.
+> **Partly discharged 2026-07-27 (ADR-023).** It is no longer an untested claim, and it did not
+> need two hubs to test most of it. The risk is **linguistic**, not electrical: the simulator is
+> CPython 3.13 and both hubs are MicroPython, EV3's from May 2020. A construct CPython accepts
+> and MicroPython rejects is a syntax error found on the competition table.
+>
+> `tools/check_portability.py` now walks every hub-bound file and rejects what those ports
+> cannot run — f-strings above all, since MicroPython added them in **1.17 (Sept 2021)** and EV3
+> MicroPython v2.0 is **18 May 2020**. Eleven parametrised tests assert the lint *rejects* each
+> construct, because a lint that has never rejected anything is not evidence.
+>
+> **What hardware still tests, and only hardware can:** that the Pybricks calls behave as their
+> documentation says. Both backends are written out call by call, cited to their doc pages, and
+> raise `NotImplementedError("UNVERIFIED")` until run. Arrival day is a checklist.
+
+`robot/missions/trivial.py` is written and runs against the simulator: **drive 500 mm, turn 90°,
+read a colour**, exactly as specified below. Run it on both hubs to close the remaining half.
 
 ### Toolchain — verified, and the answer is two
 
@@ -69,8 +81,20 @@ two, and it is far cheaper to learn now than after twelve mission programs exist
 | Pybricks v3/v4 — the hub index lists MoveHub, CityHub, TechnicHub, InventorHub, **PrimeHub**, EssentialHub | **absent** | ✓ |
 | EV3 MicroPython v2.0.0 — ev3dev-based SD image, **May 2020** | ✓ | ✗ |
 
-⇒ **No single current toolchain targets both.** `RobotIO` must be **one contract with two
-implementations**, designed that way from the start rather than retrofitted.
+⇒ **No single current toolchain targets both.** `RobotIO` is therefore **one contract with two
+implementations**, designed that way from the start — `robot/robot_io.py` plus
+`robot_io_ev3.py` and `robot_io_spike.py`.
+
+**Narrowed 2026-07-27.** The two are the same family at two generations, not strangers:
+Pybricks v2.x on EV3 (community-supported, in the ev3dev image) and Pybricks v3/v4 on the six
+modern hubs, EV3 absent. They share `pybricks.robotics.DriveBase` and
+`pybricks.parameters.Port`; they differ in the device module — `pybricks.ev3devices` against
+`pybricks.pupdevices` — and in the hub class, `EV3Brick` against `PrimeHub`. One real
+capability difference: the PrimeHub has an IMU, so its `heading()` need not be pure odometry.
+
+One trap worth stating: **Pybricks `turn()` is clockwise-positive** while the MAT frame and this
+contract are counter-clockwise-positive (`CLAUDE.md` §5.2). Both backends must negate; getting
+it wrong mirrors every mission. A test asserts both files say so.
 
 `NEEDS-VERIFY(toolchain-alt)`: verified for Pybricks specifically. `ev3dev` /
 `python-ev3dev2` and LEGO's own SPIKE app were **not** exhaustively surveyed; if a single

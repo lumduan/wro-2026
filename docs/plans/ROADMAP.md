@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **Phase 7 part 1 — the motor budget is settled (ADR-022); the mechanism waits on the sets.**
+`last_reviewed: 2026-07-27` · **Phase 7 part 2 — `RobotIO` exists and its portability is linted, not assumed.**
 
 ## 0 · At a glance
 
@@ -13,7 +13,7 @@ flowchart TD
     P2 --> P6["6 · Scorer + accuracy sweep<br/>DONE — 255 verified, sigma table built"]
     P3 --> P6
     P4 --> P6
-    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>motor budget SETTLED, mechanism waits on mass"]
+    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>budget + RobotIO done, mechanism waits on mass"]
     P4 --> P7
     SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
     SETS --> FT["F · Field tests P1-P6<br/>BLOCKED — needs the sets"]
@@ -47,7 +47,7 @@ flowchart TD
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Scorer + accuracy sweep** | ✅ **DONE** | `sim/` package (ADR-020) + `data/placement_sensitivity.json`. A perfect run verifies at **255/255**, a do-nothing run at the **40-point bonus floor**. All five open interpretations (A1/A2/A5/A7/A8) are named parameters, not hard-coded readings. The sweep reports **required placement accuracy per mission** under both A7 readings — see `docs/PHASE7_CONSTRAINTS.md` §7b. Dynamics deliberately **not** modelled: its every parameter is an unmeasured `ASSUME:` until the field tests run | — |
 | **F · Field tests P1–P6** | ⬜ **BLOCKED** | `docs/FIELD_TEST_PLAN.md`. Supply the σ that turns the accuracy *requirement* into a *prediction*, plus colour separation, odometry drift and table reality | needs the sets (**S**) |
-| **7 · Robot design** | 🔵 **budget SETTLED / ⏸ mechanism** | `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**. Yaw costs nothing — measured tolerance is ±31°, so chassis heading suffices. 8 of 12 objects share one 32 mm grip, and a 32 mm mechanism alone reaches **195/255 (76 %)**. The mechanism itself (gripper / fork / scoop / passive) is refused, not chosen: it needs mass and grip points | the **physical sets** — field test **P7** |
+| **7 · Robot design** | 🔵 **budget + `RobotIO` done / ⏸ mechanism** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen | the **physical sets** — field test **P7** |
 | **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`), the ADR-022 mechanism decision, and every field test **P1–P7** | operator action |
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor**. The scorer now exists, so EV is computable the moment σ is known | needs 7 AND **F** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
@@ -267,8 +267,16 @@ It also **corrected** a Phase 6 claim: §7 said of the cable *"along-axis accura
 problem; rotation is"*. Backwards — translation dominates (13.90 mm against 17.68 mm), and the
 design consequence inverts with it.
 
-**Part 2, not yet started:** the `RobotIO` contract, deliberately sequenced after this so it
-knows its own actuator surface.
+**Part 2 delivered (2026-07-27):** `robot/robot_io.py` — an **intent-level** contract
+(`pick_up` / `place`, never `actuator_a`), so the open mechanism decision costs no mission file
+if it changes. Plus `sim/robot_io_sim.py`, two cited hardware backends, the trivial mission
+Step 1 asks for, and `tools/check_portability.py`.
+
+The portability lint is the part that mattered. `FIELD_TEST_PLAN.md` called the "one file runs
+on both" invariant **an untested claim** and assumed two hubs were needed to test it. Most of
+it was not: the failure mode is linguistic — CPython 3.13 in the simulator against MicroPython
+on both hubs, EV3's from May 2020, which **predates f-strings** (MicroPython 1.17, Sept 2021).
+The lint catches that on every commit; hardware is left to test only what hardware can.
 
 **Still gated:** the mechanism — gripper, fork, scoop or passive. That needs object mass and
 grip points, which no document contains, and is now field test **P7**.

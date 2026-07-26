@@ -29,7 +29,9 @@ package = false
 
 [tool.pytest.ini_options]
 # "." makes the `sim` package importable; "tools" keeps the build scripts
-# importable as flat modules, which they have been since Phase 0.
-pythonpath = [".", "tools"]
+# importable as flat modules, which they have been since Phase 0; "robot" makes
+# `import robot_io` resolve exactly as it will on a hub, where the files are
+# copied flat. Mission code must never need a package prefix.
+pythonpath = [".", "tools", "robot"]
 testpaths = ["tests"]
 addopts = "-q"

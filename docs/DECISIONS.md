@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1).
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2).
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -28,6 +28,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-020](#adr-020) | `sim/` is a package; every open interpretation is a named parameter | accepted 2026-07-27 |
 | [ADR-021](#adr-021) | Area geometry comes from the polygon, never from `bbox_mm` | accepted 2026-07-27 |
 | [ADR-022](#adr-022) | Motor budget: 2 drive + 0 yaw + 2 manipulator; mechanism gated on mass | accepted 2026-07-27 |
+| [ADR-023](#adr-023) | `RobotIO` is intent-level, and portability is linted, not assumed | accepted 2026-07-27 |
 
 ---
 
@@ -832,3 +833,76 @@ manipulator's envelope is bounded by a 128 mm span with two free motor slots. Th
 decision is reduced to a single measurement — weigh the objects and identify grip points —
 which is added to `docs/FIELD_TEST_PLAN.md`. S4 §5.1 leaves post-start size unrestricted, so a
 deployable mechanism remains legal whichever way that measurement goes.
+
+---
+
+## ADR-023
+
+**`RobotIO` is intent-level, and portability is linted rather than assumed.**
+`2026-07-27 · Phase 7 part 2 · accepted`
+
+**Context.** `docs/FIELD_TEST_PLAN.md` Step 1 states the project's core invariant and then
+admits it is unverified:
+
+> mission code imports only `robot_io.RobotIO`, so one file runs on the simulator and on
+> hardware. **That is currently an untested claim.**
+
+It also assumes the test needs two hubs — which are the project's bottleneck. Two decisions
+were needed: what the contract exposes, and how much of the claim can be tested without
+hardware.
+
+**Decision 1 — the manipulator surface is intent, not actuators.**
+
+ADR-022 fixed the motor budget at 2 drive + 0 yaw + 2 manipulator but deliberately left the
+*mechanism* open, gated on object mass and grip points.
+
+| Option | Effect |
+|---|---|
+| `actuator_a(position)` / `actuator_b(position)` | mirrors the two free slots honestly, and bakes one mechanism into all twelve mission files — changing from a gripper to a fork would rewrite every one |
+| Both layers | mission code can bypass the abstraction, so the portability guarantee is only as good as the layer people happen to use |
+| **`pick_up()` / `place()` / `carrying()`** | a fork, scoop, gripper or passive geometry each implement it differently and **no mission file changes** |
+
+Intent survives an open mechanism decision; actuators do not. That is the whole reason ADR-022
+was able to refuse the mechanism without blocking anything.
+
+The same reasoning excludes a convenience method. Pybricks offers `ColorSensor.color()`, which
+classifies to seven fixed colours — and conveniently covers all six note colours. The contract
+does **not** expose it: S4 §7.10 has mat brightness varying table to table and lighting hour to
+hour, §9.3 puts calibration in practice time and requires it to survive quarantine, and §5.2.7
+prohibits cameras so there is no fallback. Sensing must be ratiometric, so the contract exposes
+the scalar `read_reflection()` and nothing that invites an absolute threshold.
+
+**Decision 2 — lint the portability claim.**
+
+The risk in "one file runs on both" is not electrical, it is **linguistic**: the simulator is
+CPython 3.13 and both hubs are MicroPython, EV3's from **May 2020**. A construct CPython accepts
+and MicroPython rejects is a syntax error discovered on the competition table.
+
+`tools/check_portability.py` walks the AST of every hub-bound file and rejects what those ports
+cannot run. **Every rule cites its evidence**, because a lint rule without a source is a style
+opinion:
+
+| Rule | Evidence |
+|---|---|
+| no f-strings | MicroPython added them in **1.17, September 2021**; EV3 MicroPython v2.0 is **18 May 2020** |
+| no `typing` / `dataclasses` / `abc` / `enum` / `__future__` | absent from MicroPython — which is also why the contract is a plain class and not an `abc.ABC` |
+| no `async` / `await` | not on these ports |
+| no relative imports | hub files are copied flat |
+| imports restricted to an allowlist | a hub resolves only its own frozen modules |
+
+**Consequence.** The claim is now tested on every commit, without hardware. Eleven parametrised
+cases assert the lint *rejects* each construct — a lint that has never rejected anything is not
+evidence. Hardware is left to test only what hardware can: that the Pybricks calls behave as
+documented.
+
+The `sim/robot_io_sim.py` backend closes the loop. A mission runs against it, the resulting
+world goes to `sim.scoring.Scorer`, and the score is asserted — so **mission logic is verifiable
+today**. It is explicitly not a performance model: no friction, slip, drift or motor response,
+because every one of those is an unmeasured `ASSUME:` until P1–P6. Same line Phase 6 drew.
+
+**A finding from building it.** `SimRobotIO.pick_up()` originally took the nearest object.
+Because 15 of 17 start poses are `nominal_pending` with null coordinates (ADR-014), unplaced
+objects all sit at the origin — and dict order silently handed the robot the **amplifier**,
+which it carried to a note target, losing 10 bonus points and 20 note points while the test
+reported a pass. `pick_up()` now **raises on ambiguity**. Reaching for the nearest thing is
+what a real robot does; a *test* that does it is not testing what it claims.
