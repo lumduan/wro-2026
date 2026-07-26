@@ -217,7 +217,17 @@ Acceleration limit, slip threshold, minimum controllable speed — **per platfor
 **A7** — whether `completely_in` consumes the contact patch or the silhouette. It swings the
 required note placement accuracy by **2.6×** (σ ≈ 11.4 mm against ≈ 4.3 mm) on the mission
 carrying 120 of 255 points. Only the official Q&A settles it, and submitting it is the highest
-value action available that is not on this page. **A1** and **A8** likewise.
+value action available that is not on this page. **A1**, **A8**, **A9** and **A10** likewise.
 
-**`NEEDS-VERIFY(NO-TH)`** — S4 §4.3 and §5.2 let National Organizers change robot limits. Every
-figure in this repo is international-scope until the Thai National Organizer confirms.
+**`NEEDS-VERIFY(NO-TH)`** — two questions for the Thai National Organizer, neither yet asked:
+
+1. **Robot limits** — S4 §4.3 and §5.2. Every figure in this repo is international-scope until
+   they confirm.
+2. **Tournament format** — how many rounds (§9.1.2), how they are aggregated (§10.13), whether a
+   mulligan is offered (§10.14), and whether practice time is interleaved between rounds (§9.3).
+
+The second **outranks everything on this page**, because it sets the objective function rather
+than a parameter in it (ADR-027). If the ranking is best-of-three, the target is
+`E[max of 3]`, which rewards variance — at σ = 20 mm that is 229 rather than 216, and the gap
+*widens* as σ grows. A measurement session tuned to minimise σ is optimising the right thing
+only if N = 1.

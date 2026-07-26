@@ -12,6 +12,12 @@ accuracy each mission demands and the expected score as a function of that accur
 derived and tested. What remains is measurement on real hardware, ordered by leverage in
 [`docs/HARDWARE_SESSION.md`](docs/HARDWARE_SESSION.md).
 
+**One thing outranks the measurements**, and it is a question rather than a task: S4 §10.13
+makes the ranking depend on the tournament format and offers *"the best attempt out of three
+rounds"* only as an example. Under a best-of-N ranking the objective is `E[max of N]`, which
+rewards variance — so the round count decides *what to optimise*, not just how precisely. Both
+answers sit with the National Organizer. See [ADR-027](docs/DECISIONS.md#adr-027).
+
 ---
 
 ## Getting the source documents
@@ -78,12 +84,12 @@ fill inventory, the report and the decision records — is committed.
 | `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
 | `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |
 | `docs/object_map.toml`, `object_parts.toml` | Hand-written inputs to the object spec: S3 page ranges → object IDs, and part identification. |
-| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `robot_io_sim`. |
+| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `rounds` (the score distribution) · `robot_io_sim`. |
 | `robot/` | `robot_io.py` — the one contract mission code imports — plus the EV3 and SPIKE backends and `missions/`. Must run on **MicroPython**; `tools/check_portability.py` enforces that. |
 | `tools/pdf_extract.py` | The extraction CLI. |
 | `tools/build_all.py` | Runs the derived-artefact pipeline in dependency order. |
 
-### `data/` — six derived files and one that is not
+### `data/` — seven derived files and one that is not
 
 **Never hand-edit a derived file.** Edit its input and re-run `tools/build_all.py`.
 
@@ -94,7 +100,8 @@ fill inventory, the report and the decision records — is committed.
 | `placement_sensitivity.json` | `P(success)` per mission across a placement-error σ | `run_sensitivity.py` |
 | `manipulator_requirements.json` | Grip span, yaw tolerance, handling classes, the motor budget | `build_manipulator_requirements.py` |
 | `strategy_frame.json` | Travel cost and bonus-points-at-risk per mission | `build_strategy_frame.py` |
-| `expected_score.json` | E[score] as a function of σ and P(collision) | `build_expected_score.py` |
+| `expected_score.json` | E[score] as a function of σ and P(collision) — the **N = 1** case | `build_expected_score.py` |
+| `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, and the S4 §10.14 mulligan rule (ADR-027) | `build_round_strategy.py` |
 | `scoring_model.json` | Missions, predicates, time rules, randomization | **hand-authored** — a transcription of S1/S4/S6, not a derivation |
 
 ## The build chain

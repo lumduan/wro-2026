@@ -88,7 +88,7 @@ def test_the_pipeline_is_in_dependency_order():
 
 def test_every_derived_artefact_exists_and_is_declared_once():
     outs = [a.out for a in PIPELINE]
-    assert len(outs) == len(set(outs)) == 6
+    assert len(outs) == len(set(outs)) == 7
     for out in outs:
         assert (ROOT / out).exists(), out
 
@@ -149,17 +149,23 @@ def test_every_adr_is_indexed_in_the_table():
 
 
 def test_every_cited_assumption_exists():
-    defined = set(re.findall(r"^## (AS-\d)", ASSUMPTIONS.read_text(), re.M))
-    cited = _cited(r"\bAS-\d\b")
+    # `\d+`, not `\d`: with `AS-\d` the heading "## AS-10" defines "AS-1" and no
+    # citation of AS-10 matches at all, so the guard passes while checking
+    # nothing. Same latent off-by-one as the ambiguity pattern below.
+    defined = set(re.findall(r"^## (AS-\d+)", ASSUMPTIONS.read_text(), re.M))
+    cited = _cited(r"\bAS-\d+\b")
     assert cited - defined == set(), f"dangling: {sorted(cited - defined)}"
 
 
 def test_every_cited_ambiguity_exists():
     text = AMBIGUITIES.read_text()
-    defined = set(re.findall(r"^#{2,3} (A\d)\b", text, re.M))
+    defined = set(re.findall(r"^#{2,3} (A\d+)\b", text, re.M))
     # The register's summary table is the other place they are declared.
-    defined |= set(re.findall(r"^\| (A\d) \|", text, re.M))
-    cited = {c for c in _cited(r"\bA[1-9]\b")}
+    defined |= set(re.findall(r"^\| (A\d+) \|", text, re.M))
+    # `A\d+`, not `A[1-9]`: the old pattern stopped matching at A9, so A10 would
+    # have gone silently unguarded the moment it was written. A9 was the last
+    # value it caught.
+    cited = {c for c in _cited(r"\bA\d+\b")}
     assert cited - defined == set(), f"dangling ambiguity citations: {sorted(cited - defined)}"
 
 

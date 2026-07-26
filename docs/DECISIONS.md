@@ -32,6 +32,8 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-024](#adr-024) | S6 is parsed structurally; the EV risk term is a worst case, not a constant | accepted 2026-07-27 |
 | [ADR-025](#adr-025) | An operator-dependent blocker carries the date it was last confirmed | accepted 2026-07-27 |
 | [ADR-026](#adr-026) | Expected value carries the partial tier; measurement paths ship inert | accepted 2026-07-27 |
+| [ADR-027](#adr-027) | The objective is `E[max of N rounds]`, not `E[score]` of one attempt | accepted 2026-07-26 |
+| [ADR-028](#adr-028) | A rounded probability is not a probability distribution | accepted 2026-07-26 |
 
 ---
 
@@ -1047,8 +1049,9 @@ phases ago. The remaining operator-dependent items now carry dates:
 | Claim | State | Last confirmed |
 |---|---|---|
 | All hardware held | **yes** | 2026-07-27 |
-| `NEEDS-VERIFY(NO-TH)` — Thai National Organizer | unconfirmed | never asked |
-| A7 / A1 / A8 submitted to the official Q&A | not submitted | 2026-07-27 |
+| `NEEDS-VERIFY(NO-TH)` — robot limits (S4 §4.3, §5.2) | unconfirmed | never asked |
+| `NEEDS-VERIFY(NO-TH)` — **tournament format** (S4 §9.1.2, §10.13, §10.14): round count, aggregation rule, mulligan offered?, practice interleaved? | unconfirmed | never asked — added 2026-07-26, ADR-027 |
+| A7 / A1 / A8 / A10 submitted to the official Q&A | not submitted | 2026-07-27 |
 
 **Scope.** This is about *recording* state, not about deciding anything. It does not license
 assuming an operator answer — the opposite: it forces the question to be re-asked rather than
@@ -1125,3 +1128,113 @@ methods is a finding, not a value to overwrite.
 **Consequence.** The session is spent measuring rather than editing builders: type numbers into
 TOML, re-run, get an updated spec. Verified end to end by putting a mass and a pose through both
 paths and reverting.
+
+---
+
+## ADR-027
+
+**The objective is `E[max of N rounds]`, not `E[score]` of one attempt.**
+`2026-07-26 · accepted`
+
+**Context.** Phase 8 optimises the expected score of a **single attempt**. Everything downstream
+of it — `data/expected_score.json`, the break-even `P(collision)` table in
+`data/strategy_frame.json`, ADR-024, ADR-026 — inherits that objective. Nothing in the repo ever
+stated it, and S4 does not support it.
+
+Three rules, quoted rather than paraphrased:
+
+| Rule | Text | What it settles |
+|---|---|---|
+| §9.1.2 (p12) | "A number of robot rounds." | the count is **unspecified** |
+| §10.13 (p14) | "The ranking of teams depends on the overall tournament format. **For example**, the best attempt out of three rounds could be used and if competing teams have the same points, the ranking is decided by the record of time." | the aggregation rule is **organizer-set**; best-of-three is an *example*, not the rule |
+| §10.14 (p14) | "Mulligan (optional element)… If a team decides to redo the run the new score will be used for the ranking **no matter what**." | a **replacement**, not a maximum — never recorded here before |
+
+**Why it changes anything.** Under a best-of-N ranking the objective is `E[max(X₁…X_N)]`, which
+**rewards variance**. Two strategies with equal means and different spreads stop being
+equivalent, and ranking them by `E[X]` gives the wrong order.
+
+That is exact, not a heuristic. For two rounds,
+
+```
+E[max(X₁, X₂)]  =  E[X]  +  E|X₁ − X₂| / 2
+```
+
+— the premium *is* half the Gini mean difference, a pure dispersion measure, and nothing else.
+The identity is asserted in `tests/test_rounds.py` by double summation over the pmf, which shares
+no code path with the powered-cdf method the module uses. For N > 2 the premium is still a
+dispersion functional, increasing in the convex order, so the direction holds for any N.
+
+Measured — exact convolution over the integer points axis, no sampling (`sim/rounds.py`):
+
+| σ (mm) | `E[X]` | sd | `E[max2]` | `E[max3]` | **premium @ N=3** |
+|---:|---:|---:|---:|---:|---:|
+| 10 | 251.7 | 5.6 | 254.2 | 254.8 | **+3.0** |
+| 15 | 235.5 | 12.3 | 242.2 | 245.3 | **+9.8** |
+| 20 | 216.3 | 15.1 | 224.7 | 228.8 | **+12.5** |
+| 30 | 184.7 | 17.2 | 194.3 | 199.0 | **+14.4** |
+| 45 | 150.7 | 18.8 | 161.2 | 166.5 | **+15.9** |
+
+**The premium grows with σ.** At σ = 20 mm it is worth more than a whole cable mission (15
+points). That inverts the naive reading of Phase 8: extra rounds reward the *less* precise, more
+ambitious strategy, because a bad round is discarded while a good one is kept. It also moves the
+decision that ADR-024 framed — `cable_upper` at σ = 20 mm tolerates `P(collision)` of **0.398**
+across one attempt but **0.603** across three.
+
+**Decision.** `sim/rounds.py` supplies the distribution and the objective;
+`tools/build_round_strategy.py` → `data/round_strategy.json` tabulates both, **parametric in N**.
+`data/expected_score.json` is not superseded — it is the `N = 1` case, and the two agree to
+within 0.05 points across the whole grid.
+
+**What this does not do.** It does not rank mission subsets. That still needs the 120 s budget
+and a route, and a route needs the start poses (work order **B0**) — the same refusal
+`expected_score.json` already makes, for the same reason (CLAUDE.md §5.7 anti-pattern #3).
+
+**Consequence.** `NEEDS-VERIFY(NO-TH)` now covers **two** things, not one. The robot limits were
+already open; the tournament format joins them — round count, aggregation rule, whether a
+mulligan is offered, and whether practice time is interleaved between rounds (§9.3 permits code
+changes only during practice, which is what would make a round-level portfolio possible at all).
+Until the Thai National Organizer answers, every figure here is published against N, not for it.
+
+---
+
+## ADR-028
+
+**A rounded probability is not a probability distribution.**
+`2026-07-26 · accepted`
+
+**Context.** ADR-008 rounds every emitted float to 3 decimals so that runs are byte-identical.
+`data/expected_score.json` therefore publishes `p_full`, `p_partial` and `p_none` at 3 decimals,
+and **they need not sum to 1**: the worst single mission carries **1.001**, and across the twelve
+missions of a run the excess compounds multiplicatively to **1.002001**.
+
+As inputs to a **mean** this is harmless — a linear sum absorbs it, which is why it survived
+Phase 8 unnoticed and why `expected_score.json` is not wrong.
+
+As inputs to a **distribution** it is not. `E[max of N]` comes from `cdf ** N`, which amplifies
+the excess: `1.002001³ = 1.006`. The first version of `sim/rounds.py` fed the published cells
+straight into a convolution and reported
+
+    E[max of 3] = 256.30      against a maximum of 255
+
+and, from the same excess mass, a **`nan`** standard deviation at σ = 10 mm where
+`E[X²] − E[X]²` went negative. Neither looks wrong in a table.
+
+**Decision.** `sim.rounds.tier_terms` renormalises every mission before use, and
+`sim.rounds.run_score_pmf` **raises** rather than returning a defective pmf. The error budget
+justifies it outright: 3-dp rounding is ±0.05 pp against the underlying sweep's ±0.8 pp sampling
+noise at 4000 samples per cell, so the rounding was never the dominant uncertainty.
+
+The defect is emitted into `data/round_strategy.json` as `rounding_defect`, with the measured
+masses, so a reader holding only the JSON can check the claim.
+
+**Consequence.** Three tests, all of which fail if the renormalisation is removed: the pmf must
+have mass 1 and support within `[40, 255]`; `E[max of N]` must never exceed 255; and the
+historical un-renormalised path is reproduced explicitly and asserted to produce 256.30, so the
+guard is a tested fact rather than a claim about history.
+
+**The pattern, now three times.** ADR-024 corrected a flat ×40 risk term; ADR-026 corrected a
+scaling rule attached to correct values; this corrects a usage that correct values do not
+support. Every one was an error in what a number *meant*, not in what it computed, and none was
+caught by a test of the producing code — because the producing code was right. The guard that
+works is the one that asserts a **relationship the number must satisfy**: sums to one, never
+exceeds the maximum, agrees with the artefact it was derived from.

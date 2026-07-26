@@ -21,6 +21,7 @@ document cannot drift apart silently.
 | [AS-7](#as-7) | The MAT frame equals the S2 page-trim frame | `MatFrame` | every coordinate downstream is offset by the same constant error |
 | [AS-8](#as-8) | Placement error is Gaussian and isotropic in x and y | `sim.sensitivity` | the required-accuracy figures shift; the ORDERING of missions by difficulty does not |
 | [AS-9](#as-9) | Heading error is 0.5° per mm of placement σ | `sim.sensitivity` | cable and note requirements tighten or loosen together; the cable is most exposed |
+| [AS-10](#as-10) | Placement outcomes are independent across the 12 missions | `sim.rounds` | run variance is understated, so the best-of-N premium is a **lower** bound — the conclusion is safe, the magnitude is not |
 
 ---
 
@@ -220,3 +221,31 @@ translation and barely depends on this coefficient. It also drives the small non
 artefact of the coupling and is documented as such in `tests/test_sensitivity.py`.
 
 **Replaced by.** Field test **P3**, which reports drift per 90° of turn directly.
+
+
+## AS-10
+
+### Placement outcomes are independent across the 12 missions
+
+**The assumption.** `sim.rounds.run_score_pmf` convolves the twelve placement missions as
+independent random variables. That is what makes the run-score distribution exact and cheap
+— a 256-point convolution rather than a simulation — and it is what `E[max of N]` is computed
+from.
+
+**It is certainly false.** One attempt is one robot, on one calibration, on one table, in one
+lighting condition. A gyro that has drifted by the time the robot reaches the fourth note has
+drifted for the fifth as well. Real placement errors within a run share a common component, so
+the true correlation is **positive**.
+
+**Consequence if wrong — and the direction is what matters.** Positive correlation *increases*
+the variance of the run score. `E[max of N]` is increasing in spread, so the true best-of-N
+premium is **larger** than the figures in `data/round_strategy.json`, not smaller. The
+qualitative result — extra rounds reward variance, and reward it more as σ grows — is therefore
+safe under this assumption; only the magnitude is a lower bound.
+
+The same asymmetry does *not* protect the mean: `E[X]` is unaffected by correlation, so
+`data/expected_score.json` is untouched by this.
+
+**Replaced by.** Field test **B5**, which measures per-placement error directly. Repeating a
+full run rather than a single placement would additionally give the within-run correlation, and
+is the cheapest way to turn this bound into a number.

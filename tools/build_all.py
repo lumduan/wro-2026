@@ -3,9 +3,12 @@
 
     docs/area_map.toml ───► field_spec ──┐
                                          ├─► placement_sensitivity ─┬─► manipulator_requirements
-    docs/object_map.toml ──► object_spec ┘        (slow, ~2.5 min)   └─► strategy_frame ─► expected_score
+    docs/object_map.toml ──► object_spec ┘        (slow, ~2.5 min)   └─► strategy_frame
+                                                                            │
+                                                    expected_score ◄────────┘
+                                                          └─► round_strategy
 
-Six of the seven files in ``data/`` are derived. Nothing in the repo stated that
+Seven of the eight files in ``data/`` are derived. Nothing in the repo stated that
 chain until this file, and running the builders out of order does **not** fail:
 it silently leaves an artefact pinning a ``provenance`` sha that no longer
 matches the file on disk. That happened while adding ``mass_g`` to
@@ -74,6 +77,7 @@ PIPELINE: Final = (
              "data/manipulator_requirements.json"),
     Artefact("strategy_frame", "build_strategy_frame", "data/strategy_frame.json"),
     Artefact("expected_score", "build_expected_score", "data/expected_score.json"),
+    Artefact("round_strategy", "build_round_strategy", "data/round_strategy.json"),
 )
 
 #: `provenance.inputs` keys are logical names; these are the files they mean.
@@ -83,6 +87,7 @@ INPUT_PATHS: Final = {
     "scoring_model": "data/scoring_model.json",
     "placement_sensitivity": "data/placement_sensitivity.json",
     "strategy_frame": "data/strategy_frame.json",
+    "expected_score": "data/expected_score.json",
 }
 
 

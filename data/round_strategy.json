@@ -1,0 +1,6492 @@
+{
+  "formula": {
+    "breakeven_is_marginal_and_does_not_add_up": "Each figure holds the rest of the run fixed and asks what P(collision) makes THIS mission stop paying, assuming it is the only reason the robot approaches its bonus cluster. Six missions share the 30-point stage cluster and six notes share the 10-point clef, so a route that attempts several of them risks that cluster ONCE, not once per mission. Summing these numbers over a route is wrong; costing the route needs B0. expected_score.json's per-mission break-evens carry the same restriction and do not state it.",
+    "breakeven_method": "bisection on P(collision), comparing E[max] of the run with the mission against the run without it. At N = 1 this reduces to the closed form in expected_score.json, E[points] / bonus_points_exposed.",
+    "mulligan_free_rule": "Under best-of-N a round at or below your running best contributes nothing, so replacing it is weakly dominant — free. A run that does nothing scores exactly the 40-point bonus floor, so a 40 is always free to retake. AMBIGUITY(A10) qualifies this.",
+    "mulligan_gamble_rule": "Above the running best, retake iff realised < E[max(running_best, fresh)] — the threshold tabulated per sigma.",
+    "objective": "E[max(X1..XN)], from P(max <= k) = P(X <= k)**N",
+    "single_attempt_case": "N = 1 reduces to E[X], the Phase 8 objective",
+    "why_variance_matters": "E[max of N] is convex in the score distribution, so at equal means a wider distribution ranks higher. The premium grows with sigma, which means extra rounds reward the less precise, more ambitious strategy — the opposite of the single-attempt reading."
+  },
+  "provenance": {
+    "inputs": {
+      "expected_score": "4453be7272b0e41ee74688db237eb9abe3a0c2de9537232ce2ff376855675e16",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
+    },
+    "round_counts": [
+      1,
+      2,
+      3
+    ],
+    "tool": {
+      "name": "build_round_strategy",
+      "version": "1.0.0"
+    }
+  },
+  "readings": {
+    "contact": {
+      "best_of": [
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 0.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 1.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 2.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 3.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 5.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 254.69,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 254.991,
+              "n": 2,
+              "premium_over_single_attempt": 0.301
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.31
+            }
+          ],
+          "sigma_mm": 7.5
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 251.731,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 254.178,
+              "n": 2,
+              "premium_over_single_attempt": 2.447
+            },
+            {
+              "e_max": 254.77,
+              "n": 3,
+              "premium_over_single_attempt": 3.04
+            }
+          ],
+          "sigma_mm": 10.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 235.475,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 242.195,
+              "n": 2,
+              "premium_over_single_attempt": 6.72
+            },
+            {
+              "e_max": 245.275,
+              "n": 3,
+              "premium_over_single_attempt": 9.8
+            }
+          ],
+          "sigma_mm": 15.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 216.319,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 224.725,
+              "n": 2,
+              "premium_over_single_attempt": 8.406
+            },
+            {
+              "e_max": 228.824,
+              "n": 3,
+              "premium_over_single_attempt": 12.505
+            }
+          ],
+          "sigma_mm": 20.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 184.676,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 194.258,
+              "n": 2,
+              "premium_over_single_attempt": 9.582
+            },
+            {
+              "e_max": 199.044,
+              "n": 3,
+              "premium_over_single_attempt": 14.367
+            }
+          ],
+          "sigma_mm": 30.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 150.657,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 161.21,
+              "n": 2,
+              "premium_over_single_attempt": 10.553
+            },
+            {
+              "e_max": 166.53,
+              "n": 3,
+              "premium_over_single_attempt": 15.873
+            }
+          ],
+          "sigma_mm": 45.0
+        }
+      ],
+      "distribution": [
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 0.0
+        },
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 1.0
+        },
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 2.0
+        },
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 3.0
+        },
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 5.0
+        },
+        {
+          "mean": 254.69,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 0.969,
+          "sd": 1.757,
+          "sigma_mm": 7.5
+        },
+        {
+          "mean": 251.731,
+          "p10": 245,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 0.716,
+          "sd": 5.595,
+          "sigma_mm": 10.0
+        },
+        {
+          "mean": 235.475,
+          "p10": 215,
+          "p50": 235,
+          "p90": 255,
+          "p_max_score": 0.108,
+          "sd": 12.253,
+          "sigma_mm": 15.0
+        },
+        {
+          "mean": 216.319,
+          "p10": 195,
+          "p50": 215,
+          "p90": 235,
+          "p_max_score": 0.007,
+          "sd": 15.114,
+          "sigma_mm": 20.0
+        },
+        {
+          "mean": 184.676,
+          "p10": 165,
+          "p50": 185,
+          "p90": 205,
+          "p_max_score": 0.0,
+          "sd": 17.147,
+          "sigma_mm": 30.0
+        },
+        {
+          "mean": 150.657,
+          "p10": 125,
+          "p50": 150,
+          "p90": 175,
+          "p_max_score": 0.0,
+          "sd": 18.774,
+          "sigma_mm": 45.0
+        }
+      ],
+      "missions": [
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.704,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.792,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.497,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.681,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.769,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.46,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.604,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.678,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.395,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.531,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.6,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.283,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.405,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.47,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.196,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.292,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.344,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "cable_area_lower",
+          "object_id": "cable_lower"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.704,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.792,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.496,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.68,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.769,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.46,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.604,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.678,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.398,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.534,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.603,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.284,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.406,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.471,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.195,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.29,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.342,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "cable_area_upper",
+          "object_id": "cable_upper"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.704,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.792,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.682,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.77,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.632,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.615,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.673,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.499,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.605,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.656,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.478,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.583,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.633,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_congas"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.704,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.792,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.682,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.77,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.632,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.615,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.673,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.499,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.605,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.656,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.479,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.583,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.633,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_guitar"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.704,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.792,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.682,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.77,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.632,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.615,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.673,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.606,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.657,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.497,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.596,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.644,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_keyboard"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.666,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.815,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.872,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.657,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.798,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.858,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.609,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.732,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.79,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.537,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.662,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.722,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.424,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.554,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.617,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.295,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.418,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.481,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "mic_target",
+          "object_id": "mic"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.787,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.869,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.905,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_black",
+          "object_id": "note_black"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.762,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.845,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.881,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_blue",
+          "object_id": "note_blue"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.765,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.849,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.886,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_green",
+          "object_id": "note_green"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.774,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.857,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.893,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_red",
+          "object_id": "note_red"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.766,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.85,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.888,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_white",
+          "object_id": "note_white"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.788,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.872,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.908,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_yellow",
+          "object_id": "note_yellow"
+        }
+      ],
+      "mulligan": [
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 0.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 1.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 2.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 3.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 5.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 7.5
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 251
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 10.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 235
+            },
+            {
+              "running_best": 235,
+              "threshold": 239
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 15.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 216
+            },
+            {
+              "running_best": 215,
+              "threshold": 221
+            },
+            {
+              "running_best": 235,
+              "threshold": 235
+            }
+          ],
+          "sigma_mm": 20.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 184
+            },
+            {
+              "running_best": 185,
+              "threshold": 191
+            },
+            {
+              "running_best": 205,
+              "threshold": 205
+            }
+          ],
+          "sigma_mm": 30.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 150
+            },
+            {
+              "running_best": 150,
+              "threshold": 157
+            },
+            {
+              "running_best": 175,
+              "threshold": 175
+            }
+          ],
+          "sigma_mm": 45.0
+        }
+      ]
+    },
+    "projection": {
+      "best_of": [
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 0.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 255.0,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.0
+            }
+          ],
+          "sigma_mm": 1.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 254.99,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 255.0,
+              "n": 2,
+              "premium_over_single_attempt": 0.01
+            },
+            {
+              "e_max": 255.0,
+              "n": 3,
+              "premium_over_single_attempt": 0.01
+            }
+          ],
+          "sigma_mm": 2.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 254.27,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 254.95,
+              "n": 2,
+              "premium_over_single_attempt": 0.68
+            },
+            {
+              "e_max": 254.996,
+              "n": 3,
+              "premium_over_single_attempt": 0.726
+            }
+          ],
+          "sigma_mm": 3.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 246.26,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 250.793,
+              "n": 2,
+              "premium_over_single_attempt": 4.533
+            },
+            {
+              "e_max": 252.622,
+              "n": 3,
+              "premium_over_single_attempt": 6.362
+            }
+          ],
+          "sigma_mm": 5.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 233.876,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 240.38,
+              "n": 2,
+              "premium_over_single_attempt": 6.504
+            },
+            {
+              "e_max": 243.462,
+              "n": 3,
+              "premium_over_single_attempt": 9.585
+            }
+          ],
+          "sigma_mm": 7.5
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 222.095,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 229.233,
+              "n": 2,
+              "premium_over_single_attempt": 7.139
+            },
+            {
+              "e_max": 232.784,
+              "n": 3,
+              "premium_over_single_attempt": 10.69
+            }
+          ],
+          "sigma_mm": 10.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 204.845,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 211.953,
+              "n": 2,
+              "premium_over_single_attempt": 7.108
+            },
+            {
+              "e_max": 215.616,
+              "n": 3,
+              "premium_over_single_attempt": 10.771
+            }
+          ],
+          "sigma_mm": 15.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 192.187,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 199.004,
+              "n": 2,
+              "premium_over_single_attempt": 6.818
+            },
+            {
+              "e_max": 202.546,
+              "n": 3,
+              "premium_over_single_attempt": 10.359
+            }
+          ],
+          "sigma_mm": 20.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 173.573,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 180.317,
+              "n": 2,
+              "premium_over_single_attempt": 6.745
+            },
+            {
+              "e_max": 183.734,
+              "n": 3,
+              "premium_over_single_attempt": 10.161
+            }
+          ],
+          "sigma_mm": 30.0
+        },
+        {
+          "at_n": [
+            {
+              "e_max": 149.694,
+              "n": 1,
+              "premium_over_single_attempt": 0.0
+            },
+            {
+              "e_max": 158.06,
+              "n": 2,
+              "premium_over_single_attempt": 8.366
+            },
+            {
+              "e_max": 162.119,
+              "n": 3,
+              "premium_over_single_attempt": 12.425
+            }
+          ],
+          "sigma_mm": 45.0
+        }
+      ],
+      "distribution": [
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 0.0
+        },
+        {
+          "mean": 255.0,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 1.0,
+          "sd": 0.0,
+          "sigma_mm": 1.0
+        },
+        {
+          "mean": 254.99,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 0.999,
+          "sd": 0.316,
+          "sigma_mm": 2.0
+        },
+        {
+          "mean": 254.27,
+          "p10": 255,
+          "p50": 255,
+          "p90": 255,
+          "p_max_score": 0.929,
+          "sd": 2.685,
+          "sigma_mm": 3.0
+        },
+        {
+          "mean": 246.26,
+          "p10": 235,
+          "p50": 245,
+          "p90": 255,
+          "p_max_score": 0.389,
+          "sd": 8.647,
+          "sigma_mm": 5.0
+        },
+        {
+          "mean": 233.876,
+          "p10": 215,
+          "p50": 235,
+          "p90": 245,
+          "p_max_score": 0.076,
+          "sd": 11.825,
+          "sigma_mm": 7.5
+        },
+        {
+          "mean": 222.095,
+          "p10": 205,
+          "p50": 225,
+          "p90": 235,
+          "p_max_score": 0.01,
+          "sd": 12.905,
+          "sigma_mm": 10.0
+        },
+        {
+          "mean": 204.845,
+          "p10": 185,
+          "p50": 205,
+          "p90": 225,
+          "p_max_score": 0.0,
+          "sd": 12.898,
+          "sigma_mm": 15.0
+        },
+        {
+          "mean": 192.187,
+          "p10": 175,
+          "p50": 195,
+          "p90": 205,
+          "p_max_score": 0.0,
+          "sd": 12.411,
+          "sigma_mm": 20.0
+        },
+        {
+          "mean": 173.573,
+          "p10": 155,
+          "p50": 175,
+          "p90": 185,
+          "p_max_score": 0.0,
+          "sd": 12.261,
+          "sigma_mm": 30.0
+        },
+        {
+          "mean": 149.694,
+          "p10": 130,
+          "p50": 150,
+          "p90": 165,
+          "p_max_score": 0.0,
+          "sd": 14.963,
+          "sigma_mm": 45.0
+        }
+      ],
+      "missions": [
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.789,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.658,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.737,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.634,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.701,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.497,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.625,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.687,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.46,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.599,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.664,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.395,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.552,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.626,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.283,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.447,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.532,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.196,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.316,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.388,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "cable_area_lower",
+          "object_id": "cable_lower"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.789,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.658,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.737,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.634,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.701,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.496,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.625,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.687,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.46,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.599,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.665,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.398,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.555,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.629,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.284,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.448,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.533,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.195,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.314,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.385,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "cable_area_upper",
+          "object_id": "cable_upper"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.789,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.658,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.737,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.634,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.701,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.627,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.689,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.628,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.688,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.631,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.692,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.499,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.631,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.695,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.478,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.602,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.663,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_congas"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.789,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.658,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.737,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.634,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.701,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.627,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.689,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.628,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.688,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.631,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.692,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.498,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.631,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.694,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.472,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.597,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.66,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_guitar"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.707,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.794,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.7,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.789,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.658,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.737,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.634,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.701,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.627,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.689,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.628,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.688,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.631,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.692,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.5,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.632,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.695,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.497,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.614,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.673,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "backstage",
+          "object_id": "instrument_keyboard"
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.816,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.667,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.812,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.87,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.665,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.784,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.839,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.651,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.76,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.81,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.607,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.727,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.78,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.519,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.661,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.725,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.448,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.602,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.674,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.367,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.525,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.603,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.282,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.418,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.493,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "mic_target",
+          "object_id": "mic"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.767,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.838,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.869,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_black",
+          "object_id": "note_black"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.771,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.841,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.872,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_blue",
+          "object_id": "note_blue"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.76,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.832,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.865,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_green",
+          "object_id": "note_green"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.773,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.842,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.872,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_red",
+          "object_id": "note_red"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.763,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.834,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.866,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_white",
+          "object_id": "note_white"
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 0.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 1.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 2.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 3.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 5.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 7.5
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 10.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 15.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 20.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": null,
+                  "n": 1,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 2,
+                  "pays_even_at_certain_collision": true
+                },
+                {
+                  "breakeven_p_collision": null,
+                  "n": 3,
+                  "pays_even_at_certain_collision": true
+                }
+              ],
+              "sigma_mm": 30.0
+            },
+            {
+              "at_n": [
+                {
+                  "breakeven_p_collision": 0.774,
+                  "n": 1,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.843,
+                  "n": 2,
+                  "pays_even_at_certain_collision": false
+                },
+                {
+                  "breakeven_p_collision": 0.874,
+                  "n": 3,
+                  "pays_even_at_certain_collision": false
+                }
+              ],
+              "sigma_mm": 45.0
+            }
+          ],
+          "mission_id": "note_target_yellow",
+          "object_id": "note_yellow"
+        }
+      ],
+      "mulligan": [
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 0.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 1.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 2.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 254
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 3.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 246
+            },
+            {
+              "running_best": 245,
+              "threshold": 248
+            },
+            {
+              "running_best": 255,
+              "threshold": 254
+            }
+          ],
+          "sigma_mm": 5.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 233
+            },
+            {
+              "running_best": 235,
+              "threshold": 238
+            },
+            {
+              "running_best": 245,
+              "threshold": 245
+            }
+          ],
+          "sigma_mm": 7.5
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 222
+            },
+            {
+              "running_best": 225,
+              "threshold": 228
+            },
+            {
+              "running_best": 235,
+              "threshold": 235
+            }
+          ],
+          "sigma_mm": 10.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 204
+            },
+            {
+              "running_best": 205,
+              "threshold": 209
+            },
+            {
+              "running_best": 225,
+              "threshold": 225
+            }
+          ],
+          "sigma_mm": 15.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 192
+            },
+            {
+              "running_best": 195,
+              "threshold": 198
+            },
+            {
+              "running_best": 205,
+              "threshold": 205
+            }
+          ],
+          "sigma_mm": 20.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 173
+            },
+            {
+              "running_best": 175,
+              "threshold": 178
+            },
+            {
+              "running_best": 185,
+              "threshold": 186
+            }
+          ],
+          "sigma_mm": 30.0
+        },
+        {
+          "retake_if_realised_at_most": [
+            {
+              "running_best": 40,
+              "threshold": 149
+            },
+            {
+              "running_best": 150,
+              "threshold": 155
+            },
+            {
+              "running_best": 165,
+              "threshold": 165
+            }
+          ],
+          "sigma_mm": 45.0
+        }
+      ]
+    }
+  },
+  "rounding_defect": {
+    "adr": "ADR-028",
+    "consequence": "Un-renormalised, the powered cdf ends above 1 and E[max of 3] came out at 256.30 against a maximum of 255 — an impossible score.",
+    "error_budget": "Renormalising costs nothing real: 3-dp rounding is +/-0.05 pp against the sweep's +/-0.8 pp sampling noise at 4000 samples per cell.",
+    "resolution": "sim.rounds.tier_terms renormalises every mission before use",
+    "why": "ADR-008 rounds every emitted float to 3 decimals, so a mission's three tier probabilities need not sum to 1. Harmless in a linear sum; not harmless in a distribution, where cdf**N amplifies the excess.",
+    "worst_mission": "contact/note_black@sigma=30.0",
+    "worst_mission_mass": 1.001,
+    "worst_run_mass": 1.002,
+    "worst_run_mass_pow_3": 1.006
+  },
+  "rules": {
+    "s4_10_13": "The ranking of teams depends on the overall tournament format. For example, the best attempt out of three rounds could be used and if competing teams have the same points, the ranking is decided by the record of time.",
+    "s4_10_14": "Mulligan (optional element): The organizer of a competition may allow that teams can retake a round right on the spot after the run. If a team decides to redo the run the new score will be used for the ranking no matter what. This concept is optional and has to be announced by the organizer of an event upfront.",
+    "s4_9_1_2": "A number of robot rounds."
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "the objective function under a best-of-N ranking, and when a S4 10.14 mulligan is worth taking",
+    "does_not_answer": "which missions to attempt, or in what order",
+    "independence_assumption": "AS-10",
+    "missions_assumed_independent": true,
+    "n_is_not_known": true,
+    "n_source": "S4 10.13 makes the aggregation rule organizer-set and offers best-of-three only as an example. NEEDS-VERIFY(NO-TH).",
+    "sigma_is_not_measured": true,
+    "sigma_source": "work order item B5 (field test P3) measures it",
+    "why_not": "Subset selection needs the 120 s budget and a route; a route needs the object start poses, still nominal_pending for ten objects (work order B0). CLAUDE.md 5.7 anti-pattern #3."
+  }
+}

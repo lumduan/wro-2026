@@ -1,6 +1,11 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
+`last_reviewed: 2026-07-26` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
+
+**Two questions now sit with the National Organizer, not with a measurement** (ADR-027): the
+**robot limits** were already open, and the **tournament format** joins them — how many rounds,
+how they are aggregated, and whether a mulligan is offered. The second sets the *objective
+function*, so it outranks anything the field tests can produce.
 
 ## 0 · At a glance
 
@@ -21,6 +26,7 @@ flowchart TD
     P7 --> P8
     P5 --> P8
     FT --> P8
+    NO["N · Ask the National Organizer<br/>READY — robot limits + round format"] --> P8
     P8 --> P9["9 · Competition-ready run<br/>GOAL"]
 
     classDef done     fill:#d4f4dd,stroke:#2d8a4e,color:#1a5c33
@@ -31,7 +37,7 @@ flowchart TD
     classDef goal     fill:#ede0fb,stroke:#8a5cd8,color:#4d2e8f
 
     class P0,P1,P2,P3,P4,P5,P6 done
-    class P7 ready
+    class P7,NO ready
     class HW done
     class P8 active
     class FT ready
@@ -50,7 +56,7 @@ flowchart TD
 | **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block A** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
 | **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **A2/A3** of the work order | — |
 | **H · Hardware** | ✅ **ALL HELD** | EV3 45544 · SPIKE Prime 45678 + 45681 · WRO Brick Set 45811 + Expansion 45819 · the printed mat · a competition-spec table. Recorded as a blocker from Phase 4 until 2026-07-27 on an operator answer that was never re-asked — see **ADR-025** | — |
-| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). Ordering needs σ (**B5**) and a route (**B0**) | needs **B0** + **B5** |
+| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). **The objective itself was then corrected (ADR-027):** S4 §10.13 makes the ranking depend on the tournament format and offers *"the best attempt out of three rounds"* as an example, so `E[score]` is the **N = 1** case, not the objective. `data/round_strategy.json` publishes the full run-score *distribution* and `E[max of N]` — at σ = 20 mm, 216 becomes **229 at N = 3**, and the premium **grows with σ**, so extra rounds reward the less precise, more ambitious strategy. Break-even `P(collision)` moves with it: `cable_upper` tolerates 0.398 across one attempt, **0.603** across three. Ordering still needs σ (**B5**) and a route (**B0**) | needs **B0** + **B5**; N is `NEEDS-VERIFY(NO-TH)` |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
 > **Every phase that can be done from documents is done (0–6), and nothing is blocked.** The
@@ -71,6 +77,19 @@ flowchart TD
 > requirement from **σ ≈ 4.3 mm to σ ≈ 11.4 mm** — a factor of 2.6 on the mission carrying 120 of
 > 255 points. A7 was previously recorded as "holds either way, nothing is blocked", which is true
 > for feasibility and misleading for design.
+>
+> **And one that outranks all of them, because it decides *what* to optimise rather than how
+> well: ask the National Organizer how many rounds there are and how they are aggregated**
+> (**ADR-027**). S4 §10.13 makes the ranking format organizer-set and offers *"the best attempt
+> out of three rounds"* only as an example. If N > 1 the objective is `E[max of N]`, which
+> **rewards variance** — at σ = 20 mm, 216 becomes 229 at N = 3, and the premium *widens* as σ
+> grows. A programme built to minimise σ is optimising the right quantity only if N = 1. The
+> same conversation settles the robot limits, which have also never been asked.
+>
+> **The real bottlenecks are therefore an AFTERNOON of measurement (Block A) and TWO UNASKED
+> QUESTIONS — A7 to the official Q&A, and the round format to the National Organizer.** No
+> technical blocker exists anywhere in this repo; everything else is buildable or cleanly
+> sequenced behind σ.
 
 ### Why these edges
 
@@ -85,6 +104,7 @@ Drawn from stated constraints, not assumed ordering:
 | **Join** | {5, 6, 7, F} → 8 | `CLAUDE.md` §5.7 anti-pattern #3 needs the scorer (6) and #5 needs `P(success)`, which needs σ from the field tests (F) |
 | **Fork** | H → {7, F} | one purchase unblocks both the manipulator and every field test; that is why it is the bottleneck rather than one blocker among several |
 | **Independent root** | 5 | S4 acquisition is external/operator work — it waits on nothing in this repo |
+| **Independent root** | N → 8 | S4 §10.13 makes the ranking format organizer-set, and that format *is* Phase 8's objective function (`E[score]` vs `E[max of N]`, ADR-027). It waits on nothing in this repo and no measurement substitutes for it — a separate branch, not a step in the chain. **`ready`, not `decision`**: nothing is blocked on the answer, because every figure in `data/round_strategy.json` is published against N rather than for a chosen N. Painting it red would re-import exactly the framing ADR-025 removed |
 | **Gate** | 0 → 1 | session brief §6: extraction quality must be human-reviewed before geometry is frozen |
 
 ---
@@ -191,7 +211,9 @@ happened to count the inventory pages' `24x`/`3003` labels as step numbers. **A 
 can agree with a wrong answer if it measures the wrong thing.**
 
 **Still open, and not solvable from S3:** `mass_g` is `null` for all 16 objects. Mass does not
-appear in a building instruction. See the `S` node — this is now the project's real bottleneck.
+appear in a building instruction — it has to be weighed. That is work order item **A2**, needs no
+robot, and the objects are held (ADR-025), so it is a task rather than a blocker. The ingestion
+path is live and tested inert (ADR-026).
 
 ### Phase 5 — S4 + S6 ✅ DONE (2026-07-25)
 

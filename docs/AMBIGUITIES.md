@@ -8,7 +8,7 @@ resolved by a source (S1, S2, S4 or S6) or it stays open with its default in for
 **All remaining open items route to S6**, which answers questions that were *asked* —
 so submitting them is an action, not a wait.
 
-`last_reviewed: 2026-07-26` · S4 and S6 acquired; four of six original ambiguities resolved; A7 measured against three independent sources.
+`last_reviewed: 2026-07-26` · S4 and S6 acquired; four of six original ambiguities resolved; A7 measured against three independent sources; **A10 added** from S4 §10.14, the first ambiguity that is about the *tournament format* rather than the field.
 
 | ID | Status | Ambiguity | Conservative default |
 |---|---|---|---|
@@ -21,6 +21,7 @@ so submitting them is an action, not a wait.
 | A7 | **OPEN** — route: S6 | "completely in" says *no other area on the mat*, but "area" is undefined and the mat carries 580 distinct fills | Full containment in the target polygon. This is a **FORCED** reading, not a conservative choice — see below |
 | A9 | **OPEN** — route: S6 | S4 §7.8 defines the start area as "the white area within a coloured border", but 29.56 % of this mat's start-area interior is **not white** (logo, band, text, QR). The *boundary* is measured; the *interpretation* is not. | the measured 250.02 × 250.02 mm placement rect |
 | A8 | **OPEN** — route: S6 | Bonus-only run (40 pts, no mission solved): actual elapsed time, or forced 120 s under S4 §10.12? | forced 120 s |
+| A10 | **OPEN** — route: S6 | S4 §10.14: a mulligan's "new score will be used for the ranking **no matter what**" — does it replace *that round's* score, or the team's **ranking** score outright? | the **harsher** reading: it replaces the ranking score |
 
 ---
 
@@ -218,3 +219,30 @@ of what is printed on it, is unanswered.
   width derived from `PHASE7_CONSTRAINTS.md` §2 moves with it.
 - **Status:** operator action remains **blocking-advisory, not closed**, even though the
   boundary itself is measured.
+
+
+## A10 — what a mulligan replaces (added 2026-07-26)
+
+S4 §10.14 makes the retake optional and organizer-announced, then says: *"If a team decides to
+redo the run the new score will be used for the ranking **no matter what**."*
+
+Read against §10.13 — where the ranking may be *"the best attempt out of three rounds"* — that
+sentence has two readings, and they give **opposite advice**:
+
+| Reading | What "the new score" replaces | Retake when you are ahead? |
+|---|---|---|
+| **Round-local** | that round's score; earlier rounds still stand | often yes — the downside is capped by your other rounds |
+| **Ranking-global** | your ranking score outright; earlier rounds stop protecting you | almost never — you are betting your best result |
+
+The two agree only when the round being retaken is already at or below your running best. There
+the retake is **free under either reading**, which is why `sim/rounds.py` exposes that case
+(`retake_is_free`) separately from the gamble.
+
+- **Default:** the **ranking-global** reading. It is the harsher one, and it discourages a
+  retake that could cost the whole run — the conservative direction when the rule is unclear.
+- **Route:** `NEEDS-VERIFY(S6)` — not yet submitted.
+- **Consequence if wrong:** the default leaves points on the table rather than losing them. If
+  the round-local reading is correct, every round at or below the running best should be
+  retaken, and the thresholds tabulated per σ in `data/round_strategy.json` become live.
+- **Note:** this ambiguity only bites if the organizer offers a mulligan at all — itself a
+  `NEEDS-VERIFY(NO-TH)` question, alongside the round count and the aggregation rule.
