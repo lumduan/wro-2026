@@ -80,6 +80,9 @@ Robot pose `(x, y, θ)` at the drive-axle midpoint. Object pose = base centroid 
 ## 5.3 Canonical IDs — these strings only, everywhere
 
 **FROZEN 2026-07-25** — see `docs/DECISIONS.md` ADR-012. These strings only, everywhere.
+Frozen means **never renamed or substituted**; measured geometry may still be *added* under a
+new id, and ADR-030 did so once, taking up a mechanism `docs/area_map.toml` had written down in
+advance. An addition is an ADR, never a convenience.
 
 ```
 # Canonical object IDs
@@ -97,7 +100,8 @@ mic_target, backstage
 note_target_{red|blue|green|yellow|white|black}
 note_start_fixed_{green|red}
 note_start_rand_{0..3}                  # zero-indexed
-truck
+truck                                   # a START GROUP, not an area — no polygon
+truck_vehicle_left, truck_vehicle_right # the two bodies — added ADR-030, scoring: false
 unassigned_marker_{1..4}                # NEEDS-VERIFY(S1-extra-mission)
 stage, plaza                            # scoring: false — see ADR-013
 ```
@@ -205,6 +209,13 @@ before delivering any visits the same point set whatever the draw. Not a smooth 
 **Travel is a budget too.** S4 §10.1 gives 120 s. The six notes alone need a mean **63.3 mm/s at
 capacity 1** and 24.9 at capacity 6 — straight-line, no turns, no pick-and-place (AS-11), so
 every figure is a floor. Never report a strategy without the speed it assumes.
+
+**Time is spent on objects, not only on distance** (ADR-030). Ten of the twelve placement
+missions are costable — the notes plus the four truck objects, since the truck is two *measured*
+bodies — and the full run needs only **93 mm/s at capacity 2**. The binding constraint is
+elsewhere: with ten objects, **every second of pick-and-place costs ten seconds of the attempt,
+and at 12 s per object the run is impossible at any speed.** That threshold is
+`attempt_seconds / objects`, so no route and no motor can move it.
 
 ---
 

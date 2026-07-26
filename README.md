@@ -102,7 +102,7 @@ fill inventory, the report and the decision records — is committed.
 | `strategy_frame.json` | Travel cost and bonus-points-at-risk per mission | `build_strategy_frame.py` |
 | `expected_score.json` | E[score] as a function of σ and P(collision) — the **N = 1** case | `build_expected_score.py` |
 | `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, and the S4 §10.14 mulligan rule (ADR-027) | `build_round_strategy.py` |
-| `travel_budget.json` | Note tour length over all 24 randomization permutations, per carry capacity, and the mean speed each demands inside 120 s (ADR-029) | `build_travel_budget.py` |
+| `travel_budget.json` | Tour length per carry capacity — the six notes over all 24 randomization permutations (ADR-029), and the full ten-mission run over 384 joint start states with the pick-and-place cliff (ADR-030) | `build_travel_budget.py` |
 | `scoring_model.json` | Missions, predicates, time rules, randomization | **hand-authored** — a transcription of S1/S4/S6, not a derivation |
 
 ## The build chain

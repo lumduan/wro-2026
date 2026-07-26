@@ -35,6 +35,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-027](#adr-027) | The objective is `E[max of N rounds]`, not `E[score]` of one attempt | accepted 2026-07-26 |
 | [ADR-028](#adr-028) | A rounded probability is not a probability distribution | accepted 2026-07-26 |
 | [ADR-029](#adr-029) | Travel is a budget; capacity buys it; `strategy_frame` never costed a mission | accepted 2026-07-26 |
+| [ADR-030](#adr-030) | A bounded start beats a pending one — the truck, and the pick-and-place cliff | accepted 2026-07-26 |
 
 ---
 
@@ -299,6 +300,17 @@ awards 10 per speaker to a max of 20, so a singular `speaker` could not express 
 toppled. Recording the marker IDs as *unassigned* rather than guessing keeps a wrong semantic
 out of S5 — every downstream module reads S5 without question, whereas an empty slot is
 visibly empty.
+
+**A third addition, 2026-07-26 (ADR-030).** `truck_vehicle_left` and `truck_vehicle_right`,
+`scoring = false`, for the two `#afbbdf` bodies that S1 p4 starts four objects in. Directly
+analogous to sub-decision 2 above — measured mat geometry the model needs, kept out of the
+`completely_in` predicate by construction — and pre-authorised in writing by
+`docs/area_map.toml`, which described the mechanism and deferred it.
+
+**What "frozen" means, stated because it was tested.** Frozen forbids **renaming and
+substitution**: no downstream file may invent a synonym or quietly swap one id for another.
+It does not forbid *adding* measured geometry under a new id. An addition costs an ADR, which
+is exactly the friction intended — three in this project so far, all recorded here.
 
 ---
 
@@ -1265,6 +1277,13 @@ speed** — the time analogue of the required placement accuracy already in
 **Scope.** The six notes only — 120 of 255 points, and the only objects whose start geometry is
 known. The other six are `nominal_pending` until work order **B0**.
 
+> **Superseded in part by ADR-030 (2026-07-26).** *"The only objects whose start geometry is
+> known"* was true of `field_spec.json` as it then stood and false of the sources: the truck is
+> two `#afbbdf` bodies on the printed mat, and `docs/area_map.toml` had already written down how
+> to admit them. Four more objects are now **bounded**, and the covered set is ten of twelve
+> missions, 185 of the 215 placement points. The two cables remain genuinely pending. Everything
+> else in this ADR stands unchanged.
+
 ### Part 2 — capacity deletes the randomization, and it is a phase change
 
 S1 p7 assigns four notes to four slots at randomization; S4 §9.6 does it **after** quarantine, so
@@ -1335,3 +1354,101 @@ number *meant*, none was caught by testing the producing code, because the produ
 right. The guards that work assert a **relationship the number must satisfy** — and the one added
 here is the sharpest yet: the published metric is checked against an independently computed
 ranking, at both ends of the randomization.
+
+---
+
+## ADR-030
+
+**A bounded start beats a pending one — the truck, and the pick-and-place cliff.**
+`2026-07-26 · accepted`
+
+### Part 1 — four objects had no geometry, and did not need to be measured to get some
+
+**Context.** ADR-029 costed the six notes and stopped, because the other six placement missions
+are `nominal_pending`. That refusal was one step too strong. `field_spec.json` carries
+`start_groups.truck` — the microphone and all three instruments, *"S1 p4: lower end, in the
+truck"* — with **no polygon**, leaving **65 of 255 points** with no geometry at all, so no route
+through them could be costed at any capacity.
+
+`docs/area_map.toml` had already written down the fix and deferred it:
+
+> `truck` gets no polygon: the two vehicles are disjoint … **If the sensor model later wants the
+> vehicle bodies they enter as two separate `scoring = false` areas under their OWN ids — never
+> as `truck`.**
+
+**Decision.** Take it up. Two `#afbbdf` bodies at the mat's lower edge, measured from S2 and
+identical to 4 µm, enter as `truck_vehicle_left` and `truck_vehicle_right`:
+
+| | `size_mm` | `at_mm` | built area |
+|---|---|---|---:|
+| left | `[321.162, 111.692]` | `[1215.550, 79.162]` | 35 818.401 |
+| right | `[321.166, 111.692]` | `[1542.259, 79.587]` | 35 818.828 |
+
+**A bound is not a pose.** `nominal_start_pose_mm` stays `null` for all four members and
+**ADR-014 is untouched** — the areas say *where the objects are somewhere within*, never where
+any one of them is. `scoring = false`, emphatically: this is a start region, never a target.
+
+**ADR-012 is amended, not broken.** The canonical ID list is frozen against *renaming and
+substitution*; adding measured geometry under a new id is a different act, and this one was
+pre-authorised in writing by the file it lives in. `CLAUDE.md` §5.3 now says so, and gains both
+ids. An addition is an ADR, never a convenience.
+
+### Part 2 — the run, and what the pending measurement is worth
+
+Ten of twelve missions — **185 of the 215 placement points** — enumerated exactly over a
+**24 × 16 grid**: note permutations against vehicle choices, 384 joint start states. (The notes
+are a bijection onto four slots; the truck is a *free product*, because S1 says only "in the
+truck" and nothing forbids two objects sharing a vehicle.)
+
+| capacity | min | median | max | spread | required mm/s at 120 s |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 14 789 | 16 286 | 18 090 | 3 301 | **151** |
+| 2 | 9 550 | 10 526 | 11 154 | 1 603 | **93** |
+
+Keeping the grid rather than a flat list is what makes the uncertainty **decomposable**, and the
+decomposition is the finding:
+
+| source of spread | capacity 1 | capacity 2 | removable? |
+|---|---:|---:|---|
+| note permutation | 999 | 627 | **never** — S1 p7, randomized after quarantine (S4 §9.6) |
+| vehicle choice | **2 327** | **1 088** | **yes — work order B0** |
+
+**B0 is worth more than twice what the irreducible randomization costs.** That prices a
+measurement that had no price before, and it inverts the intuition that the randomization is the
+dominant unknown here — it is not; not knowing where our own objects start is.
+
+The residual after the vehicle choice — *where on that body* — is **152–172 mm** per object,
+measured over every corner of both bodies rather than bounded by the diagonal. Small because the
+targets are more than a metre away, which is why the vehicle **choice** is enumerated and the
+position on it is not.
+
+**Capacities above 2 are not computed for the full run**, and both reasons are stated: the batch
+enumeration is `s! × s!`, so ten missions cost ~27 s at capacity 1, ~150 s at 2 and ~22 minutes
+at 3; and an instrument is not a 31.9 mm note, so carrying three of them plus the microphone is
+not a design point anyone reaches. The six-note curve still runs to capacity 6, where it is both
+cheap and meaningful.
+
+### Part 3 — the cliff, which no motor can buy back
+
+There are ten objects, so **every second of pick-and-place costs ten seconds of the attempt**:
+
+| s per object | 0 | 2 | 4 | 6 | 8 | 10 | **12** |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| driving seconds left | 120 | 100 | 80 | 60 | 40 | 20 | **0** |
+| required mm/s, capacity 2 | 93 | 112 | 139 | 186 | 279 | 558 | **impossible** |
+
+**At 12 s per object the attempt is entirely consumed and the run cannot be completed at any
+driving speed.** The threshold is `attempt_seconds / objects = 120 / 10` exactly, so it is
+**independent of distance, capacity and the randomization** — shortening the tour buys driving
+speed, never pick-and-place time.
+
+**Consequence for the work order.** This makes **A3** (grip points) a feasibility question, not
+only a mechanism-selection one, and it gives the session a threshold to measure against rather
+than a preference. It also means the emphasis on **P6** (motor speed) was misplaced: 93 mm/s is
+undemanding for either platform, while 12 s to pick and place is not obviously safe.
+
+**What this does not claim.** Not that the run is or is not feasible — speed is unmeasured until
+P6 and pick-and-place time until a mechanism exists. Not which missions to attempt: that needs
+σ (**B5**) and CLAUDE.md §5.7 anti-pattern #3 still applies. The two cables remain genuinely
+`nominal_pending`; *"close to the stage (left end)"* is not a measured region, and inventing one
+would be exactly the error ADR-014 exists to prevent.

@@ -88,6 +88,21 @@ rotating, tipping, or shedding a part. Two cases decide the mechanism between th
 - **the congas** — one rigid object with **two** contact patches on a 2×6 Technic bridge. Does it
   grip on the bridge or on a drum?
 
+**A3 is now a feasibility question, not only a selection one (ADR-030).** Ten objects have to be
+picked up and put down inside 120 seconds, so **every second of pick-and-place costs ten seconds
+of the attempt**:
+
+| s per object | 0 | 2 | 4 | 6 | 8 | 10 | **12** |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| driving seconds left | 120 | 100 | 80 | 60 | 40 | 20 | **0** |
+| required mm/s, capacity 2 | 93 | 112 | 139 | 186 | 279 | 558 | **impossible** |
+
+**At 12 s per object the run cannot be completed at any driving speed.** The threshold is
+`120 / 10` exactly — independent of distance, capacity and the randomization — so a faster robot
+cannot buy it back. **While you have an object in hand, time a realistic pick and place.** A
+stopwatch and ten repetitions is the whole measurement, and it is worth more than any figure P6
+produces.
+
 → closes: **P7** (second half) and **ADR-022's gated half**. Write the outcome as a new ADR
 with the arithmetic shown, exactly as ADR-022 refused to do without this measurement.
 
@@ -146,6 +161,15 @@ Record in `docs/area_map.toml` under `[measured_start_poses.<object>]` as `pose_
 > and `note_yellow` are assigned to their start squares at randomization (S1 p7), so they have
 > no fixed start pose — that is the rule, not a gap in the data. `note_green` and `note_red` are
 > already measured from S2's fixed squares.
+
+**B0 now has a price, and it is higher than expected (ADR-030).** The four truck objects are no
+longer geometry-free: their start is *bounded* by the two measured vehicle bodies, so the full
+run can be costed today. What is still unknown is which vehicle each sits on, and that is worth
+**2 327 mm of spread at capacity 1** — against the **999 mm** the note randomization costs, which
+no measurement can ever remove. So B0 removes **more than twice** as much uncertainty as the
+thing everyone treats as the dominant unknown. The four poses that matter most are therefore
+`mic`, `instrument_guitar`, `instrument_keyboard`, `instrument_congas` — and a per-object
+residual of 152–172 mm (AS-12) goes with them.
 
 → closes: ADR-014's pending set. **Unblocks route planning**, which is the other half of what
 Phase 8 ordering needs besides σ — and it is what turns `P(collision)` from a free parameter
@@ -226,6 +250,11 @@ pick-and-place:
 Every figure is a **floor** (AS-11) — the real path is longer than a straight line and pick-place
 time is pure clock. So measure the achievable mean speed and compare: a capacity whose floor the
 robot cannot clear on paper is already ruled out, and the six notes are only 120 of 255 points.
+
+**Across all ten costable missions** (ADR-030 — the notes plus the four truck objects, 185 of the
+215 placement points) the floor is **151 mm/s at capacity 1 and 93 mm/s at capacity 2**, before
+any pick-and-place time. Both are undemanding for either platform, which is the useful result:
+**P6 is probably not the binding constraint — A3 is.** See the cliff under A3.
 
 → feeds: `dynamics.py`, which does not exist yet and is parameterless by design until this runs;
 and the capacity decision ADR-022 left open, together with **A2/A3**.

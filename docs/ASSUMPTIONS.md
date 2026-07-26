@@ -23,6 +23,7 @@ document cannot drift apart silently.
 | [AS-9](#as-9) | Heading error is 0.5° per mm of placement σ | `sim.sensitivity` | cable and note requirements tighten or loosen together; the cable is most exposed |
 | [AS-10](#as-10) | Placement outcomes are independent across the 12 missions | `sim.rounds` | run variance is understated, so the best-of-N premium is a **lower** bound — the conclusion is safe, the magnitude is not |
 | [AS-11](#as-11) | Travel is straight-line centre-to-centre, with no time for turns or pick/place | `sim.travel` | every distance and required speed is a **lower** bound; clearing it is necessary, never sufficient |
+| [AS-12](#as-12) | A truck object starts at one of the two vehicle **centroids** | `sim.travel.TruckGroup` | the enumerated bracket omits a measured 152–172 mm per-object residual; **B0 removes both** |
 
 ---
 
@@ -279,3 +280,40 @@ depends only on the point set visited.
 **Replaced by.** Field test **P6** (motor characterisation) gives real speed, acceleration and
 minimum controllable speed per platform; **P3** gives drift per 90° of turn, which is what turns
 a waypoint count into a time penalty.
+
+
+## AS-12
+
+### A truck object starts at one of the two vehicle centroids
+
+**The assumption.** S1 p4 puts the microphone and three instruments *"in the truck"*, and
+ADR-030 measured the truck as two bodies. `sim.travel.TruckGroup` enumerates the **discrete**
+part of that — which of the two vehicles each object sits on, 2⁴ = 16 assignments — and places
+the object at the vehicle's **centroid**.
+
+**What it leaves out, and how much.** The continuous part: *where on that body*. Measured rather
+than bounded by the diagonal — the fetch-and-deliver leg is evaluated at every corner of both
+bodies and the span reported:
+
+| object | residual |
+|---|---:|
+| `mic` | 152.4 mm |
+| `instrument_guitar` | 171.4 mm |
+| `instrument_keyboard` | 171.7 mm |
+| `instrument_congas` | 172.1 mm |
+
+**Consequence if wrong.** The published full-run bracket is **narrower than the truth** by up to
+those amounts per object. It is not a bound in the safe direction, so it must not be read as one:
+a run that just fits at the bracket's top may still not fit. The *comparisons* are unaffected —
+every capacity and every permutation is treated identically — and so is the pick-and-place cliff,
+which is `attempt_seconds / objects` and touches no geometry at all.
+
+The residual is small for a reason worth keeping: the targets are over a metre away, so moving an
+object across its own 321 × 112 mm body barely rotates the leg. That is why the vehicle **choice**
+is enumerated and the position on it is not — the cheap part of the uncertainty is the one that
+matters.
+
+**Replaced by.** Work order **B0**, which measures the four poses on a set-up field and collapses
+both this residual and the 16-way vehicle choice to nothing. ADR-030 prices that: the vehicle
+choice alone is worth 2 327 mm of spread at capacity 1, more than twice the 999 mm the
+irreducible note randomization costs.

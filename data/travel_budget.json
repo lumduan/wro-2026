@@ -186,6 +186,198 @@
     "what": "distance_from_start_mm and round_trip_mm measure start_area to target and omit the leg that fetches the object. The claim in scope.answers, 'what each mission costs in travel', is therefore not supported.",
     "why_it_matters": "The error runs both ways, so points_per_metre_round_trip does not preserve the ranking it appears to give."
   },
+  "full_run": {
+    "capacities_not_computed": {
+      "capacities": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "why": "Cost, and physics. The batch enumeration is s! x s! per batch, so ten missions cost ~27 s at capacity 1, ~150 s at 2 and ~22 min at 3. And an instrument is not a 31.9 mm note: carrying three of them plus the microphone is not a design point. The six-note curve above still runs to capacity 6 because there it is both cheap and meaningful."
+    },
+    "capacity_curve": [
+      {
+        "capacity": 1,
+        "max_mm": 18089.803,
+        "median_mm": 16286.473,
+        "min_mm": 14788.637,
+        "required_speed_mm_s": {
+          "at_best_case": 123.239,
+          "at_worst_case": 150.748
+        },
+        "spread_mm": 3301.166,
+        "spread_sources_mm": {
+          "note_permutation": 998.744,
+          "vehicle_choice": 2326.679
+        }
+      },
+      {
+        "capacity": 2,
+        "max_mm": 11153.716,
+        "median_mm": 10525.941,
+        "min_mm": 9550.256,
+        "required_speed_mm_s": {
+          "at_best_case": 79.585,
+          "at_worst_case": 92.948
+        },
+        "spread_mm": 1603.46,
+        "spread_sources_mm": {
+          "note_permutation": 627.0,
+          "vehicle_choice": 1088.14
+        }
+      }
+    ],
+    "count": 10,
+    "covers": [
+      "note_black",
+      "note_white",
+      "note_yellow",
+      "note_blue",
+      "note_green",
+      "note_red",
+      "mic",
+      "instrument_guitar",
+      "instrument_keyboard",
+      "instrument_congas"
+    ],
+    "excludes": {
+      "cable_lower": "S1 p4: 'close to the stage (left end)' is not a measured region",
+      "cable_upper": "S1 p4: 'close to the stage (left end)' is not a measured region"
+    },
+    "grid": "24 note permutations x 16 vehicle choices",
+    "joint_assignments": 384,
+    "pick_and_place": {
+      "by_capacity": [
+        {
+          "capacity": 1,
+          "cells": [
+            {
+              "driving_seconds": 120.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 150.748,
+              "seconds_per_object": 0.0
+            },
+            {
+              "driving_seconds": 110.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 164.453,
+              "seconds_per_object": 1.0
+            },
+            {
+              "driving_seconds": 100.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 180.898,
+              "seconds_per_object": 2.0
+            },
+            {
+              "driving_seconds": 80.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 226.123,
+              "seconds_per_object": 4.0
+            },
+            {
+              "driving_seconds": 60.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 301.497,
+              "seconds_per_object": 6.0
+            },
+            {
+              "driving_seconds": 40.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 452.245,
+              "seconds_per_object": 8.0
+            },
+            {
+              "driving_seconds": 20.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 904.49,
+              "seconds_per_object": 10.0
+            },
+            {
+              "driving_seconds": 0.0,
+              "feasible_at_any_speed": false,
+              "required_speed_mm_s": null,
+              "seconds_per_object": 12.0
+            }
+          ],
+          "worst_case_distance_mm": 18089.803
+        },
+        {
+          "capacity": 2,
+          "cells": [
+            {
+              "driving_seconds": 120.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 92.948,
+              "seconds_per_object": 0.0
+            },
+            {
+              "driving_seconds": 110.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 101.397,
+              "seconds_per_object": 1.0
+            },
+            {
+              "driving_seconds": 100.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 111.537,
+              "seconds_per_object": 2.0
+            },
+            {
+              "driving_seconds": 80.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 139.421,
+              "seconds_per_object": 4.0
+            },
+            {
+              "driving_seconds": 60.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 185.895,
+              "seconds_per_object": 6.0
+            },
+            {
+              "driving_seconds": 40.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 278.843,
+              "seconds_per_object": 8.0
+            },
+            {
+              "driving_seconds": 20.0,
+              "feasible_at_any_speed": true,
+              "required_speed_mm_s": 557.686,
+              "seconds_per_object": 10.0
+            },
+            {
+              "driving_seconds": 0.0,
+              "feasible_at_any_speed": false,
+              "required_speed_mm_s": null,
+              "seconds_per_object": 12.0
+            }
+          ],
+          "worst_case_distance_mm": 11153.716
+        }
+      ],
+      "cliff_is_independent_of_distance": true,
+      "impossible_beyond_s_per_object": 12.0,
+      "impossible_note": "At 12 s per object the attempt is entirely consumed by pick-and-place and the run cannot be completed at ANY driving speed. That is a constraint on the mechanism that no motor can buy back.",
+      "multiplier": "every second of pick-and-place costs 10 seconds of the attempt, because there are 10 objects",
+      "objects": 10,
+      "why_independent": "The threshold is attempt_seconds / objects = 120 / 10 exactly. It does not move with the route, the capacity or the randomization - shortening the tour buys driving speed, never pick-and-place time."
+    },
+    "points_covered": 185,
+    "uncertainty": {
+      "what_b0_removes": "the vehicle choice, and the position on that vehicle",
+      "what_nothing_removes": "the note permutation - S1 p7 randomizes it and S4 9.6 does so after quarantine, so it is drawn fresh every round and can only be sensed",
+      "within_vehicle_note": "Leg span with the object moved over every corner of both bodies. Small because the targets are more than a metre away, which is why the vehicle CHOICE is enumerated and the position on it is not.",
+      "within_vehicle_residual_mm": {
+        "instrument_congas": 172.073,
+        "instrument_guitar": 171.365,
+        "instrument_keyboard": 171.698,
+        "mic": 152.406
+      }
+    }
+  },
   "headline": {
     "capacity_deletes_randomization_variance": true,
     "capacity_one_to_two_saves_mm": 2213.163,
@@ -302,9 +494,9 @@
       6
     ],
     "inputs": {
-      "field_spec": "d1516be53dc53b385e24d0b559f7fb05992d8a42d2fab0f6d3d4629a0dd1ddf4",
+      "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "strategy_frame": "a24a35e0966edaf9bf1784ed803bb016599ce0fb5fa815e7375c895747545a7b"
+      "strategy_frame": "a4cd6cd50cc64d9600a80bae8f6f731b72199b8350947f573aca093ccdaabe51"
     },
     "permutation_count": 24,
     "round_counts": [
@@ -327,12 +519,13 @@
   "scope": {
     "answers": "how far the six notes are to fetch and deliver, how that varies over the 24 randomization permutations, and the mean speed each capacity demands to fit 120 s",
     "capacity_gated_on": "note mass and grip geometry - work order A2/A3. ADR-022 left the manipulator mechanism open and this does not close it.",
-    "covers": "the six notes only - 120 of 255 points",
+    "covers": "the six notes exactly, and under `full_run` the four truck objects as well - ten of the twelve placement missions, 185 of the 215 placement points",
     "does_not_choose_a_capacity": true,
-    "does_not_cover": "the two cables, the microphone and the three instruments: their start poses are nominal_pending in field_spec.json (work order B0)",
+    "does_not_cover": "the two cables: S1 puts them 'close to the stage (left end)', which is not a measured region, so they stay nominal_pending (work order B0)",
     "every_distance_is_a_lower_bound": true,
     "lower_bound_assumption": "AS-11",
     "speed_is_not_measured": true,
-    "speed_source": "field test P6 (motor characterisation) measures it"
+    "speed_source": "field test P6 (motor characterisation) measures it",
+    "truck_is_bounded_not_known": "ADR-030 added the two vehicle bodies as measured areas, so each truck object's start is bounded by their union. A bound is not a pose: nominal_start_pose_mm stays null for all four and ADR-014 is untouched."
   }
 }

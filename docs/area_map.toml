@@ -232,14 +232,44 @@ at_tol_mm = 2.0
 scoring = false
 needs_verify = "S1-extra-mission"
 
+# The two truck bodies. S1 p4 starts the microphone and all three instruments
+# "in the truck", and until ADR-030 that left four objects — 65 of 255 points —
+# with no geometry at all, so no route through them could be costed. The bodies
+# are two disjoint `#afbbdf` paths, identical to 4 µm, at the mat's lower edge.
+#
+# scoring = false, emphatically: they are a START region, not a target. What
+# they buy is a BOUND — each member starts somewhere in their union — never a
+# pose. ADR-014 is untouched; `nominal_start_pose_mm` stays null for all four.
+[areas.truck_vehicle_left]
+select = "#afbbdf"
+size_mm = [321.162, 111.692]
+at_mm = [1215.550, 79.162]
+at_tol_mm = 2.0
+scoring = false
+source = "S1 p4 places the instruments and microphone in the truck, lower end"
+
+[areas.truck_vehicle_right]
+select = "#afbbdf"
+size_mm = [321.166, 111.692]
+at_mm = [1542.259, 79.587]
+at_tol_mm = 2.0
+scoring = false
+source = "S1 p4 places the instruments and microphone in the truck, lower end"
+
 # --------------------------------------------------------------------------- #
 # Start groups — membership only, NEVER poses (ADR-014)
 # --------------------------------------------------------------------------- #
 
 # `truck` gets no polygon: the two vehicles are disjoint (x 1055-1376 and
-# 1381-1703), nothing consumes it, and ADR-014 supersedes its role as a pose
-# source. If the sensor model later wants the vehicle bodies they enter as two
-# separate scoring = false areas under their OWN ids — never as `truck`.
+# 1381-1703), and ADR-014 supersedes its role as a pose source. That still
+# holds. What changed (ADR-030) is the second half of the original note — "if
+# the sensor model later wants the vehicle bodies they enter as two separate
+# scoring = false areas under their OWN ids, never as `truck`" — which is now
+# taken up above as `truck_vehicle_left` and `truck_vehicle_right`.
+#
+# They bound where the four members START; they do not give any member a pose.
+# The bracket that produces is published in data/travel_budget.json, and work
+# order B0 collapses it.
 [start_groups.truck]
 kind = "start_group"
 members = ["mic", "instrument_guitar", "instrument_keyboard", "instrument_congas"]

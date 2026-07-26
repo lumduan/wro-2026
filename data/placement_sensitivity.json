@@ -17,7 +17,7 @@
   "provenance": {
     "deg_per_mm": 0.5,
     "inputs": {
-      "field_spec": "d1516be53dc53b385e24d0b559f7fb05992d8a42d2fab0f6d3d4629a0dd1ddf4",
+      "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "object_spec": "396088f385d51f1b344cdc84221b570181754f8f4b359add77535e5ec70ea329",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
     },

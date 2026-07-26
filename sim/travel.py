@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Travel distance as a budget, and what manipulator capacity buys against it.
 
-    data/field_spec.json  (start area, note start slots, target polygons)  ─► tours
+    data/field_spec.json  (start area, note slots, truck bodies, targets)  ─► tours
 
 Eight phases went into **accuracy**. Nothing asked whether a run fits in the
 **120 seconds** S4 §10.1 allows. ``attempt_seconds: 120`` sits in
@@ -43,11 +43,25 @@ the permutation must be read at runtime (``docs/PHASE7_CONSTRAINTS.md`` §5). At
 high capacity the robot passes every slot anyway; at capacity 1 it must either
 spend a scanning pass or commit blind.
 
+**Ten missions, not six** (ADR-030). :class:`NoteField` is the notes;
+:class:`TruckGroup` adds the microphone and three instruments, whose start S1 p4
+puts *"in the truck"* — two measured bodies, so their start is **bounded** even
+though no pose is known. :class:`FullField` composes them: 185 of the 215
+placement points, over a 24 x 16 grid of note permutations against vehicle
+choices. Only the two cables are genuinely pending; *"close to the stage"* is not
+a measured region.
+
+**Time is spent on objects, not only on distance.** With ten objects, every
+second of pick-and-place costs ten seconds of the attempt, and at
+``ATTEMPT_SECONDS / 10 = 12`` s per object the run cannot be completed at any
+driving speed — see :func:`impossible_beyond`. That threshold touches no geometry,
+so no route and no motor moves it.
+
 **Everything here is a lower bound.** Distances are straight-line, matching
 ``tools/build_strategy_frame.py``. A real path has turning radius, acceleration
 and pick/place time, all unmeasured until field test **P6**. So a required speed
 computed here is a floor the robot must clear, never a prediction that it will.
-See AS-11.
+See AS-11, and AS-12 for the truck's residual.
 
 This does not choose a capacity — that needs note mass and grip geometry (work
 order **A2/A3**), and ADR-022 left the mechanism open on purpose.
@@ -158,30 +172,35 @@ def _batch_cost(sources: Sequence[Point], targets: Sequence[Point],
     return best, end
 
 
-def tour(assign: dict[str, Point], field: NoteField, capacity: int) -> float:
-    """Shortest distance to fetch and deliver every note, then return to start.
+def tour_points(sources: Sequence[Point], targets: Sequence[Point],
+                start: Point, capacity: int) -> float:
+    """Shortest distance to fetch and deliver every object, then return to start.
 
-    Exact, by dynamic programming over ``(notes remaining, current position)``:
-    64 subsets x 7 positions. The robot works in batches of at most ``capacity``
-    notes, picking a batch up and then delivering it, which is what a magazine or
-    a multi-slot gripper actually does.
+    Exact, by dynamic programming over ``(objects remaining, current position)``.
+    The robot works in batches of at most ``capacity``, picking a batch up and
+    then delivering it, which is what a magazine or multi-slot gripper does.
 
     Exact rather than heuristic, and with no sampling anywhere, so the result is
     deterministic by construction — the same property ``sim.rounds`` gets from
     convolving instead of simulating.
+
+    **Cost grows steeply.** Each batch of size *s* enumerates ``s! x s!`` pickup
+    and delivery orders, and the states are ``2**n`` subsets. Six notes at any
+    capacity is instant; ten missions cost ~0.08 s at capacity 1, ~0.5 s at 2,
+    ~3.5 s at 3, and are intractable above that. `build_travel_budget.py` bounds
+    what it asks for accordingly.
     """
     if capacity < 1:
         raise ValueError(f"capacity must be at least 1, got {capacity}")
-    notes = field.notes
-    sources = [assign[n] for n in notes]
-    targets = [field.targets[n] for n in notes]
-    full = (1 << len(notes)) - 1
+    n = len(sources)
+    if n != len(targets):
+        raise ValueError(f"{n} sources against {len(targets)} targets")
 
     @lru_cache(maxsize=None)
     def best_from(remaining: int, here: Point) -> float:
         if not remaining:
-            return distance(here, field.start)
-        available = [i for i in range(len(notes)) if remaining >> i & 1]
+            return distance(here, start)
+        available = [i for i in range(n) if remaining >> i & 1]
         best = math.inf
         for size in range(1, min(capacity, len(available)) + 1):
             for members in itertools.combinations(available, size):
@@ -191,9 +210,16 @@ def tour(assign: dict[str, Point], field: NoteField, capacity: int) -> float:
         return best
 
     try:
-        return best_from(full, field.start)
+        return best_from((1 << n) - 1, start)
     finally:
         best_from.cache_clear()      # positions are per-assignment; never reuse
+
+
+def tour(assign: dict[str, Point], field: NoteField, capacity: int) -> float:
+    """The six-note case: :func:`tour_points` over ``field.notes``."""
+    return tour_points([assign[n] for n in field.notes],
+                       [field.targets[n] for n in field.notes],
+                       field.start, capacity)
 
 
 def tour_by_brute_force(assign: dict[str, Point], field: NoteField,
@@ -225,6 +251,98 @@ def tour_by_brute_force(assign: dict[str, Point], field: NoteField,
 
 
 # --------------------------------------------------------------------------- #
+# The truck — a bounded start, not a pending one
+# --------------------------------------------------------------------------- #
+
+#: The two `#afbbdf` vehicle bodies, added as measured areas by ADR-030.
+TRUCK_VEHICLES: Final = ("truck_vehicle_left", "truck_vehicle_right")
+
+
+class TruckGroup:
+    """Where the microphone and three instruments start, bounded rather than known.
+
+    S1 p4 puts all four *"in the truck"*, and the truck is two disjoint bodies at
+    the mat's lower edge. `field_spec.json` gives them no pose — ADR-014 refuses
+    to invent one — which left 65 of 255 points with no geometry at all, so no
+    route through them could be costed.
+
+    A bound is not a pose. Two things are unknown and they are different in kind:
+
+    1. **Which vehicle** each object sits on. Discrete, four objects, so 2**4 = 16
+       assignments — enumerated, exactly as the notes' 24 permutations are.
+    2. **Where on that vehicle.** Continuous, and much smaller: the targets are
+       over a metre away, so moving an object across its own vehicle body barely
+       moves the leg. Reported separately as a residual rather than folded in.
+
+    Work order **B0** collapses both to a measurement.
+    """
+
+    def __init__(self, field_spec: dict[str, Any], targets: dict[str, Point]) -> None:
+        areas = field_spec["areas"]
+        self.members: tuple[str, ...] = tuple(field_spec["start_groups"]["truck"]["members"])
+        self.vehicles: tuple[Point, ...] = tuple(
+            tuple(centroid([(float(x), float(y))
+                            for x, y in areas[v]["polygon_visible_mm"]]))
+            for v in TRUCK_VEHICLES)
+        self.vehicle_corners: tuple[tuple[Point, ...], ...] = tuple(
+            tuple((float(x), float(y)) for x, y in areas[v]["polygon_visible_mm"])
+            for v in TRUCK_VEHICLES)
+        self.targets: dict[str, Point] = {m: targets[m] for m in self.members}
+
+    def assignments(self) -> list[dict[str, Point]]:
+        """All 2**4 vehicle choices. A free product, not a bijection.
+
+        Unlike the notes, nothing says the four objects occupy distinct vehicles
+        — S1 says only "in the truck".
+        """
+        return [dict(zip(self.members, combo))
+                for combo in itertools.product(self.vehicles, repeat=len(self.members))]
+
+    def within_vehicle_span(self, start: Point) -> dict[str, float]:
+        """How much the *unknown position on a vehicle* is worth, per object.
+
+        Measured, not bounded by the diagonal: the fetch-and-deliver leg is
+        evaluated at every corner of both bodies and the span reported. It is the
+        residual left after :meth:`assignments` has enumerated the discrete part.
+        """
+        corners = [c for body in self.vehicle_corners for c in body]
+        out = {}
+        for member in self.members:
+            target = self.targets[member]
+            legs = [distance(start, c) + distance(c, target) for c in corners]
+            out[member] = max(legs) - min(legs)
+        return out
+
+
+class FullField:
+    """Every placement mission whose start geometry is known: the notes plus the truck.
+
+    Ten of twelve — **185 of the 215 placement points**. The two cables are the
+    genuine remainder: S1 puts them *"close to the stage (left end)"*, which is
+    not a measured region, so they stay `nominal_pending` until work order **B0**.
+    """
+
+    def __init__(self, field_spec: dict[str, Any], notes: NoteField,
+                 truck_targets: dict[str, Point]) -> None:
+        self.notes = notes
+        self.truck = TruckGroup(field_spec, truck_targets)
+        self.start = notes.start
+        self.objects: tuple[str, ...] = notes.notes + self.truck.members
+        self.targets: dict[str, Point] = {**notes.targets, **self.truck.targets}
+
+    def assignments(self) -> list[dict[str, Point]]:
+        """24 note permutations x 16 vehicle choices = 384 joint start states."""
+        return [{**note_assign, **truck_assign}
+                for note_assign in self.notes.assignments()
+                for truck_assign in self.truck.assignments()]
+
+    def tour(self, assign: dict[str, Point], capacity: int) -> float:
+        return tour_points([assign[o] for o in self.objects],
+                           [self.targets[o] for o in self.objects],
+                           self.start, capacity)
+
+
+# --------------------------------------------------------------------------- #
 # Turning distance into a requirement
 # --------------------------------------------------------------------------- #
 
@@ -240,6 +358,26 @@ def required_speed(distance_mm: float, seconds: float = ATTEMPT_SECONDS) -> floa
     if seconds <= 0:
         raise ValueError(f"seconds must be positive, got {seconds}")
     return distance_mm / seconds
+
+
+def driving_seconds(objects: int, seconds_per_object: float,
+                    attempt: float = ATTEMPT_SECONDS) -> float:
+    """Clock left for driving once pick-and-place has taken its share.
+
+    The multiplier is the point: with *n* objects, **every second of
+    pick-and-place costs n seconds of the attempt**. Ten objects and 12 s each
+    consumes the whole 120 s, so beyond that threshold the run cannot be
+    completed at any driving speed — a constraint on the *mechanism* that no
+    motor can buy back. See :func:`impossible_beyond`.
+    """
+    return attempt - objects * seconds_per_object
+
+
+def impossible_beyond(objects: int, attempt: float = ATTEMPT_SECONDS) -> float:
+    """Seconds per object at which no driving time remains, whatever the speed."""
+    if objects <= 0:
+        raise ValueError(f"objects must be positive, got {objects}")
+    return attempt / objects
 
 
 def spread(values: Iterable[float]) -> float:

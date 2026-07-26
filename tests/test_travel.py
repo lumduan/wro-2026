@@ -287,6 +287,194 @@ def test_spearman_matches_a_hand_computed_case():
 
 
 # --------------------------------------------------------------------------- #
+# The truck — a bounded start, not a pending one (ADR-030)
+# --------------------------------------------------------------------------- #
+
+
+@pytest.fixture(scope="module")
+def field_spec() -> dict:
+    return json.loads((ROOT / "data" / "field_spec.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture(scope="module")
+def truck(field_spec, full_field) -> travel.TruckGroup:
+    return full_field.truck
+
+
+@pytest.fixture(scope="module")
+def full_field(field_spec, field) -> travel.FullField:
+    from sim.scoring import Scorer
+    nominal = Scorer.load().nominal_placements()
+    members = field_spec["start_groups"]["truck"]["members"]
+    return travel.FullField(
+        field_spec, field, {m: (nominal[m][1], nominal[m][2]) for m in members})
+
+
+def test_the_vehicle_areas_match_the_printed_mat(field_spec):
+    """Measured from S2, not chosen: two `#afbbdf` bodies identical to 4 µm."""
+    drawings = json.loads((
+        ROOT / "docs" / "extracted" / "WRO-2026-GameMat-Elementary-Printing-File"
+        / "vector" / "drawings.json").read_text(encoding="utf-8"))
+    bodies = sorted((p for p in drawings["paths"]
+                     if (p.get("fill_hex") or "").lower() == "#afbbdf"),
+                    key=lambda p: p["bbox_mm"][0])
+    assert len(bodies) == 2, "the truck is exactly two vehicles"
+    for area_id, body in zip(travel.TRUCK_VEHICLES, bodies):
+        area = field_spec["areas"][area_id]
+        assert area["scoring"] is False, f"{area_id} is a START region, never a target"
+        for got, want in zip(area["bbox_mm"], body["bbox_mm"]):
+            assert got == pytest.approx(want, abs=1e-3), area_id
+
+
+def test_the_truck_members_still_have_no_pose(field_spec):
+    """A bound is not a pose. ADR-014 is untouched by ADR-030."""
+    for member in field_spec["start_groups"]["truck"]["members"]:
+        pose = field_spec["object_start_poses"][member]
+        assert pose["nominal_start_pose_mm"] is None, member
+        assert pose["kind"] == "nominal_pending", member
+
+
+def test_the_truck_enumerates_a_free_product_not_a_bijection(truck):
+    """Nothing says the four objects occupy distinct vehicles — S1 says only
+    "in the truck". That is the difference from the notes' 24 permutations."""
+    assignments = truck.assignments()
+    assert len(assignments) == 2 ** len(truck.members) == 16
+    assert any(len(set(a.values())) == 1 for a in assignments), \
+        "all four on one vehicle must be a member of the space"
+
+
+def test_the_within_vehicle_residual_is_small_and_measured(truck, field):
+    """Why the vehicle CHOICE is enumerated and the position on it is not."""
+    spans = truck.within_vehicle_span(field.start)
+    assert set(spans) == set(truck.members)
+    for member, span in spans.items():
+        assert 0 < span < 250, member
+    assert max(spans.values()) < 200
+
+
+def test_the_full_field_is_ten_missions(full_field):
+    assert len(full_field.objects) == 10
+    assert set(full_field.objects) == NOTES | set(full_field.truck.members)
+    assert "cable_upper" not in full_field.objects
+    assert len(full_field.assignments()) == 24 * 16 == 384
+
+
+def test_the_refactor_left_the_six_note_figures_untouched(field, assignments, tours):
+    """ADR-029's numbers must survive the generalisation exactly."""
+    assert travel.tour(assignments[0], field, 1) == pytest.approx(
+        travel.tour_points([assignments[0][n] for n in field.notes],
+                           [field.targets[n] for n in field.notes],
+                           field.start, 1), abs=1e-12)
+    assert max(tours[1]) == pytest.approx(7592, abs=1)
+    assert travel.spread(tours[6]) == 0.0
+
+
+def test_tour_points_rejects_mismatched_inputs():
+    with pytest.raises(ValueError, match="sources against"):
+        travel.tour_points([(0.0, 0.0)], [(1.0, 1.0), (2.0, 2.0)], (0.0, 0.0), 1)
+
+
+def test_collapsing_the_vehicle_choice_collapses_that_part_of_the_bracket(full_field):
+    """The bracket is a bracket — which is exactly what work order B0 buys.
+
+    Pin every truck object to one vehicle and the vehicle contribution vanishes;
+    what survives is the note permutation, which no measurement can remove.
+    """
+    note_assigns = full_field.notes.assignments()
+    pinned = [{**na, **{m: full_field.truck.vehicles[0] for m in full_field.truck.members}}
+              for na in note_assigns]
+    tours = [full_field.tour(a, 1) for a in pinned]
+
+    # One vehicle, one permutation: nothing left to vary.
+    assert len({round(full_field.tour(pinned[0], 1), 9)}) == 1
+    # One vehicle, all permutations: only the irreducible part is left.
+    residual = travel.spread(tours)
+    full = travel.spread([full_field.tour({**na, **ta}, 1)
+                          for na in note_assigns[:4]
+                          for ta in full_field.truck.assignments()])
+    assert 0 < residual < full, (
+        "pinning the vehicles must shrink the spread without erasing it — the "
+        "note permutation survives any measurement (S1 p7)")
+
+
+# --------------------------------------------------------------------------- #
+# The full run, and the pick-and-place cliff
+# --------------------------------------------------------------------------- #
+
+
+def test_the_full_run_covers_ten_of_twelve_missions(spec):
+    run = spec["full_run"]
+    assert run["count"] == 10
+    assert run["points_covered"] == 185
+    assert set(run["excludes"]) == {"cable_upper", "cable_lower"}
+    for reason in run["excludes"].values():
+        assert "not a measured region" in reason
+    assert run["joint_assignments"] == 384
+
+
+def test_more_capacity_shortens_the_full_run(spec):
+    from build_travel_budget import FULL_RUN_CAPACITIES
+    curve = spec["full_run"]["capacity_curve"]
+    assert [r["capacity"] for r in curve] == list(FULL_RUN_CAPACITIES)
+    for a, b in itertools.pairwise(curve):
+        assert b["max_mm"] < a["max_mm"] and b["min_mm"] < a["min_mm"]
+        assert b["required_speed_mm_s"]["at_worst_case"] < \
+            a["required_speed_mm_s"]["at_worst_case"]
+
+
+def test_the_spread_decomposes_into_what_b0_removes_and_what_it_cannot(spec):
+    """The point of the 24 x 16 grid, and the number that prices work order B0."""
+    for row in spec["full_run"]["capacity_curve"]:
+        src = row["spread_sources_mm"]
+        assert src["note_permutation"] > 0 and src["vehicle_choice"] > 0
+        assert max(src.values()) <= row["spread_mm"] + 1e-6, \
+            "a single source cannot exceed the joint spread"
+        assert src["vehicle_choice"] > src["note_permutation"], (
+            "B0 is worth MORE than the irreducible randomization — if that ever "
+            "flips, the work order's priorities need revisiting")
+    note = spec["full_run"]["uncertainty"]
+    assert "B0" in note["what_b0_removes"] or "vehicle" in note["what_b0_removes"]
+    assert "after quarantine" in note["what_nothing_removes"]
+
+
+def test_the_pick_and_place_cliff_is_attempt_over_objects(spec):
+    pp = spec["full_run"]["pick_and_place"]
+    assert pp["objects"] == 10
+    assert pp["impossible_beyond_s_per_object"] == pytest.approx(12.0, abs=1e-9)
+    assert pp["cliff_is_independent_of_distance"] is True
+    assert travel.impossible_beyond(10, 120.0) == pytest.approx(12.0)
+    assert travel.impossible_beyond(6, 120.0) == pytest.approx(20.0)
+    with pytest.raises(ValueError):
+        travel.impossible_beyond(0)
+
+
+def test_the_cliff_lands_at_the_same_place_at_every_capacity(spec):
+    """Distance-independent: shortening the tour never buys pick-and-place time."""
+    for block in spec["full_run"]["pick_and_place"]["by_capacity"]:
+        infeasible = [c["seconds_per_object"] for c in block["cells"]
+                      if not c["feasible_at_any_speed"]]
+        assert infeasible == [12.0], block["capacity"]
+        for cell in block["cells"]:
+            assert (cell["required_speed_mm_s"] is None) == (not cell["feasible_at_any_speed"])
+
+
+def test_required_speed_rises_with_pick_and_place_time(spec):
+    for block in spec["full_run"]["pick_and_place"]["by_capacity"]:
+        speeds = [c["required_speed_mm_s"] for c in block["cells"]
+                  if c["required_speed_mm_s"] is not None]
+        assert speeds == sorted(speeds)
+        assert speeds[0] == pytest.approx(
+            block["worst_case_distance_mm"] / 120.0, abs=0.05)
+
+
+def test_the_capacities_not_computed_are_explained(spec):
+    block = spec["full_run"]["capacities_not_computed"]
+    assert block["capacities"] == [3, 4, 5, 6]
+    assert "s! x s!" in block["why"]
+    assert "not a 31.9 mm note" in block["why"]
+
+
+# --------------------------------------------------------------------------- #
 # Honesty guards
 # --------------------------------------------------------------------------- #
 
@@ -309,10 +497,12 @@ def test_the_artefact_refuses_to_choose_a_capacity(spec):
 
 def test_the_artefact_states_what_it_does_not_cover(spec):
     scope = spec["scope"]
-    assert "six notes only" in scope["covers"]
+    assert "ten of the twelve" in scope["covers"]
+    assert "185 of the 215" in scope["covers"]
     assert "B0" in scope["does_not_cover"]
-    for missing in ("cable", "microphone", "instrument"):
-        assert missing in scope["does_not_cover"]
+    assert "cable" in scope["does_not_cover"]
+    assert "not a measured region" in scope["does_not_cover"]
+    assert "ADR-014 is untouched" in scope["truck_is_bounded_not_known"]
 
 
 def test_the_rules_are_quoted_not_paraphrased(spec):
@@ -356,6 +546,75 @@ def test_the_adr_quotes_the_saving_and_the_correlations(spec):
     validity = spec["corrects"]["ranking_validity"]
     assert f"{validity['spearman_at_best_permutation']:+.3f}" in body
     assert f"{validity['spearman_at_worst_permutation']:.3f}" in body
+
+
+def _adr_body(number: str) -> str:
+    text = (ROOT / "docs" / "DECISIONS.md").read_text(encoding="utf-8")
+    return text.split(f"## ADR-{number}")[1].split("\n## ")[0]
+
+
+def test_the_adr_030_full_run_table_matches_the_artefact(spec):
+    """Same guard as ADR-029's, turned on the full-run numbers.
+
+    The ADR uses thin spaces as thousands separators (`14 789`); they are
+    stripped rather than banned, because the prose should stay readable.
+    """
+    body = _adr_body("030")
+    rows = {}
+    for line in body.splitlines():
+        cells = [c.strip().replace("*", "").replace(" ", "")
+                 for c in line.strip().strip("|").split("|")]
+        if len(cells) == 6 and cells[0].isdigit() and int(cells[0]) < 10:
+            rows[int(cells[0])] = [float(c) for c in cells[1:]]
+    curve = spec["full_run"]["capacity_curve"]
+    assert set(rows) == {r["capacity"] for r in curve}
+    for row in curve:
+        printed = rows[row["capacity"]]
+        assert printed[0] == pytest.approx(row["min_mm"], abs=0.5)
+        assert printed[1] == pytest.approx(row["median_mm"], abs=0.5)
+        assert printed[2] == pytest.approx(row["max_mm"], abs=0.5)
+        assert printed[3] == pytest.approx(row["spread_mm"], abs=0.5)
+        assert printed[4] == pytest.approx(
+            row["required_speed_mm_s"]["at_worst_case"], abs=0.5)
+
+
+def test_the_adr_030_spread_decomposition_matches(spec):
+    body = _adr_body("030").replace(" ", "")
+    for row in spec["full_run"]["capacity_curve"]:
+        for value in row["spread_sources_mm"].values():
+            assert f"{value:.0f}" in body, (row["capacity"], value)
+
+
+def test_the_adr_030_cliff_table_matches_the_artefact(spec):
+    """Parse the ADR's own cliff table and check it row by row.
+
+    The ADR tabulates a readable subset of the seconds-per-object grid, so the
+    guard reads its header rather than demanding every row the artefact carries.
+    """
+    body = _adr_body("030")
+
+    def row(prefix: str) -> list[str]:
+        line = next(ln for ln in body.splitlines()
+                    if ln.startswith(f"| {prefix}"))
+        return [c.strip().replace("*", "") for c in line.strip().strip("|").split("|")][1:]
+
+    seconds = [float(c) for c in row("s per object")]
+    driving = [float(c) for c in row("driving seconds left")]
+    speeds = row("required mm/s, capacity 2")
+    assert len(seconds) == len(driving) == len(speeds) > 4
+
+    pp = spec["full_run"]["pick_and_place"]
+    assert f"{pp['impossible_beyond_s_per_object']:.0f} s per object" in body
+    assert "120 / 10" in body
+    cells = {c["seconds_per_object"]: c
+             for c in next(b for b in pp["by_capacity"] if b["capacity"] == 2)["cells"]}
+    for t, left, printed in zip(seconds, driving, speeds):
+        cell = cells[t]
+        assert cell["driving_seconds"] == pytest.approx(left, abs=1e-6), t
+        if cell["required_speed_mm_s"] is None:
+            assert printed == "impossible", t
+        else:
+            assert float(printed) == pytest.approx(cell["required_speed_mm_s"], abs=0.5), t
 
 
 def test_provenance_pins_every_input(spec):

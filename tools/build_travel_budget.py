@@ -65,6 +65,16 @@ SPECS: Final = {
 #: Round counts to illustrate against, matching `sim.rounds.DEFAULT_ROUND_COUNTS`.
 ROUND_COUNTS: Final = (1, 2, 3)
 
+#: Capacities the ten-mission run is solved at. Bounded by cost, not by choice:
+#: each batch of size s enumerates s! x s! orders, so ten missions take ~27 s of
+#: wall clock at capacity 1, ~150 s at 2, and ~22 min at 3. Physically the cap is
+#: lower still — an instrument is not a 31.9 mm note, so carrying four of them is
+#: not a design point anyone would reach.
+FULL_RUN_CAPACITIES: Final = (1, 2)
+
+#: Pick-and-place seconds per object to tabulate the time budget at.
+PICK_PLACE_SECONDS: Final = (0.0, 1.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0)
+
 RULES: Final = {
     "s4_10_1": "Each robot attempt is 2 minutes",
     "s4_9_6": (
@@ -105,6 +115,135 @@ def spearman(a: dict[str, float], b: dict[str, float]) -> float:
     n = len(a)
     squares = sum((rank_a[k] - rank_b[k]) ** 2 for k in a)
     return 1.0 - 6.0 * squares / (n * (n * n - 1))
+
+
+def full_run(field_spec: dict[str, Any], notes: travel.NoteField,
+             note_points: dict[str, int], seconds: float) -> dict[str, Any]:
+    """The ten missions whose start geometry is known — notes plus the truck.
+
+    Enumerated as a 24 x 16 grid: note permutations down, vehicle choices across.
+    Keeping the grid rather than a flat list is what makes the uncertainty
+    *decomposable* — the note spread at a fixed vehicle choice is irreducible
+    (S1 p7 randomizes it and S4 §9.6 does so after quarantine), while the vehicle
+    spread at a fixed permutation is exactly what work order B0 removes.
+    """
+    from sim.scoring import Scorer
+    nominal = Scorer.load().nominal_placements()
+    members = tuple(field_spec["start_groups"]["truck"]["members"])
+    truck_targets = {m: (nominal[m][1], nominal[m][2]) for m in members}
+    field = travel.FullField(field_spec, notes, truck_targets)
+
+    note_assigns = notes.assignments()
+    truck_assigns = field.truck.assignments()
+
+    curve = []
+    for capacity in FULL_RUN_CAPACITIES:
+        grid = [[field.tour({**na, **ta}, capacity) for ta in truck_assigns]
+                for na in note_assigns]
+        flat = sorted(v for row in grid for v in row)
+        low, high = R(flat[0]), R(flat[-1])
+        # Down a column: the vehicle choice is fixed, so only the permutation moves.
+        note_only = max(max(col) - min(col)
+                        for col in zip(*grid))
+        # Across a row: the permutation is fixed, so only the vehicle choice moves.
+        vehicle_only = max(max(row) - min(row) for row in grid)
+        curve.append({
+            "capacity": capacity,
+            "min_mm": low,
+            "median_mm": R(statistics.median(flat)),
+            "max_mm": high,
+            "spread_mm": R(high - low),
+            "required_speed_mm_s": {
+                "at_best_case": R(travel.required_speed(flat[0], seconds)),
+                "at_worst_case": R(travel.required_speed(flat[-1], seconds)),
+            },
+            "spread_sources_mm": {
+                "note_permutation": R(note_only),
+                "vehicle_choice": R(vehicle_only),
+            },
+        })
+
+    worst = max(row["max_mm"] for row in curve)
+    objects = len(field.objects)
+    cliff = travel.impossible_beyond(objects, seconds)
+    return {
+        "covers": list(field.objects),
+        "count": objects,
+        "points_covered": sum(note_points[o] for o in field.objects),
+        "excludes": {
+            "cable_upper": "S1 p4: 'close to the stage (left end)' is not a measured region",
+            "cable_lower": "S1 p4: 'close to the stage (left end)' is not a measured region",
+        },
+        "joint_assignments": len(note_assigns) * len(truck_assigns),
+        "grid": f"{len(note_assigns)} note permutations x {len(truck_assigns)} vehicle choices",
+        "capacity_curve": curve,
+        "capacities_not_computed": {
+            "capacities": [c for c in travel.DEFAULT_CAPACITIES
+                           if c not in FULL_RUN_CAPACITIES],
+            "why": (
+                "Cost, and physics. The batch enumeration is s! x s! per batch, so "
+                "ten missions cost ~27 s at capacity 1, ~150 s at 2 and ~22 min at 3. "
+                "And an instrument is not a 31.9 mm note: carrying three of them plus "
+                "the microphone is not a design point. The six-note curve above still "
+                "runs to capacity 6 because there it is both cheap and meaningful."
+            ),
+        },
+        "uncertainty": {
+            "what_b0_removes": "the vehicle choice, and the position on that vehicle",
+            "what_nothing_removes": (
+                "the note permutation - S1 p7 randomizes it and S4 9.6 does so after "
+                "quarantine, so it is drawn fresh every round and can only be sensed"
+            ),
+            "within_vehicle_residual_mm": {
+                k: R(v) for k, v in field.truck.within_vehicle_span(field.start).items()
+            },
+            "within_vehicle_note": (
+                "Leg span with the object moved over every corner of both bodies. "
+                "Small because the targets are more than a metre away, which is why "
+                "the vehicle CHOICE is enumerated and the position on it is not."
+            ),
+        },
+        "pick_and_place": {
+            "objects": objects,
+            "multiplier": (
+                f"every second of pick-and-place costs {objects} seconds of the "
+                f"attempt, because there are {objects} objects"
+            ),
+            "impossible_beyond_s_per_object": R(cliff),
+            "impossible_note": (
+                f"At {cliff:.0f} s per object the attempt is entirely consumed by "
+                "pick-and-place and the run cannot be completed at ANY driving speed. "
+                "That is a constraint on the mechanism that no motor can buy back."
+            ),
+            "cliff_is_independent_of_distance": True,
+            "why_independent": (
+                f"The threshold is attempt_seconds / objects = {seconds:.0f} / "
+                f"{objects} exactly. It does not move with the route, the capacity or "
+                "the randomization - shortening the tour buys driving speed, never "
+                "pick-and-place time."
+            ),
+            "by_capacity": [
+                {
+                    "capacity": row["capacity"],
+                    "worst_case_distance_mm": row["max_mm"],
+                    "cells": [
+                        {
+                            "seconds_per_object": R(t),
+                            "driving_seconds": R(travel.driving_seconds(objects, t, seconds)),
+                            "required_speed_mm_s": (
+                                None if travel.driving_seconds(objects, t, seconds) <= 0
+                                else R(row["max_mm"]
+                                       / travel.driving_seconds(objects, t, seconds))),
+                            "feasible_at_any_speed":
+                                travel.driving_seconds(objects, t, seconds) > 0,
+                        }
+                        for t in PICK_PLACE_SECONDS
+                    ],
+                }
+                for row in curve
+            ],
+        },
+    }
 
 
 def build() -> dict[str, Any]:
@@ -185,10 +324,19 @@ def build() -> dict[str, Any]:
                 "the 24 randomization permutations, and the mean speed each capacity "
                 "demands to fit 120 s"
             ),
-            "covers": "the six notes only - 120 of 255 points",
+            "covers": (
+                "the six notes exactly, and under `full_run` the four truck objects "
+                "as well - ten of the twelve placement missions, 185 of the 215 "
+                "placement points"
+            ),
             "does_not_cover": (
-                "the two cables, the microphone and the three instruments: their start "
-                "poses are nominal_pending in field_spec.json (work order B0)"
+                "the two cables: S1 puts them 'close to the stage (left end)', which "
+                "is not a measured region, so they stay nominal_pending (work order B0)"
+            ),
+            "truck_is_bounded_not_known": (
+                "ADR-030 added the two vehicle bodies as measured areas, so each truck "
+                "object's start is bounded by their union. A bound is not a pose: "
+                "nominal_start_pose_mm stays null for all four and ADR-014 is untouched."
             ),
             "does_not_choose_a_capacity": True,
             "capacity_gated_on": (
@@ -241,6 +389,7 @@ def build() -> dict[str, Any]:
         },
         "capacity_curve": curve,
         "per_note": per_note,
+        "full_run": full_run(field_spec, field, note_points, seconds),
         "corrects": {
             "artefact": "data/strategy_frame.json",
             "what": (
@@ -313,6 +462,32 @@ def main(argv: Sequence[str] | None = None) -> int:
                      f"{row['fetch_and_deliver_mm']['max']:.0f}")
         print(f"  {row['note_id']:<14} {span:>16} "
               f"{row['strategy_frame_round_trip_mm']:>15.0f}  {row['strategy_frame_direction']}")
+
+    run = spec["full_run"]
+    print(f"\n  === full run: {run['count']} of 12 missions, "
+          f"{run['points_covered']} of 215 placement points, "
+          f"{run['joint_assignments']} joint start states ===")
+    print(f"  {'cap':>4} {'min':>7} {'median':>7} {'max':>7} {'spread':>8} "
+          f"{'mm/s @120s':>12}  spread from")
+    for row in run["capacity_curve"]:
+        src = row["spread_sources_mm"]
+        print(f"  {row['capacity']:>4} {row['min_mm']:>7.0f} {row['median_mm']:>7.0f} "
+              f"{row['max_mm']:>7.0f} {row['spread_mm']:>8.0f} "
+              f"{row['required_speed_mm_s']['at_worst_case']:>12.0f}  "
+              f"notes {src['note_permutation']:.0f} / vehicles {src['vehicle_choice']:.0f}")
+    pp = run["pick_and_place"]
+    print(f"\n  pick-and-place: {pp['multiplier']}")
+    caps = [b["capacity"] for b in pp["by_capacity"]]
+    print(f"  {'s/object':>9} {'driving s':>10}" +
+          "".join(f"{'req mm/s cap ' + str(c):>18}" for c in caps))
+    for i, cell in enumerate(pp["by_capacity"][0]["cells"]):
+        speeds = ""
+        for block in pp["by_capacity"]:
+            value = block["cells"][i]["required_speed_mm_s"]
+            speeds += f"{('IMPOSSIBLE' if value is None else f'{value:.0f}'):>18}"
+        print(f"  {cell['seconds_per_object']:>9.0f} {cell['driving_seconds']:>10.0f}{speeds}")
+    print(f"\n  the {pp['impossible_beyond_s_per_object']:.0f} s cliff is independent of "
+          f"distance: {pp['why_independent']}")
     return 0
 
 

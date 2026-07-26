@@ -79,7 +79,7 @@ PIPELINE: Final = (
     Artefact("strategy_frame", "build_strategy_frame", "data/strategy_frame.json"),
     Artefact("expected_score", "build_expected_score", "data/expected_score.json"),
     Artefact("round_strategy", "build_round_strategy", "data/round_strategy.json"),
-    Artefact("travel_budget", "build_travel_budget", "data/travel_budget.json"),
+    Artefact("travel_budget", "build_travel_budget", "data/travel_budget.json", slow=True),
 )
 
 #: `provenance.inputs` keys are logical names; these are the files they mean.
@@ -178,7 +178,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if not why:
             print(f"  skip   {artefact.name} (fresh)")
             continue
-        note = " — slow, ~2.5 min" if artefact.slow else ""
+        note = " — slow, a few minutes" if artefact.slow else ""
         print(f"  build  {artefact.name}{note}")
         run(artefact)
         built += 1
