@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6).
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1).
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -27,6 +27,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-019](#adr-019) | The cream run-preview box replaces the callout as the boundary signal | accepted 2026-07-26 |
 | [ADR-020](#adr-020) | `sim/` is a package; every open interpretation is a named parameter | accepted 2026-07-27 |
 | [ADR-021](#adr-021) | Area geometry comes from the polygon, never from `bbox_mm` | accepted 2026-07-27 |
+| [ADR-022](#adr-022) | Motor budget: 2 drive + 0 yaw + 2 manipulator; mechanism gated on mass | accepted 2026-07-27 |
 
 ---
 
@@ -760,3 +761,74 @@ The substantive loss was not a number. Aligning to the mat axes hid that the two
 places both identically gets one wrong, worth 15 points. Guarded now by
 `tests/test_geometry.py::test_the_cable_areas_are_rotated_and_the_others_are_not` and
 `tests/test_scoring.py::test_the_two_cables_get_mirrored_nominal_headings`.
+
+---
+
+## ADR-022
+
+**Motor budget: 2 drive + 0 yaw + 2 manipulator. The mechanism stays gated on mass.**
+`2026-07-27 · Phase 7 part 1 · accepted`
+
+**Context.** `docs/PHASE7_CONSTRAINTS.md` §1 has carried this instruction since Phase 5:
+
+> Either the manipulator is passive/geometric, or pneumatics buy DOF at the cost of one slot.
+> **Record whichever way this goes as an ADR with the arithmetic shown; do not assert a
+> topology without it.**
+
+S4 §5.2.8 gives Elementary **4 motors**. A differential drive takes 2, leaving 2 for twelve
+placement operations. The open question was whether those 2 suffice, and what else competes
+for them.
+
+**The arithmetic, now that it exists.** `data/manipulator_requirements.json` derives three
+things from the frozen specs rather than assuming them:
+
+| | |
+|---|---|
+| **Grip span** | 32 mm for 8 of the 12 objects; 56 mm (bound) for the keyboard; 112 mm (bound) for the congas; 128 mm for the cables |
+| **Yaw tolerance** | measured by scanning the containment predicate — **unbounded** for 10 of 12 objects, **±31°** for the two cables |
+| **Placement accuracy** | from `data/placement_sensitivity.json`, both A7 readings |
+
+**Decision — the budget.**
+
+```
+2 slots   differential drive
+0 slots   yaw
+2 slots   manipulator, both available
+```
+
+**Yaw costs nothing, and this is the load-bearing finding.** A 32 mm object in a 79.7 mm
+square target fits at *every* heading — its diagonal is 45.3 mm. Only the cables constrain
+heading at all, and their tolerance is ±31°, which a differential drive holds comfortably.
+A dedicated yaw actuator would buy nothing and cost half the manipulator budget.
+
+This **corrects** `PHASE7_CONSTRAINTS.md` §7 as published on 2026-07-26, which said of the
+cable *"along-axis accuracy is not the problem here. Rotation is."* Measured, translation
+dominates: σ for P ≥ 90 % is 13.90 mm with rotation coupled against 17.68 mm without, so
+rotation costs 21 % of the tolerance rather than being the binding term.
+
+**What the budget buys — the capability ladder.**
+
+| grip span | objects | run total | left on the table |
+|---:|---:|---:|---:|
+| 32 mm | 8 | **195 / 255 (76 %)** | 60 |
+| 56 mm | 9 | 210 / 255 (82 %) | 45 |
+| 112 mm | 10 | 225 / 255 (88 %) | 30 |
+| 128 mm | 12 | 255 / 255 (100 %) | 0 |
+
+Run totals include the 40-point bonus floor, because a robot that handles nothing still
+scores 40 (S6 2026-06-17). **A mechanism that only ever grips 32 mm reaches three quarters of
+the maximum.** That is not a recommendation to build one; it is the price list.
+
+**Not decided — the mechanism.** Parallel gripper, fork, scoop or passive geometry all satisfy
+the span and accuracy requirements on paper. What separates them is whether a mechanism can
+lift and hold a 128 mm cable without dropping it, and that needs **object mass and grip
+points**. `mass_g` is `null` for all 16 objects because no building instruction contains it.
+
+Asserting a topology from footprints alone is precisely the "topology without arithmetic" §1
+forbids, so it is refused rather than guessed.
+
+**Consequence.** The chassis is fully designable: the drivetrain allocation is fixed, and the
+manipulator's envelope is bounded by a 128 mm span with two free motor slots. The mechanism
+decision is reduced to a single measurement — weigh the objects and identify grip points —
+which is added to `docs/FIELD_TEST_PLAN.md`. S4 §5.1 leaves post-start size unrestricted, so a
+deployable mechanism remains legal whichever way that measurement goes.

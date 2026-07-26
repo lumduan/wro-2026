@@ -221,10 +221,25 @@ def test_scoring_relevance_partitions_all_sixteen_objects(omap: dict):
 
 
 def test_congas_pair_separation_is_not_invented(omap: dict):
+    """Still not measured — but now bounded, and the bound is derived."""
     pair = omap["congas_pair_extent"]
-    assert pair["pair_separation"] == "NOT MEASURED"
+    assert pair["pair_separation"].startswith("NOT MEASURED")
     assert pair["per_drum_contact_mm"] == [32.0, 32.0]
     assert "393.809" in pair["blocks_nothing_because"]
+    # the bound must be arithmetic on part lengths: 4 + 6 + 4 studs
+    assert pair["long_extent_bound_studs"] == 14
+    assert pair["long_extent_bound_mm"] == pytest.approx(
+        pair["long_extent_bound_studs"] * omap["meta"]["stud_pitch_mm"])
+    assert "failed" in pair["bound_derivation"].lower() or \
+           "FAILED" in pair["bound_derivation"]
+
+
+def test_the_congas_is_one_rigid_object(omap: dict):
+    """Page 104 bridges both drums with a 2x6, so it is ONE pick-up."""
+    pair = omap["congas_pair_extent"]
+    assert pair["pieces"] == 1
+    assert "104" in pair["pieces_evidence"]
+    assert "12 pick-ups" in pair["pieces_evidence"]
 
 
 # --------------------------------------------------------------------------- #

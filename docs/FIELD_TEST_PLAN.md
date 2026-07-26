@@ -1,6 +1,6 @@
 # Field test plan — two drive platforms as measuring instruments
 
-`last_reviewed: 2026-07-25`
+`last_reviewed: 2026-07-27`
 
 ## Why this exists
 
@@ -134,8 +134,27 @@ physical game object, measure the tilt angle at which the base **first lifts**.
 
 → replaces: AS-6 / `upright_tolerance_deg = 15°`
 
-**Blocked** until game objects exist — i.e. on Phase 4, or on acquiring WRO Brick Set 45811 /
+**Blocked** until physical game objects exist — i.e. on acquiring WRO Brick Set 45811 /
 Expansion 45819. Listed here so it is visibly blocked rather than looking runnable.
+(Phase 4 no longer gates it: the geometry is done, the parts are not in hand.)
+
+### P7 · Object mass and grip points — **the measurement ADR-022 waits on**
+
+Added 2026-07-27. With the physical objects, for each of the 12 placement objects record:
+
+| | |
+|---|---|
+| **mass** | grams, on a scale. Replaces `mass_g: null` in `data/object_spec.json` for all 16 objects |
+| **grip points** | where a mechanism can hold it without the object rotating, tipping or shedding a part |
+| **the cable specifically** | can a 128 mm object be lifted from one grip point, or does it need two? That is what separates a parallel gripper from a fork |
+| **the congas** | its true drum separation, currently **bounded** at ≤ 112 mm rather than measured |
+| **the keyboard** | its true base extent, currently **bounded** at ≤ 56 × 56 mm |
+
+→ closes: **ADR-022's gated half** — the manipulator mechanism. Also closes A7 by calipers, and
+upgrades two bounds to measurements.
+
+**This is the highest-value hour of table time available**, because it is the only measurement
+here that unblocks a design *decision* rather than refining a parameter.
 
 ### P6 · Motor characterisation
 
@@ -155,5 +174,11 @@ so both routes stay documented:
 | **Sets held** | measure physical parts with calipers — closes A7 (note base vs the 79.699 mm target), grip points, and P5 in one afternoon. Stud-counting becomes the **cross-check**, not the source. | runnable |
 | **Not held** | count studs in the S3 page rasters × 8.00 mm (S4 §7.4: elements are LEGO System/Technic, so stud pitch is a known constant) | waits |
 
-Phase 4 is the sole remaining item on the critical path to Phase 6, so resolving the
-procurement question is the highest-leverage action available.
+**Superseded 2026-07-27.** Phases 4 and 6 are both DONE, so this sentence no longer describes
+the project. The stud-counting route was taken and it worked: all 16 objects are mapped with
+contact footprints, and A7 is closed against three independent sources.
+
+What the sets now gate is different and larger: **every `mass_g` (null for all 16 objects), the
+manipulator mechanism (ADR-022), and every field test on this page.** Resolving the procurement
+question is still the highest-leverage action available — for different reasons than when this
+was written.

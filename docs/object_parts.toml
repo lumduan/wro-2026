@@ -345,31 +345,43 @@ horizontally and does not touch the mat."""
 [[parts]]
 cluster_id = 5
 part_index = 0
-part = "technic_brick_1x6"
-lego_id = "3894"
+part = "brick_1x6"
+lego_id_candidates = ["3009", "3894"]
+lego_id_ambiguous = true
 studs = 6
 lattice = [1, 6]
 detected = false
 evidence = """
-Eight renders share this silhouette (clusters 3, 5, 12, 13, 23, 26, 27, 37) — a
-1x6 bar with five round holes through the side. NOT self-checked: a 1xN part is
-a degenerate lattice with only one offset direction, so lattice_extent returns
-None by construction, and every render of it is black. Named from the inventory
-(p176: 33x 3894 Black Technic Brick 1x6) and from page 2, where four of them
-side by side form the clef's 4x6 base recorded in part 2."""
+A 1x6 brick. WHICH 1x6 is not determinable by this method — see
+[limitations.silhouette_cannot_see_interior_detail]. The group's renders mix
+plain 1x6 (page 2 clef, 105, 110 congas, 153 speaker) with Technic 1x6 (page 104
+congas, 126 amp), because 3009 and 3894 have IDENTICAL outer dimensions and the
+Technic holes are interior detail that a silhouette cannot see.
+
+Dimensionally this costs nothing: both are 1 x 6 x 1, so every extent derived
+from this group is correct. Only the part attribution was wrong, and it is now
+withdrawn rather than guessed.
+
+NOT self-checked either way: a 1xN part is a degenerate lattice with one offset
+direction, so lattice_extent returns None by construction."""
 
 [[parts]]
 cluster_id = 15
 part_index = 0
 part = "brick_1x6"
-lego_id = "3009"
+lego_id_candidates = ["3009", "3894"]
+lego_id_ambiguous = true
 studs = 6
 lattice = [1, 6]
 detected = false
 evidence = """
-A plain 1x6 brick with no holes, distinct from 3894. Red here, marked 2x.
-Inventory: 3009 in blue (36), white (26), red (14) and green (4). Four of these
-in blue form the speaker body's first step on page 153."""
+The SAME 1 x 6 part as cluster 5, rendered from a different camera angle: 241 x
+185 px against 239 x 161 px, a 24 px height difference with identical length.
+The silhouette matcher therefore split one part into two groups on viewing
+angle, while merging two different parts into one group on interior detail —
+errors in both directions at once, from the same root cause.
+
+Red here, marked 2x, on the note_red and guitar pages."""
 
 [[parts]]
 cluster_id = 41
@@ -450,3 +462,36 @@ not touch the mat."""
 # offers exactly two candidates — 3830 and 3831, 2x each in White — but the two
 # renders cannot be told apart from which is which, and neither is the base of
 # any model. An unnamed slot beats a coin-flip between two part numbers.
+
+# --------------------------------------------------------------------------- #
+# Known limitations of the silhouette method, found 2026-07-27
+# --------------------------------------------------------------------------- #
+
+[limitations.silhouette_cannot_see_interior_detail]
+found = "2026-07-27, during Phase 7 part 1"
+symptom = """
+Shape group 1 was labelled `technic_brick_1x6` (3894). Its renders actually mix
+plain 1x6 bricks (pages 2, 105, 110, 153) with Technic 1x6 bricks (pages 104,
+126). Page 110's callout has no holes at all."""
+cause = """
+3009 Brick 1x6 and 3894 Technic Brick 1x6 have IDENTICAL outer dimensions. The
+Technic holes are interior detail. A silhouette match compares outlines, so it
+cannot separate two parts that differ only inside their outline. The +/-8 px
+window and the 0.95 agreement threshold are irrelevant here — no threshold
+separates shapes that are genuinely the same shape."""
+also_the_reverse = """
+The same root cause split ONE part into two groups: cluster 5 (239x161) and
+cluster 15 (241x185) are both plain 1x6 bricks drawn from different camera
+angles. Interior detail is invisible and viewing angle is over-weighted."""
+dimensional_impact = "NONE"
+dimensional_impact_note = """
+Every extent derived through these groups is unaffected, because the confusable
+parts are the same size. The clef's 4x6 base and the speaker's 4x6 base are both
+still correct; only the sentence naming WHICH 1x6 was wrong. Corrected by
+withdrawing the claim: both entries now carry lego_id_candidates rather than a
+single asserted id."""
+what_would_resolve_it = """
+Count the interior hole rings, not the outline. On a 3894 the side face carries
+5 ring outlines; on a 3009 it carries none. That is a different detector from
+the one built in part 2 and was not needed for any dimension, so it is recorded
+as available rather than built."""

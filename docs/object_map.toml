@@ -340,14 +340,36 @@ measurement effort on the cables, keyboard and congas instead."""
 [congas_pair_extent]
 per_drum_contact_studs = [4, 4]
 per_drum_contact_mm = [32.0, 32.0]
-pair_separation = "NOT MEASURED"
+pieces = 1
+pieces_evidence = """
+MEASURED(S3) 2026-07-27, upgrading part 3's silence on this. The two drums are
+ONE rigid object, not two. Step 103 (page 104) places 2x a black Technic Brick
+1x6 (3894) side by side as a 2x6 bridge spanning BOTH drums; page 112 shows the
+same bar still joining them in the finished model. So the congas is a single
+pick-up, and there are 12 pick-ups for the 12 placement objects, not 13."""
+pair_separation = "NOT MEASURED — but now BOUNDED, see below"
+long_extent_bound_studs = 14
+long_extent_bound_mm = 112.0
+bound_derivation = """
+A rigorous upper bound from part lengths, not a measurement. The bridge is 6
+studs long and joins two 4-stud drums, so the outer-to-outer span cannot exceed
+4 + 6 + 4 = 14 studs = 112.0 mm. It is certainly less — page 104 shows the bridge
+overlapping both drums rather than butting between them — but by how much is not
+derivable from an isometric render.
+
+The lattice fit was tried on page 104, which is the best case available: the
+assembly lies flat with its top face fully visible and nothing stacked on it. It
+returned 21 stud centres in a 13 x 5 extent and FAILED its rows x cols
+self-check, because the assembly is an irregular outline rather than a filled
+rectangle. Recorded so the next pass does not retry it expecting a different
+answer."""
 blocks_nothing_because = """
 The congas score under 'Instrument completely in backstage area'. The backstage
-area measures 393.809 x 317.219 mm (MEASURED(S2), data/field_spec.json). Two
-32 mm drums plus any plausible separation is under 100 mm on the long axis, so
-containment has more than 200 mm of margin whatever the separation turns out to
-be. The number is worth having for the simulator's renderer; it is not worth
-inventing."""
+area measures 393.809 x 317.219 mm (MEASURED(S2), data/field_spec.json). Even at
+the 112.0 mm bound the containment margin exceeds 140 mm per side, so no scoring
+outcome depends on closing this. What DOES depend on it is the manipulator: the
+bound is the grip span the congas demands, and that is why the bound is worth
+recording even though the exact value is not."""
 
 # --------------------------------------------------------------------------- #
 # CABLE ORIENTATION — a hard constraint that falls out of the measurement

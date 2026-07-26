@@ -184,7 +184,7 @@
           1,
           6
         ],
-        "lego_id": "3894",
+        "lego_id": null,
         "pages": [
           2,
           6,
@@ -216,7 +216,7 @@
           161,
           163
         ],
-        "part": "technic_brick_1x6",
+        "part": "brick_1x6",
         "renders": 8,
         "self_checked_from_clusters": [],
         "shape_id": 1,
@@ -261,7 +261,7 @@
           1,
           6
         ],
-        "lego_id": "3009",
+        "lego_id": null,
         "pages": [
           61,
           64,
@@ -537,6 +537,23 @@
       }
     ]
   },
+  "congas_pair_extent": {
+    "blocks_nothing_because": "The congas score under 'Instrument completely in backstage area'. The backstage\narea measures 393.809 x 317.219 mm (MEASURED(S2), data/field_spec.json). Even at\nthe 112.0 mm bound the containment margin exceeds 140 mm per side, so no scoring\noutcome depends on closing this. What DOES depend on it is the manipulator: the\nbound is the grip span the congas demands, and that is why the bound is worth\nrecording even though the exact value is not.",
+    "bound_derivation": "A rigorous upper bound from part lengths, not a measurement. The bridge is 6\nstuds long and joins two 4-stud drums, so the outer-to-outer span cannot exceed\n4 + 6 + 4 = 14 studs = 112.0 mm. It is certainly less — page 104 shows the bridge\noverlapping both drums rather than butting between them — but by how much is not\nderivable from an isometric render.\n\nThe lattice fit was tried on page 104, which is the best case available: the\nassembly lies flat with its top face fully visible and nothing stacked on it. It\nreturned 21 stud centres in a 13 x 5 extent and FAILED its rows x cols\nself-check, because the assembly is an irregular outline rather than a filled\nrectangle. Recorded so the next pass does not retry it expecting a different\nanswer.",
+    "long_extent_bound_mm": 112.0,
+    "long_extent_bound_studs": 14,
+    "pair_separation": "NOT MEASURED — but now BOUNDED, see below",
+    "per_drum_contact_mm": [
+      32.0,
+      32.0
+    ],
+    "per_drum_contact_studs": [
+      4,
+      4
+    ],
+    "pieces": 1,
+    "pieces_evidence": "MEASURED(S3) 2026-07-27, upgrading part 3's silence on this. The two drums are\nONE rigid object, not two. Step 103 (page 104) places 2x a black Technic Brick\n1x6 (3894) side by side as a 2x6 bridge spanning BOTH drums; page 112 shows the\nsame bar still joining them in the finished model. So the congas is a single\npick-up, and there are 12 pick-ups for the 12 placement objects, not 13."
+  },
   "lego_geometry": {
     "brick_mm": 9.6,
     "plate_mm": 3.2,
@@ -551,10 +568,10 @@
   "objects": {
     "amp": {
       "bom_steps": {
+        "brick_1x6": 9,
         "brick_2x2": 1,
         "brick_2x2_with_pins": 1,
         "brick_2x4": 12,
-        "technic_brick_1x6": 9,
         "tile_1x2": 1,
         "tile_2x4": 1
       },
@@ -665,8 +682,8 @@
     "clef": {
       "base_evidence": "Step 1 (page 2) places 4x a Technic Brick 1x6 (3894) side by side giving a 4x6 assembly with nothing beneath it. The clef does NOT receive the 4x8 plate the notes, mic and guitar share.",
       "bom_steps": {
-        "brick_2x4": 12,
-        "technic_brick_1x6": 2
+        "brick_1x6": 2,
+        "brick_2x4": 12
       },
       "contact_footprint_mm": [
         32.0,
@@ -702,9 +719,9 @@
       "base_evidence": "Step 1 (p102) places 4x a yellow 2x4 brick (3001) as TWO separate 4x4 cores — one per drum. Each drum's contact patch is therefore 4x4 = 32.0 x 32.0 mm. The SEPARATION between the two drums is not derivable from an isometric render and is not asserted; see [congas_pair_extent].",
       "bom_steps": {
         "brick_1x2_with_side_pin": 2,
+        "brick_1x6": 3,
         "brick_2x2": 2,
-        "brick_2x4": 6,
-        "technic_brick_1x6": 3
+        "brick_2x4": 6
       },
       "contact_footprint_mm": [
         32.0,
@@ -779,10 +796,10 @@
     },
     "instrument_keyboard": {
       "bom_steps": {
+        "brick_1x6": 7,
         "brick_2x2": 4,
         "brick_2x4": 8,
-        "technic_brick_1x2": 2,
-        "technic_brick_1x6": 7
+        "technic_brick_1x2": 2
       },
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
@@ -932,9 +949,9 @@
     "note_green": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
+        "brick_1x6": 1,
         "brick_2x4": 5,
-        "plate_4x8": 1,
-        "technic_brick_1x6": 1
+        "plate_4x8": 1
       },
       "contact_footprint_mm": [
         32.0,
@@ -1078,9 +1095,9 @@
     },
     "speaker_a": {
       "bom_steps": {
+        "brick_1x6": 7,
         "brick_2x2": 2,
         "brick_2x4": 3,
-        "technic_brick_1x6": 7,
         "tile_1x2": 1,
         "tile_2x4": 1
       },
@@ -1104,9 +1121,9 @@
     },
     "speaker_b": {
       "bom_steps": {
+        "brick_1x6": 7,
         "brick_2x2": 2,
         "brick_2x4": 3,
-        "technic_brick_1x6": 7,
         "tile_1x2": 1,
         "tile_2x4": 1
       },
@@ -1329,9 +1346,9 @@
   "provenance": {
     "callout_match_tol": 2.0,
     "object_map": "docs/object_map.toml",
-    "object_map_sha256": "3cd0dcb497a3bac2fd6c65faaebe4c6201ec08a5fc5f2b9a97b35a28ebcdf1e8",
+    "object_map_sha256": "a330d46d3dd41a01796c19ce77bc29d1b1fd5a9dc16e6b18398a0d18df6d8a51",
     "object_parts": "docs/object_parts.toml",
-    "object_parts_sha256": "38dd78c7f0f4a9a7d644e028cca58af6030585f49afd906ce3e1b8f019df5bcd",
+    "object_parts_sha256": "1d5e8cce920356b359e3fd0534fd8a02e369bed1b1e80d71631987a072bdf4c0",
     "s3_sha256": "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a",
     "shape_agree": 0.95,
     "shape_slack_px": 8,

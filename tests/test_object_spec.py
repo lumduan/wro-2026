@@ -267,6 +267,8 @@ def test_curated_parts_agree_with_the_detected_stud_counts(spec: dict):
     by_lego: dict[str, dict] = {s["lego_id"]: s for s in spec["callout_inventory"]["shapes"]
                                 if s["lego_id"]}
     for entry in curated:
+        if "lego_id" not in entry:
+            continue  # deliberately ambiguous — see [limitations] in object_parts.toml
         shape = by_lego.get(entry["lego_id"])
         if shape is None or shape["studs"] is None or entry.get("studs") is None:
             continue
@@ -335,3 +337,21 @@ def test_provenance_pins_both_curated_inputs(spec: dict):
     assert prov["callout_match_tol"] == 2.0
     assert prov["shape_slack_px"] == 8
     assert prov["shape_agree"] == 0.95
+
+
+def test_the_1x6_part_attribution_is_withdrawn_not_guessed(spec: dict):
+    """3009 and 3894 are the same size, so a silhouette cannot separate them.
+
+    Both 1x6 entries carry candidates rather than an asserted id. The dimensions
+    they produce are unaffected — that is exactly why the withdrawal is safe.
+    """
+    curated = tomllib.loads(PARTS.read_text(encoding="utf-8"))
+    ambiguous = [p for p in curated["parts"] if p.get("lego_id_ambiguous")]
+    assert len(ambiguous) == 2
+    for entry in ambiguous:
+        assert "lego_id" not in entry, "an ambiguous part must not assert one id"
+        assert set(entry["lego_id_candidates"]) == {"3009", "3894"}
+        assert entry["studs"] == 6 and entry["lattice"] == [1, 6]
+    limitation = curated["limitations"]["silhouette_cannot_see_interior_detail"]
+    assert limitation["dimensional_impact"] == "NONE"
+    assert "interior" in limitation["cause"]

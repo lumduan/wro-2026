@@ -379,6 +379,7 @@ def build(img_dir: Path, probe: Path, map_path: Path, parts_path: Path) -> dict[
             "note": scoring["note"].strip(),
         },
         "cable_orientation": {k: v for k, v in omap["cable_orientation"].items()},
+        "congas_pair_extent": {k: v for k, v in omap["congas_pair_extent"].items()},
         "unresolved": [],
         "notes": [
             "footprint = the CONTACT patch with the mat, not the silhouette. See the "

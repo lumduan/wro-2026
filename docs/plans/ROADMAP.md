@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **Phase 6 CLOSED — the scorer verifies 255/255 and the accuracy requirement is measured.**
+`last_reviewed: 2026-07-27` · **Phase 7 part 1 — the motor budget is settled (ADR-022); the mechanism waits on the sets.**
 
 ## 0 · At a glance
 
@@ -13,7 +13,7 @@ flowchart TD
     P2 --> P6["6 · Scorer + accuracy sweep<br/>DONE — 255 verified, sigma table built"]
     P3 --> P6
     P4 --> P6
-    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>chassis READY, manipulator waits on mass"]
+    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>motor budget SETTLED, mechanism waits on mass"]
     P4 --> P7
     SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
     SETS --> FT["F · Field tests P1-P6<br/>BLOCKED — needs the sets"]
@@ -47,8 +47,8 @@ flowchart TD
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Scorer + accuracy sweep** | ✅ **DONE** | `sim/` package (ADR-020) + `data/placement_sensitivity.json`. A perfect run verifies at **255/255**, a do-nothing run at the **40-point bonus floor**. All five open interpretations (A1/A2/A5/A7/A8) are named parameters, not hard-coded readings. The sweep reports **required placement accuracy per mission** under both A7 readings — see `docs/PHASE7_CONSTRAINTS.md` §7b. Dynamics deliberately **not** modelled: its every parameter is an unmeasured `ASSUME:` until the field tests run | — |
 | **F · Field tests P1–P6** | ⬜ **BLOCKED** | `docs/FIELD_TEST_PLAN.md`. Supply the σ that turns the accuracy *requirement* into a *prediction*, plus colour separation, odometry drift and table reality | needs the sets (**S**) |
-| **7 · Robot design** | 🔵 **READY (chassis) / ⏸ manipulator** | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited**. Geometry is no longer the gate — the manipulator now needs **mass and grip points**, which no building instruction contains | the **physical sets**, not analysis |
-| **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`) and field test **P5** | operator action |
+| **7 · Robot design** | 🔵 **budget SETTLED / ⏸ mechanism** | `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**. Yaw costs nothing — measured tolerance is ±31°, so chassis heading suffices. 8 of 12 objects share one 32 mm grip, and a 32 mm mechanism alone reaches **195/255 (76 %)**. The mechanism itself (gripper / fork / scoop / passive) is refused, not chosen: it needs mass and grip points | the **physical sets** — field test **P7** |
+| **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`), the ADR-022 mechanism decision, and every field test **P1–P7** | operator action |
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor**. The scorer now exists, so EV is computable the moment σ is known | needs 7 AND **F** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
@@ -247,13 +247,31 @@ produce authoritative-looking numbers with nothing behind them. The sweep models
 distribution instead, which leaves exactly one unknown — σ — and names what measures it
 (AS-8, AS-9).
 
-### Phase 7 — Robot design 🔵 chassis READY · manipulator waiting
+### Phase 7 — Robot design 🔵 budget SETTLED · mechanism waiting
 
-Drivetrain, gripper, sensor layout. **A6 forbids a final design before S4 is in hand** — S4 is
-in hand, so the chassis is designable now against `docs/PHASE7_CONSTRAINTS.md`.
+**Part 1 delivered (2026-07-27):** `tools/build_manipulator_requirements.py` →
+`data/manipulator_requirements.json`, and **ADR-022**.
 
-The manipulator's gate has **moved rather than opened**. Geometry is no longer missing; mass
-and grip points are, and neither comes from a document. The `S` node is the blocker.
+`PHASE7_CONSTRAINTS.md` §1 had carried an instruction since Phase 5 — *"record whichever way
+this goes as an ADR with the arithmetic shown; do not assert a topology without it"*. It is
+discharged.
+
+| | |
+|---|---|
+| **Motor budget** | 2 differential drive + **0 yaw** + 2 manipulator |
+| **Why yaw is free** | measured tolerance ±31° on the cables, unbounded on the other ten objects. A 32 mm square in a 79.7 mm target has a 45.3 mm diagonal — it fits at any heading |
+| **Handling classes** | A: 8 objects at 32 mm (155 pts) · B: keyboard ≤ 56 mm · C: congas ≤ 112 mm · D: cables 128 mm |
+| **Capability ladder** | 32 mm → 195/255 (76 %) · 56 mm → 210 · 112 mm → 225 · 128 mm → 255 |
+
+It also **corrected** a Phase 6 claim: §7 said of the cable *"along-axis accuracy is not the
+problem; rotation is"*. Backwards — translation dominates (13.90 mm against 17.68 mm), and the
+design consequence inverts with it.
+
+**Part 2, not yet started:** the `RobotIO` contract, deliberately sequenced after this so it
+knows its own actuator surface.
+
+**Still gated:** the mechanism — gripper, fork, scoop or passive. That needs object mass and
+grip points, which no document contains, and is now field test **P7**.
 
 ### Phase 8 — Strategy selection ⬜
 

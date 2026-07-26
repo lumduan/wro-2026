@@ -1,0 +1,456 @@
+{
+  "gated_on": {
+    "closed_by": "WRO Brick Set 45811 + Expansion Set 45819 on a scale",
+    "field_test": "P5, and a new grip-point pass — see docs/FIELD_TEST_PLAN.md",
+    "measurement": "object mass and grip points",
+    "why": "mass_g is null for all 16 objects; no document contains it"
+  },
+  "grip_requirement": {
+    "capability_ladder": [
+      {
+        "objects_reachable": 8,
+        "placement_points": 155,
+        "points_left_on_the_table": 60,
+        "run_total_with_bonus_floor": 195,
+        "share_of_max": 0.765,
+        "span_mm": 32.0
+      },
+      {
+        "objects_reachable": 9,
+        "placement_points": 170,
+        "points_left_on_the_table": 45,
+        "run_total_with_bonus_floor": 210,
+        "share_of_max": 0.824,
+        "span_mm": 56.0
+      },
+      {
+        "objects_reachable": 10,
+        "placement_points": 185,
+        "points_left_on_the_table": 30,
+        "run_total_with_bonus_floor": 225,
+        "share_of_max": 0.882,
+        "span_mm": 112.0
+      },
+      {
+        "objects_reachable": 12,
+        "placement_points": 215,
+        "points_left_on_the_table": 0,
+        "run_total_with_bonus_floor": 255,
+        "share_of_max": 1.0,
+        "span_mm": 128.0
+      }
+    ],
+    "max_span_mm": 128.0,
+    "min_span_mm": 32.0,
+    "note": "The ladder is what a span buys. It is the input to the mechanism choice, not the choice itself: a mechanism that stops at 32 mm is not thereby wrong, it is a decision to leave 60 points.",
+    "span_ratio": 4.0
+  },
+  "handling_classes": [
+    {
+      "any_bounded": false,
+      "class": "A",
+      "count": 8,
+      "grip_span_max_mm": 32.0,
+      "grip_span_min_mm": 32.0,
+      "objects": [
+        "instrument_guitar",
+        "mic",
+        "note_black",
+        "note_blue",
+        "note_green",
+        "note_red",
+        "note_white",
+        "note_yellow"
+      ],
+      "points": 155,
+      "tightest_sigma_contact_mm": 11.181,
+      "tightest_sigma_projection_mm": 4.247
+    },
+    {
+      "any_bounded": true,
+      "class": "B",
+      "count": 1,
+      "grip_span_max_mm": 56.0,
+      "grip_span_min_mm": 56.0,
+      "objects": [
+        "instrument_keyboard"
+      ],
+      "points": 15,
+      "tightest_sigma_contact_mm": 45.0,
+      "tightest_sigma_projection_mm": 45.0
+    },
+    {
+      "any_bounded": true,
+      "class": "C",
+      "count": 1,
+      "grip_span_max_mm": 112.0,
+      "grip_span_min_mm": 112.0,
+      "objects": [
+        "instrument_congas"
+      ],
+      "points": 15,
+      "tightest_sigma_contact_mm": 45.0,
+      "tightest_sigma_projection_mm": 45.0
+    },
+    {
+      "any_bounded": false,
+      "class": "D",
+      "count": 2,
+      "grip_span_max_mm": 128.0,
+      "grip_span_min_mm": 128.0,
+      "objects": [
+        "cable_lower",
+        "cable_upper"
+      ],
+      "points": 30,
+      "tightest_sigma_contact_mm": 14.074,
+      "tightest_sigma_projection_mm": 14.074
+    }
+  ],
+  "motor_budget": {
+    "available_for_manipulator": 2,
+    "differential_drive": 2,
+    "exemptions": [
+      {
+        "counts": "only the compressor",
+        "mechanism": "pneumatics ≤ 3 bar, tanks ≤ 150 ml",
+        "rule": "S4 5.2.16"
+      },
+      {
+        "counts": "no — but the robot must wind it itself",
+        "mechanism": "pullback motor without electronic control",
+        "rule": "S4 5.2.8"
+      },
+      {
+        "counts": "no; counts if used as a linear motor",
+        "mechanism": "electromagnet used only to hold",
+        "rule": "S4 5.2.10"
+      },
+      {
+        "counts": "yes",
+        "mechanism": "solenoid ≤ 20 N / ≤ 20 mm",
+        "rule": "S4 5.2.10"
+      }
+    ],
+    "post_start_size_is_unrestricted": true,
+    "post_start_size_rule": "S4 5.1 — deployable mechanisms are legal",
+    "rule": "S4 5.2.8 — Elementary: 4 motors",
+    "total": 4,
+    "yaw": 0
+  },
+  "objects": [
+    {
+      "contact_footprint_mm": [
+        16.0,
+        128.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 128.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        16.0,
+        128.0
+      ],
+      "nominal_heading_deg": 10.0,
+      "object_id": "cable_lower",
+      "points": 15,
+      "sigma_for_p90_mm": {
+        "contact": 14.074,
+        "projection": 14.074
+      },
+      "target_id": "cable_area_lower",
+      "yaw_is_unbounded": false,
+      "yaw_tolerance_deg": 31.031
+    },
+    {
+      "contact_footprint_mm": [
+        16.0,
+        128.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 128.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        16.0,
+        128.0
+      ],
+      "nominal_heading_deg": -10.0,
+      "object_id": "cable_upper",
+      "points": 15,
+      "sigma_for_p90_mm": {
+        "contact": 14.096,
+        "projection": 14.096
+      },
+      "target_id": "cable_area_upper",
+      "yaw_is_unbounded": false,
+      "yaw_tolerance_deg": 31.031
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": true,
+      "grip_span_mm": 112.0,
+      "grip_span_source": "upper bound: two 4-stud drums joined by a 6-stud bridge",
+      "max_projection_mm": [
+        32.0,
+        32.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "instrument_congas",
+      "points": 15,
+      "sigma_for_p90_mm": {
+        "contact": 45.0,
+        "projection": 45.0
+      },
+      "target_id": "backstage",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "instrument_guitar",
+      "points": 15,
+      "sigma_for_p90_mm": {
+        "contact": 45.0,
+        "projection": 45.0
+      },
+      "target_id": "backstage",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": null,
+      "grip_span_is_bound": true,
+      "grip_span_mm": 56.0,
+      "grip_span_source": "upper bound (open_frame)",
+      "max_projection_mm": null,
+      "nominal_heading_deg": 0.0,
+      "object_id": "instrument_keyboard",
+      "points": 15,
+      "sigma_for_p90_mm": {
+        "contact": 45.0,
+        "projection": 45.0
+      },
+      "target_id": "backstage",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "mic",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 12.478,
+        "projection": 8.517
+      },
+      "target_id": "mic_target",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_black",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.339,
+        "projection": 4.247
+      },
+      "target_id": "note_target_black",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_blue",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.37,
+        "projection": 4.306
+      },
+      "target_id": "note_target_blue",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_green",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.26,
+        "projection": 4.314
+      },
+      "target_id": "note_target_green",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_red",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.181,
+        "projection": 4.307
+      },
+      "target_id": "note_target_red",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_white",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.376,
+        "projection": 4.383
+      },
+      "target_id": "note_target_white",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    },
+    {
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "grip_span_is_bound": false,
+      "grip_span_mm": 32.0,
+      "grip_span_source": "MEASURED(S3) contact footprint",
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "nominal_heading_deg": 0.0,
+      "object_id": "note_yellow",
+      "points": 20,
+      "sigma_for_p90_mm": {
+        "contact": 11.196,
+        "projection": 4.376
+      },
+      "target_id": "note_target_yellow",
+      "yaw_is_unbounded": true,
+      "yaw_tolerance_deg": null
+    }
+  ],
+  "provenance": {
+    "class_gap_mm": 8.0,
+    "inputs": {
+      "field_spec": "fb2f01fe7a4ddf85963a7e56b3563dc4343401a6fdcf3a1a1319b3a3ee46efc9",
+      "object_spec": "5a039b4f5766a3c098cc182f77fc1ee5157cf527ac0c573241843950513fe509",
+      "placement_sensitivity": "4b9245172e380222190e7e2099457b1d15366173f07dcdc0d67c0121a7b771e4",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
+    },
+    "tool": {
+      "name": "build_manipulator_requirements",
+      "version": "1.0.0"
+    },
+    "yaw_bisect_tol_deg": 0.01,
+    "yaw_scan_step_deg": 1.0
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "what the manipulator must be able to do",
+    "does_not_answer": "how — gripper vs fork vs scoop vs passive",
+    "why_not": "Choosing a mechanism needs object mass and grip points. mass_g is null for all 16 objects because no building instruction contains it, and grip points need the physical parts. Asserting a topology on footprints alone is exactly what PHASE7_CONSTRAINTS §1 forbids."
+  },
+  "yaw_requirement": {
+    "distinct_nominal_headings_deg": [
+      -10.0,
+      0.0,
+      10.0
+    ],
+    "finding": "Yaw comes free from chassis heading if the tightest tolerance is wide compared with what a differential drive can hold. It costs a motor slot only if some object demands finer control than the drivetrain provides.",
+    "needs_a_dedicated_actuator": false,
+    "objects_indifferent_to_yaw": [
+      "instrument_congas",
+      "instrument_guitar",
+      "instrument_keyboard",
+      "mic",
+      "note_black",
+      "note_blue",
+      "note_green",
+      "note_red",
+      "note_white",
+      "note_yellow"
+    ],
+    "tightest_tolerance_deg": 31.031
+  }
+}

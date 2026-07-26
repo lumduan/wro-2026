@@ -3,7 +3,7 @@
 Everything the robot design must satisfy, recorded **before** anyone picks a chassis rather
 than after. Every entry cites its rule; quotes are in `docs/citations.json`.
 
-`last_reviewed: 2026-07-26`
+`last_reviewed: 2026-07-27`
 
 **Scope note.** These are **international-level** limits. S4 §4.3 and §5.2 let National
 Organizers change them — `NEEDS-VERIFY(NO-TH)` stays open until the Thai National Organizer
@@ -29,9 +29,9 @@ confirms which clauses they adapt.
 | Brand mixing (EV3 + SPIKE) | allowed at international level | 5.2 intro |
 | Spares | spare parts and controllers yes; **a full spare chassis, no** | 5.4 |
 
-### The motor budget is the binding constraint
+### The motor budget — SETTLED by ADR-022 (2026-07-27)
 
-4 motors. A differential drive consumes **2**, leaving **2 DOF for 12 placement operations**
+4 motors. A differential drive consumes **2**, leaving **2 for 12 placement operations**
 (cable ×2, mic, instruments ×3, notes ×6). Three exemptions change that arithmetic:
 
 | Mechanism | Counts against the 4? | Rule |
@@ -41,9 +41,24 @@ confirms which clauses they adapt.
 | Electromagnet used only to hold | **no** (counts if used as a linear motor) | 5.2.10 |
 | Solenoid ≤ 20 N / ≤ 20 mm | **yes** | 5.2.10 |
 
-Either the manipulator is passive/geometric, or pneumatics buy DOF at the cost of one slot.
-§5.1's post-start size freedom makes deployable mechanisms legal. **Record whichever way this
-goes as an ADR with the arithmetic shown; do not assert a topology without it.**
+The instruction this section carried — *"record whichever way this goes as an ADR with the
+arithmetic shown"* — is discharged. The arithmetic is
+`data/manipulator_requirements.json`; the decision is **ADR-022**:
+
+```
+2 slots   differential drive
+0 slots   yaw          <- measured tolerance +/-31 deg; chassis heading suffices
+2 slots   manipulator, both available
+```
+
+**Yaw was the open cost and it is zero.** A 32 mm object in a 79.7 mm square target fits at
+every heading (its diagonal is 45.3 mm); only the cables constrain heading, and ±31° is well
+inside what a differential drive holds. A dedicated yaw actuator would have consumed half the
+manipulator budget for nothing.
+
+§5.1's post-start size freedom makes deployable mechanisms legal, so both remaining slots are
+genuinely available. **The mechanism itself — parallel gripper, fork, scoop or passive — stays
+open**, gated on object mass and grip points, which no document contains.
 
 ---
 
@@ -207,8 +222,18 @@ Consequences for the design, not just the strategy:
    wrong. This is the consequence that the bounding-box reading hid completely.
 3. Both areas are the same size and sit at the mat's left edge, so one *mechanism* serves both —
    but not one *heading*.
-4. Binding slack is 31.850 mm, generous next to the note target's 7.85 mm. **Along-axis accuracy
-   is not the problem here. Rotation is.**
+4. Binding slack is 31.850 mm, generous next to the note target's 7.85 mm.
+
+> **Corrected 2026-07-27.** Point 4 previously read *"Along-axis accuracy is not the problem
+> here. **Rotation is.**"* That is backwards. Measured: σ for P ≥ 90 % is **13.90 mm** with
+> rotation coupled against **17.68 mm** with translation alone, so rotation costs 21 % of the
+> tolerance rather than being the binding term. And the cable's pure yaw tolerance is **±31°**
+> — full at 31°, partial at 32°.
+>
+> The design consequence inverts with it. ±31° is loose enough to come from chassis heading, so
+> **yaw needs no dedicated actuator and costs zero motor slots** (ADR-022). The earlier wording
+> implied the opposite and would have spent half the manipulator budget on a mechanism the
+> geometry does not ask for.
 
 Asserted in `tests/test_object_spec.py` (`test_the_cable_cannot_lie_across_its_target_area`,
 `test_the_two_cable_areas_need_mirrored_headings`) and in `tests/test_scoring.py`, all measured
@@ -246,6 +271,55 @@ irrelevant to them. Any effort spent making instrument placement precise is wast
 
 `ASSUME:` σ itself is not measured anywhere — field tests **P2** and **P3** measure it. What is
 fixed here is the *requirement*, which does not depend on the robot.
+
+---
+
+## 7c · What the manipulator must handle — `data/manipulator_requirements.json`
+
+`MEASURED(sim)`, 2026-07-27. Derived from the object footprints, the target geometry and the
+accuracy sweep; nothing here is hand-assigned. Classes are clustered on grip span with a
+one-stud separation, so a new object cannot land in the wrong one.
+
+| class | objects | grip span | yaw tolerance | σ for P ≥ 90 % (contact / silhouette) | points |
+|---|---|---:|---:|---:|---:|
+| **A** | 6 notes, `mic`, `instrument_guitar` | 32 mm | free | 11.2 / 4.2 mm | **155** |
+| **B** | `instrument_keyboard` | ≤ 56 mm* | free | > 45 mm | 15 |
+| **C** | `instrument_congas` | ≤ 112 mm* | free | > 45 mm | 15 |
+| **D** | `cable_upper`, `cable_lower` | 128 mm | **±31°** | 14.1 mm | 30 |
+
+\* upper bound, not a measurement — the keyboard's base is an open frame and the congas' drum
+separation is not derivable from an isometric render. Both bounds are safe in the conservative
+direction.
+
+**Eight of the twelve objects are the same 32 mm block.** That uniformity is the single most
+useful fact for the mechanism: most of the game is one repeated operation.
+
+### The capability ladder — what a grip span buys
+
+| grip span | objects reachable | run total | left on the table |
+|---:|---:|---:|---:|
+| 32 mm | 8 | **195 / 255 (76 %)** | 60 |
+| 56 mm | 9 | 210 / 255 (82 %) | 45 |
+| 112 mm | 10 | 225 / 255 (88 %) | 30 |
+| 128 mm | 12 | 255 / 255 (100 %) | 0 |
+
+Run totals include the 40-point bonus floor: a robot that handles nothing still scores 40
+(S6 2026-06-17), so every rung is an increment on 40, not on 0.
+
+**This is a price list, not a recommendation.** Deciding to stop at 32 mm is a legitimate
+choice that leaves 60 points; it becomes a strategy question in Phase 8, where the ×40
+collision term also enters. What this table fixes is the *cost of each option*, which does not
+depend on the strategy.
+
+### Handling notes that are not obvious from the table
+
+- **The congas is one rigid object**, not two drums: S3 page 104 bridges them with a 2×6
+  Technic assembly. So there are 12 pick-ups for 12 objects. It has **two contact patches** on
+  one body, like the cable.
+- **The two cables need different headings** — 80° and 100°, mirrored. One mechanism serves
+  both; one heading does not.
+- **Yaw is free for 10 of 12 objects.** A 32 mm square in a 79.7 mm square target has a 45.3 mm
+  diagonal, so it fits at any heading whatsoever.
 
 ---
 
