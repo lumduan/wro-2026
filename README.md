@@ -6,6 +6,12 @@ Read [`CLAUDE.md`](CLAUDE.md) first — it holds the source ranking, units and f
 conventions and anti-patterns that everything in this repo obeys.
 Current state and dependencies: [`docs/plans/ROADMAP.md`](docs/plans/ROADMAP.md).
 
+**Where the project is.** Every phase that can be done from documents is done, and nothing is
+blocked. The scoring rules, field geometry, game-object dimensions, a scorer, the placement
+accuracy each mission demands and the expected score as a function of that accuracy are all
+derived and tested. What remains is measurement on real hardware, ordered by leverage in
+[`docs/HARDWARE_SESSION.md`](docs/HARDWARE_SESSION.md).
+
 ---
 
 ## Getting the source documents
@@ -26,14 +32,16 @@ documents. Download them from the WRO website and drop them in `docs/`:
 is snapshotted rather than linked:
 
 ```bash
-curl -o docs/s6-qa-snapshot-$(date +%F).html \
+curl -sS -A "Mozilla/5.0" -o docs/s6-qa-snapshot-$(date +%F).html \
      https://wro-association.org/competition/questions-answers/
-uv run python tools/s6_index.py docs/s6-qa-snapshot-$(date +%F).html
+uv run python tools/s6_index.py docs/s6-qa-snapshot-$(date +%F).html --check
 ```
 
-`docs/s6_index.json` (committed) holds the per-answer `(question, author, timestamp)` tuples.
-**Diff on those, never on the page's HTTP `Last-Modified` header** — that is a render/cache
-timestamp on this site and moves on theme edits independently of content.
+`docs/s6_index.json` (committed) holds the per-answer `(section, question, author, timestamp)`
+tuples. **Diff on those, never on the page's HTTP `Last-Modified` header** — that is a
+render/cache timestamp on this site and moves on theme edits independently of content.
+`--check` exits 1 on any delta and marks with `**` the answers in sections that bind this
+project: only 4 of the 9 do.
 
 `pdf_extract.py` records the sha256 of whatever it actually read into `manifest.json`, so a
 different revision of a source document is detectable rather than silently mixed in. Then:
@@ -60,17 +68,47 @@ fill inventory, the report and the decision records — is committed.
 | `docs/extracted/*/vector/fills_by_colour.json` | Raw fill-colour inventory from the mat, in mm. |
 | `docs/EXTRACTION_REPORT.md` | Human-readable verdict on extraction quality. |
 | `docs/ASSUMPTIONS.md` | Every `ASSUME:` with its consequence-if-wrong. |
-| `docs/AMBIGUITIES.md` | Ambiguity register A1–A8; four resolved by S4/S6. |
+| `docs/AMBIGUITIES.md` | Ambiguity register A1–A9; five resolved by S4/S6. |
 | `docs/citations.json` | Every cited rule, quoted and page-referenced. |
 | `docs/s6_index.json` | Q&A answer timestamps — the change-detection diff target. |
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
 | `docs/plans/ROADMAP.md` | Phase dependency diagram and status. |
-| `tools/pdf_extract.py` | The extraction CLI. |
-| `data/field_spec.json` | **S5** — mat geometry, areas, start positions. Derived; never hand-edited. |
-| `data/scoring_model.json` | Missions, predicates, time rules, randomization. |
-| `docs/area_map.toml` | The only hand-written input to S5: canonical ID → drawn path, with citations. |
+| `docs/HARDWARE_SESSION.md` | **The current work order** — every measurement, ordered by what it unblocks. |
 | `docs/PHASE7_CONSTRAINTS.md` | Robot-design constraints, recorded before a chassis is chosen. |
-| `docs/FIELD_TEST_PLAN.md` | P1–P6, each naming the `ASSUME:` it replaces. |
+| `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
+| `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |
+| `docs/object_map.toml`, `object_parts.toml` | Hand-written inputs to the object spec: S3 page ranges → object IDs, and part identification. |
+| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `robot_io_sim`. |
+| `robot/` | `robot_io.py` — the one contract mission code imports — plus the EV3 and SPIKE backends and `missions/`. Must run on **MicroPython**; `tools/check_portability.py` enforces that. |
+| `tools/pdf_extract.py` | The extraction CLI. |
+| `tools/build_all.py` | Runs the derived-artefact pipeline in dependency order. |
+
+### `data/` — six derived files and one that is not
+
+**Never hand-edit a derived file.** Edit its input and re-run `tools/build_all.py`.
+
+| File | What it carries | Built by |
+|---|---|---|
+| `field_spec.json` | **S5** — mat geometry, areas, start poses | `build_field_spec.py` |
+| `object_spec.json` | Game-object footprints, BOMs, the parts inventory | `build_object_spec.py` |
+| `placement_sensitivity.json` | `P(success)` per mission across a placement-error σ | `run_sensitivity.py` |
+| `manipulator_requirements.json` | Grip span, yaw tolerance, handling classes, the motor budget | `build_manipulator_requirements.py` |
+| `strategy_frame.json` | Travel cost and bonus-points-at-risk per mission | `build_strategy_frame.py` |
+| `expected_score.json` | E[score] as a function of σ and P(collision) | `build_expected_score.py` |
+| `scoring_model.json` | Missions, predicates, time rules, randomization | **hand-authored** — a transcription of S1/S4/S6, not a derivation |
+
+## The build chain
+
+```bash
+uv run python tools/build_all.py            # rebuild only what is stale
+uv run python tools/build_all.py --check    # report staleness, exit 1, write nothing
+uv run python tools/build_all.py --force    # rebuild everything
+```
+
+Freshness is defined by the artefacts themselves: each records the sha256 of every input it
+read, and is stale when one of those no longer matches. That makes a no-op run take about a
+second rather than the two and a half minutes the Monte Carlo sweep needs — and it turns a
+mis-ordered build from a silent wrong answer into a named one.
 
 ## Setup
 

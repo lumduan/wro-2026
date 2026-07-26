@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`, and every measurement it produces now has somewhere to land.**
+`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
 
 ## 0 · At a glance
 
@@ -98,6 +98,12 @@ same unit of work** — the at-a-glance diagram classes, the phase table row, an
 This is documentation-currency for decisions already made or explicitly authorized. It never
 licenses making a new, undiscussed decision — if a change would require a *new* decision,
 surface it and wait.
+
+**The data half is enforced, not remembered.** Six files in `data/` are derived through a
+dependency chain; run `uv run python tools/build_all.py` rather than the builders individually,
+and `--check` before committing. `tests/test_pipeline.py` fails if any artefact pins an input
+sha that no longer matches — which is what turns a mis-ordered build from a silent wrong answer
+into a named one.
 
 ---
 
