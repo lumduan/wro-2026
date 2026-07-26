@@ -8,7 +8,7 @@ resolved by a source (S1, S2, S4 or S6) or it stays open with its default in for
 **All remaining open items route to S6**, which answers questions that were *asked* —
 so submitting them is an action, not a wait.
 
-`last_reviewed: 2026-07-25` · S4 and S6 acquired; four of six ambiguities resolved.
+`last_reviewed: 2026-07-26` · S4 and S6 acquired; four of six original ambiguities resolved; A7 measured against three independent sources.
 
 | ID | Status | Ambiguity | Conservative default |
 |---|---|---|---|
@@ -47,6 +47,17 @@ The operative test is **contact**, not angle: the base must be fully in contact 
 `upright_tolerance_deg` survives as a *parameter* but is demoted — the contact predicate is
 what has official backing. Any result that depends on the angle is reported as a sweep
 (AS-6), never as a single number.
+
+**What "the base" is, per object — `MEASURED(S3)` 2026-07-26.** The contact test needs a
+contact patch, and Phase 4 part 3 supplies one for every object on a scoring path
+(`data/object_spec.json`). Two are worth calling out because the naive reading is wrong:
+
+- **the notes, `mic` and `instrument_guitar`** rest on a 4×4 core, *not* on the 4×8 plate
+  visible from outside — that plate sits at +9.6 mm and never touches the mat;
+- **the cables** rest on the rigid Technic 1×16 carrier and its two end feet, not on the
+  flexible hose (ADR-017). "Fully touching" for a cable means **both feet down**, which is a
+  two-point contact condition rather than a face condition — the only object of which this is
+  true, and therefore the one most likely to be judged inconsistently.
 
 ### A3 — robot overlapping a target area at time-out
 
@@ -160,6 +171,13 @@ Which one the scorer uses is a scoring *interpretation* question, not an arithme
 **Cross-source check:** S2's note start square measures **31.9 mm** and the contact patch
 derives to **32.0 mm** from the stud count — two independent sources agreeing to 0.1 mm. The
 start square is sized to the note's *contact patch*, not its silhouette.
+
+**A third source, added 2026-07-26.** S3's parts inventory (page 176) lists **8× part 3035,
+White Plate 4×8** — and the callout extraction finds that plate's render on exactly **8 pages**
+(18, 27, 35, 42, 49, 57, 67, 115): the second step of the six notes plus `mic` and
+`instrument_guitar`. The count of plates and the count of models that receive one agree
+exactly, which independently confirms that these eight models — and only these eight — carry
+the overhanging plate.
 
 **A correction worth recording.** Part 1 inferred a 4×4 base from the mat and reported
 23.85 mm. Mid-analysis I read the 4×8 plate as the base and "corrected" this to 7.85 mm. That

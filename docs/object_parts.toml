@@ -1,99 +1,452 @@
-# object_parts.toml — cluster ID → LEGO part (Phase 4 part 2, judgement layer)
+# object_parts.toml — S3 part renders → LEGO parts (Phase 4 part 3, judgement layer)
 #
-# tools/s3_callouts.py groups the 152 parts-callouts in S3 into 45 distinct
-# renders. This file names the ones that matter and records how they were read.
+# Two independent sources are reconciled here:
+#
+#   1. the per-step parts CALLOUTS (pages 2-175), segmented into individual
+#      part renders and grouped by silhouette by tools/s3_callouts.py
+#   2. the parts INVENTORY on pages 176-177, which lists every element with its
+#      canonical LEGO part number, colour and total quantity
+#
+# The inventory is the authority on WHAT a part is; the callouts are the
+# authority on WHERE it is used. Neither is guessed from the other.
 #
 # `studs`, where given, is CROSS-CHECKED against the extraction: the builder
-# hard-fails if a curated count disagrees with the detected one.
-#
-# COVERAGE IS PARTIAL AND DELIBERATELY SO. Automatic stud counting works on
-# LIGHT parts, where the stud ellipses are drawn black on white and segment
-# cleanly (10 of 45 clusters, lattice self-check rows*cols == studs). On
-# coloured parts the stud tops differ from the body by only ~5 luminance units
-# — blue body (1,80,199) vs stud (0,74,191) — so flood fill merges them and the
-# count is unreliable. Those clusters are left unnamed rather than guessed.
+# hard-fails if a curated count disagrees with a self-checked detected one.
+
+[meta]
+inventory_pages = [176, 177]
+inventory_source = "S3 pages 176-177 — the only pages with no step numeral"
+transcription = """
+Hand-transcribed from the two inventory renders. Quantities and part numbers are
+read off the page; no quantity is inferred. The transcription is cross-checked
+against the callout extraction where both cover the same part — see
+[[crosschecks]] below."""
+
+# --------------------------------------------------------------------------- #
+# The inventory, verbatim from pages 176-177
+# --------------------------------------------------------------------------- #
+
+[[inventory]]
+page = 176
+lego_id = "3069"
+colour = "Black"
+quantity = 24
+name = "Tile 1x2"
+
+[[inventory]]
+page = 176
+lego_id = "44865"
+colour = "Black"
+quantity = 8
+name = "Brick 1x2 with a side pin"
+note = "Named from the render, not from a catalogue; the part number is the authority."
+
+[[inventory]]
+page = 176
+lego_id = "3003"
+colour = "Black"
+quantity = 7
+name = "Brick 2x2"
+
+[[inventory]]
+page = 176
+lego_id = "87079"
+colour = "Black"
+quantity = 16
+name = "Tile 2x4"
+
+[[inventory]]
+page = 176
+lego_id = "3001"
+colour = "Black"
+quantity = 48
+name = "Brick 2x4"
+
+[[inventory]]
+page = 176
+lego_id = "3894"
+colour = "Black"
+quantity = 33
+name = "Technic Brick 1x6"
+
+[[inventory]]
+page = 176
+lego_id = "3022"
+colour = "Light Bluish Gray"
+quantity = 8
+name = "Plate 2x2"
+
+[[inventory]]
+page = 176
+lego_id = "30000"
+colour = "Light Bluish Gray"
+quantity = 5
+name = "Brick 2x2 with pins"
+note = "Named from the render; two axle pins on opposite faces."
+
+[[inventory]]
+page = 176
+lego_id = "3830"
+colour = "White"
+quantity = 2
+name = "Brick 1x2 with a downward pin"
+note = "Named from the render."
+
+[[inventory]]
+page = 176
+lego_id = "3003"
+colour = "White"
+quantity = 8
+name = "Brick 2x2"
+
+[[inventory]]
+page = 176
+lego_id = "3831"
+colour = "White"
+quantity = 2
+name = "Brick 1x2 with a side clip"
+note = "Named from the render."
+
+[[inventory]]
+page = 176
+lego_id = "3001"
+colour = "White"
+quantity = 45
+name = "Brick 2x4"
+
+[[inventory]]
+page = 176
+lego_id = "3009"
+colour = "White"
+quantity = 26
+name = "Brick 1x6"
+
+[[inventory]]
+page = 176
+lego_id = "3035"
+colour = "White"
+quantity = 8
+name = "Plate 4x8"
+
+[[inventory]]
+page = 176
+lego_id = "3700"
+colour = "Red"
+quantity = 6
+name = "Technic Brick 1x2"
+
+[[inventory]]
+page = 177
+lego_id = "3003"
+colour = "Red"
+quantity = 3
+name = "Brick 2x2"
+
+[[inventory]]
+page = 177
+lego_id = "3001"
+colour = "Red"
+quantity = 28
+name = "Brick 2x4"
+
+[[inventory]]
+page = 177
+lego_id = "3009"
+colour = "Red"
+quantity = 14
+name = "Brick 1x6"
+
+[[inventory]]
+page = 177
+lego_id = "3703"
+colour = "Red"
+quantity = 4
+name = "Technic Brick 1x16"
+
+[[inventory]]
+page = 177
+lego_id = "3003"
+colour = "Yellow"
+quantity = 3
+name = "Brick 2x2"
+
+[[inventory]]
+page = 177
+lego_id = "3001"
+colour = "Yellow"
+quantity = 22
+name = "Brick 2x4"
+
+[[inventory]]
+page = 177
+lego_id = "3001"
+colour = "Green"
+quantity = 18
+name = "Brick 2x4"
+
+[[inventory]]
+page = 177
+lego_id = "3009"
+colour = "Green"
+quantity = 4
+name = "Brick 1x6"
+
+[[inventory]]
+page = 177
+lego_id = "3003"
+colour = "Blue"
+quantity = 2
+name = "Brick 2x2"
+
+[[inventory]]
+page = 177
+lego_id = "3001"
+colour = "Blue"
+quantity = 44
+name = "Brick 2x4"
+
+[[inventory]]
+page = 177
+lego_id = "3009"
+colour = "Blue"
+quantity = 36
+name = "Brick 1x6"
+
+[[inventory]]
+page = 177
+lego_id = "78c18"
+colour = "Flat Silver"
+quantity = 2
+name = "Flexible hose 18L"
+
+# --------------------------------------------------------------------------- #
+# Cross-checks the builder enforces — inventory against extraction
+# --------------------------------------------------------------------------- #
+
+[[crosschecks]]
+lego_id = "3035"
+colour = "White"
+expect_quantity = 8
+against = "callout_pages"
+cluster_id = 4
+note = """
+The 4x8 plate. The inventory says 8; the callout extraction finds cluster 4 on
+exactly 8 pages (18, 27, 35, 42, 49, 57, 67, 115) — the second step of the six
+notes plus mic and guitar. Two independent counts of the same eight parts."""
+
+[[crosschecks]]
+lego_id = "78c18"
+colour = "Flat Silver"
+expect_quantity = 2
+against = "object_count"
+object_ids = ["cable_upper", "cable_lower"]
+note = "One flexible hose per cable, and S1 says there are 2 cables."
+
+[[crosschecks]]
+lego_id = "3703"
+colour = "Red"
+expect_quantity = 4
+against = "object_count_times"
+object_ids = ["cable_upper", "cable_lower"]
+per_object = 2
+note = """
+The cable's rigid carrier. 4 bricks over 2 cables = 2 each, which agrees with
+the page-167 callout quantity of 2x. Two per cable placed side by side gives a
+2x16 carrier, NOT 1x32 end-to-end — the callout shows a single bar width."""
+
+# --------------------------------------------------------------------------- #
+# Part renders → parts. `cluster_id` + `part_index` names one representative
+# render; the builder resolves its whole silhouette shape group.
+# --------------------------------------------------------------------------- #
 
 [[parts]]
 cluster_id = 4
+part_index = 0
 part = "plate_4x8"
+lego_id = "3035"
 studs = 32
 lattice = [4, 8]
 colour = "white"
 evidence = """
-424x303 px callout, quantity 1x, appearing on pages 18, 27, 35, 42, 49, 57, 67,
-115 — the SECOND step of all six notes plus mic and guitar, and nowhere else.
-32 stud centres detected; isometric lattice fit gives 4 x 8 = 32 cells, an exact
-self-consistency check. Identical render on all eight, which turns S1 p5's 'the
-bases of the notes are all the same' into a measurement."""
+424x303 px callout, quantity 1x, on pages 18, 27, 35, 42, 49, 57, 67, 115 — the
+SECOND step of all six notes plus mic and guitar, and nowhere else. 32 stud
+centres detected; the isometric lattice fit gives 4 x 8 = 32 cells, an exact
+self-check. Inventory p176 lists 8x 3035 White Plate 4x8 — the same eight."""
 
 [[parts]]
 cluster_id = 1
+part_index = 0
 part = "brick_2x4"
+lego_id = "3001"
 studs = 8
 lattice = [2, 4]
-colour = "white"
-evidence = "236x227 px, quantity 2x, 8 studs, lattice 2x4 consistent. The step-1 part for note_white and mic."
+evidence = """
+The most common part in the book: 21 of the 58 part renders share this
+silhouette. Self-checked at 8 studs / 2x4 on seven independent renders
+(clusters 1, 6, 9, 12, 14, 22, 33) covering white and yellow; the coloured and
+black renders inherit the count by shape transfer. The inventory confirms 3001
+Brick 2x4 in black (48), white (45), blue (44), red (28), yellow (22) and
+green (18) — every colour the transfer assigns."""
 
 [[parts]]
-cluster_id = 6
-part = "brick_2x4"
-studs = 8
-lattice = [2, 4]
-colour = "yellow"
-evidence = "236x227 px, 8 studs, lattice 2x4 consistent. note_yellow step 1."
-
-[[parts]]
-cluster_id = 9
-part = "brick_2x4"
-studs = 8
-lattice = [2, 4]
-colour = "white"
-evidence = "235x227 px, 8 studs, lattice 2x4 consistent."
-
-[[parts]]
-cluster_id = 22
-part = "brick_2x4"
-studs = 8
-lattice = [2, 4]
-evidence = "352x227 px, 8 studs, lattice 2x4 consistent."
-
-[[parts]]
-cluster_id = 33
-part = "brick_2x4"
-studs = 8
-lattice = [2, 4]
-evidence = "376x227 px, 8 studs, lattice 2x4 consistent."
-
-[[parts]]
-cluster_id = 19
+cluster_id = 32
+part_index = 0
 part = "brick_2x2"
+lego_id = "3003"
 studs = 4
 lattice = [2, 2]
-evidence = "376x227 px, 4 studs, lattice 2x2 consistent."
-
-[[parts]]
-cluster_id = 20
-part = "brick_2x2"
-studs = 4
-lattice = [2, 2]
-evidence = "492x227 px, 4 studs, lattice 2x2 consistent."
-
-[[parts]]
-cluster_id = 35
-part = "brick_2x2"
-studs = 4
-lattice = [2, 2]
-evidence = "376x227 px, 4 studs, lattice 2x2 consistent."
+evidence = """
+Self-checked at 4 studs / 2x2 on five renders (clusters 19, 20, 32, 35, 36),
+ten renders in the shape group. Cluster 32 is a single-part callout, so it names
+the group unambiguously. Inventory lists 3003 Brick 2x2 in black (7), white (8),
+red (3), yellow (3) and blue (2)."""
 
 [[parts]]
 cluster_id = 42
-part = "brick_2x2"
+part_index = 0
+part = "plate_2x2"
+lego_id = "3022"
 studs = 4
 lattice = [2, 2]
-evidence = "372x195 px, 4 studs, lattice 2x2 consistent."
+evidence = """
+Same 2x2 stud footprint as 3003 but a shorter silhouette (95 px tall against
+120), so the shape grouping keeps them apart — a plate, not a brick. That the
+two separate on height alone is a check on the matcher, not a coincidence.
+Inventory p176: 8x 3022 Light Bluish Gray Plate 2x2."""
 
-# Clusters 0, 2, 3, 5, 7, 8, 10-18, 21, 23-32, 34, 36-41, 43, 44 are COLOURED or
-# small parts whose stud ellipses do not segment reliably (see the header). They
-# are intentionally unnamed. Cluster 0 (18 steps) and 2 (12 steps) are the
-# blue and black 2x4 bricks by visual inspection, but the automatic count reads
-# 0 studs on both, so no `studs` value is asserted for them here.
+[[parts]]
+cluster_id = 18
+part_index = 0
+part = "plate_2x2"
+lego_id = "3022"
+studs = 4
+lattice = [2, 2]
+detected = false
+evidence = """
+The same 3022 plate as cluster 42, one pixel taller (96 px against 95), which
+falls just outside the silhouette matcher's agreement threshold — so it forms
+its own group rather than inheriting the count. Named here explicitly. The
+matcher erring towards two groups instead of one is the safe direction: it
+under-transfers rather than transferring a wrong count."""
+
+[[parts]]
+cluster_id = 22
+part_index = 0
+part = "brick_1x2_with_side_pin"
+lego_id = "44865"
+studs = 2
+lattice = [1, 2]
+detected = false
+evidence = """
+Black 1x2 brick with an axle pin on one long face, pages 111, 112 and 172.
+Inventory p176: 8x 44865 Black. Footprint is the 1x2 body; the pin protrudes
+horizontally and does not touch the mat."""
+
+[[parts]]
+cluster_id = 5
+part_index = 0
+part = "technic_brick_1x6"
+lego_id = "3894"
+studs = 6
+lattice = [1, 6]
+detected = false
+evidence = """
+Eight renders share this silhouette (clusters 3, 5, 12, 13, 23, 26, 27, 37) — a
+1x6 bar with five round holes through the side. NOT self-checked: a 1xN part is
+a degenerate lattice with only one offset direction, so lattice_extent returns
+None by construction, and every render of it is black. Named from the inventory
+(p176: 33x 3894 Black Technic Brick 1x6) and from page 2, where four of them
+side by side form the clef's 4x6 base recorded in part 2."""
+
+[[parts]]
+cluster_id = 15
+part_index = 0
+part = "brick_1x6"
+lego_id = "3009"
+studs = 6
+lattice = [1, 6]
+detected = false
+evidence = """
+A plain 1x6 brick with no holes, distinct from 3894. Red here, marked 2x.
+Inventory: 3009 in blue (36), white (26), red (14) and green (4). Four of these
+in blue form the speaker body's first step on page 153."""
+
+[[parts]]
+cluster_id = 41
+part_index = 0
+part = "technic_brick_1x16"
+lego_id = "3703"
+studs = 16
+lattice = [1, 16]
+detected = false
+evidence = """
+THE CABLE CARRIER. 619x395 px callout on page 167, quantity 2x — by far the
+largest part render in the book, a red bar with fifteen holes along its side.
+Inventory p177: 4x 3703 Red Technic Brick 1x16, which is 2 per cable. Its
+length, 16 studs = 128.0 mm, is what forces the cable's placement orientation
+(see docs/PHASE7_CONSTRAINTS.md)."""
+
+[[parts]]
+cluster_id = 44
+part_index = 0
+part = "flexible_hose"
+lego_id = "78c18"
+studs = 0
+detected = false
+flexible = true
+evidence = """
+672x399 px render on page 173, drawn alone: a ribbed silver hose. Inventory
+p177: 2x 78c18 Flat Silver, one per cable. It has NO fixed contact patch — see
+ADR-017. `studs = 0` records that it contributes no stud footprint, not that it
+has no size."""
+
+[[parts]]
+cluster_id = 16
+part_index = 0
+part = "tile_2x4"
+lego_id = "87079"
+studs = 0
+detected = false
+evidence = """
+A smooth black 2x4 tile — no studs at all, which is why the detector correctly
+reports zero rather than failing. Inventory p176: 16x 87079 Black Tile 2x4."""
+
+[[parts]]
+cluster_id = 24
+part_index = 0
+part = "tile_1x2"
+lego_id = "3069"
+studs = 0
+detected = false
+evidence = "Smooth black 1x2 tile, no studs. Inventory p176: 24x 3069 Black."
+
+[[parts]]
+cluster_id = 20
+part_index = 0
+part = "technic_brick_1x2"
+lego_id = "3700"
+studs = 2
+lattice = [1, 2]
+detected = false
+evidence = """
+A 1x2 brick with one round hole. Red in the render; inventory p176 lists 6x
+3700 Red. Degenerate 1xN lattice, so not self-checked."""
+
+[[parts]]
+cluster_id = 38
+part_index = 0
+part = "brick_2x2_with_pins"
+lego_id = "30000"
+studs = 4
+lattice = [2, 2]
+detected = false
+evidence = """
+Light bluish grey 2x2 with an axle pin on two opposite faces, page 147.
+Inventory p176: 5x 30000. Footprint is the 2x2 body; the pins protrude but do
+not touch the mat."""
+
+# Two shapes are deliberately left unnamed: clusters 29 and 30, each a white 1x2
+# brick with a protruding pin, seen once each on pages 73 and 74. The inventory
+# offers exactly two candidates — 3830 and 3831, 2x each in White — but the two
+# renders cannot be told apart from which is which, and neither is the base of
+# any model. An unnamed slot beats a coin-flip between two part numbers.

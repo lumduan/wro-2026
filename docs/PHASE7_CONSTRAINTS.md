@@ -3,7 +3,7 @@
 Everything the robot design must satisfy, recorded **before** anyone picks a chassis rather
 than after. Every entry cites its rule; quotes are in `docs/citations.json`.
 
-`last_reviewed: 2026-07-25`
+`last_reviewed: 2026-07-26`
 
 **Scope note.** These are **international-level** limits. S4 §4.3 and §5.2 let National
 Organizers change them — `NEEDS-VERIFY(NO-TH)` stays open until the Thai National Organizer
@@ -156,13 +156,69 @@ Combined with the start-area result in §2 — zero placement slack there — th
 accurate to a few millimetres at both ends of every note run. That is a **gripper and odometry
 requirement**, and field tests P2 and P3 are what will say whether it is met.
 
+### The cable's orientation is forced, not chosen
+
+`MEASURED(S3) × MEASURED(S2)`, 2026-07-26. The single hardest placement constraint on the
+field, and it is not about tolerance — it is about whether the object fits at all.
+
+| | value | source |
+|---|---|---|
+| cable length | **128.0 mm** (2 × Technic Brick 1×16, part 3703) | S3 p167 callout + p177 inventory |
+| cable area, across (mat X) | 114.47 mm | `cable_area_upper` / `_lower`, S5 |
+| cable area, along (mat Y) | 217.89 mm | same |
+
+```
+              mat X: 114.47 mm
+        ├───────────────────────┤
+   ┌────┴───────────────────────┴────┐  ─┬─
+   │                                 │   │
+   │   cable 128.0 mm ───────────►   │   │  mat Y: 217.89 mm
+   │            (fits, 44.94 mm      │   │
+   │             slack per end)      │   │
+   └─────────────────────────────────┘  ─┴─
+        ◄──── 128.0 mm does NOT fit ────►
+              short by 13.53 mm
+```
+
+**The cable cannot lie across its target area.** It is 13.53 mm too long. Every legal
+placement therefore has the cable's long axis along mat **Y**, with 44.94 mm of slack at each
+end. Worth **30 points** (15 per cable, "completely in the grey area **and upright**", S1 §3.1).
+
+Consequences for the design, not just the strategy:
+
+1. The manipulator must be able to **set the cable's yaw**, or the robot must approach each
+   grey area on a heading that already aligns it. A gripper that cannot control rotation makes
+   30 points a coin flip.
+2. Both grey areas sit at the mat's left edge (x 19.8 → 134.3 mm) and are **identical in size**,
+   so one solution serves both.
+3. The 44.94 mm end slack is generous compared with the note target's 7.85 mm — along-axis
+   accuracy is not the problem here. **Rotation is.**
+
+Asserted in `tests/test_object_spec.py::test_the_cable_cannot_lie_across_its_target_area`, so a
+future change to either measurement breaks the build rather than the strategy.
+
 ---
 
 ## 8 · What is NOT yet designable
 
-**The manipulator.** Gripper, lifter or any object-handling mechanism needs object dimensions,
-mass and grip points — those come from **Phase 4, which has not run**. A gripper designed
-before the note base width is known is a guess that gets rebuilt.
+**Phase 4 has now run**, and the object set it produced is complete: all 16 objects mapped, with
+contact footprints for every object on a scoring-containment path except the keyboard, which is
+bounded at ≤ 56 × 56 mm rather than measured (`data/object_spec.json`, `footprint_pending`).
 
-A final **chassis** is permitted (A6 is closed at international scope). A final
-**manipulator** is not. That is precisely why the roadmap gates phase 7 on phase 4.
+| Object | Contact footprint | Note |
+|---|---|---|
+| 6 notes, `mic`, `instrument_guitar` | 32.0 × 32.0 mm | 4×8 plate overhangs at +9.6 mm |
+| `clef` | 32.0 × 48.0 mm | no overhang; scored for **not** being moved |
+| `instrument_congas` | 32.0 × 32.0 mm **per drum**, ×2 | pair separation not measured — see below |
+| `cable_upper` / `cable_lower` | 16.0 × 128.0 mm | rigid carrier only; the hose has no fixed patch (ADR-017) |
+| `instrument_keyboard` | **≤ 56 × 56 mm (bound)** | open frame — the lattice self-check cannot apply |
+| `amp`, `speaker_a`, `speaker_b` | not measured | scored for **not** being moved; off the containment path |
+
+**What still blocks a final manipulator: mass and grip points.** Neither can come from a
+building instruction. `mass_g` is `null` for all 16 objects and needs the physical sets on a
+scale — the still-open 45811/45819 procurement question, and the same thing that blocks field
+test P5.
+
+So the gate has moved rather than opened: geometry is no longer the blocker, **the physical
+sets are**. A final **chassis** is permitted (A6 is closed at international scope). A final
+**manipulator** still is not, but the reason is now procurement, not analysis.

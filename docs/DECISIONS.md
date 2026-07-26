@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-25` · ADR-013/014/015 signed off 2026-07-25; the builder may proceed.
+`last_reviewed: 2026-07-26` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26 (Phase 4 part 3).
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -22,6 +22,9 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-014](#adr-014) | Initial object pose is run-time state, not a spec constant | accepted 2026-07-25 |
 | [ADR-015](#adr-015) | Selector: full predicate, per-entry cardinality, `inset_by` | accepted 2026-07-25 |
 | [ADR-016](#adr-016) | `manifest.json` describes the last run, not a merged history | accepted 2026-07-25 |
+| [ADR-017](#adr-017) | A flexible object gets the rigid carrier's footprint, and says so | accepted 2026-07-26 |
+| [ADR-018](#adr-018) | Non-scoring runs live in `[[subassemblies]]`, never in `objects` | accepted 2026-07-26 |
+| [ADR-019](#adr-019) | The cream run-preview box replaces the callout as the boundary signal | accepted 2026-07-26 |
 
 ---
 
@@ -568,3 +571,110 @@ Documenting the hazard was not enough; a flag that removes it is.
 a run covering both `vector` and `images`). That is a real constraint on the workflow, and it
 is stated in the error rather than left to be rediscovered. The alternative — a merged
 manifest — would have traded a loud, one-line-fix failure for a silent loss of reproducibility.
+
+---
+
+## ADR-017
+
+**A flexible object gets the rigid carrier's footprint, and says so.**
+`2026-07-26 · Phase 4 part 3 · accepted`
+
+**Context.** The two cables are not rigid bodies. Each is a red Technic Brick 1×16 carrier
+(part 3703, ×2 side by side) plus a **flexible hose** (part 78c18) — S3 page 173 draws the hose
+alone, and page 174 shows the finished cable with the hose arched over the carrier. A flexible
+element has no fixed contact patch: its footprint depends on how it is laid. But the cables are
+worth **30 points** under "completely in the grey area and upright" (S1 §3.1), so the scorer
+needs a number.
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Bounding box of carrier + hose exactly as S3 draws it | encodes **one arbitrary pose** of a bendable part as if it were a property of the object — the same class of error as reading the 4×8 plate as the note base (see ADR-014's discipline) |
+| No footprint at all; defer to calipers | nothing unverified enters the repo, but Phase 6's scorer gets no cable geometry, and the cable is the one object whose geometry actually decides a scoring outcome |
+| **Rigid carrier only, with the gap flagged** | a real measurement for the part that determines placement, and an explicit statement of what is not covered |
+
+**Decision.** `contact_footprint_studs` is the **rigid carrier**: 2 × 16 studs = 16.0 × 128.0 mm.
+Alongside it, `flexible_element: true`, `hose_footprint_studs: null` and
+`footprint_covers: "the rigid carrier only"`.
+
+**Consequence.** The scorer can evaluate cable containment, and it can tell that the hose is not
+in the number. The measurement immediately produced a hard constraint that would have been
+invisible under the "defer" option: 128.0 mm of cable does not fit across a 114.47 mm area, so
+the cable's placement **orientation is forced** (see `docs/PHASE7_CONSTRAINTS.md` §7).
+
+---
+
+## ADR-018
+
+**Non-scoring runs live in a separate table, never in `objects`.**
+`2026-07-26 · Phase 4 part 3 · accepted`
+
+**Context.** The cream run-preview box (ADR-019) partitions S3 into 20 runs, but a run is not
+always a model. Six of them build a **sub-assembly** inside a larger model: page 73 sits inside
+the microphone, page 96 inside the keyboard, and pages 130/132/138/140 inside the amplifier.
+None of these is an object in the frozen CLAUDE.md §5.3 / ADR-012 id table, and part 1 had
+already been misled by two of them into recording "unresolved spans".
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Extend the frozen id table with non-scoring ids | amends a table deliberately frozen in an earlier session, and weakens `test_every_model_id_is_a_frozen_canonical_id` to the point where it no longer catches anything |
+| Leave them in `unresolved` | permanently marks as unknown something the preview does in fact explain, and leaves Phase 4 unable to close |
+| **A separate `[[subassemblies]]` table** | the frozen table is untouched and the canonical-id test keeps its full force |
+
+**Decision.** `docs/object_map.toml` gains `[[subassemblies]]` with free-form ids
+(`sub_073_mic_arm`, `sub_140_amp_stack`, …), each naming the model it sits `inside`. The builder
+emits them under a sibling `"subassemblies"` key in `object_spec.json` and **hard-fails** if any
+id collides with an object id, if a sub-assembly escapes its parent's page range, or if a run
+preview exists that neither a model nor a sub-assembly claims.
+
+**Consequence.** Every one of the 20 preview boundaries is now accounted for by exactly one
+entry, and `objects` contains exactly the 16 frozen ids — no more, no fewer.
+
+---
+
+## ADR-019
+
+**The cream run-preview box replaces the parts callout as the model-boundary signal.**
+`2026-07-26 · Phase 4 part 3 · accepted`
+
+**Context.** Parts 1 and 2 derived model boundaries from the light-blue parts callout
+`(215, 238, 254)` and recorded a caveat that the signal degrades after page 124 — "callouts also
+mark sub-assemblies, producing 1–2 step 'models' that are not models". That caveat was written as
+if it described a limitation of the source. It described a limitation of the **wrong signal**.
+
+S3 draws a **second** box colour, cream `(255, 245, 218)`, which parts 1 and 2 never looked for.
+A flat-colour census over all 174 build pages confirms there are exactly two box backgrounds and
+no third; every other flat colour is brick paint.
+
+| Box | Background | Pages | Meaning |
+|---|---|---|---|
+| parts callout | `(215, 238, 254)` | 152 | the part(s) added by **this step** |
+| **run preview** | `(255, 245, 218)` | **20** | a picture of **what this run produces** |
+
+Every cream box is anchored at `y = 98`. Its contents are the identification evidence: page 26's
+is the finished blue note, page 102's the finished congas, page 153's the finished speaker with a
+`2x` multiplier beside it.
+
+**Decision.** Re-derive **every** boundary from the run preview, treating parts 1 and 2's ranges
+as provisional rather than patching them. The builder asserts that the models tile the build
+steps exactly and that every model start lands on a preview page.
+
+**Consequence — three of part 1's facts were wrong, and are recorded as superseded.**
+
+| Fact | Part 1 | Part 3 | How it was caught |
+|---|---|---|---|
+| `instrument_guitar` | pages 114–123 | **114–125** | page 124 still shows the guitar mid-build |
+| `cable` | pages 167–172 | **167–175** | no preview after 167 |
+| `mic` | 66–72, with 73–88 unresolved | **66–88** | p72 shows the column uncapped, p88 capped |
+| `instrument_keyboard` | 89–95, with 96–101 unresolved | **89–101** | p101 shows the assembled keyboard |
+| build steps | 176, pages 2–177 | **174, pages 2–175** | pages 176–177 are the parts inventory and carry no step numeral |
+
+The step-count error has a precise cause worth recording: part 1 verified its claim with a digit
+census that read 9 one-digit, 90 two-digit and 77 three-digit numerals. The three-digit bucket is
+**75**; the census counted the inventory pages' `24x` and `3003` labels as step numbers.
+9 + 90 + 75 = 174. **A cross-check can agree with a wrong answer if it measures the wrong thing.**
+
+All three of part 1's unresolved spans are closed, and all 16 objects are mapped.

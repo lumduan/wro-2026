@@ -1,788 +1,20 @@
 {
+  "cable_orientation": {
+    "area_x_extent_mm": 114.47,
+    "area_y_extent_mm": 217.89,
+    "cable_length_mm": 128.0,
+    "cable_length_studs": 16,
+    "confidence": "MEASURED(S3) x MEASURED(S2)",
+    "deficit_along_x_mm": -13.53,
+    "finding": "The cable is 128.0 mm long (2x Technic Brick 1x16). The grey cable areas are\n114.47 x 217.89 mm each (cable_area_upper and cable_area_lower in\ndata/field_spec.json, both identical). 128.0 > 114.47, so the cable CANNOT lie\nacross the short axis of its target area — it is 13.53 mm too long.\n\nThe cable's placement orientation is therefore FORCED: long axis along the mat's\nY axis, with 44.94 mm of slack at each end. This is worth 30 points (15 per\ncable, 'completely in the grey area and upright') and it constrains the\nmanipulator, not just the strategy.",
+    "fits_along_x": false,
+    "fits_along_y": true,
+    "slack_per_end_along_y_mm": 44.94
+  },
   "callout_inventory": {
-    "build_pages": 176,
-    "clusters": [
-      {
-        "cluster_id": 0,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          3,
-          4,
-          5,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          26,
-          28,
-          29,
-          30,
-          31,
-          32
-        ],
-        "part": null,
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 1,
-        "detected_studs": 8,
-        "lattice": [
-          2,
-          4
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          17,
-          19,
-          20,
-          21,
-          22,
-          23,
-          24,
-          66,
-          68,
-          69,
-          70,
-          71,
-          72,
-          80
-        ],
-        "part": "brick_2x4",
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 2,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          41,
-          43,
-          44,
-          45,
-          46,
-          81,
-          82,
-          83,
-          84,
-          85,
-          86,
-          87
-        ],
-        "part": null,
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 3,
-        "detected_studs": 3,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          104,
-          126,
-          134,
-          136,
-          142,
-          145,
-          146,
-          159,
-          161,
-          163
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 4,
-        "detected_studs": 32,
-        "lattice": [
-          4,
-          8
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          18,
-          27,
-          35,
-          42,
-          49,
-          57,
-          67,
-          115
-        ],
-        "part": "plate_4x8",
-        "size_px": [
-          424,
-          303
-        ]
-      },
-      {
-        "cluster_id": 5,
-        "detected_studs": 7,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          2,
-          90,
-          94,
-          97,
-          105,
-          110
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 6,
-        "detected_studs": 8,
-        "lattice": [
-          2,
-          4
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          34,
-          36,
-          37,
-          38,
-          39
-        ],
-        "part": "brick_2x4",
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 7,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          48,
-          50,
-          51,
-          52,
-          53
-        ],
-        "part": null,
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 8,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          56,
-          58,
-          59,
-          60,
-          63
-        ],
-        "part": null,
-        "size_px": [
-          236,
-          227
-        ]
-      },
-      {
-        "cluster_id": 9,
-        "detected_studs": 8,
-        "lattice": [
-          2,
-          4
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          103,
-          129,
-          135,
-          137,
-          143
-        ],
-        "part": "brick_2x4",
-        "size_px": [
-          235,
-          227
-        ]
-      },
-      {
-        "cluster_id": 10,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          114,
-          116,
-          119,
-          168,
-          169
-        ],
-        "part": null,
-        "size_px": [
-          235,
-          227
-        ]
-      },
-      {
-        "cluster_id": 11,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          130,
-          132,
-          138,
-          140,
-          148
-        ],
-        "part": null,
-        "size_px": [
-          235,
-          227
-        ]
-      },
-      {
-        "cluster_id": 12,
-        "detected_studs": 14,
-        "lattice": [
-          5,
-          9
-        ],
-        "lattice_consistent": false,
-        "pages": [
-          89,
-          92,
-          96,
-          99
-        ],
-        "part": null,
-        "size_px": [
-          488,
-          235
-        ]
-      },
-      {
-        "cluster_id": 13,
-        "detected_studs": 1,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          153,
-          156,
-          158,
-          160
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 14,
-        "detected_studs": 9,
-        "lattice": [
-          3,
-          7
-        ],
-        "lattice_consistent": false,
-        "pages": [
-          102,
-          108,
-          109
-        ],
-        "part": null,
-        "size_px": [
-          235,
-          227
-        ]
-      },
-      {
-        "cluster_id": 15,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          117,
-          120,
-          122
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 16,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          149,
-          164,
-          170
-        ],
-        "part": null,
-        "size_px": [
-          232,
-          195
-        ]
-      },
-      {
-        "cluster_id": 17,
-        "detected_studs": 1,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          61,
-          64
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 18,
-        "detected_studs": 2,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          76,
-          77
-        ],
-        "part": null,
-        "size_px": [
-          164,
-          167
-        ]
-      },
-      {
-        "cluster_id": 19,
-        "detected_studs": 4,
-        "lattice": [
-          2,
-          2
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          91,
-          98
-        ],
-        "part": "brick_2x2",
-        "size_px": [
-          376,
-          227
-        ]
-      },
-      {
-        "cluster_id": 20,
-        "detected_studs": 4,
-        "lattice": [
-          2,
-          2
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          93,
-          95
-        ],
-        "part": "brick_2x2",
-        "size_px": [
-          492,
-          227
-        ]
-      },
-      {
-        "cluster_id": 21,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          106,
-          162
-        ],
-        "part": null,
-        "size_px": [
-          164,
-          195
-        ]
-      },
-      {
-        "cluster_id": 22,
-        "detected_studs": 8,
-        "lattice": [
-          2,
-          4
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          111,
-          112
-        ],
-        "part": "brick_2x4",
-        "size_px": [
-          352,
-          227
-        ]
-      },
-      {
-        "cluster_id": 23,
-        "detected_studs": 2,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          127,
-          128
-        ],
-        "part": null,
-        "size_px": [
-          488,
-          235
-        ]
-      },
-      {
-        "cluster_id": 24,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          150,
-          165
-        ],
-        "part": null,
-        "size_px": [
-          139,
-          143
-        ]
-      },
-      {
-        "cluster_id": 25,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          155,
-          157
-        ],
-        "part": null,
-        "size_px": [
-          235,
-          227
-        ]
-      },
-      {
-        "cluster_id": 26,
-        "detected_studs": 1,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          6
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 27,
-        "detected_studs": 1,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          54
-        ],
-        "part": null,
-        "size_px": [
-          276,
-          235
-        ]
-      },
-      {
-        "cluster_id": 28,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          62
-        ],
-        "part": null,
-        "size_px": [
-          140,
-          171
-        ]
-      },
-      {
-        "cluster_id": 29,
-        "detected_studs": 1,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          73
-        ],
-        "part": null,
-        "size_px": [
-          156,
-          175
-        ]
-      },
-      {
-        "cluster_id": 30,
-        "detected_studs": 3,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          74
-        ],
-        "part": null,
-        "size_px": [
-          140,
-          183
-        ]
-      },
-      {
-        "cluster_id": 31,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          78
-        ],
-        "part": null,
-        "size_px": [
-          140,
-          143
-        ]
-      },
-      {
-        "cluster_id": 32,
-        "detected_studs": 5,
-        "lattice": [
-          3,
-          4
-        ],
-        "lattice_consistent": false,
-        "pages": [
-          107
-        ],
-        "part": null,
-        "size_px": [
-          164,
-          195
-        ]
-      },
-      {
-        "cluster_id": 33,
-        "detected_studs": 8,
-        "lattice": [
-          2,
-          4
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          118
-        ],
-        "part": "brick_2x4",
-        "size_px": [
-          376,
-          227
-        ]
-      },
-      {
-        "cluster_id": 34,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          121
-        ],
-        "part": null,
-        "size_px": [
-          280,
-          195
-        ]
-      },
-      {
-        "cluster_id": 35,
-        "detected_studs": 4,
-        "lattice": [
-          2,
-          2
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          123
-        ],
-        "part": "brick_2x2",
-        "size_px": [
-          376,
-          227
-        ]
-      },
-      {
-        "cluster_id": 36,
-        "detected_studs": 13,
-        "lattice": [
-          4,
-          7
-        ],
-        "lattice_consistent": false,
-        "pages": [
-          124
-        ],
-        "part": null,
-        "size_px": [
-          376,
-          227
-        ]
-      },
-      {
-        "cluster_id": 37,
-        "detected_studs": 4,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          144
-        ],
-        "part": null,
-        "size_px": [
-          488,
-          235
-        ]
-      },
-      {
-        "cluster_id": 38,
-        "detected_studs": 3,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          147
-        ],
-        "part": null,
-        "size_px": [
-          200,
-          195
-        ]
-      },
-      {
-        "cluster_id": 39,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          151
-        ],
-        "part": null,
-        "size_px": [
-          164,
-          195
-        ]
-      },
-      {
-        "cluster_id": 40,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          154
-        ],
-        "part": null,
-        "size_px": [
-          376,
-          227
-        ]
-      },
-      {
-        "cluster_id": 41,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          167
-        ],
-        "part": null,
-        "size_px": [
-          619,
-          395
-        ]
-      },
-      {
-        "cluster_id": 42,
-        "detected_studs": 4,
-        "lattice": [
-          2,
-          2
-        ],
-        "lattice_consistent": true,
-        "pages": [
-          171
-        ],
-        "part": "brick_2x2",
-        "size_px": [
-          372,
-          195
-        ]
-      },
-      {
-        "cluster_id": 43,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          172
-        ],
-        "part": null,
-        "size_px": [
-          139,
-          175
-        ]
-      },
-      {
-        "cluster_id": 44,
-        "detected_studs": 0,
-        "lattice": null,
-        "lattice_consistent": false,
-        "pages": [
-          173
-        ],
-        "part": null,
-        "size_px": [
-          672,
-          399
-        ]
-      }
-    ],
+    "build_pages": 174,
     "distinct_parts": 45,
+    "distinct_shapes": 16,
     "pages_with_callout": 152,
     "pages_without_callout": [
       16,
@@ -806,9 +38,489 @@
       152,
       166,
       174,
-      175,
-      176,
-      177
+      175
+    ],
+    "shapes": [
+      {
+        "count_source": "shape_transfer",
+        "lattice": [
+          2,
+          4
+        ],
+        "lego_id": "3001",
+        "pages": [
+          3,
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          26,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          36,
+          37,
+          38,
+          39,
+          41,
+          43,
+          44,
+          45,
+          46,
+          48,
+          50,
+          51,
+          52,
+          53,
+          56,
+          58,
+          59,
+          60,
+          63,
+          66,
+          68,
+          69,
+          70,
+          71,
+          72,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          89,
+          91,
+          92,
+          93,
+          95,
+          96,
+          98,
+          99,
+          102,
+          103,
+          108,
+          109,
+          111,
+          112,
+          114,
+          116,
+          118,
+          119,
+          123,
+          124,
+          127,
+          128,
+          129,
+          130,
+          132,
+          135,
+          137,
+          138,
+          140,
+          143,
+          144,
+          148,
+          154,
+          155,
+          157,
+          168,
+          169
+        ],
+        "part": "brick_2x4",
+        "renders": 21,
+        "self_checked_from_clusters": [
+          1,
+          6,
+          9,
+          12,
+          14,
+          22,
+          33
+        ],
+        "shape_id": 0,
+        "size_px": [
+          196,
+          151
+        ],
+        "studs": 8
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          1,
+          6
+        ],
+        "lego_id": "3894",
+        "pages": [
+          2,
+          6,
+          54,
+          89,
+          90,
+          92,
+          94,
+          96,
+          97,
+          99,
+          104,
+          105,
+          110,
+          126,
+          127,
+          128,
+          134,
+          136,
+          142,
+          144,
+          145,
+          146,
+          153,
+          156,
+          158,
+          159,
+          160,
+          161,
+          163
+        ],
+        "part": "technic_brick_1x6",
+        "renders": 8,
+        "self_checked_from_clusters": [],
+        "shape_id": 1,
+        "size_px": [
+          239,
+          161
+        ],
+        "studs": 6
+      },
+      {
+        "count_source": "self_check",
+        "lattice": [
+          4,
+          8
+        ],
+        "lego_id": "3035",
+        "pages": [
+          18,
+          27,
+          35,
+          42,
+          49,
+          57,
+          67,
+          115
+        ],
+        "part": "plate_4x8",
+        "renders": 1,
+        "self_checked_from_clusters": [
+          4
+        ],
+        "shape_id": 2,
+        "size_px": [
+          391,
+          230
+        ],
+        "studs": 32
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          1,
+          6
+        ],
+        "lego_id": "3009",
+        "pages": [
+          61,
+          64,
+          117,
+          120,
+          122
+        ],
+        "part": "brick_1x6",
+        "renders": 2,
+        "self_checked_from_clusters": [],
+        "shape_id": 3,
+        "size_px": [
+          241,
+          185
+        ],
+        "studs": 6
+      },
+      {
+        "count_source": "curated",
+        "lattice": null,
+        "lego_id": "87079",
+        "pages": [
+          149,
+          164,
+          170,
+          171
+        ],
+        "part": "tile_2x4",
+        "renders": 2,
+        "self_checked_from_clusters": [],
+        "shape_id": 4,
+        "size_px": [
+          196,
+          120
+        ],
+        "studs": 0
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          2,
+          2
+        ],
+        "lego_id": "3022",
+        "pages": [
+          76,
+          77
+        ],
+        "part": "plate_2x2",
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 5,
+        "size_px": [
+          127,
+          96
+        ],
+        "studs": 4
+      },
+      {
+        "count_source": "shape_transfer",
+        "lattice": [
+          2,
+          2
+        ],
+        "lego_id": "3003",
+        "pages": [
+          91,
+          93,
+          95,
+          98,
+          106,
+          107,
+          118,
+          121,
+          123,
+          124,
+          151,
+          154,
+          162
+        ],
+        "part": "brick_2x2",
+        "renders": 10,
+        "self_checked_from_clusters": [
+          19,
+          20,
+          32,
+          35,
+          36
+        ],
+        "shape_id": 6,
+        "size_px": [
+          125,
+          120
+        ],
+        "studs": 4
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          1,
+          2
+        ],
+        "lego_id": "3700",
+        "pages": [
+          62,
+          93,
+          95,
+          121
+        ],
+        "part": "technic_brick_1x2",
+        "renders": 3,
+        "self_checked_from_clusters": [],
+        "shape_id": 7,
+        "size_px": [
+          105,
+          99
+        ],
+        "studs": 2
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          1,
+          2
+        ],
+        "lego_id": "44865",
+        "pages": [
+          111,
+          112,
+          172
+        ],
+        "part": "brick_1x2_with_side_pin",
+        "renders": 2,
+        "self_checked_from_clusters": [],
+        "shape_id": 8,
+        "size_px": [
+          103,
+          100
+        ],
+        "studs": 2
+      },
+      {
+        "count_source": "curated",
+        "lattice": null,
+        "lego_id": "3069",
+        "pages": [
+          78,
+          150,
+          165
+        ],
+        "part": "tile_1x2",
+        "renders": 2,
+        "self_checked_from_clusters": [],
+        "shape_id": 9,
+        "size_px": [
+          101,
+          68
+        ],
+        "studs": 0
+      },
+      {
+        "count_source": null,
+        "lattice": null,
+        "lego_id": null,
+        "pages": [
+          73
+        ],
+        "part": null,
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 10,
+        "size_px": [
+          115,
+          102
+        ],
+        "studs": null
+      },
+      {
+        "count_source": null,
+        "lattice": null,
+        "lego_id": null,
+        "pages": [
+          74
+        ],
+        "part": null,
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 11,
+        "size_px": [
+          101,
+          110
+        ],
+        "studs": null
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          2,
+          2
+        ],
+        "lego_id": "30000",
+        "pages": [
+          147
+        ],
+        "part": "brick_2x2_with_pins",
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 12,
+        "size_px": [
+          159,
+          120
+        ],
+        "studs": 4
+      },
+      {
+        "count_source": "curated",
+        "lattice": [
+          1,
+          16
+        ],
+        "lego_id": "3703",
+        "pages": [
+          167
+        ],
+        "part": "technic_brick_1x16",
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 13,
+        "size_px": [
+          587,
+          349
+        ],
+        "studs": 16
+      },
+      {
+        "count_source": "self_check",
+        "lattice": [
+          2,
+          2
+        ],
+        "lego_id": "3022",
+        "pages": [
+          171
+        ],
+        "part": "plate_2x2",
+        "renders": 1,
+        "self_checked_from_clusters": [
+          42
+        ],
+        "shape_id": 14,
+        "size_px": [
+          127,
+          95
+        ],
+        "studs": 4
+      },
+      {
+        "count_source": "curated",
+        "lattice": null,
+        "lego_id": "78c18",
+        "pages": [
+          173
+        ],
+        "part": "flexible_hose",
+        "renders": 1,
+        "self_checked_from_clusters": [],
+        "shape_id": 15,
+        "size_px": [
+          634,
+          325
+        ],
+        "studs": 0
+      }
     ]
   },
   "lego_geometry": {
@@ -819,63 +531,128 @@
   },
   "notes": [
     "footprint = the CONTACT patch with the mat, not the silhouette. See the module docstring: eight models place a 4x8 plate ON TOP of a 4x4 core, so the plate overhangs at +9.6 mm and is not what touches the mat.",
-    "mass_g is null for every object: it cannot be derived from a building instruction. It needs the physical sets on a scale (ADR-014 discipline)."
+    "mass_g is null for every object: it cannot be derived from a building instruction. It needs the physical sets on a scale (ADR-014 discipline).",
+    "the clef, amp and both speakers score by NOT being moved (S1), so a missing footprint for them blocks no scoring path."
   ],
   "objects": {
-    "cable_lower": {
+    "amp": {
       "bom_steps": {
         "brick_2x2": 1,
-        "cluster_10": 2,
-        "cluster_16": 1,
-        "cluster_41": 1,
-        "cluster_43": 1
+        "brick_2x2_with_pins": 1,
+        "brick_2x4": 12,
+        "technic_brick_1x6": 9,
+        "tile_1x2": 1,
+        "tile_2x4": 1
       },
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
       "identification_confidence": "medium",
-      "identification_evidence": "Long red/black bar carrying a ribbed flexible element, callout marked '2x' — and S1 p4 says there are 2 cables. Page 173 shows the flexible hose part alone.",
+      "identification_evidence": "Page 152 shows a black cabinet with a light front panel, a row of grey control\nknobs along the top and a red control — an amplifier. S1 p6: 'There is an\namplifier together with 2 speakers on the field.' The run preview on page 126\nis a dense black grille panel, and pages 130/132/138/140 carry sub-assembly\nboxes in two IDENTICAL pairs (130 with 138, 132 with 140, byte-identical box\nsizes) — the cabinet's two symmetric sides.\n\n`medium`, not `high`: the identification rests on the page-152 render rather\nthan on a preview of the finished object, because this run's preview shows a\ncomponent. Nothing depends on the exact page range — see [scoring_relevance].",
       "mass_g": null,
+      "max_projection_mm": null,
+      "max_projection_studs": null,
       "needs_measurement": true,
       "source_pages": [
+        126,
+        152
+      ],
+      "source_steps": [
+        125,
+        151
+      ]
+    },
+    "cable_lower": {
+      "base_evidence": "The rigid carrier is 2x Technic Brick 1x16 (3703) side by side = 2x16 studs = 16.0 x 128.0 mm. Inventory p177 lists 4x 3703 Red, which is exactly 2 per cable, agreeing with the page-167 callout quantity of 2x. Per ADR-017 the flexible hose gets no footprint. Two small red feet protrude at the ends; their exact geometry needs calipers and is not asserted.",
+      "bom_steps": {
+        "brick_1x2_with_side_pin": 1,
+        "brick_2x4": 2,
+        "flexible_hose": 1,
+        "plate_2x2": 1,
+        "technic_brick_1x16": 1,
+        "tile_2x4": 2
+      },
+      "contact_footprint_mm": [
+        16.0,
+        128.0
+      ],
+      "contact_footprint_studs": [
+        2,
+        16
+      ],
+      "flexible_element": true,
+      "footprint_covers": "the rigid carrier only",
+      "hose_footprint_studs": null,
+      "identification_confidence": "high",
+      "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
+      "mass_g": null,
+      "max_projection_mm": [
+        16.0,
+        128.0
+      ],
+      "max_projection_studs": [
+        2,
+        16
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 0.0,
+      "source_pages": [
         167,
-        172
+        175
       ],
       "source_steps": [
         166,
-        171
+        174
       ]
     },
     "cable_upper": {
+      "base_evidence": "The rigid carrier is 2x Technic Brick 1x16 (3703) side by side = 2x16 studs = 16.0 x 128.0 mm. Inventory p177 lists 4x 3703 Red, which is exactly 2 per cable, agreeing with the page-167 callout quantity of 2x. Per ADR-017 the flexible hose gets no footprint. Two small red feet protrude at the ends; their exact geometry needs calipers and is not asserted.",
       "bom_steps": {
-        "brick_2x2": 1,
-        "cluster_10": 2,
-        "cluster_16": 1,
-        "cluster_41": 1,
-        "cluster_43": 1
+        "brick_1x2_with_side_pin": 1,
+        "brick_2x4": 2,
+        "flexible_hose": 1,
+        "plate_2x2": 1,
+        "technic_brick_1x16": 1,
+        "tile_2x4": 2
       },
-      "contact_footprint_mm": null,
-      "contact_footprint_studs": null,
-      "footprint_needs_analysis": true,
-      "identification_confidence": "medium",
-      "identification_evidence": "Long red/black bar carrying a ribbed flexible element, callout marked '2x' — and S1 p4 says there are 2 cables. Page 173 shows the flexible hose part alone.",
+      "contact_footprint_mm": [
+        16.0,
+        128.0
+      ],
+      "contact_footprint_studs": [
+        2,
+        16
+      ],
+      "flexible_element": true,
+      "footprint_covers": "the rigid carrier only",
+      "hose_footprint_studs": null,
+      "identification_confidence": "high",
+      "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
       "mass_g": null,
+      "max_projection_mm": [
+        16.0,
+        128.0
+      ],
+      "max_projection_studs": [
+        2,
+        16
+      ],
       "needs_measurement": true,
+      "overhang_height_mm": 0.0,
       "source_pages": [
         167,
-        172
+        175
       ],
       "source_steps": [
         166,
-        171
+        174
       ]
     },
     "clef": {
-      "base_evidence": "Step 1 (page 2) places 4x a 1x6 brick side by side giving a 4x6 assembly with nothing beneath it. The clef does NOT receive the 4x8 plate the notes, mic and guitar share.",
+      "base_evidence": "Step 1 (page 2) places 4x a Technic Brick 1x6 (3894) side by side giving a 4x6 assembly with nothing beneath it. The clef does NOT receive the 4x8 plate the notes, mic and guitar share.",
       "bom_steps": {
-        "cluster_0": 12,
-        "cluster_26": 1,
-        "cluster_5": 1
+        "brick_2x4": 12,
+        "technic_brick_1x6": 2
       },
       "contact_footprint_mm": [
         32.0,
@@ -886,7 +663,7 @@
         6
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Blue, tall, curly S-form — the treble-clef silhouette. S1 p6: 'There is a clef (blue) on the field.'",
+      "identification_evidence": "Run preview p2: a blue, tall, curly S-form — the treble-clef silhouette.\nS1 p6: 'There is a clef (blue) on the field.'",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -908,21 +685,36 @@
       ]
     },
     "instrument_congas": {
+      "base_evidence": "Step 1 (p102) places 4x a yellow 2x4 brick (3001) as TWO separate 4x4 cores — one per drum. Each drum's contact patch is therefore 4x4 = 32.0 x 32.0 mm. The SEPARATION between the two drums is not derivable from an isometric render and is not asserted; see [congas_pair_extent].",
       "bom_steps": {
-        "brick_2x4": 3,
-        "cluster_14": 3,
-        "cluster_21": 1,
-        "cluster_3": 1,
-        "cluster_32": 1,
-        "cluster_5": 2
+        "brick_1x2_with_side_pin": 2,
+        "brick_2x2": 2,
+        "brick_2x4": 6,
+        "technic_brick_1x6": 3
       },
-      "contact_footprint_mm": null,
-      "contact_footprint_studs": null,
-      "footprint_needs_analysis": true,
-      "identification_confidence": "medium",
-      "identification_evidence": "A PAIR of yellow/white drum-shaped blocks — congas are a paired drum. S1 p4 lists 1x congas.",
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "contact_patches": 2,
+      "identification_confidence": "high",
+      "identification_evidence": "Run preview p102 shows a PAIR of yellow/white drum-shaped blocks, and page 113\nshows exactly that pair finished — congas are a paired drum. S1 p4 lists\n1x congas.",
       "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        32.0
+      ],
+      "max_projection_studs": [
+        4,
+        4
+      ],
       "needs_measurement": true,
+      "overhang_height_mm": 0.0,
+      "pair_extent_known": false,
       "source_pages": [
         102,
         113
@@ -933,14 +725,13 @@
       ]
     },
     "instrument_guitar": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; the 4x8 plate (3035) arrives on p115, ON TOP. Page 124's render independently shows the white plate sandwiched with red bricks below it.",
       "bom_steps": {
-        "brick_2x2": 1,
-        "brick_2x4": 1,
-        "cluster_10": 3,
-        "cluster_15": 3,
-        "cluster_34": 1,
-        "plate_4x8": 1
+        "brick_1x6": 3,
+        "brick_2x2": 4,
+        "brick_2x4": 6,
+        "plate_4x8": 1,
+        "technic_brick_1x2": 1
       },
       "contact_footprint_mm": [
         32.0,
@@ -951,7 +742,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Red body with a yellow neck rising from it — an unmistakable guitar silhouette. S1 p4 lists 1x guitar.",
+      "identification_evidence": "Run preview p114: a red body with a yellow neck rising from it — an unmistakable\nguitar silhouette. The run ends at 125, not 123: page 124 (step 123) still shows\nthe guitar mid-build and the next preview is at 126. S1 p4 lists 1x guitar.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -965,40 +756,62 @@
       "overhang_height_mm": 9.6,
       "source_pages": [
         114,
-        123
+        125
       ],
       "source_steps": [
         113,
-        122
+        124
       ]
     },
     "instrument_keyboard": {
       "bom_steps": {
-        "brick_2x2": 3,
-        "cluster_12": 2,
-        "cluster_5": 2
+        "brick_2x2": 4,
+        "brick_2x4": 8,
+        "technic_brick_1x2": 2,
+        "technic_brick_1x6": 7
       },
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
-      "identification_confidence": "medium",
-      "identification_evidence": "White/black body with a row of black key-like elements along the top face. S1 p4 lists 1x keyboard.",
+      "footprint_pending": {
+        "base_parts": "step 88 (p89) places 1x 3001 Brick 2x4 and 2x 3009 Brick 1x6; step 89 (p90) adds 2x more 3009. They form an OPEN rectangular frame, not a filled block.",
+        "bound_note": "The isometric fit on page 90 returns 15 stud centres in a 7x7 lattice extent. 7x7 = 56.0 x 56.0 mm is therefore an UPPER BOUND on the base, not a measurement: the extent is real but the count does not verify it, so the true footprint is at most this and probably less.",
+        "reason": "open_frame",
+        "upper_bound_is_not_a_measurement": true,
+        "upper_bound_mm": [
+          56.0,
+          56.0
+        ],
+        "upper_bound_studs": [
+          7,
+          7
+        ],
+        "why_the_self_check_cannot_apply": "The lattice self-check asserts rows*cols == stud count. That holds for a filled rectangle and is false by construction for a frame, whose studs sit only on the perimeter. This is a DIFFERENT failure mode from the note base, which failed on occlusion — here nothing is stacked on the frame at all and the studs are plainly visible. Recording the distinction so the next pass does not retry the occlusion workaround on a problem that is not occlusion."
+      },
+      "identification_confidence": "high",
+      "identification_evidence": "Page 101 shows the assembled instrument: four black key-bars in a row on a white\nbody with red trim — a keyboard. The run preview on page 89 and the one on page\n96 are its two sub-frames; page 95 shows an obviously incomplete L of loose\nbricks, so 89-95 is not a finished model. S1 p4 lists 1x keyboard.",
       "mass_g": null,
+      "max_projection_mm": null,
+      "max_projection_studs": null,
       "needs_measurement": true,
       "source_pages": [
         89,
-        95
+        101
       ],
       "source_steps": [
         88,
-        94
+        100
       ]
     },
     "mic": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 (p66) places 2x a 2x4 brick (3001) forming a 4x4 core; the 4x8 plate (3035) arrives on p67, ON TOP. Same sandwich as the six notes and the guitar; extending the run to page 88 does not change the base.",
       "bom_steps": {
-        "brick_2x4": 6,
-        "plate_4x8": 1
+        "brick_2x4": 14,
+        "plate_2x2": 2,
+        "plate_4x8": 1,
+        "shape_10": 1,
+        "shape_11": 1,
+        "tile_1x2": 1
       },
       "contact_footprint_mm": [
         32.0,
@@ -1009,7 +822,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Black head on a white column — a microphone on a stand. S1 p4 places the microphone in the truck.",
+      "identification_evidence": "Run preview p66: a black head on a tall white column — a microphone on a stand.\nS1 p4 places the microphone in the truck. The run extends to 88, not 72: page\n72 shows the column still UNCAPPED and page 88 shows the same column with the\nblack head fitted. The cream box on page 73 is a sub-assembly box inside this\nbuild (see subassemblies), which is why part 1 read 73-88 as a separate span.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1023,17 +836,17 @@
       "overhang_height_mm": 9.6,
       "source_pages": [
         66,
-        72
+        88
       ],
       "source_steps": [
         65,
-        71
+        87
       ]
     },
     "note_black": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
-        "cluster_2": 5,
+        "brick_2x4": 5,
         "plate_4x8": 1
       },
       "contact_footprint_mm": [
@@ -1045,7 +858,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Black note, same form.",
+      "identification_evidence": "Run preview p41: black, same form.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1067,9 +880,9 @@
       ]
     },
     "note_blue": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
-        "cluster_0": 6,
+        "brick_2x4": 6,
         "plate_4x8": 1
       },
       "contact_footprint_mm": [
@@ -1081,7 +894,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Blue note form, distinct from the clef at pages 2-16. Step 25 starts a 4x4 core from 2x blue 2x4 bricks.",
+      "identification_evidence": "Run preview p26: the finished blue note, distinct from the clef at pages 2-16.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1103,11 +916,11 @@
       ]
     },
     "note_green": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
-        "cluster_27": 1,
-        "cluster_7": 5,
-        "plate_4x8": 1
+        "brick_2x4": 5,
+        "plate_4x8": 1,
+        "technic_brick_1x6": 1
       },
       "contact_footprint_mm": [
         32.0,
@@ -1118,7 +931,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Green note, same form.",
+      "identification_evidence": "Run preview p48: green, same form.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1140,12 +953,12 @@
       ]
     },
     "note_red": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
-        "cluster_17": 2,
-        "cluster_28": 1,
-        "cluster_8": 5,
-        "plate_4x8": 1
+        "brick_1x6": 2,
+        "brick_2x4": 5,
+        "plate_4x8": 1,
+        "technic_brick_1x2": 1
       },
       "contact_footprint_mm": [
         32.0,
@@ -1156,7 +969,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Red note, same form.",
+      "identification_evidence": "Run preview p56: red, same form.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1178,7 +991,7 @@
       ]
     },
     "note_white": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
         "brick_2x4": 7,
         "plate_4x8": 1
@@ -1192,7 +1005,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "White; same stepped note form as the five coloured notes that follow.",
+      "identification_evidence": "Run preview p17: white, the same stepped note form as the five coloured notes that follow.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1214,7 +1027,7 @@
       ]
     },
     "note_yellow": {
-      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
       "bom_steps": {
         "brick_2x4": 5,
         "plate_4x8": 1
@@ -1228,7 +1041,7 @@
         4
       ],
       "identification_confidence": "high",
-      "identification_evidence": "Yellow note, same form as the other five.",
+      "identification_evidence": "Run preview p34: yellow, same form as the other five.",
       "mass_g": null,
       "max_projection_mm": [
         32.0,
@@ -1248,73 +1061,527 @@
         33,
         39
       ]
+    },
+    "speaker_a": {
+      "bom_steps": {
+        "brick_2x2": 2,
+        "brick_2x4": 3,
+        "technic_brick_1x6": 7,
+        "tile_1x2": 1,
+        "tile_2x4": 1
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "high",
+      "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
+      "mass_g": null,
+      "max_projection_mm": null,
+      "max_projection_studs": null,
+      "needs_measurement": true,
+      "source_pages": [
+        153,
+        166
+      ],
+      "source_steps": [
+        152,
+        165
+      ]
+    },
+    "speaker_b": {
+      "bom_steps": {
+        "brick_2x2": 2,
+        "brick_2x4": 3,
+        "technic_brick_1x6": 7,
+        "tile_1x2": 1,
+        "tile_2x4": 1
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "high",
+      "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
+      "mass_g": null,
+      "max_projection_mm": null,
+      "max_projection_studs": null,
+      "needs_measurement": true,
+      "source_pages": [
+        153,
+        166
+      ],
+      "source_steps": [
+        152,
+        165
+      ]
     }
+  },
+  "parts_inventory": {
+    "crosschecks": [
+      {
+        "against": "callout_pages",
+        "agrees": true,
+        "colour": "White",
+        "lego_id": "3035",
+        "note": "The 4x8 plate. The inventory says 8; the callout extraction finds cluster 4 on\nexactly 8 pages (18, 27, 35, 42, 49, 57, 67, 115) — the second step of the six\nnotes plus mic and guitar. Two independent counts of the same eight parts.",
+        "quantity": 8
+      },
+      {
+        "against": "object_count",
+        "agrees": true,
+        "colour": "Flat Silver",
+        "lego_id": "78c18",
+        "note": "One flexible hose per cable, and S1 says there are 2 cables.",
+        "quantity": 2
+      },
+      {
+        "against": "object_count_times",
+        "agrees": true,
+        "colour": "Red",
+        "lego_id": "3703",
+        "note": "The cable's rigid carrier. 4 bricks over 2 cables = 2 each, which agrees with\nthe page-167 callout quantity of 2x. Two per cable placed side by side gives a\n2x16 carrier, NOT 1x32 end-to-end — the callout shows a single bar width.",
+        "quantity": 4
+      }
+    ],
+    "elements": [
+      {
+        "colour": "Light Bluish Gray",
+        "lego_id": "30000",
+        "name": "Brick 2x2 with pins",
+        "quantity": 5
+      },
+      {
+        "colour": "Black",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 48
+      },
+      {
+        "colour": "Blue",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 44
+      },
+      {
+        "colour": "Green",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 18
+      },
+      {
+        "colour": "Red",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 28
+      },
+      {
+        "colour": "White",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 45
+      },
+      {
+        "colour": "Yellow",
+        "lego_id": "3001",
+        "name": "Brick 2x4",
+        "quantity": 22
+      },
+      {
+        "colour": "Black",
+        "lego_id": "3003",
+        "name": "Brick 2x2",
+        "quantity": 7
+      },
+      {
+        "colour": "Blue",
+        "lego_id": "3003",
+        "name": "Brick 2x2",
+        "quantity": 2
+      },
+      {
+        "colour": "Red",
+        "lego_id": "3003",
+        "name": "Brick 2x2",
+        "quantity": 3
+      },
+      {
+        "colour": "White",
+        "lego_id": "3003",
+        "name": "Brick 2x2",
+        "quantity": 8
+      },
+      {
+        "colour": "Yellow",
+        "lego_id": "3003",
+        "name": "Brick 2x2",
+        "quantity": 3
+      },
+      {
+        "colour": "Blue",
+        "lego_id": "3009",
+        "name": "Brick 1x6",
+        "quantity": 36
+      },
+      {
+        "colour": "Green",
+        "lego_id": "3009",
+        "name": "Brick 1x6",
+        "quantity": 4
+      },
+      {
+        "colour": "Red",
+        "lego_id": "3009",
+        "name": "Brick 1x6",
+        "quantity": 14
+      },
+      {
+        "colour": "White",
+        "lego_id": "3009",
+        "name": "Brick 1x6",
+        "quantity": 26
+      },
+      {
+        "colour": "Light Bluish Gray",
+        "lego_id": "3022",
+        "name": "Plate 2x2",
+        "quantity": 8
+      },
+      {
+        "colour": "White",
+        "lego_id": "3035",
+        "name": "Plate 4x8",
+        "quantity": 8
+      },
+      {
+        "colour": "Black",
+        "lego_id": "3069",
+        "name": "Tile 1x2",
+        "quantity": 24
+      },
+      {
+        "colour": "Red",
+        "lego_id": "3700",
+        "name": "Technic Brick 1x2",
+        "quantity": 6
+      },
+      {
+        "colour": "Red",
+        "lego_id": "3703",
+        "name": "Technic Brick 1x16",
+        "quantity": 4
+      },
+      {
+        "colour": "White",
+        "lego_id": "3830",
+        "name": "Brick 1x2 with a downward pin",
+        "quantity": 2
+      },
+      {
+        "colour": "White",
+        "lego_id": "3831",
+        "name": "Brick 1x2 with a side clip",
+        "quantity": 2
+      },
+      {
+        "colour": "Black",
+        "lego_id": "3894",
+        "name": "Technic Brick 1x6",
+        "quantity": 33
+      },
+      {
+        "colour": "Black",
+        "lego_id": "44865",
+        "name": "Brick 1x2 with a side pin",
+        "quantity": 8
+      },
+      {
+        "colour": "Flat Silver",
+        "lego_id": "78c18",
+        "name": "Flexible hose 18L",
+        "quantity": 2
+      },
+      {
+        "colour": "Black",
+        "lego_id": "87079",
+        "name": "Tile 2x4",
+        "quantity": 16
+      }
+    ],
+    "source_pages": [
+      176,
+      177
+    ],
+    "total_elements": 426
   },
   "provenance": {
     "callout_match_tol": 2.0,
     "object_map": "docs/object_map.toml",
-    "object_map_sha256": "7379d6662d690a256d9be34b67328e8e873a52df24a1d91b6f61a07d3b09a5ce",
+    "object_map_sha256": "797ad6f2da655292c7effe33612d7f2ead9065600214a8d2aca0d4ab15b398d3",
     "object_parts": "docs/object_parts.toml",
-    "object_parts_sha256": "861e60fafc7e2149f21daf078da4e2de6d1c27201519dceccf4b56c607194318",
+    "object_parts_sha256": "38dd78c7f0f4a9a7d644e028cca58af6030585f49afd906ce3e1b8f019df5bcd",
     "s3_sha256": "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a",
+    "shape_agree": 0.95,
+    "shape_slack_px": 8,
     "source": "S3",
     "tool": {
       "name": "build_object_spec",
-      "version": "1.0.0"
+      "version": "2.0.0"
     }
   },
-  "schema_version": 1,
-  "unresolved": [
-    {
-      "callout": "small white brick assembly marked '2x'",
-      "candidates": [
-        "speaker_a",
-        "speaker_b",
-        "amp",
-        "sub_assembly"
-      ],
-      "note": "16 steps is long for a sub-assembly, and '2x' fits the two speakers — but the callout does not resemble a speaker. Needs the parts-callout pass.",
-      "pages": [
+  "schema_version": 2,
+  "scoring_relevance": {
+    "containment_objects_without_a_footprint": [
+      "instrument_keyboard"
+    ],
+    "needs_containment": [
+      "cable_lower",
+      "cable_upper",
+      "instrument_congas",
+      "instrument_guitar",
+      "instrument_keyboard",
+      "mic",
+      "note_black",
+      "note_blue",
+      "note_green",
+      "note_red",
+      "note_white",
+      "note_yellow"
+    ],
+    "note": "S1 scores the clef, the amplifier and the two speakers as 'not damaged or\nmoved' — 10, 10 and 20 points for LEAVING THEM ALONE. Their footprint is\ntherefore not on the scorer's containment path at all, and a missing footprint\nfor the amp or a speaker blocks nothing. This is why part 3 spends its\nmeasurement effort on the cables, keyboard and congas instead.",
+    "scored_by_not_moving": [
+      "amp",
+      "clef",
+      "speaker_a",
+      "speaker_b"
+    ]
+  },
+  "structure": {
+    "build_step_pages": [
+      2,
+      175
+    ],
+    "inventory_pages": [
+      176,
+      177
+    ],
+    "runs": [
+      {
+        "end": 16,
+        "preview_px": [
+          204,
+          385
+        ],
+        "start": 2
+      },
+      {
+        "end": 25,
+        "preview_px": [
+          266,
+          331
+        ],
+        "start": 17
+      },
+      {
+        "end": 33,
+        "preview_px": [
+          260,
+          323
+        ],
+        "start": 26
+      },
+      {
+        "end": 40,
+        "preview_px": [
+          276,
+          313
+        ],
+        "start": 34
+      },
+      {
+        "end": 47,
+        "preview_px": [
+          276,
+          313
+        ],
+        "start": 41
+      },
+      {
+        "end": 55,
+        "preview_px": [
+          270,
+          329
+        ],
+        "start": 48
+      },
+      {
+        "end": 65,
+        "preview_px": [
+          270,
+          329
+        ],
+        "start": 56
+      },
+      {
+        "end": 72,
+        "preview_px": [
+          186,
+          347
+        ],
+        "start": 66
+      },
+      {
+        "end": 88,
+        "preview_px": [
+          294,
+          237
+        ],
+        "start": 73
+      },
+      {
+        "end": 95,
+        "preview_px": [
+          336,
+          337
+        ],
+        "start": 89
+      },
+      {
+        "end": 101,
+        "preview_px": [
+          266,
+          359
+        ],
+        "start": 96
+      },
+      {
+        "end": 113,
+        "preview_px": [
+          292,
+          257
+        ],
+        "start": 102
+      },
+      {
+        "end": 125,
+        "preview_px": [
+          200,
+          359
+        ],
+        "start": 114
+      },
+      {
+        "end": 129,
+        "preview_px": [
+          306,
+          355
+        ],
+        "start": 126
+      },
+      {
+        "end": 131,
+        "preview_px": [
+          330,
+          241
+        ],
+        "start": 130
+      },
+      {
+        "end": 137,
+        "preview_px": [
+          262,
+          275
+        ],
+        "start": 132
+      },
+      {
+        "end": 139,
+        "preview_px": [
+          330,
+          241
+        ],
+        "start": 138
+      },
+      {
+        "end": 152,
+        "preview_px": [
+          262,
+          275
+        ],
+        "start": 140
+      },
+      {
+        "end": 166,
+        "preview_px": [
+          200,
+          399
+        ],
+        "start": 153
+      },
+      {
+        "end": 175,
+        "preview_px": [
+          404,
+          281
+        ],
+        "start": 167
+      }
+    ],
+    "steps": 174
+  },
+  "subassemblies": {
+    "sub_073_mic_arm": {
+      "copies": 2,
+      "evidence": "Preview p73 is a single white 1x4 brick assembly with a 2x multiplier, and the\npage's own render starts a fresh 1x2 brick with a pin — a component, not a\nmodel. Page 72 (uncapped column) and page 88 (capped column) bracket it.",
+      "inside": "mic",
+      "source_pages": [
         73,
         88
-      ],
-      "steps": [
-        72,
-        87
       ]
     },
-    {
-      "callout": "white/grey body, black top, three round dials",
-      "candidates": [
-        "amp"
-      ],
-      "note": "Dials strongly suggest an amplifier, but S1 p6 places the amp on the stage with the speakers and this has not been cross-checked against S1's photo.",
-      "pages": [
+    "sub_096_keyboard_frame": {
+      "copies": 1,
+      "evidence": "Preview p96 is a white/black bracket with Technic 1x6 bars — a sub-frame of the keyboard assembled by page 101.",
+      "inside": "instrument_keyboard",
+      "source_pages": [
         96,
         101
-      ],
-      "steps": [
-        95,
-        100
       ]
     },
-    {
-      "callout": "mixed: parts lists, black sub-assemblies, a dense black grid (p126), a blue block marked '2x' (p153)",
-      "candidates": [
-        "speaker_a",
-        "speaker_b",
-        "amp",
-        "sub_assemblies"
-      ],
-      "note": "This span contains the remaining objects plus many sub-assembly callouts. The p126 dense black grid reads as a speaker grille and p153's '2x' fits a pair, but neither is confirmed.",
-      "pages": [
-        124,
-        166
-      ],
-      "steps": [
-        123,
-        165
+    "sub_130_amp_side": {
+      "copies": 1,
+      "evidence": "Preview p130, box 330x241 px. Byte-identical to the p138 preview: the same side built twice.",
+      "inside": "amp",
+      "source_pages": [
+        130,
+        131
+      ]
+    },
+    "sub_132_amp_stack": {
+      "copies": 1,
+      "evidence": "Preview p132, box 262x275 px. Byte-identical to the p140 preview.",
+      "inside": "amp",
+      "source_pages": [
+        132,
+        137
+      ]
+    },
+    "sub_138_amp_side": {
+      "copies": 1,
+      "evidence": "Preview p138, box 330x241 px — the second copy of sub_130_amp_side.",
+      "inside": "amp",
+      "source_pages": [
+        138,
+        139
+      ]
+    },
+    "sub_140_amp_stack": {
+      "copies": 1,
+      "evidence": "Preview p140, box 262x275 px — the second copy of sub_132_amp_stack. The run continues past the sub-assembly to finish the cabinet, which is why it is 13 pages rather than 6.",
+      "inside": "amp",
+      "source_pages": [
+        140,
+        152
       ]
     }
-  ]
+  },
+  "unresolved": []
 }

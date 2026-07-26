@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-25` · **S4 and S6 acquired — phase 5 CLOSED.**
+`last_reviewed: 2026-07-26` · **Phase 4 CLOSED — all 16 objects mapped, zero unresolved spans.**
 
 ## 0 · At a glance
 
@@ -9,12 +9,13 @@ flowchart TD
     P0["0 · Extraction toolchain<br/>DONE — S2 confirmed VECTOR"] --> P1["1 · Human review gate<br/>DONE — cleared 2026-07-25"]
     P1 --> P2["2 · field_spec.json<br/>DONE — S5 frozen"]
     P1 --> P3["3 · Scoring model<br/>DONE"]
-    P1 --> P4["4 · Game-object spec from S3"]
-    P2 --> P6["6 · Simulator<br/>needs 2 + 3 + 4"]
+    P1 --> P4["4 · Game-object spec from S3<br/>DONE — 16 of 16 mapped"]
+    P2 --> P6["6 · Simulator<br/>READY — all 3 inputs landed"]
     P3 --> P6
     P4 --> P6
-    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>needs 4 + 5"]
+    P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>chassis READY, manipulator waits on mass"]
     P4 --> P7
+    SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
     P6 --> P8["8 · Strategy selection<br/>needs 5 + 6 + 7"]
     P7 --> P8
     P5 --> P8
@@ -27,9 +28,10 @@ flowchart TD
     classDef decision fill:#fde0e0,stroke:#d05555,color:#8f2e2e
     classDef goal     fill:#ede0fb,stroke:#8a5cd8,color:#4d2e8f
 
-    class P0,P1,P2,P3,P5 done
-    class P4 ready
-    class P4,P6,P7,P8 blocked
+    class P0,P1,P2,P3,P4,P5 done
+    class P6,P7 ready
+    class SETS decision
+    class P8 blocked
     class P9 goal
 ```
 
@@ -39,18 +41,20 @@ flowchart TD
 | **1 · Human review gate** | ✅ DONE | extraction accepted 2026-07-25 | — |
 | **2 · `field_spec.json`** | ✅ **DONE** | **S5 built** by `tools/build_field_spec.py` from `docs/area_map.toml` — no hand-written coordinates. 17 areas (10 scoring), 6 note starts, 17 object start poses. Full-chain determinism verified. | — |
 | **3 · Scoring model (S1)** | ✅ **DONE** | `data/scoring_model.json` — missions, predicates, time rules, randomization. Maxima sum to 255 and `max == each × count` per rule, both tested. | — |
-| **4 · Object spec (S3)** | 🟡 **IN PROGRESS — part 2 done** | `data/object_spec.json`: footprints for **9 of 13** objects (6 notes, mic, guitar at 4×4 contact / 4×8 silhouette; clef 4×6). Method: the 152 per-step parts callouts, clustered into **45 distinct parts**. **A7 CLOSED** — 23.85 mm slack on the contact reading, 7.85 mm on the silhouette; both positive. Pending: cables, keyboard, congas footprints; `amp`/`speaker_a`/`speaker_b` still in 3 unresolved page spans; mass needs the physical sets | none technical — but 30 bonus + 30 cable points ride on the pending objects |
+| **4 · Object spec (S3)** | ✅ **DONE** | `data/object_spec.json`: **all 16 objects mapped, no unresolved spans.** Boundaries re-derived from the cream **run-preview box** (ADR-019), which corrected three of part 1's page ranges and its step count. Contact footprints for every object on a containment path except the keyboard, which is **bounded** at ≤ 56 × 56 mm. **Cables measured at 128.0 mm — they do not fit across their 114.47 mm target area, so placement orientation is forced.** Parts inventory (pp. 176–177) gives canonical LEGO ids, cross-checked against the extraction | — |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
-| **6 · Simulator** | ⬜ BLOCKED | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). **Parameter acquisition can run in PARALLEL with phase 4** — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs phase 4's objects | needs 2 **AND** 3 **AND** 4 |
-| **7 · Robot design** | 🔵 **PARTIALLY UNBLOCKED** | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited**. A final **chassis** is permitted now; a final **manipulator** is not | chassis is designable NOW (A6 closed, placement tolerance known); the **manipulator** still needs the pending object footprints |
+| **6 · Simulator** | 🔵 **READY** | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). All three inputs (2, 3, 4) have landed. Parameter acquisition still runs in parallel — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs the physical sets. **Does not block on mass**: `completely_in` consumes the footprint | — nothing; buildable now |
+| **7 · Robot design** | 🔵 **READY (chassis) / ⏸ manipulator** | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited**. Geometry is no longer the gate — the manipulator now needs **mass and grip points**, which no building instruction contains | the **physical sets**, not analysis |
+| **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`) and field test **P5** | operator action |
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor** | needs 6 AND 7 |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
-> **Phases 0, 1, 2, 3 and 5 are DONE.** Both original bottlenecks are cleared. S4 and S6 are in hand and the review gate has
-> passed. The single remaining blocker is a **sign-off on three schema decisions**
-> (ADR-013/014/015) whose consequences outlive this session — they are otherwise decided
-> implicitly by whoever writes the builder. Phase 4 is now the cheapest it will ever be
-> (count studs, do not measure rasters) and is **READY with nothing blocking it**.
+> **Every analysis phase is now DONE (0–5).** Phase 6 is unblocked outright and phase 7's chassis
+> with it. **The bottleneck has moved out of the repo and into the physical world**: the only
+> thing standing between here and a final manipulator is `mass_g`, which is `null` for all 16
+> objects because mass cannot be derived from a building instruction. That single gap also
+> blocks field test P5. **Acquiring sets 45811 and 45819 is now the highest-leverage action
+> available, and it is an operator action, not an engineering one.**
 
 ### Why these edges
 
@@ -60,7 +64,8 @@ Drawn from stated constraints, not assumed ordering:
 |---|---|---|
 | **Fork** | 1 → {2, 3, 4} | geometry, scoring rules and object specs come from three *different* sources (S2 / S1 / S3) and never read each other |
 | **Join** | {2, 3, 4} → 6 | a simulator needs field geometry **and** a scoring model **and** object mass/dimensions |
-| **Join** | {4, 5} → 7 | gripper design needs object dimensions (S3) **and** robot limits (S4); `CLAUDE.md` A6 |
+| **Join** | {4, 5, S} → 7 | gripper design needs object dimensions (S3) **and** robot limits (S4) **and** object mass, which only the physical sets provide; `CLAUDE.md` A6 |
+| **Independent root** | S | procurement is operator work — it waits on nothing in this repo, and nothing in this repo can substitute for it |
 | **Join** | {5, 6, 7} → 8 | `CLAUDE.md` §5.7 anti-pattern #3; A3/A4/A5 change scoring at time-out, so strategy conclusions are provisional until S4 lands |
 | **Independent root** | 5 | S4 acquisition is external/operator work — it waits on nothing in this repo |
 | **Gate** | 0 → 1 | session brief §6: extraction quality must be human-reviewed before geometry is frozen |
@@ -118,7 +123,7 @@ same commit.
 Turn `CLAUDE.md` §5.6 into machine-readable rules, including the 4! = 24 note permutations
 and 50 % partial credit on every mission.
 
-### Phase 4 — Game-object spec from S3 🔵 READY — re-scoped
+### Phase 4 — Game-object spec from S3 ✅ DONE (2026-07-26)
 
 S4 §7.4: the 2026 game elements are built from the **WRO Brick Set (45811)** and **Expansion
 Set (45819)**. They are therefore LEGO System/Technic, whose geometry is a known constant —
@@ -132,6 +137,38 @@ than the extraction report assumed.
 (note start square 1.0u · target inner 1.5u · target outer 2.5u · grey border 0.5u ·
 mic target 2.5 × 3.0u · cable area 2.5 × 6.5u). `ASSUME:` u ≈ 4 studs (32.0 mm, 0.31 % under,
 consistently).
+
+**Delivered** across three parts — `docs/object_map.toml` + `docs/object_parts.toml`
+(judgement) → `tools/build_object_spec.py` → `data/object_spec.json` (derived, deterministic):
+
+| | |
+|---|---|
+| objects mapped | **16 of 16**, zero unresolved spans |
+| boundary signal | the cream **run-preview** box `(255,245,218)`, 20 pages — ADR-019 |
+| sub-assemblies | 6, in their own table and never in `objects` — ADR-018 |
+| parts inventory | pp. 176–177, canonical LEGO ids, 426 elements, 3 cross-checks enforced by the builder |
+| A7 | **CLOSED** against three independent sources |
+| cable | **128.0 mm; orientation forced** — see `docs/PHASE7_CONSTRAINTS.md` §7 |
+
+**What part 3 corrected in parts 1 and 2.** The lesson is worth more than the corrections:
+part 1's boundary signal was the *parts callout*, and its caveat that the signal "degrades
+after page 124" read as a limitation of the source when it was a limitation of the signal.
+A better signal was present in S3 the whole time and had simply never been looked for.
+
+| Fact | was | is | caught by |
+|---|---|---|---|
+| `instrument_guitar` | 114–123 | **114–125** | p124 still shows the guitar mid-build |
+| `cable` | 167–172 | **167–175** | no run preview after 167 |
+| `mic` | 66–72 + unresolved 73–88 | **66–88** | p72 uncapped column, p88 capped |
+| `instrument_keyboard` | 89–95 + unresolved 96–101 | **89–101** | p101 shows it assembled |
+| build steps | 176 (pp. 2–177) | **174 (pp. 2–175)** | pp. 176–177 are the inventory |
+
+The step-count error is the instructive one: part 1 *verified* it with a digit census that
+happened to count the inventory pages' `24x`/`3003` labels as step numbers. **A cross-check
+can agree with a wrong answer if it measures the wrong thing.**
+
+**Still open, and not solvable from S3:** `mass_g` is `null` for all 16 objects. Mass does not
+appear in a building instruction. See the `S` node — this is now the project's real bottleneck.
 
 ### Phase 5 — S4 + S6 ✅ DONE (2026-07-25)
 
@@ -158,14 +195,23 @@ header (a render/cache timestamp that moved to July while the content field stay
 **Still open at national scope:** `NEEDS-VERIFY(NO-TH)` — S4 §4.3/§5.2 let National Organizers
 change robot limits. A6 is closed internationally, not locally.
 
-### Phase 6 — Simulator ⬜
+### Phase 6 — Simulator 🔵 READY
 
 Run/score simulation over the frozen field spec. Exposes `moved_semantics` (A1) and
 `upright_tolerance_deg` (A2) as parameters rather than baking in either reading.
 
-### Phase 7 — Robot design ⬜
+**All three inputs have landed** (phases 2, 3, 4), so this is buildable now. It does *not*
+wait on mass: `completely_in` consumes the footprint, and every object on a containment path
+has one — with `instrument_keyboard` carrying an explicit upper bound rather than a value, so
+the scorer can treat it conservatively instead of guessing.
 
-Drivetrain, gripper, sensor layout. **A6 forbids a final design before S4 is in hand.**
+### Phase 7 — Robot design 🔵 chassis READY · manipulator waiting
+
+Drivetrain, gripper, sensor layout. **A6 forbids a final design before S4 is in hand** — S4 is
+in hand, so the chassis is designable now against `docs/PHASE7_CONSTRAINTS.md`.
+
+The manipulator's gate has **moved rather than opened**. Geometry is no longer missing; mass
+and grip points are, and neither comes from a document. The `S` node is the blocker.
 
 ### Phase 8 — Strategy selection ⬜
 

@@ -1,10 +1,11 @@
-"""Invariants on docs/object_map.toml (Phase 4, part 1).
+"""Invariants on docs/object_map.toml (Phase 4, part 3).
 
-This file records **which S3 pages build which object**, and — since part 2 —
-each model's base extents. The tests guard that a dimension never appears without
-the method that produced it, that both the contact and silhouette readings are
-kept (they give different A7 slack), and that unresolved models stay unresolved
-rather than drifting into a canonical ID.
+This file records **which S3 pages build which object**. Part 3 re-derived every
+boundary from the cream run-preview box, which resolved all three of part 1's
+unresolved spans and corrected three of its ranges. The tests below guard the
+things that were actually got wrong: a range that stops short of its model, a
+step count inflated by counting inventory pages, and a sub-assembly promoted to
+an object.
 """
 
 from __future__ import annotations
@@ -25,6 +26,10 @@ S3_BUILDABLE_OBJECTS = {
     "note_red", "note_blue", "note_green", "note_yellow", "note_white", "note_black",
     "clef", "amp", "speaker_a", "speaker_b",
 }
+
+FIRST_STEP_PAGE = 2
+LAST_STEP_PAGE = 175
+INVENTORY_PAGES = [176, 177]
 
 
 @pytest.fixture(scope="module")
@@ -48,26 +53,82 @@ def test_lego_constants_are_the_s4_derived_ones(omap: dict):
     assert meta["brick_mm"] == 9.6
 
 
+# --------------------------------------------------------------------------- #
+# The step count — part 1 over-counted by two
+# --------------------------------------------------------------------------- #
+
+
+def test_the_last_two_pages_are_inventory_not_build_steps(omap: dict):
+    """Pages 176-177 carry no step numeral; they are the parts inventory."""
+    s = omap["structure"]
+    assert s["first_step_page"] == FIRST_STEP_PAGE
+    assert s["last_step_page"] == LAST_STEP_PAGE
+    assert s["steps"] == LAST_STEP_PAGE - FIRST_STEP_PAGE + 1 == 174
+    assert omap["meta"]["inventory_pages"] == "176..177"
+
+
 def test_step_numbering_is_recorded_as_continuous(omap: dict):
-    """The planned boundary signal does not exist; the record must say so."""
+    """The planned per-model reset does not exist; the record must say so."""
     s = omap["structure"]
     assert s["step_numbering"] == "continuous"
     assert s["resets"] is False
 
 
-def test_every_model_page_range_is_inside_the_build_pages(omap: dict):
+def test_the_boundary_signal_is_the_run_preview_not_the_callout(omap: dict):
+    s = omap["structure"]
+    assert "255,245,218" in s["boundary_signal"]
+    assert "RUN-PREVIEW" in s["boundary_signal"].upper()
+    # and the caveat must still say a run is not always a model
+    assert "not always a model" in s["boundary_caveat"]
+
+
+def test_every_part_1_correction_is_recorded(omap: dict):
+    """The superseded values stay on the record rather than being overwritten."""
+    sup = omap["superseded"]
+    for key in ("step_count", "instrument_guitar", "cable", "mic",
+                "instrument_keyboard", "unresolved_spans"):
+        assert sup[key].strip(), key
+    assert "114-123" in sup["instrument_guitar"]   # what it used to say
+    assert "167-172" in sup["cable"]
+    assert "66-72" in sup["mic"]
+
+
+# --------------------------------------------------------------------------- #
+# The map itself
+# --------------------------------------------------------------------------- #
+
+
+def test_models_tile_the_build_steps_with_no_gap_or_overlap(omap: dict):
+    spans = sorted(tuple(m["pages"]) for m in omap["models"])
+    assert spans[0][0] == FIRST_STEP_PAGE
+    assert spans[-1][1] == LAST_STEP_PAGE
+    for (_a_lo, a_hi), (b_lo, _b_hi) in zip(spans, spans[1:]):
+        assert a_hi + 1 == b_lo, f"gap or overlap at {a_hi}/{b_lo}"
+
+
+def test_every_model_page_range_is_inside_the_build_steps(omap: dict):
     for m in omap["models"]:
         lo, hi = m["pages"]
-        assert 2 <= lo <= hi <= 177, m["id"]
+        assert FIRST_STEP_PAGE <= lo <= hi <= LAST_STEP_PAGE, m["id"]
         assert m["steps"] == [lo - 1, hi - 1], f"{m['id']}: steps must be page-1"
 
 
-def test_model_and_unresolved_ranges_do_not_overlap(omap: dict):
-    spans = [tuple(m["pages"]) for m in omap["models"]]
-    spans += [tuple(u["pages"]) for u in omap["unresolved"]]
-    spans.sort()
-    for (a_lo, a_hi), (b_lo, b_hi) in zip(spans, spans[1:]):
-        assert a_hi < b_lo, f"page ranges overlap: {(a_lo,a_hi)} and {(b_lo,b_hi)}"
+def test_the_guitar_includes_page_124(omap: dict):
+    """The defect that proved part 1's ranges were provisional.
+
+    Page 124 (step 123) still shows the guitar mid-build — red body, yellow
+    neck — so a range ending at 123 cut a model in half.
+    """
+    guitar = next(m for m in omap["models"] if m["id"] == "instrument_guitar")
+    assert guitar["pages"] == [114, 125]
+    assert guitar["pages"][0] <= 124 <= guitar["pages"][1]
+
+
+def test_the_mic_and_keyboard_absorb_part_1s_unresolved_spans(omap: dict):
+    mic = next(m for m in omap["models"] if m["id"] == "mic")
+    kbd = next(m for m in omap["models"] if m["id"] == "instrument_keyboard")
+    assert mic["pages"] == [66, 88]      # was 66-72 with 73-88 unresolved
+    assert kbd["pages"] == [89, 101]     # was 89-95 with 96-101 unresolved
 
 
 def test_every_model_id_is_a_frozen_canonical_id(omap: dict):
@@ -83,29 +144,33 @@ def test_every_model_carries_identification_evidence(omap: dict):
         assert m["confidence"] in {"high", "medium", "low"}, m["id"]
 
 
-def test_all_six_notes_and_the_clef_are_identified(omap: dict):
-    """The notes carry 120 of 255 points; the clef is a bonus object."""
-    ids = {m["id"] for m in omap["models"]}
-    for colour in ("red", "blue", "green", "yellow", "white", "black"):
-        assert f"note_{colour}" in ids
-    assert "clef" in ids
-
-
-def test_unresolved_models_are_not_assigned_a_canonical_id(omap: dict):
-    """Same discipline as unassigned_marker_{1..4}: an empty slot beats a wrong one."""
-    for u in omap["unresolved"]:
-        assert "id" not in u, f"unresolved span {u['pages']} must not claim an ID"
-        assert u["candidates"] and u["note"].strip()
-
-
-def test_objects_not_yet_identified_are_accounted_for(omap: dict):
-    """Whatever is missing must be listed as a candidate somewhere, not forgotten."""
+def test_all_sixteen_objects_are_mapped_and_nothing_is_unresolved(omap: dict):
+    """The headline result of part 3: no span is left unexplained."""
     identified = set()
     for m in omap["models"]:
         identified.update(m.get("instances", [m["id"]]))
-    missing = S3_BUILDABLE_OBJECTS - identified
-    candidates = {c for u in omap["unresolved"] for c in u["candidates"]}
-    assert missing <= candidates, f"unaccounted objects: {sorted(missing - candidates)}"
+    assert identified == S3_BUILDABLE_OBJECTS
+    assert "unresolved" not in omap, "part 3 closed every unresolved span"
+
+
+# --------------------------------------------------------------------------- #
+# ADR-018 — sub-assemblies are not objects
+# --------------------------------------------------------------------------- #
+
+
+def test_subassemblies_never_claim_a_canonical_id(omap: dict):
+    for s in omap["subassemblies"]:
+        assert s["id"] not in S3_BUILDABLE_OBJECTS, s["id"]
+        assert s["evidence"].strip(), s["id"]
+
+
+def test_every_subassembly_sits_inside_the_model_it_names(omap: dict):
+    models = {m["id"]: m["pages"] for m in omap["models"]}
+    for s in omap["subassemblies"]:
+        lo, hi = s["pages"]
+        parent = models[s["inside"]]
+        assert parent[0] <= lo and hi <= parent[1], \
+            f"{s['id']} {s['pages']} escapes {s['inside']} {parent}"
 
 
 # --------------------------------------------------------------------------- #
@@ -113,13 +178,12 @@ def test_objects_not_yet_identified_are_accounted_for(omap: dict):
 # --------------------------------------------------------------------------- #
 
 
-def test_dimensions_record_the_method_that_produced_them(omap: dict):
-    """A footprint must arrive with its method, including the rejected one."""
+def test_dimensions_record_the_method_and_its_calibration(omap: dict):
     dims = omap["dimensions"]
-    assert dims["status"] == "done_for_9_of_13"
     assert dims["rejected_because"].strip()
     assert dims["method_used"].strip()
-    assert dims["automatic_stud_count_coverage"].strip()
+    assert dims["stud_count_coverage"].strip()
+    assert "31 of 31" in dims["shape_transfer_calibration"]
 
 
 def test_every_base_carries_evidence_and_both_extents(omap: dict):
@@ -134,8 +198,69 @@ def test_every_base_carries_evidence_and_both_extents(omap: dict):
         assert isinstance(base["overhang_height_mm"], float), m["id"]
 
 
+def test_a_pending_footprint_says_WHY_and_bounds_itself(omap: dict):
+    """An unmeasured footprint must name its failure mode, not just be absent."""
+    for m in omap["models"]:
+        pending = m.get("footprint_pending")
+        if pending is None:
+            continue
+        assert pending["reason"] == "open_frame"
+        assert pending["fitted_extent_is_a_bound"] is True
+        assert "UPPER BOUND" in pending["bound_note"]
+        # the distinction from the note base's failure mode must be explicit
+        assert "occlusion" in pending["why_the_self_check_cannot_apply"]
+
+
+def test_scoring_relevance_partitions_all_sixteen_objects(omap: dict):
+    """S1 scores four objects for NOT moving; they need no containment footprint."""
+    s = omap["scoring_relevance"]
+    both = set(s["needs_containment"]) | set(s["scored_by_not_moving"])
+    assert both == S3_BUILDABLE_OBJECTS
+    assert not set(s["needs_containment"]) & set(s["scored_by_not_moving"])
+    assert set(s["scored_by_not_moving"]) == {"clef", "amp", "speaker_a", "speaker_b"}
+
+
+def test_congas_pair_separation_is_not_invented(omap: dict):
+    pair = omap["congas_pair_extent"]
+    assert pair["pair_separation"] == "NOT MEASURED"
+    assert pair["per_drum_contact_mm"] == [32.0, 32.0]
+    assert "393.809" in pair["blocks_nothing_because"]
+
+
+# --------------------------------------------------------------------------- #
+# The cable orientation constraint
+# --------------------------------------------------------------------------- #
+
+
+def test_cable_orientation_arithmetic_is_self_consistent(omap: dict):
+    c = omap["cable_orientation"]
+    assert c["cable_length_mm"] == c["cable_length_studs"] * omap["meta"]["stud_pitch_mm"]
+    assert c["fits_along_y"] is True
+    assert c["fits_along_x"] is False
+    assert c["slack_per_end_along_y_mm"] == pytest.approx(
+        (c["area_y_extent_mm"] - c["cable_length_mm"]) / 2, abs=0.01)
+    assert c["deficit_along_x_mm"] == pytest.approx(
+        c["area_x_extent_mm"] - c["cable_length_mm"], abs=0.01)
+    assert c["deficit_along_x_mm"] < 0, "the whole point: it does NOT fit across"
+
+
+def test_cable_orientation_numbers_agree_with_field_spec(omap: dict):
+    """Cross-source: the area figures must come from S5, not be retyped."""
+    import json
+    spec = json.loads(FIELD_SPEC.read_text())
+    c = omap["cable_orientation"]
+    for area in ("cable_area_upper", "cable_area_lower"):
+        b = spec["areas"][area]["bbox_mm"]
+        assert c["area_x_extent_mm"] == pytest.approx(b[2] - b[0], abs=0.01), area
+        assert c["area_y_extent_mm"] == pytest.approx(b[3] - b[1], abs=0.01), area
+
+
+# --------------------------------------------------------------------------- #
+# A7 — unchanged by part 3, and still cross-checked against S5
+# --------------------------------------------------------------------------- #
+
+
 def test_a7_inference_is_kept_but_marked_superseded(omap: dict):
-    """The superseded value stays on the record; the measurement supersedes it."""
     assert "inference" in omap["a7_inference"]["confidence"].lower()
     a7m = omap["a7_measurement"]
     assert a7m["confidence"] == "MEASURED(S3)"
