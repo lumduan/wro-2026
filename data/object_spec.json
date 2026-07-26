@@ -1,15 +1,29 @@
 {
   "cable_orientation": {
-    "area_x_extent_mm": 114.47,
-    "area_y_extent_mm": 217.89,
+    "area_angle_lower_deg": 100.0,
+    "area_angle_upper_deg": 80.0,
+    "area_long_axis_mm": 207.201,
+    "area_short_axis_mm": 79.7,
+    "areas_are_axis_aligned": false,
+    "binding_slack_mm": 31.85,
     "cable_length_mm": 128.0,
     "cable_length_studs": 16,
+    "cable_width_mm": 16.0,
     "confidence": "MEASURED(S3) x MEASURED(S2)",
-    "deficit_along_x_mm": -13.53,
-    "finding": "The cable is 128.0 mm long (2x Technic Brick 1x16). The grey cable areas are\n114.47 x 217.89 mm each (cable_area_upper and cable_area_lower in\ndata/field_spec.json, both identical). 128.0 > 114.47, so the cable CANNOT lie\nacross the short axis of its target area — it is 13.53 mm too long.\n\nThe cable's placement orientation is therefore FORCED: long axis along the mat's\nY axis, with 44.94 mm of slack at each end. This is worth 30 points (15 per\ncable, 'completely in the grey area and upright') and it constrains the\nmanipulator, not just the strategy.",
-    "fits_along_x": false,
-    "fits_along_y": true,
-    "slack_per_end_along_y_mm": 44.94
+    "correction_2026_07_27": {
+      "direction_of_error": "The conclusion survives and strengthens: the orientation was already called\nforced, and the true deficit is 48.3 mm rather than 13.5 mm. But the slack was\nOVERSTATED (44.94 against 31.85 binding), which is the dangerous direction for a\ntolerance figure, and the required mirrored headings were missed entirely.",
+      "guard": "sim/geometry.min_area_rect recovers a rectangle's own axes, and the scorer aims\nevery placement using it. tests/test_scoring.py asserts that the cable areas are\nNOT axis-aligned, so this specific substitution cannot silently return.",
+      "now": "The area is 79.700 x 207.201 mm at 80/100 deg. Slack 39.600 per end along its\nlong axis, 31.850 per side across, deficit -48.300, and the cable laid at\n-10 deg (upper) / +10 deg (lower) in the object frame.",
+      "root_cause": "bbox_mm was read as though it were the area. It is not: for a ROTATED rectangle\nthe axis-aligned bounding box is strictly larger. 114.47 x 217.89 is the bbox;\nthe area is 79.700 x 207.201. Every other scoring area happens to be\naxis-aligned, so the substitution is invisible on nine of ten areas and wrong on\nthe tenth.\n\nThe data said so and was not read: field_spec records area_mm2 = 16513.822 for\ncable_area_upper, against a bounding-box area of 24941.9 mm2 — a 34% gap that\nonly a rotated shape produces. The roadmap ALSO already recorded the cable area\nas 2.5 x 6.5 design units = 79.75 x 207.35 mm, which agrees with the polygon and\ncontradicts the bbox reading. Two independent records were right and the derived\nnumber was wrong, because it came from a convenience field rather than the\ngeometry.",
+      "supersedes": "the figures committed in ab07e75 (Phase 4 part 3)",
+      "was": "area_x_extent_mm = 114.47, area_y_extent_mm = 217.89, slack 44.94 per end,\ndeficit -13.53, and the cable laid along the mat's Y axis."
+    },
+    "deficit_across_short_axis_mm": -48.3,
+    "finding": "The cable is 128.0 mm long (2x Technic Brick 1x16). Each grey cable area is a\n79.700 x 207.201 mm rectangle — and it is TILTED: cable_area_upper's long axis\nlies at 80 deg, cable_area_lower's at 100 deg. They mirror each other about the\nhorizontal.\n\n128.0 > 79.700, so the cable cannot lie across its area's short axis: it is\n48.300 mm too long. The placement orientation is FORCED, and the two cables need\nDIFFERENT, mirrored headings — a robot that places both identically gets one\nwrong. Worth 30 points (15 per cable, 'completely in the grey area and upright'),\nand it constrains the manipulator, not just the strategy: the gripper must be\nable to set yaw, and to set it to two different values.",
+    "fits_across_short_axis": false,
+    "fits_along_long_axis": true,
+    "slack_per_end_along_long_axis_mm": 39.6,
+    "slack_per_side_across_short_axis_mm": 31.85
   },
   "callout_inventory": {
     "build_pages": 174,
@@ -1315,7 +1329,7 @@
   "provenance": {
     "callout_match_tol": 2.0,
     "object_map": "docs/object_map.toml",
-    "object_map_sha256": "797ad6f2da655292c7effe33612d7f2ead9065600214a8d2aca0d4ab15b398d3",
+    "object_map_sha256": "3cd0dcb497a3bac2fd6c65faaebe4c6201ec08a5fc5f2b9a97b35a28ebcdf1e8",
     "object_parts": "docs/object_parts.toml",
     "object_parts_sha256": "38dd78c7f0f4a9a7d644e028cca58af6030585f49afd906ce3e1b8f019df5bcd",
     "s3_sha256": "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a",

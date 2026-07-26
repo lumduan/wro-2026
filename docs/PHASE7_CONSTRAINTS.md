@@ -156,46 +156,96 @@ Combined with the start-area result in §2 — zero placement slack there — th
 accurate to a few millimetres at both ends of every note run. That is a **gripper and odometry
 requirement**, and field tests P2 and P3 are what will say whether it is met.
 
-### The cable's orientation is forced, not chosen
+### The cable's orientation is forced, and the two cables differ
 
-`MEASURED(S3) × MEASURED(S2)`, 2026-07-26. The single hardest placement constraint on the
-field, and it is not about tolerance — it is about whether the object fits at all.
+`MEASURED(S3) × MEASURED(S2)`, corrected 2026-07-27. The single hardest placement constraint on
+the field, and it is not about tolerance — it is about whether the object fits at all.
+
+> **Corrected.** The figures first published here on 2026-07-26 read `bbox_mm` as if it were the
+> area. The two cable areas are **rotated**, so their bounding box is much larger than the area
+> itself; the slack was overstated by 13.09 mm and the mirrored headings were missed entirely.
+> Superseded values and root cause are in `docs/object_map.toml`
+> `[cable_orientation.correction_2026_07_27]`.
 
 | | value | source |
 |---|---|---|
 | cable length | **128.0 mm** (2 × Technic Brick 1×16, part 3703) | S3 p167 callout + p177 inventory |
-| cable area, across (mat X) | 114.47 mm | `cable_area_upper` / `_lower`, S5 |
-| cable area, along (mat Y) | 217.89 mm | same |
+| cable width | 16.0 mm | same |
+| cable area rectangle | **79.700 × 207.201 mm** | `polygon_visible_mm`, S5 |
+| `cable_area_upper` long axis | **80°** | same |
+| `cable_area_lower` long axis | **100°** | same |
 
 ```
-              mat X: 114.47 mm
-        ├───────────────────────┤
-   ┌────┴───────────────────────┴────┐  ─┬─
-   │                                 │   │
-   │   cable 128.0 mm ───────────►   │   │  mat Y: 217.89 mm
-   │            (fits, 44.94 mm      │   │
-   │             slack per end)      │   │
-   └─────────────────────────────────┘  ─┴─
-        ◄──── 128.0 mm does NOT fit ────►
-              short by 13.53 mm
+   cable_area_upper, tilted 80 deg          cable_area_lower, tilted 100 deg
+        ╱‾‾‾‾‾‾‾‾‾‾╲                             ╱‾‾‾‾‾‾‾‾‾‾╲
+       ╱  ║ cable ║ ╲                           ╱ ║ cable ║  ╲
+      ╱   ║ 128mm ║  ╲   207.201 mm            ╱  ║ 128mm ║   ╲
+     ╱    ║       ║   ╲  long axis            ╱   ║       ║    ╲
+    ╲     ║       ║    ╱                     ╲    ║       ║     ╱
+     ╲    ║       ║   ╱                       ╲   ║       ║    ╱
+      ╲___╚═══════╝__╱                         ╲__╚═══════╝___╱
+       ◄── 79.700 ──►                           ◄── 79.700 ──►
+        short axis                               short axis
+   object heading -10 deg                   object heading +10 deg
 ```
 
-**The cable cannot lie across its target area.** It is 13.53 mm too long. Every legal
-placement therefore has the cable's long axis along mat **Y**, with 44.94 mm of slack at each
-end. Worth **30 points** (15 per cable, "completely in the grey area **and upright**", S1 §3.1).
+**The cable cannot lie across its area's short axis.** 128.0 mm into 79.700 mm is short by
+**48.300 mm** — not a low probability, an impossibility. Worth **30 points** (15 per cable,
+"completely in the grey area **and upright**", S1 §3.1).
+
+| axis | extent | cable | slack |
+|---|---|---|---|
+| along the long axis | 207.201 mm | 128.0 mm | 39.600 mm per end |
+| across the short axis | 79.700 mm | 16.0 mm | **31.850 mm per side** ← binding |
 
 Consequences for the design, not just the strategy:
 
-1. The manipulator must be able to **set the cable's yaw**, or the robot must approach each
-   grey area on a heading that already aligns it. A gripper that cannot control rotation makes
-   30 points a coin flip.
-2. Both grey areas sit at the mat's left edge (x 19.8 → 134.3 mm) and are **identical in size**,
-   so one solution serves both.
-3. The 44.94 mm end slack is generous compared with the note target's 7.85 mm — along-axis
-   accuracy is not the problem here. **Rotation is.**
+1. The manipulator must be able to **set the cable's yaw**. A gripper that cannot control
+   rotation makes 30 points a coin flip.
+2. **It must set it to two different values.** The areas tilt in *opposite* directions — 80° and
+   100°, mirrored about the vertical. A robot that places both cables identically gets one
+   wrong. This is the consequence that the bounding-box reading hid completely.
+3. Both areas are the same size and sit at the mat's left edge, so one *mechanism* serves both —
+   but not one *heading*.
+4. Binding slack is 31.850 mm, generous next to the note target's 7.85 mm. **Along-axis accuracy
+   is not the problem here. Rotation is.**
 
-Asserted in `tests/test_object_spec.py::test_the_cable_cannot_lie_across_its_target_area`, so a
-future change to either measurement breaks the build rather than the strategy.
+Asserted in `tests/test_object_spec.py` (`test_the_cable_cannot_lie_across_its_target_area`,
+`test_the_two_cable_areas_need_mirrored_headings`) and in `tests/test_scoring.py`, all measured
+from the polygon rather than the bounding box.
+
+---
+
+## 7b · Required placement accuracy — `data/placement_sensitivity.json`
+
+`MEASURED(sim)`, 2026-07-27. Slack says whether a placement *can* succeed; this says how
+accurately it must be made. σ is the standard deviation of placement error in x and y.
+
+| placement | binding slack | σ for P ≥ 90 % | σ for P ≥ 99 % |
+|---|---:|---:|---:|
+| notes — **contact** reading | 23.85 mm | 11.2–11.4 mm | 7.8–7.9 mm |
+| notes — **silhouette** reading | 7.85 mm | **4.3–4.4 mm** | **2.7–3.0 mm** |
+| microphone — contact | 23.85 mm | 12.5 mm | 8.6 mm |
+| microphone — silhouette | 15.80 mm | 8.5 mm | 5.4 mm |
+| cable, correctly oriented | 31.85 mm | 14.1–14.5 mm | 9.3–9.8 mm |
+| cable, across the area | −24.15 mm | **never** | **never** |
+| instruments (backstage) | 82.45 mm | > 45 mm | ~32 mm |
+
+4,000 samples per cell, seed 20260726, both A7 readings swept. Each row is
+cross-checked against the closed-form slack computed in the target area's own frame.
+
+**A7 is not academic — it costs a factor of 2.6 in required accuracy.** The register records
+that A7 "holds under either reading, so nothing is blocked". True for *feasibility*, and
+misleading for *design*: the notes carry 120 of 255 points, and resolving A7 to the silhouette
+reading tightens their requirement from ~11 mm to ~4.4 mm. That is the difference between a
+forgiving gripper and a precise one. **This raises the value of submitting A7 to the official
+Q&A above every other open question.**
+
+The instruments are the opposite case: backstage is so large that placement accuracy is
+irrelevant to them. Any effort spent making instrument placement precise is wasted.
+
+`ASSUME:` σ itself is not measured anywhere — field tests **P2** and **P3** measure it. What is
+fixed here is the *requirement*, which does not depend on the robot.
 
 ---
 

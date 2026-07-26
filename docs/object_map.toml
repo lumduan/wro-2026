@@ -355,23 +355,64 @@ inventing."""
 [cable_orientation]
 cable_length_mm = 128.0
 cable_length_studs = 16
-area_x_extent_mm = 114.47
-area_y_extent_mm = 217.89
-fits_along_y = true
-fits_along_x = false
-slack_per_end_along_y_mm = 44.94
-deficit_along_x_mm = -13.53
+cable_width_mm = 16.0
+area_short_axis_mm = 79.700
+area_long_axis_mm = 207.201
+area_angle_upper_deg = 80.0
+area_angle_lower_deg = 100.0
+areas_are_axis_aligned = false
+fits_along_long_axis = true
+fits_across_short_axis = false
+slack_per_end_along_long_axis_mm = 39.600
+slack_per_side_across_short_axis_mm = 31.850
+binding_slack_mm = 31.850
+deficit_across_short_axis_mm = -48.300
 confidence = "MEASURED(S3) x MEASURED(S2)"
 finding = """
-The cable is 128.0 mm long (2x Technic Brick 1x16). The grey cable areas are
-114.47 x 217.89 mm each (cable_area_upper and cable_area_lower in
-data/field_spec.json, both identical). 128.0 > 114.47, so the cable CANNOT lie
-across the short axis of its target area — it is 13.53 mm too long.
+The cable is 128.0 mm long (2x Technic Brick 1x16). Each grey cable area is a
+79.700 x 207.201 mm rectangle — and it is TILTED: cable_area_upper's long axis
+lies at 80 deg, cable_area_lower's at 100 deg. They mirror each other about the
+horizontal.
 
-The cable's placement orientation is therefore FORCED: long axis along the mat's
-Y axis, with 44.94 mm of slack at each end. This is worth 30 points (15 per
-cable, 'completely in the grey area and upright') and it constrains the
-manipulator, not just the strategy."""
+128.0 > 79.700, so the cable cannot lie across its area's short axis: it is
+48.300 mm too long. The placement orientation is FORCED, and the two cables need
+DIFFERENT, mirrored headings — a robot that places both identically gets one
+wrong. Worth 30 points (15 per cable, 'completely in the grey area and upright'),
+and it constrains the manipulator, not just the strategy: the gripper must be
+able to set yaw, and to set it to two different values."""
+
+[cable_orientation.correction_2026_07_27]
+supersedes = "the figures committed in ab07e75 (Phase 4 part 3)"
+was = """
+area_x_extent_mm = 114.47, area_y_extent_mm = 217.89, slack 44.94 per end,
+deficit -13.53, and the cable laid along the mat's Y axis."""
+now = """
+The area is 79.700 x 207.201 mm at 80/100 deg. Slack 39.600 per end along its
+long axis, 31.850 per side across, deficit -48.300, and the cable laid at
+-10 deg (upper) / +10 deg (lower) in the object frame."""
+root_cause = """
+bbox_mm was read as though it were the area. It is not: for a ROTATED rectangle
+the axis-aligned bounding box is strictly larger. 114.47 x 217.89 is the bbox;
+the area is 79.700 x 207.201. Every other scoring area happens to be
+axis-aligned, so the substitution is invisible on nine of ten areas and wrong on
+the tenth.
+
+The data said so and was not read: field_spec records area_mm2 = 16513.822 for
+cable_area_upper, against a bounding-box area of 24941.9 mm2 — a 34% gap that
+only a rotated shape produces. The roadmap ALSO already recorded the cable area
+as 2.5 x 6.5 design units = 79.75 x 207.35 mm, which agrees with the polygon and
+contradicts the bbox reading. Two independent records were right and the derived
+number was wrong, because it came from a convenience field rather than the
+geometry."""
+guard = """
+sim/geometry.min_area_rect recovers a rectangle's own axes, and the scorer aims
+every placement using it. tests/test_scoring.py asserts that the cable areas are
+NOT axis-aligned, so this specific substitution cannot silently return."""
+direction_of_error = """
+The conclusion survives and strengthens: the orientation was already called
+forced, and the true deficit is 48.3 mm rather than 13.5 mm. But the slack was
+OVERSTATED (44.94 against 31.85 binding), which is the dangerous direction for a
+tolerance figure, and the required mirrored headings were missed entirely."""
 
 # --------------------------------------------------------------------------- #
 # CONTACT vs PROJECTION - the finding that settles A7

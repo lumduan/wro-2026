@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-26` · **Phase 4 CLOSED — all 16 objects mapped, zero unresolved spans.**
+`last_reviewed: 2026-07-27` · **Phase 6 CLOSED — the scorer verifies 255/255 and the accuracy requirement is measured.**
 
 ## 0 · At a glance
 
@@ -10,15 +10,17 @@ flowchart TD
     P1 --> P2["2 · field_spec.json<br/>DONE — S5 frozen"]
     P1 --> P3["3 · Scoring model<br/>DONE"]
     P1 --> P4["4 · Game-object spec from S3<br/>DONE — 16 of 16 mapped"]
-    P2 --> P6["6 · Simulator<br/>READY — all 3 inputs landed"]
+    P2 --> P6["6 · Scorer + accuracy sweep<br/>DONE — 255 verified, sigma table built"]
     P3 --> P6
     P4 --> P6
     P5["5 · S4 + S6 acquired<br/>DONE — A2 A3 A4 A5 A6 resolved"] --> P7["7 · Robot design<br/>chassis READY, manipulator waits on mass"]
     P4 --> P7
     SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
-    P6 --> P8["8 · Strategy selection<br/>needs 5 + 6 + 7"]
+    SETS --> FT["F · Field tests P1-P6<br/>BLOCKED — needs the sets"]
+    P6 --> P8["8 · Strategy selection<br/>needs 5 + 6 + 7 + F"]
     P7 --> P8
     P5 --> P8
+    FT --> P8
     P8 --> P9["9 · Competition-ready run<br/>GOAL"]
 
     classDef done     fill:#d4f4dd,stroke:#2d8a4e,color:#1a5c33
@@ -28,10 +30,10 @@ flowchart TD
     classDef decision fill:#fde0e0,stroke:#d05555,color:#8f2e2e
     classDef goal     fill:#ede0fb,stroke:#8a5cd8,color:#4d2e8f
 
-    class P0,P1,P2,P3,P4,P5 done
-    class P6,P7 ready
+    class P0,P1,P2,P3,P4,P5,P6 done
+    class P7 ready
     class SETS decision
-    class P8 blocked
+    class FT,P8 blocked
     class P9 goal
 ```
 
@@ -41,20 +43,28 @@ flowchart TD
 | **1 · Human review gate** | ✅ DONE | extraction accepted 2026-07-25 | — |
 | **2 · `field_spec.json`** | ✅ **DONE** | **S5 built** by `tools/build_field_spec.py` from `docs/area_map.toml` — no hand-written coordinates. 17 areas (10 scoring), 6 note starts, 17 object start poses. Full-chain determinism verified. | — |
 | **3 · Scoring model (S1)** | ✅ **DONE** | `data/scoring_model.json` — missions, predicates, time rules, randomization. Maxima sum to 255 and `max == each × count` per rule, both tested. | — |
-| **4 · Object spec (S3)** | ✅ **DONE** | `data/object_spec.json`: **all 16 objects mapped, no unresolved spans.** Boundaries re-derived from the cream **run-preview box** (ADR-019), which corrected three of part 1's page ranges and its step count. Contact footprints for every object on a containment path except the keyboard, which is **bounded** at ≤ 56 × 56 mm. **Cables measured at 128.0 mm — they do not fit across their 114.47 mm target area, so placement orientation is forced.** Parts inventory (pp. 176–177) gives canonical LEGO ids, cross-checked against the extraction | — |
+| **4 · Object spec (S3)** | ✅ **DONE** | `data/object_spec.json`: **all 16 objects mapped, no unresolved spans.** Boundaries re-derived from the cream **run-preview box** (ADR-019), which corrected three of part 1's page ranges and its step count. Contact footprints for every object on a containment path except the keyboard, which is **bounded** at ≤ 56 × 56 mm. **Cables measured at 128.0 mm — they do not fit across their 79.70 mm target area, so placement orientation is forced** (figure corrected 2026-07-27, ADR-021: the first published value read `bbox_mm` as the area). Parts inventory (pp. 176–177) gives canonical LEGO ids, cross-checked against the extraction | — |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
-| **6 · Simulator** | 🔵 **READY** | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). All three inputs (2, 3, 4) have landed. Parameter acquisition still runs in parallel — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs the physical sets. **Does not block on mass**: `completely_in` consumes the footprint | — nothing; buildable now |
+| **6 · Scorer + accuracy sweep** | ✅ **DONE** | `sim/` package (ADR-020) + `data/placement_sensitivity.json`. A perfect run verifies at **255/255**, a do-nothing run at the **40-point bonus floor**. All five open interpretations (A1/A2/A5/A7/A8) are named parameters, not hard-coded readings. The sweep reports **required placement accuracy per mission** under both A7 readings — see `docs/PHASE7_CONSTRAINTS.md` §7b. Dynamics deliberately **not** modelled: its every parameter is an unmeasured `ASSUME:` until the field tests run | — |
+| **F · Field tests P1–P6** | ⬜ **BLOCKED** | `docs/FIELD_TEST_PLAN.md`. Supply the σ that turns the accuracy *requirement* into a *prediction*, plus colour separation, odometry drift and table reality | needs the sets (**S**) |
 | **7 · Robot design** | 🔵 **READY (chassis) / ⏸ manipulator** | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited**. Geometry is no longer the gate — the manipulator now needs **mass and grip points**, which no building instruction contains | the **physical sets**, not analysis |
 | **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`) and field test **P5** | operator action |
-| **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor** | needs 6 AND 7 |
+| **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor**. The scorer now exists, so EV is computable the moment σ is known | needs 7 AND **F** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
-> **Every analysis phase is now DONE (0–5).** Phase 6 is unblocked outright and phase 7's chassis
-> with it. **The bottleneck has moved out of the repo and into the physical world**: the only
-> thing standing between here and a final manipulator is `mass_g`, which is `null` for all 16
-> objects because mass cannot be derived from a building instruction. That single gap also
-> blocks field test P5. **Acquiring sets 45811 and 45819 is now the highest-leverage action
-> available, and it is an operator action, not an engineering one.**
+> **Every phase that can be done from documents is now done (0–6).** What remains needs
+> physical hardware, and one purchase unblocks all of it: the sets gate `mass_g` for all 16
+> objects, the manipulator, and every field test that would supply σ.
+>
+> **The single highest-leverage action is acquiring WRO Brick Set 45811 and Expansion Set
+> 45819, and it is an operator action, not an engineering one.**
+>
+> One engineering action is worth queueing behind it: **submit A7 to the official Q&A.** The
+> accuracy sweep shows that resolving `completely_in` to the contact patch rather than the
+> silhouette relaxes the note placement requirement from **σ ≈ 4.3 mm to σ ≈ 11.4 mm** — a
+> factor of 2.6 on the mission carrying 120 of 255 points. A7 was previously recorded as
+> "holds either way, nothing is blocked", which is true for feasibility and misleading for
+> design.
 
 ### Why these edges
 
@@ -66,7 +76,8 @@ Drawn from stated constraints, not assumed ordering:
 | **Join** | {2, 3, 4} → 6 | a simulator needs field geometry **and** a scoring model **and** object mass/dimensions |
 | **Join** | {4, 5, S} → 7 | gripper design needs object dimensions (S3) **and** robot limits (S4) **and** object mass, which only the physical sets provide; `CLAUDE.md` A6 |
 | **Independent root** | S | procurement is operator work — it waits on nothing in this repo, and nothing in this repo can substitute for it |
-| **Join** | {5, 6, 7} → 8 | `CLAUDE.md` §5.7 anti-pattern #3; A3/A4/A5 change scoring at time-out, so strategy conclusions are provisional until S4 lands |
+| **Join** | {5, 6, 7, F} → 8 | `CLAUDE.md` §5.7 anti-pattern #3 needs the scorer (6) and #5 needs `P(success)`, which needs σ from the field tests (F) |
+| **Fork** | S → {7, F} | one purchase unblocks both the manipulator and every field test; that is why it is the bottleneck rather than one blocker among several |
 | **Independent root** | 5 | S4 acquisition is external/operator work — it waits on nothing in this repo |
 | **Gate** | 0 → 1 | session brief §6: extraction quality must be human-reviewed before geometry is frozen |
 
@@ -195,15 +206,46 @@ header (a render/cache timestamp that moved to July while the content field stay
 **Still open at national scope:** `NEEDS-VERIFY(NO-TH)` — S4 §4.3/§5.2 let National Organizers
 change robot limits. A6 is closed internationally, not locally.
 
-### Phase 6 — Simulator 🔵 READY
+### Phase 6 — Scorer + accuracy sweep ✅ DONE (2026-07-27)
 
-Run/score simulation over the frozen field spec. Exposes `moved_semantics` (A1) and
-`upright_tolerance_deg` (A2) as parameters rather than baking in either reading.
+Delivered: the `sim/` package (ADR-020) — `geometry.py`, `world.py`, `scoring.py`,
+`sensitivity.py` — plus `tools/run_sensitivity.py` → `data/placement_sensitivity.json`.
+58 new tests.
 
-**All three inputs have landed** (phases 2, 3, 4), so this is buildable now. It does *not*
-wait on mass: `completely_in` consumes the footprint, and every object on a containment path
-has one — with `instrument_keyboard` carrying an explicit upper bound rather than a value, so
-the scorer can treat it conservatively instead of guessing.
+**Two anchors pin the scorer.** A perfect run scores exactly **255/255**; a run where the
+robot never moves scores exactly **40** — the bonus floor, with the clock forced to 120 s.
+Between them sit the rules that a plausible implementation gets wrong, each asserted:
+
+| Rule | Naive answer | Correct answer |
+|---|---|---|
+| damaged but perfectly placed note | 20 | **0** (S4 §7.7, global) |
+| cable partial credit | 10 (half) | **5** (33.3 %, S1 p8) |
+| both cables in one area | 30 | **15** (one per area) |
+| note held by the gripper at time-out | 0 | **10** (A5, S6 2026-06-30) |
+| clef toppled in place | keeps its bonus | **loses it** under A1's OR default |
+
+**All five open interpretations are parameters**, defaulted to their register entries:
+`moved_semantics` (A1) · `upright_tolerance_deg` (A2) · `held_at_timeout` (A5) ·
+`footprint_reading` (A7) · `bonus_only_forces_120s` (A8). No result can be quoted without the
+parameter set that produced it.
+
+**What the sweep produced.** `P(success)` per mission across a σ grid, under **both** A7
+readings, cross-checked against the closed-form slack. The headline is in
+`docs/PHASE7_CONSTRAINTS.md` §7b: **A7 costs a factor of 2.6 in required placement accuracy**
+(σ ≈ 11.4 mm on the contact reading against ≈ 4.3 mm on the silhouette), on the mission worth
+120 of 255 points. That promotes A7 from a recorded ambiguity to the most valuable open
+question in the project.
+
+**A Phase 4 error was found and corrected here** — see ADR-021. The cable constraint published
+on 2026-07-26 read `bbox_mm` as if it were the area; the two cable areas are *rotated*, so the
+slack was overstated (44.94 mm against a true 31.85 mm) and the requirement for **mirrored
+headings** between the two cables was missed entirely.
+
+**Deliberately not built: dynamics.** Friction, odometry drift, motor response and sensor
+noise are every one an unmeasured `ASSUME:` until field tests P1–P6 run. Modelling them would
+produce authoritative-looking numbers with nothing behind them. The sweep models the *outcome*
+distribution instead, which leaves exactly one unknown — σ — and names what measures it
+(AS-8, AS-9).
 
 ### Phase 7 — Robot design 🔵 chassis READY · manipulator waiting
 

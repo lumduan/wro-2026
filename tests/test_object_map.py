@@ -235,24 +235,59 @@ def test_congas_pair_separation_is_not_invented(omap: dict):
 def test_cable_orientation_arithmetic_is_self_consistent(omap: dict):
     c = omap["cable_orientation"]
     assert c["cable_length_mm"] == c["cable_length_studs"] * omap["meta"]["stud_pitch_mm"]
-    assert c["fits_along_y"] is True
-    assert c["fits_along_x"] is False
-    assert c["slack_per_end_along_y_mm"] == pytest.approx(
-        (c["area_y_extent_mm"] - c["cable_length_mm"]) / 2, abs=0.01)
-    assert c["deficit_along_x_mm"] == pytest.approx(
-        c["area_x_extent_mm"] - c["cable_length_mm"], abs=0.01)
-    assert c["deficit_along_x_mm"] < 0, "the whole point: it does NOT fit across"
+    assert c["fits_along_long_axis"] is True
+    assert c["fits_across_short_axis"] is False
+    assert c["slack_per_end_along_long_axis_mm"] == pytest.approx(
+        (c["area_long_axis_mm"] - c["cable_length_mm"]) / 2, abs=0.01)
+    assert c["slack_per_side_across_short_axis_mm"] == pytest.approx(
+        (c["area_short_axis_mm"] - c["cable_width_mm"]) / 2, abs=0.01)
+    assert c["binding_slack_mm"] == pytest.approx(
+        min(c["slack_per_end_along_long_axis_mm"],
+            c["slack_per_side_across_short_axis_mm"]), abs=0.01)
+    assert c["deficit_across_short_axis_mm"] == pytest.approx(
+        c["area_short_axis_mm"] - c["cable_length_mm"], abs=0.01)
+    assert c["deficit_across_short_axis_mm"] < 0, "the point: it does NOT fit across"
 
 
-def test_cable_orientation_numbers_agree_with_field_spec(omap: dict):
-    """Cross-source: the area figures must come from S5, not be retyped."""
+def test_cable_area_figures_come_from_the_POLYGON_not_the_bbox(omap: dict):
+    """The correction that ab07e75 needed.
+
+    A rotated rectangle's axis-aligned bounding box is strictly larger than the
+    rectangle. Reading ``bbox_mm`` as the area overstated the cable area's short
+    axis by 34.77 mm and its slack by 13.09 mm — in the flattering direction.
+    """
     import json
+    import math
     spec = json.loads(FIELD_SPEC.read_text())
     c = omap["cable_orientation"]
-    for area in ("cable_area_upper", "cable_area_lower"):
+    for area, expected_angle in (("cable_area_upper", c["area_angle_upper_deg"]),
+                                 ("cable_area_lower", c["area_angle_lower_deg"])):
+        poly = spec["areas"][area]["polygon_visible_mm"]
+        edges = [(poly[(i + 1) % len(poly)][0] - poly[i][0],
+                  poly[(i + 1) % len(poly)][1] - poly[i][1]) for i in range(len(poly))]
+        lengths = sorted(math.hypot(*e) for e in edges)
+        assert lengths[0] == pytest.approx(c["area_short_axis_mm"], abs=0.01), area
+        assert lengths[-1] == pytest.approx(c["area_long_axis_mm"], abs=0.01), area
+
+        longest = max(edges, key=lambda e: math.hypot(*e))
+        angle = math.degrees(math.atan2(longest[1], longest[0])) % 180.0
+        assert angle == pytest.approx(expected_angle, abs=0.01), area
+
+        # and the bbox must NOT be mistakable for the area
         b = spec["areas"][area]["bbox_mm"]
-        assert c["area_x_extent_mm"] == pytest.approx(b[2] - b[0], abs=0.01), area
-        assert c["area_y_extent_mm"] == pytest.approx(b[3] - b[1], abs=0.01), area
+        assert (b[2] - b[0]) > c["area_short_axis_mm"] + 30.0, \
+            f"{area}: the bbox is much wider than the area — that is the trap"
+
+    assert omap["cable_orientation"]["areas_are_axis_aligned"] is False
+
+
+def test_the_cable_correction_is_recorded_not_overwritten(omap: dict):
+    """The superseded figures stay on the record with their root cause."""
+    fix = omap["cable_orientation"]["correction_2026_07_27"]
+    assert "ab07e75" in fix["supersedes"]
+    assert "114.47" in fix["was"]
+    assert "bbox_mm" in fix["root_cause"]
+    assert "OVERSTATED" in fix["direction_of_error"]
 
 
 # --------------------------------------------------------------------------- #

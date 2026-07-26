@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-26` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26 (Phase 4 part 3).
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6).
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -25,6 +25,8 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-017](#adr-017) | A flexible object gets the rigid carrier's footprint, and says so | accepted 2026-07-26 |
 | [ADR-018](#adr-018) | Non-scoring runs live in `[[subassemblies]]`, never in `objects` | accepted 2026-07-26 |
 | [ADR-019](#adr-019) | The cream run-preview box replaces the callout as the boundary signal | accepted 2026-07-26 |
+| [ADR-020](#adr-020) | `sim/` is a package; every open interpretation is a named parameter | accepted 2026-07-27 |
+| [ADR-021](#adr-021) | Area geometry comes from the polygon, never from `bbox_mm` | accepted 2026-07-27 |
 
 ---
 
@@ -678,3 +680,83 @@ census that read 9 one-digit, 90 two-digit and 77 three-digit numerals. The thre
 9 + 90 + 75 = 174. **A cross-check can agree with a wrong answer if it measures the wrong thing.**
 
 All three of part 1's unresolved spans are closed, and all 16 objects are mapped.
+
+---
+
+## ADR-020
+
+**`sim/` is a package, and every open interpretation is a named parameter.**
+`2026-07-27 · Phase 6 · accepted`
+
+**Context.** Phase 6 needs a scorer. Two questions had to be settled before writing one: where
+it lives, and what it does about the five interpretations that are still open.
+
+Everything in `tools/` so far is a *build script* — it reads sources and writes a `data/*.json`
+artefact. A scorer is not that: it is a library that other code calls, and Phase 8 will call it
+thousands of times per strategy comparison.
+
+**Options.**
+
+| Option | Effect |
+|---|---|
+| Add `scoring.py` to `tools/` | conflates "script that emits an artefact" with "library that is imported"; `tools/` is on `pythonpath` as flat modules, so a multi-file scorer would collide in a flat namespace |
+| A `src/wro/` layout with an installable package | conventional, but `pyproject.toml` sets `package = false` deliberately — this repo is scripts plus data, and making it installable would add a build step to every `uv run` |
+| **A `sim/` package on `pythonpath`** | the scorer is importable as `sim.scoring`, `tools/` keeps its flat-module contract, and nothing needs installing |
+
+**Decision.** `sim/` — `geometry.py`, `world.py`, `scoring.py`, `sensitivity.py` — added to
+`pytest`'s `pythonpath` alongside `tools`.
+
+Every open interpretation becomes a field on a frozen `ScoringParams`, defaulted to its
+register entry, never hard-coded:
+
+| Parameter | Ambiguity | Default | Status |
+|---|---|---|---|
+| `moved_semantics` | A1 | `or` | OPEN → S6 |
+| `upright_tolerance_deg` | A2 | 15.0 | demoted; the operative test is contact |
+| `held_at_timeout` | A5 | `partial` | RESOLVED S6 2026-06-30 |
+| `bonus_only_forces_120s` | A8 | `True` | OPEN → S6 |
+| `footprint_reading` | A7 | `contact` | OPEN → S6 |
+
+**Consequence.** No scoring result can be quoted without the parameter set that produced it,
+and resolving an ambiguity is a one-line change rather than a hunt through predicates. The
+sensitivity sweep exploits this directly: it runs the whole grid under **both** A7 readings
+rather than choosing one, which is what surfaced the 2.6× accuracy cost of that open question.
+
+---
+
+## ADR-021
+
+**Area geometry comes from the polygon, never from `bbox_mm`.**
+`2026-07-27 · Phase 6 · accepted, and it corrects ADR-019's session`
+
+**Context.** Phase 4 part 3 published a cable constraint built on `field_spec.json`'s
+`bbox_mm`: *"the grey cable areas are 114.47 × 217.89 mm, so a 128 mm cable is 13.53 mm too
+long to fit across."* The conclusion was right and the numbers were wrong.
+
+The two cable areas are **rotated rectangles** — 79.700 × 207.201 mm at 80° and 100°. For a
+rotated shape the axis-aligned bounding box is strictly larger than the shape: 114.47 mm across
+where the area is 79.700 mm. Eight of the ten scoring areas happen to be axis-aligned, which is
+precisely what makes the substitution invisible in testing and wrong in the one case that
+mattered.
+
+**The data already said so, twice.** `field_spec.json` records `area_mm2 = 16513.822` for
+`cable_area_upper` against a bounding-box area of 24,941.9 mm² — a 34 % gap that only a rotated
+shape produces. And `ROADMAP.md` already recorded the cable area as **2.5 × 6.5 design units**
+= 79.75 × 207.35 mm, which agrees with the polygon and contradicts the bbox reading. Two
+independent records were correct; the derived figure was wrong because it came from a
+convenience field instead of the geometry.
+
+**Decision.** `bbox_mm` is a convenience index for *filtering and pre-checks only*. Any figure
+that will be quoted, tested or designed against comes from `polygon_visible_mm`, via
+`sim.geometry.min_area_rect`, which recovers a rectangle's own axes exactly.
+
+**Consequence.** The corrected figures, with what they superseded and why, are in
+`docs/object_map.toml` `[cable_orientation.correction_2026_07_27]`. The error direction is
+recorded too, because it is the dangerous one: slack was **overstated** (44.94 mm against a
+true binding 31.85 mm).
+
+The substantive loss was not a number. Aligning to the mat axes hid that the two areas tilt in
+**opposite** directions, so the two cables need **different, mirrored headings** — a robot that
+places both identically gets one wrong, worth 15 points. Guarded now by
+`tests/test_geometry.py::test_the_cable_areas_are_rotated_and_the_others_are_not` and
+`tests/test_scoring.py::test_the_two_cables_get_mirrored_nominal_headings`.

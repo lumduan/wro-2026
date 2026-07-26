@@ -140,21 +140,39 @@ def test_the_cable_carries_the_rigid_footprint_and_flags_the_hose(objects: dict)
 
 
 def test_the_cable_cannot_lie_across_its_target_area(spec: dict, objects: dict):
-    """128.0 mm of cable into a 114.47 mm gap does not go.
+    """128.0 mm of cable into a 79.70 mm gap does not go.
 
-    This is the constraint the whole part-3 measurement exists to produce: the
-    cable's placement orientation is forced, not chosen.
+    The constraint the part-3 measurement exists to produce: the cable's
+    placement orientation is forced, not chosen. Measured against the area's
+    OWN axes — its bounding box is 114.47 mm across and would understate the
+    deficit by 34.77 mm.
     """
+    import math
     field = json.loads(FIELD_SPEC.read_text())
     length = objects["cable_upper"]["contact_footprint_mm"][1]
     for area in ("cable_area_upper", "cable_area_lower"):
-        b = field["areas"][area]["bbox_mm"]
-        across, along = b[2] - b[0], b[3] - b[1]
+        poly = field["areas"][area]["polygon_visible_mm"]
+        edges = [(poly[(i + 1) % len(poly)][0] - poly[i][0],
+                  poly[(i + 1) % len(poly)][1] - poly[i][1]) for i in range(len(poly))]
+        lengths = sorted(math.hypot(*e) for e in edges)
+        across, along = lengths[0], lengths[-1]
         assert length > across, f"{area}: expected the cable NOT to fit across"
         assert length < along, f"{area}: the cable must fit along"
     c = spec["cable_orientation"]
-    assert c["fits_along_x"] is False and c["fits_along_y"] is True
-    assert c["slack_per_end_along_y_mm"] == pytest.approx(44.94, abs=0.01)
+    assert c["fits_across_short_axis"] is False and c["fits_along_long_axis"] is True
+    assert c["slack_per_end_along_long_axis_mm"] == pytest.approx(39.60, abs=0.01)
+    assert c["binding_slack_mm"] == pytest.approx(31.85, abs=0.01)
+
+
+def test_the_two_cable_areas_need_mirrored_headings(spec: dict):
+    """80 deg and 100 deg: one solution does NOT serve both."""
+    c = spec["cable_orientation"]
+    assert c["area_angle_upper_deg"] == pytest.approx(80.0, abs=0.01)
+    assert c["area_angle_lower_deg"] == pytest.approx(100.0, abs=0.01)
+    assert c["area_angle_upper_deg"] != c["area_angle_lower_deg"]
+    # mirrored about the vertical
+    assert (c["area_angle_upper_deg"] + c["area_angle_lower_deg"]) == pytest.approx(
+        180.0, abs=0.01)
 
 
 # --------------------------------------------------------------------------- #

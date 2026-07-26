@@ -8,7 +8,7 @@ Emitted assumptions also appear verbatim in the `notes` array of the relevant
 `docs/extracted/<pdf-stem>/manifest.json`, so the machine-readable record and this
 document cannot drift apart silently.
 
-`last_reviewed: 2026-07-25`
+`last_reviewed: 2026-07-27`
 
 | ID | Assumption | Source | Consequence if wrong |
 |---|---|---|---|
@@ -19,6 +19,8 @@ document cannot drift apart silently.
 | [AS-5](#as-5) | ~~The printed mat equals the TrimBox exactly~~ | **RESOLVED** S4 §7.2 | — (kept for the record; see below) |
 | [AS-6](#as-6) | "upright" means tilt ≤ 15° from the start pose | `AMBIGUITY(A2)` | simulator scores runs the referee would not, or hides viable strategies |
 | [AS-7](#as-7) | The MAT frame equals the S2 page-trim frame | `MatFrame` | every coordinate downstream is offset by the same constant error |
+| [AS-8](#as-8) | Placement error is Gaussian and isotropic in x and y | `sim.sensitivity` | the required-accuracy figures shift; the ORDERING of missions by difficulty does not |
+| [AS-9](#as-9) | Heading error is 0.5° per mm of placement σ | `sim.sensitivity` | cable and note requirements tighten or loosen together; the cable is most exposed |
 
 ---
 
@@ -169,3 +171,52 @@ offset frame pushes the union outside it and the run says so.
 **Caveat for S1 and S3.** Those are A4 documents, not mats. Their frames are page-trim
 frames (`frame.semantic: "page_trim_frame"`) and carry no MAT-frame meaning. Do not read a
 coordinate out of S1 or S3 as if it were a mat coordinate.
+
+---
+
+## AS-8
+
+### Placement error is Gaussian and isotropic in x and y
+
+**The assumption.** `data/placement_sensitivity.json` perturbs each placement by
+`N(0, σ)` independently in x and y. Real placement error is neither perfectly Gaussian
+nor perfectly isotropic — a differential-drive robot approaching along a heading
+typically has larger along-track than cross-track error, and both distributions have
+tails a normal understates.
+
+**Why it is used anyway.** The artefact's purpose is the *requirement*, not a
+prediction. Every mission is evaluated under the same error model, so the comparison
+between missions — which is what Phase 7 and Phase 8 consume — is unaffected by the
+model's shape.
+
+**Consequence if wrong.** The absolute σ figures move. The **ordering** does not: the
+notes need roughly 2–3× tighter placement than the cables under any symmetric error
+model, because that ordering follows from the slack (7.85 mm against 31.85 mm), which
+is measured rather than modelled.
+
+**Replaced by.** Field tests **P2** (start-area repeatability, 20 placements) and **P3**
+(odometry drift per metre and per 90°). Those give the real distribution, at which point
+the sweep should be re-run against it rather than against a normal.
+
+---
+
+## AS-9
+
+### Heading error is 0.5° per mm of placement σ
+
+**The assumption.** `sim.sensitivity.DEG_PER_MM = 0.5` couples rotational error to
+translational error. There is no measurement behind the coefficient; it is a plausible
+shape chosen so that rotation is present in the model rather than silently zero.
+
+**Why the coupling exists at all.** Setting it to zero would be the more dangerous
+choice: it would model a robot that translates imperfectly but rotates perfectly, and
+would flatter exactly the mission most exposed to rotation — the cable, whose 128 mm
+length makes it far more sensitive to heading than any 32 mm note.
+
+**Consequence if wrong.** The cable's required accuracy is the figure that moves most.
+The notes are nearly square in the contact reading, so their result is dominated by
+translation and barely depends on this coefficient. It also drives the small non-zero
+`p_full` on the impossible across-the-area cable row at extreme σ, which is a modelling
+artefact of the coupling and is documented as such in `tests/test_sensitivity.py`.
+
+**Replaced by.** Field test **P3**, which reports drift per 90° of turn directly.
