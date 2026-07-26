@@ -37,7 +37,23 @@ REQUIRED_TIMESTAMPS = {
 
 #: Pinned so an ADDITION fails too, not just a removal. Bump deliberately, with
 #: the new answer read and its consequences worked through.
-EXPECTED_ENTRY_COUNT = 10
+#:
+#: **10 -> 9 on 2026-07-27, and that is a FIX, not a lost answer.** Schema v1
+#: parsed by generic shape and also matched the page's JSON-LD block, indexing
+#: `admin | "Questions & Answers"` as a tenth entry whose timestamp was the
+#: page's own modified time. v2 parses the FAQ panel markup. See ADR-024.
+EXPECTED_ENTRY_COUNT = 9
+
+#: Of the 9, the four that bind this project: 3 RoboMission (all age groups) and
+#: 1 RoboMission Elementary. Junior, RoboSports and Future Innovators do not.
+EXPECTED_BINDING_COUNT = 4
+
+#: Every key an entry may carry. A whitelist, so a future change that starts
+#: storing answer text fails here rather than in review.
+ALLOWED_ENTRY_KEYS = {
+    "timestamp", "author", "question", "section", "section_class",
+    "binds_this_project",
+}
 
 
 @pytest.fixture(scope="module")
@@ -84,9 +100,64 @@ def test_answer_bodies_are_not_stored(index: dict):
     """Only the tuple is indexed; answer text is WRO's and stays out of git.
 
     Short identifying quotes belong in docs/citations.json under its word cap.
+    Checked as a key whitelist plus a length bound: a question is a sentence, an
+    answer body is not, so a stray body would fail the second check even if
+    someone added a key to the first.
     """
     for entry in index["entries"]:
-        assert set(entry) == {"timestamp", "author", "question"}
+        assert set(entry) <= ALLOWED_ENTRY_KEYS, sorted(set(entry) - ALLOWED_ENTRY_KEYS)
+        for key, value in entry.items():
+            if isinstance(value, str):
+                assert len(value) <= 600, f"{key} looks like an answer body"
+
+
+# --------------------------------------------------------------------------- #
+# Schema v2 — the phantom-entry fix (ADR-024)
+# --------------------------------------------------------------------------- #
+
+
+def test_the_phantom_page_metadata_entry_is_gone(index: dict):
+    """v1 indexed the page's own JSON-LD as a tenth Q&A entry.
+
+    Its timestamp WAS the page's modified time, so a theme edit moved it and
+    --check reported a content change that had not happened — exactly the false
+    positive the tool was written to prevent.
+    """
+    assert index["schema_version"] >= 2
+    authors = {e["author"] for e in index["entries"]}
+    assert "admin" not in authors
+    questions = {e["question"] for e in index["entries"]}
+    assert "Questions & Answers" not in questions
+    for entry in index["entries"]:
+        assert entry["question"].endswith("?"), entry["question"][:60]
+
+
+def test_every_entry_is_tagged_with_its_section(index: dict):
+    for entry in index["entries"]:
+        assert entry["section"] and entry["section_class"]
+        assert isinstance(entry["binds_this_project"], bool)
+
+
+def test_only_robomission_sections_bind_this_project(index: dict):
+    """A weekly check that cries wolf over RoboSports stops being run."""
+    binding = [e for e in index["entries"] if e["binds_this_project"]]
+    assert len(binding) == EXPECTED_BINDING_COUNT == index["binding_entry_count"]
+    assert {e["section_class"] for e in binding} == {
+        "robomission", "robomission-elementary"}
+    for entry in index["entries"]:
+        if not entry["binds_this_project"]:
+            assert entry["section_class"] in {
+                "robomission-junior", "robosports", "future-innovators"}
+
+
+def test_the_four_binding_answers_are_exactly_the_load_bearing_ones(index: dict):
+    """The 4 that bind are the same 4 the repo already depends on."""
+    binding = {e["timestamp"] for e in index["entries"] if e["binds_this_project"]}
+    assert binding == REQUIRED_TIMESTAMPS
+
+
+def test_the_section_counts_add_up(index: dict):
+    assert sum(index["sections"].values()) == index["entry_count"]
 
 
 def test_snapshot_provenance_is_recorded(index: dict):

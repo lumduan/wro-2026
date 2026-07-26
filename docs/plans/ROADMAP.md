@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **Phase 7 part 2 — `RobotIO` exists and its portability is linted, not assumed.**
+`last_reviewed: 2026-07-27` · **S6 re-verified (unchanged) · Phase 8 part 1 — mission cost and risk are framed.**
 
 ## 0 · At a glance
 
@@ -17,7 +17,7 @@ flowchart TD
     P4 --> P7
     SETS["S · WRO sets 45811 + 45819<br/>OPERATOR — procurement open"] --> P7
     SETS --> FT["F · Field tests P1-P6<br/>BLOCKED — needs the sets"]
-    P6 --> P8["8 · Strategy selection<br/>needs 5 + 6 + 7 + F"]
+    P6 --> P8["8 · Strategy selection<br/>inputs framed, ordering needs F"]
     P7 --> P8
     P5 --> P8
     FT --> P8
@@ -33,7 +33,8 @@ flowchart TD
     class P0,P1,P2,P3,P4,P5,P6 done
     class P7 ready
     class SETS decision
-    class FT,P8 blocked
+    class P8 active
+    class FT blocked
     class P9 goal
 ```
 
@@ -49,7 +50,7 @@ flowchart TD
 | **F · Field tests P1–P6** | ⬜ **BLOCKED** | `docs/FIELD_TEST_PLAN.md`. Supply the σ that turns the accuracy *requirement* into a *prediction*, plus colour separation, odometry drift and table reality | needs the sets (**S**) |
 | **7 · Robot design** | 🔵 **budget + `RobotIO` done / ⏸ mechanism** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen | the **physical sets** — field test **P7** |
 | **S · WRO sets 45811 + 45819** | 🟥 **OPERATOR** | procurement question answered *"partially / not sure yet"*. Gates every `mass_g` (all 16 are `null`), the ADR-022 mechanism decision, and every field test **P1–P7** | operator action |
-| **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor**. The scorer now exists, so EV is computable the moment σ is known | needs 7 AND **F** |
+| **8 · Strategy selection** | 🟡 **inputs framed / ordering BLOCKED** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). Ordering still needs σ | needs **F** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
 > **Every phase that can be done from documents is now done (0–6).** What remains needs
@@ -281,9 +282,27 @@ The lint catches that on every commit; hardware is left to test only what hardwa
 **Still gated:** the mechanism — gripper, fork, scoop or passive. That needs object mass and
 grip points, which no document contains, and is now field test **P7**.
 
-### Phase 8 — Strategy selection ⬜
+### Phase 8 — Strategy selection 🟡 inputs framed · ordering blocked
 
 Mission ordering and route planning, each candidate reported with `P(success)` — never a bare
 maximum score (§5.7 anti-patterns #3 and #5).
+
+**Part 1 delivered (2026-07-27):** `tools/build_strategy_frame.py` →
+`data/strategy_frame.json`. What each mission costs in travel and risks in bonus points,
+without ordering anything.
+
+| zone | missions | points | from start | bonus exposed | break-even P(collision) |
+|---|---|---:|---:|---:|---:|
+| left stage end | 2 cables, mic, 3 instruments | 95 | 1923–2130 mm | 30 | 0.38–0.67 |
+| right staff end | 6 notes | 120 | 367–1110 mm | 10 | **2.0 — always worth it** |
+
+Two results worth carrying forward. **The ×40 risk term in `CLAUDE.md` §5.6 is a worst case**:
+the 40 is four objects S1 places apart, so a route exposes 30 or 10, and for the notes that is
+the difference between "breaks even at 0.5" and "can never not be worth attempting" (ADR-024;
+×40 retained as the conservative default). And **point density differs eightfold** — 27.3
+points per metre of round trip for the nearest note against 3.5 for a cable.
+
+**Still blocked:** ordering needs σ from field tests P2/P3 and the object pickup locations,
+15 of which are `nominal_pending` with null coordinates because ADR-014 refuses to invent them.
 
 ### Phase 9 — Competition-ready run 🟪 GOAL

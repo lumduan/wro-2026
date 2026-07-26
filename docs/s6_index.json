@@ -3,69 +3,99 @@
     "2026-06-30T16:45:33+02:00",
     "2026-06-30T18:45:33+02:00"
   ],
+  "binding_entry_count": 4,
   "entries": [
     {
       "author": "Lukas Plümper",
+      "binds_this_project": true,
       "question": "Is it allowed to connect two hubs with an optical connection (e.g. a LED on one Hub and a color sensor on the 2nd hub)?",
+      "section": "RoboMission - All Age Groups",
+      "section_class": "robomission",
       "timestamp": "2026-02-03T11:21:10+01:00"
     },
     {
       "author": "Karen Bebelaar",
+      "binds_this_project": false,
       "question": "How is the match time determined?",
+      "section": "RoboSports",
+      "section_class": "robosports",
       "timestamp": "2026-04-24T16:15:26+02:00"
     },
     {
       "author": "Karen Bebelaar",
+      "binds_this_project": false,
       "question": "What is the role of the 9th ball?",
+      "section": "RoboSports",
+      "section_class": "robosports",
       "timestamp": "2026-04-24T16:17:23+02:00"
     },
     {
       "author": "Karen Bebelaar",
+      "binds_this_project": false,
       "question": "Are there limitations on the number of controllers?",
+      "section": "RoboSports",
+      "section_class": "robosports",
       "timestamp": "2026-04-24T16:17:48+02:00"
     },
     {
       "author": "Leonel D Smith",
+      "binds_this_project": false,
       "question": "Are teams allowed to bring liquids other than water as part of their solution demonstration?",
+      "section": "Future Innovators",
+      "section_class": "future-innovators",
       "timestamp": "2026-05-14T01:15:52+02:00"
     },
     {
       "author": "Leonel D Smith",
+      "binds_this_project": true,
       "question": "In RoboMission General Rule 5.2.3, it is stated that the maximum voltage for electric components must be ≤ 14V. Could this be revised to allow teams to use standard 4-cell lithium-ion batteries (3.7V per cell)?",
+      "section": "RoboMission - All Age Groups",
+      "section_class": "robomission",
       "timestamp": "2026-05-14T01:22:18+02:00"
     },
     {
       "author": "Leonel D Smith",
+      "binds_this_project": false,
       "question": "Can both red towers score points if they are partially in the same target area?",
+      "section": "RoboMission - Junior",
+      "section_class": "robomission-junior",
       "timestamp": "2026-06-17T15:48:17+02:00"
     },
     {
       "author": "Leonel D Smith",
+      "binds_this_project": true,
       "question": "Can a team receive bonus points if the robot does not leave the Start Area?",
+      "section": "RoboMission - All Age Groups",
+      "section_class": "robomission",
       "timestamp": "2026-06-17T16:46:30+02:00"
     },
     {
       "author": "Leonel D Smith",
+      "binds_this_project": true,
       "question": "At the end of a run, a microphone is completely inside the microphone target area, but it is not fully touching the floor because part of it is lifted by the robot’s gripper. How many points should be awarded in this situation?",
+      "section": "RoboMission - Elementary",
+      "section_class": "robomission-elementary",
       "timestamp": "2026-06-30T18:43:01+02:00"
-    },
-    {
-      "author": "admin",
-      "question": "Questions & Answers",
-      "timestamp": "2026-06-30T18:45:33+02:00"
     }
   ],
-  "entry_count": 10,
-  "note": "Diff on `entries`, never on the HTTP Last-Modified header - that is a render/cache timestamp on this site and moves independently of content.",
-  "schema_version": 1,
+  "entry_count": 9,
+  "note": "Diff on `entries`, never on the HTTP Last-Modified header - that is a render/cache timestamp on this site and moves independently of content. Entries are parsed from the FAQ panel markup, NOT by generic shape: schema v1 also matched the page's JSON-LD block and produced a tenth phantom entry carrying the page's own modified time.",
+  "schema_version": 2,
+  "sections": {
+    "Future Innovators": 1,
+    "RoboMission - All Age Groups": 3,
+    "RoboMission - Elementary": 1,
+    "RoboMission - Junior": 1,
+    "RoboSports": 3
+  },
   "source": {
     "bytes": 156091,
-    "name": "s6-qa-snapshot-2026-07-25.html",
+    "name": "s6-qa-snapshot-2026-07-27.html",
     "sha256": "d6667dfbfff0b45dcd60f0ff3b2643289d7c04f5414cd58949f9f59d9c288a02",
     "url": "https://wro-association.org/competition/questions-answers/"
   },
   "tool": {
     "name": "s6_index",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

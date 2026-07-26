@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2).
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2); ADR-024 added 2026-07-27.
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -29,6 +29,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-021](#adr-021) | Area geometry comes from the polygon, never from `bbox_mm` | accepted 2026-07-27 |
 | [ADR-022](#adr-022) | Motor budget: 2 drive + 0 yaw + 2 manipulator; mechanism gated on mass | accepted 2026-07-27 |
 | [ADR-023](#adr-023) | `RobotIO` is intent-level, and portability is linted, not assumed | accepted 2026-07-27 |
+| [ADR-024](#adr-024) | S6 is parsed structurally; the EV risk term is a worst case, not a constant | accepted 2026-07-27 |
 
 ---
 
@@ -906,3 +907,89 @@ objects all sit at the origin — and dict order silently handed the robot the *
 which it carried to a note target, losing 10 bonus points and 20 note points while the test
 reported a pass. `pick_up()` now **raises on ambiguity**. Reaching for the nearest thing is
 what a real robot does; a *test* that does it is not testing what it claims.
+
+---
+
+## ADR-024
+
+**S6 is parsed structurally, and the EV risk term is a worst case rather than a constant.**
+`2026-07-27 · S6 re-verification + Phase 8 part 1 · accepted`
+
+Two decisions, taken together because the S6 re-read is what prompted looking at both.
+
+### Part 1 — the S6 indexer parses markup, not shape
+
+**Context.** `CLAUDE.md` §5.1 requires S6 to be re-read *"before any scoring or robot-limit
+claim, and at least weekly."* Phases 6 and 7 made many such claims against a 2026-07-25 snapshot
+and never re-read it. Discharging that obligation surfaced a defect.
+
+`tools/s6_index.py`'s docstring is emphatic:
+
+> Do NOT diff on the page's `Last-Modified` header: on a WordPress site that is a render/cache
+> timestamp and moves on plugin, theme and footer edits.
+
+But its entry regex matched a generic `>text< … >name< … >timestamp<` shape **anywhere on the
+page**, including the page's own JSON-LD `schema.org` block. That produced a tenth phantom
+entry — `admin · "Questions & Answers" · 2026-06-30T18:45:33+02:00` — whose timestamp **is** the
+page's modified time. A theme edit would move the phantom and `--check` would report a content
+change that had not happened: exactly the false positive the docstring was written to prevent,
+reintroduced through the back door.
+
+**Decision.** Parse within the FAQ panel markup —
+`<div class="… fusion-faq-post fusion-faq-post-NNNN AGEGROUP">` plus its `entry-title` /
+`vcard fn` / `updated` spans. Structural, so page furniture cannot masquerade as an answer.
+
+**Consequence, and an upgrade.** `entry_count` drops **10 → 9**, which is a fix and not a lost
+answer; the test that pins it says so, because a bare decrement would otherwise read as an
+alarm. The panel class also carries the **age group**, which the docstring's stated diff tuple
+`(section, question, author, timestamp)` had always promised and the code never delivered. So
+the index now knows that **only 4 of the 9 answers bind this project** — 3 RoboMission
+(all age groups) and 1 RoboMission Elementary. Junior, RoboSports and Future Innovators do not.
+A weekly check that cries wolf over a RoboSports answer stops being run; one that says *"a new
+Elementary answer appeared"* does not.
+
+An unrecognised section is treated as **binding**. If WRO adds a category, the conservative
+answer is "look at it".
+
+**The fix is in the parser, proven separately.** Running the repaired parser over the *old*
+2026-07-25 snapshot also yields 9, not 10 — so the drop is not a difference between the two
+snapshots. That check cannot live in CI: `.gitignore` excludes
+`docs/s6-qa-snapshot-*.html` as third-party content, and only the index is committed. It is a
+manual step alongside `--check`, and it is recorded here because it is the evidence.
+
+**S6 itself is unchanged.** The 2026-07-27 fetch is byte-identical to the 2026-07-25 snapshot
+(sha256 `d6667dfb…`, 156,091 bytes), and all nine answers match. Phases 6 and 7 rest on current
+rules. The schema bump is handled: `--check` against an older index compares on the common
+fields and says so, rather than screaming once per upgrade for ever.
+
+### Part 2 — the EV risk term decomposes
+
+**Context.** `CLAUDE.md` §5.6 and `data/scoring_model.json` both state
+
+    E[Δscore] = P(success) × points − P(collision) × 40
+
+**The 40 is not one object.** It is clef 10, speakers 2 × 10, amp 10 — and S1 places them
+apart: the amplifier and both speakers *"on the stage at the left end of the game field"*, the
+clef *"in the middle on the left end of the staff lines"*. So a route exposes the cluster it
+passes, not all four.
+
+**Decision.** Sweep three risk tiers — 10, 30, 40 — in `data/strategy_frame.json`, and **retain
+40 as the conservative default**. §5.6's intent, that EV is never written as a gross point gain,
+is correct and unchanged; only the magnitude is refined, and only with the exposed cluster named.
+
+**Consequence.** Which tier applies decides whether a mission can ever be not-worth-attempting:
+
+| zone | missions | points | distance from start | bonus exposed | break-even P(collision) at P(success)=1 |
+|---|---|---:|---:|---:|---:|
+| left stage end | 2 cables, mic, 3 instruments | 95 | 1923–2130 mm | **30** | 0.38–0.67 |
+| right staff end | 6 notes | 120 | 367–1110 mm | **10** | **2.0 — always worth attempting** |
+
+A note is worth 20 against a 10-point clef, so no collision probability makes one not worth
+attempting. Under the flat ×40 it would appear to break even at 0.5. The left-hand missions are
+genuinely conditional, and they are also eight times less dense in points per metre travelled
+(3.5 for a cable against 27.3 for the nearest note).
+
+**This orders nothing.** Mission ordering is Phase 8 proper and needs σ from field tests P2/P3
+plus the pickup locations, 15 of which are `nominal_pending` with null coordinates (ADR-014).
+`CLAUDE.md` §5.7 anti-pattern #3 forbids claiming one strategy beats another without simulator
+evidence; this supplies the cost and risk inputs to that claim, not the claim.

@@ -23,7 +23,18 @@ Rule: no rule/number/dimension may be stated unless it traces to S1–S4 or S6.
 **S6 has already overwritten two S4 clauses** (battery voltage, current limit). It is live
 and unversioned: **re-read it before any scoring or robot-limit claim, and at least weekly.**
 Change detection diffs the per-answer tuples in `docs/s6_index.json`, never the page's HTTP
-`Last-Modified` header — that is a render/cache timestamp and moves on theme edits.
+`Last-Modified` header — that is a render/cache timestamp and moves on theme edits. The
+re-read is two commands:
+
+```bash
+curl -sS -A "Mozilla/5.0" -o docs/s6-qa-snapshot-$(date +%F).html \
+     https://wro-association.org/competition/questions-answers/
+uv run python tools/s6_index.py docs/s6-qa-snapshot-$(date +%F).html --check
+```
+
+`--check` exits 1 on any delta and marks with `**` the entries in sections that bind this
+project — RoboMission (all age groups) and RoboMission Elementary. Junior, RoboSports and
+Future Innovators do not. Last verified unchanged 2026-07-27.
 
 Every rule this repo relies on is quoted and page-referenced in `docs/citations.json`.
 **Cite the rule number, never an intermediate document.**
@@ -153,6 +164,15 @@ immediately stops scores 40/255. Bonus points can only be *lost*. Every mission'
     E[Δscore] = P(success) × points − P(collision) × 40
 
 never a gross point gain.
+
+**The ×40 is a worst case, not a constant** (ADR-024, `data/strategy_frame.json`). The 40 is
+four separate objects — clef 10, speakers 2×10, amp 10 — and S1 places them apart: amp and both
+speakers on the stage at the left end, the clef at the left end of the staff lines. A route
+through the stage exposes **30**; a route along the staff exposes **10**.
+
+**Keep ×40 as the default.** The rule above exists to stop EV being written as a gross point
+gain, and that intent is unchanged. Use a smaller term only with the exposed cluster named and
+the route stated — never to make a mission look better.
 
 Randomization: notes `black, white, yellow, blue` are randomly assigned to the 4 light-green
 squares on the upper edge ⇒ **4! = 24 permutations**. `green` and `red` are fixed.
