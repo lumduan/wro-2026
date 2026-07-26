@@ -8,8 +8,9 @@
                                                     expected_score ◄────────┤
                                                           └─► round_strategy│
                                                        travel_budget ◄──────┘
+                                                             └─► feasibility_frontier
 
-Eight of the nine files in ``data/`` are derived. Nothing in the repo stated that
+Nine of the ten files in ``data/`` are derived. Nothing in the repo stated that
 chain until this file, and running the builders out of order does **not** fail:
 it silently leaves an artefact pinning a ``provenance`` sha that no longer
 matches the file on disk. That happened while adding ``mass_g`` to
@@ -80,6 +81,8 @@ PIPELINE: Final = (
     Artefact("expected_score", "build_expected_score", "data/expected_score.json"),
     Artefact("round_strategy", "build_round_strategy", "data/round_strategy.json"),
     Artefact("travel_budget", "build_travel_budget", "data/travel_budget.json", slow=True),
+    Artefact("feasibility_frontier", "build_feasibility_frontier",
+             "data/feasibility_frontier.json", slow=True),
 )
 
 #: `provenance.inputs` keys are logical names; these are the files they mean.
@@ -90,6 +93,7 @@ INPUT_PATHS: Final = {
     "placement_sensitivity": "data/placement_sensitivity.json",
     "strategy_frame": "data/strategy_frame.json",
     "expected_score": "data/expected_score.json",
+    "travel_budget": "data/travel_budget.json",
 }
 
 

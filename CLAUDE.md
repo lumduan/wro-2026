@@ -195,6 +195,12 @@ through the stage exposes **30**; a route along the staff exposes **10**.
 gain, and that intent is unchanged. Use a smaller term only with the exposed cluster named and
 the route stated — never to make a mission look better.
 
+**"Notes are 47 % of the total" is about the MAXIMUM score, not the expected one** (ADR-031).
+The three instruments deliver to `backstage` — **124,924 mm², 20× a note target** — so their
+`p_full` is still **1.000 at σ = 30 mm** while a note has lost a third of its value. They cross
+at **σ = 20.4 mm**: below it a note is worth more, above it an instrument is, despite being worth
+five fewer points and having no partial tier. Which side the robot lands on is **B5**.
+
 Randomization: notes `black, white, yellow, blue` are randomly assigned to the 4 light-green
 squares on the upper edge ⇒ **4! = 24 permutations**. `green` and `red` are fixed.
 S4 §9.6 randomizes **after** quarantine and §10.2 forbids entering data by moving robot

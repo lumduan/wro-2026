@@ -1,0 +1,4310 @@
+{
+  "capacity_blocks": [
+    {
+      "attemptable": [
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 100.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 100.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 80.0
+        },
+        {
+          "best_case_points": 80.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 80.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 100.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 155.0
+        }
+      ],
+      "capacity": 1,
+      "drop_order": [
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas"
+          ],
+          "missions": 9,
+          "pick_place_s": 0.0,
+          "points": 170.0,
+          "seconds_used": 116.945
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar"
+          ],
+          "missions": 8,
+          "pick_place_s": 1.0,
+          "points": 155.0,
+          "seconds_used": 106.279
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar"
+          ],
+          "missions": 8,
+          "pick_place_s": 2.0,
+          "points": 155.0,
+          "seconds_used": 114.279
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 7,
+          "pick_place_s": 3.0,
+          "points": 140.0,
+          "seconds_used": 100.202
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 7,
+          "pick_place_s": 4.0,
+          "points": 140.0,
+          "seconds_used": 107.202
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 7,
+          "pick_place_s": 5.0,
+          "points": 140.0,
+          "seconds_used": 114.202
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "mic"
+          ],
+          "missions": 7,
+          "pick_place_s": 6.0,
+          "points": 135.0,
+          "seconds_used": 119.938
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 10,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard",
+            "mic"
+          ],
+          "missions": 6,
+          "pick_place_s": 8.0,
+          "points": 120.0,
+          "seconds_used": 107.265
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 10,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard",
+            "mic"
+          ],
+          "missions": 6,
+          "pick_place_s": 10.0,
+          "points": 120.0,
+          "seconds_used": 119.265
+        }
+      ],
+      "expected_value_changes_the_subset": {
+        "cells_compared": 270,
+        "cells_that_differ": 74,
+        "differences": [
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 1.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 1.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 1.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 1.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 3.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 3.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 3.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 250
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 250
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 250
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 300
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 300
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 400
+          },
+          {
+            "attemptable_subset": [
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 400
+          },
+          {
+            "attemptable_subset": [
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 500
+          }
+        ],
+        "note": "Feasibility maximises raw points; the expected view maximises E[points] from expected_score.json at that sigma. Where they agree, accuracy does not change WHICH missions to attempt - only what they are worth.",
+        "sigma_anchors": [
+          10.0,
+          20.0,
+          30.0
+        ]
+      },
+      "saturation": [
+        {
+          "best_case_speed_mm_s": 123.239,
+          "ceiling_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 150.748
+        },
+        {
+          "best_case_speed_mm_s": 134.442,
+          "ceiling_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 164.453
+        },
+        {
+          "best_case_speed_mm_s": 147.886,
+          "ceiling_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 180.898
+        },
+        {
+          "best_case_speed_mm_s": 164.318,
+          "ceiling_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 200.998
+        },
+        {
+          "best_case_speed_mm_s": 184.858,
+          "ceiling_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 226.123
+        },
+        {
+          "best_case_speed_mm_s": 211.266,
+          "ceiling_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 258.426
+        },
+        {
+          "best_case_speed_mm_s": 246.477,
+          "ceiling_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 301.497
+        },
+        {
+          "best_case_speed_mm_s": 369.716,
+          "ceiling_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 452.245
+        },
+        {
+          "best_case_speed_mm_s": 739.432,
+          "ceiling_points": 185.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 904.49
+        }
+      ]
+    },
+    {
+      "attemptable": [
+        {
+          "best_case_points": 165.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 150.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 135.0
+        },
+        {
+          "best_case_points": 135.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 100.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 75,
+          "worst_case_points": 100.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 150.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 135.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 100,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 165.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 120.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 125,
+          "worst_case_points": 120.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 150,
+          "worst_case_points": 135.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 140.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 175,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 200,
+          "worst_case_points": 140.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 155.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 250,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 165.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 300,
+          "worst_case_points": 155.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 170.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 400,
+          "worst_case_points": 170.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 185.0
+        },
+        {
+          "best_case_points": 185.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 500,
+          "worst_case_points": 170.0
+        }
+      ],
+      "capacity": 2,
+      "drop_order": [
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [],
+          "missions": 10,
+          "pick_place_s": 0.0,
+          "points": 185.0,
+          "seconds_used": 87.716
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [],
+          "missions": 10,
+          "pick_place_s": 1.0,
+          "points": 185.0,
+          "seconds_used": 97.716
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [],
+          "missions": 10,
+          "pick_place_s": 2.0,
+          "points": 185.0,
+          "seconds_used": 107.716
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [],
+          "missions": 10,
+          "pick_place_s": 3.0,
+          "points": 185.0,
+          "seconds_used": 117.716
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_guitar"
+          ],
+          "missions": 9,
+          "pick_place_s": 4.0,
+          "points": 170.0,
+          "seconds_used": 118.818
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 8,
+          "pick_place_s": 5.0,
+          "points": 155.0,
+          "seconds_used": 103.615
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 8,
+          "pick_place_s": 6.0,
+          "points": 155.0,
+          "seconds_used": 111.615
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 30,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard"
+          ],
+          "missions": 7,
+          "pick_place_s": 8.0,
+          "points": 140.0,
+          "seconds_used": 116.355
+        },
+        {
+          "at_speed_mm_s": 120.0,
+          "bonus_points_exposed": 10,
+          "dropped": [
+            "instrument_congas",
+            "instrument_guitar",
+            "instrument_keyboard",
+            "mic"
+          ],
+          "missions": 6,
+          "pick_place_s": 10.0,
+          "points": 120.0,
+          "seconds_used": 100.474
+        }
+      ],
+      "expected_value_changes_the_subset": {
+        "cells_compared": 270,
+        "cells_that_differ": 44,
+        "differences": [
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 10.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "mic",
+              "note_black",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 20.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 0.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 1.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 3.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "expected_subset": [
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 75
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 2.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 3.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 100
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 4.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 125
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 5.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 150
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 6.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_blue",
+              "note_green",
+              "note_white"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 175
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 200
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 8.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 250
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 250
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 300
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 400
+          },
+          {
+            "attemptable_subset": [
+              "instrument_congas",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_green",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "expected_subset": [
+              "instrument_congas",
+              "instrument_guitar",
+              "instrument_keyboard",
+              "mic",
+              "note_black",
+              "note_blue",
+              "note_red",
+              "note_white",
+              "note_yellow"
+            ],
+            "pick_place_s": 10.0,
+            "sigma_mm": 30.0,
+            "speed_mm_s": 500
+          }
+        ],
+        "note": "Feasibility maximises raw points; the expected view maximises E[points] from expected_score.json at that sigma. Where they agree, accuracy does not change WHICH missions to attempt - only what they are worth.",
+        "sigma_anchors": [
+          10.0,
+          20.0,
+          30.0
+        ]
+      },
+      "saturation": [
+        {
+          "best_case_speed_mm_s": 79.585,
+          "ceiling_points": 185.0,
+          "pick_place_s": 0.0,
+          "speed_mm_s": 92.948
+        },
+        {
+          "best_case_speed_mm_s": 86.821,
+          "ceiling_points": 185.0,
+          "pick_place_s": 1.0,
+          "speed_mm_s": 101.397
+        },
+        {
+          "best_case_speed_mm_s": 95.503,
+          "ceiling_points": 185.0,
+          "pick_place_s": 2.0,
+          "speed_mm_s": 111.537
+        },
+        {
+          "best_case_speed_mm_s": 106.114,
+          "ceiling_points": 185.0,
+          "pick_place_s": 3.0,
+          "speed_mm_s": 123.93
+        },
+        {
+          "best_case_speed_mm_s": 119.378,
+          "ceiling_points": 185.0,
+          "pick_place_s": 4.0,
+          "speed_mm_s": 139.421
+        },
+        {
+          "best_case_speed_mm_s": 136.432,
+          "ceiling_points": 185.0,
+          "pick_place_s": 5.0,
+          "speed_mm_s": 159.339
+        },
+        {
+          "best_case_speed_mm_s": 159.171,
+          "ceiling_points": 185.0,
+          "pick_place_s": 6.0,
+          "speed_mm_s": 185.895
+        },
+        {
+          "best_case_speed_mm_s": 238.756,
+          "ceiling_points": 185.0,
+          "pick_place_s": 8.0,
+          "speed_mm_s": 278.843
+        },
+        {
+          "best_case_speed_mm_s": 477.513,
+          "ceiling_points": 185.0,
+          "pick_place_s": 10.0,
+          "speed_mm_s": 557.686
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "capacities": [
+      1,
+      2
+    ],
+    "inputs": {
+      "expected_score": "74bba109783842de5783f17450c28ef29a42a97f203e1bb35859a82b5e2a486d",
+      "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
+      "travel_budget": "fadd7cbe4e05bfa21611bd867cfcbd9fb9bd94c71441b8d91434c4fd1f28047c"
+    },
+    "joint_start_states": 384,
+    "pick_place_seconds": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      8.0,
+      10.0
+    ],
+    "speeds_mm_s": [
+      75,
+      100,
+      125,
+      150,
+      175,
+      200,
+      250,
+      300,
+      400,
+      500
+    ],
+    "tool": {
+      "name": "build_feasibility_frontier",
+      "version": "1.0.0"
+    }
+  },
+  "reads": {
+    "best_case_points": "the luckiest draw, for the width of the band",
+    "drop_order": "at a fixed 120 mm/s, which missions the optimal subset sheds as handling time grows - computed on the median state",
+    "saturation_speed_mm_s": "the exact lowest speed that reaches the ceiling, over the WORST state; null means no finite speed does, which happens once pick-and-place alone consumes the attempt (ADR-030's 12 s cliff)",
+    "worst_case_points": "guaranteed whatever the randomization draws - the minimum over all 384 joint start states"
+  },
+  "robustness": {
+    "consequence": "CLAUDE.md 5.6's 'notes are 47% of the total' is a statement about the MAXIMUM score. At realistic placement error it overstates their share of the EXPECTED score, and the three instruments are the robust play.",
+    "crossover_note": "Below this sigma a note is worth more; above it an instrument is, despite being worth five fewer points at full credit. The instrument has no partial tier at all (ADR-026) and does not need one - its p_full is still 1.0 at sigma = 30 mm.",
+    "crossover_sigma_mm": 20.392,
+    "instrument_keyboard": [
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 0.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 1.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 2.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 3.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 5.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 7.5
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 10.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 15.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 20.0
+      },
+      {
+        "expected_points": 15.0,
+        "p_full": 1.0,
+        "sigma_mm": 30.0
+      },
+      {
+        "expected_points": 14.91,
+        "p_full": 0.994,
+        "sigma_mm": 45.0
+      }
+    ],
+    "note_blue": [
+      {
+        "expected_points": 20.0,
+        "p_full": 1.0,
+        "sigma_mm": 0.0
+      },
+      {
+        "expected_points": 20.0,
+        "p_full": 1.0,
+        "sigma_mm": 1.0
+      },
+      {
+        "expected_points": 20.0,
+        "p_full": 1.0,
+        "sigma_mm": 2.0
+      },
+      {
+        "expected_points": 20.0,
+        "p_full": 1.0,
+        "sigma_mm": 3.0
+      },
+      {
+        "expected_points": 20.0,
+        "p_full": 1.0,
+        "sigma_mm": 5.0
+      },
+      {
+        "expected_points": 19.95,
+        "p_full": 0.995,
+        "sigma_mm": 7.5
+      },
+      {
+        "expected_points": 19.57,
+        "p_full": 0.957,
+        "sigma_mm": 10.0
+      },
+      {
+        "expected_points": 17.49,
+        "p_full": 0.749,
+        "sigma_mm": 15.0
+      },
+      {
+        "expected_points": 15.13,
+        "p_full": 0.522,
+        "sigma_mm": 20.0
+      },
+      {
+        "expected_points": 11.81,
+        "p_full": 0.278,
+        "sigma_mm": 30.0
+      },
+      {
+        "expected_points": 7.62,
+        "p_full": 0.112,
+        "sigma_mm": 45.0
+      }
+    ],
+    "target_area_mm2": {
+      "backstage": 124923.697,
+      "mic_target": 7619.32,
+      "note_target_blue": 6352.09,
+      "ratio_backstage_to_note": 19.667
+    },
+    "why": "Raw points rank a note above an instrument by a third. Expected points stop doing so once placement error is real, because the targets are not the same size."
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "which missions fit in the 120 s attempt at a given driving speed and pick-and-place time, and what they score",
+    "covers": "the ten costable placement missions - the six notes and the four truck objects, 185 of the 215 placement points",
+    "does_not_cover": "the two cables: still nominal_pending, so every subset here is missing them and the frontier is a LOWER BOUND on reachable points",
+    "excludes_the_bonus_floor": 40,
+    "feasibility_is_not_success": "A mission that fits still has to be placed accurately enough to score. That is what the expected-value view keeps visible, and why the bonus floor of 40 is excluded from every figure here.",
+    "pick_place_is_not_measured": true,
+    "pick_place_source": "work order A3, once a mechanism exists",
+    "speed_is_not_measured": true,
+    "speed_source": "field test P6 (motor characterisation)",
+    "why_this_is_allowed_now": "strategy_frame.json refused mission ordering because it needed the pickup locations and a route; ADR-029 and ADR-030 supplied both for these ten. Feasibility does not need sigma - sigma decides whether a placement SCORES, not whether it FITS. CLAUDE.md 5.7 anti-pattern #3 asks for simulator evidence, and this is it."
+  }
+}

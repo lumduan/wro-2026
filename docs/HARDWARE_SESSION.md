@@ -103,6 +103,17 @@ cannot buy it back. **While you have an object in hand, time a realistic pick an
 stopwatch and ten repetitions is the whole measurement, and it is worth more than any figure P6
 produces.
 
+**A3 and P6 now have a joint target (ADR-031).** All 185 costable points are reachable at these
+pairs, worst case over every randomization draw:
+
+| handling, s per object | 0 | 2 | 4 | 6 | 8 | 10 |
+|---|---:|---:|---:|---:|---:|---:|
+| **driving speed needed, mm/s** | **92.9** | 111.5 | 139.4 | 185.9 | 278.8 | 557.7 |
+
+Read it as a pair, not two numbers. **Above the speed in each column, more speed scores nothing**
+— so the moment P6 clears the figure your handling time implies, P6 stops mattering and every
+further point comes from A3.
+
 → closes: **P7** (second half) and **ADR-022's gated half**. Write the outcome as a new ADR
 with the arithmetic shown, exactly as ADR-022 refused to do without this measurement.
 
@@ -233,7 +244,15 @@ This is the one that changes the most downstream. σ is the single unmeasured in
 is Gaussian and isotropic) and **AS-9** (0.5° of heading error per mm of σ) — measure the real
 shape, then re-run `tools/run_sensitivity.py` against it.
 
-→ closes: P3; AS-8; AS-9. Unblocks Phase 8 mission ordering.
+**σ = 20.4 mm is now a threshold, not just a number (ADR-031).** Below it a note is worth more
+than an instrument; above it the ranking **inverts**, because the instruments deliver to
+`backstage` — 20× a note target — and hold `p_full = 1.000` all the way to σ = 30 mm while a note
+has lost a third of its value. So B5 does not merely sharpen the accuracy figures: **it decides
+which half of the field is the priority.** Report σ to a resolution that can tell 15 mm from
+25 mm and the question is settled.
+
+→ closes: P3; AS-8; AS-9. Unblocks Phase 8 mission ordering, and answers the note-vs-instrument
+question ADR-031 leaves open.
 
 ### B6 · P6 — motor characterisation
 

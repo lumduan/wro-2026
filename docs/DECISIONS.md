@@ -36,6 +36,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-028](#adr-028) | A rounded probability is not a probability distribution | accepted 2026-07-26 |
 | [ADR-029](#adr-029) | Travel is a budget; capacity buys it; `strategy_frame` never costed a mission | accepted 2026-07-26 |
 | [ADR-030](#adr-030) | A bounded start beats a pending one — the truck, and the pick-and-place cliff | accepted 2026-07-26 |
+| [ADR-031](#adr-031) | The feasibility frontier; speed saturates; the instruments are σ-proof | accepted 2026-07-26 |
 
 ---
 
@@ -1452,3 +1453,99 @@ P6 and pick-and-place time until a mechanism exists. Not which missions to attem
 σ (**B5**) and CLAUDE.md §5.7 anti-pattern #3 still applies. The two cables remain genuinely
 `nominal_pending`; *"close to the stage (left end)"* is not a measured region, and inventing one
 would be exactly the error ADR-014 exists to prevent.
+
+---
+
+## ADR-031
+
+**The feasibility frontier — and the ban on mission ordering lifts, for ten missions.**
+`2026-07-26 · accepted`
+
+### Part 1 — why this is allowed now
+
+**Context.** Three units built the pieces and nothing joined them. `data/travel_budget.json` was
+a leaf, consumed by nothing. So the repo could say how far every mission is, what each tier of
+accuracy pays, and how a best-of-N ranking changes the objective — and still not answer the
+question a team asks: *given a robot that drives at v and picks-and-places in t, which missions
+fit in 120 seconds?*
+
+That was refused for eight phases, and the refusal was correct and specific.
+`strategy_frame.json` says it verbatim: *"Mission ordering needs σ from field tests P2/P3 and the
+object pickup locations, 15 of which are `nominal_pending`."* CLAUDE.md §5.7 anti-pattern #3
+forbids claiming one strategy beats another without simulator evidence.
+
+**Both conditions are now met.** ADR-029 and ADR-030 supply exact tours for ten of the twelve
+placement missions. And **feasibility does not need σ** — σ decides whether a placement *scores*,
+not whether it *fits*. So the ban lifts for the covered set and stays for the two cables, which
+are still `nominal_pending`. Every subset here is missing them, so the frontier is a **lower
+bound**: 185 of the 215 placement points, never 215.
+
+**The subset tours are free.** `tour_points` already memoises `best_from(remaining, position)`,
+and `best_from(S, start)` *is* the optimal tour for subset `S`. Querying all 1024 subsets against
+one shared memo costs 0.10 s at capacity 1 and 0.58 s at capacity 2 — the work the full tour
+already did.
+
+### Part 2 — speed saturates, pick-and-place does not
+
+Worst case over all **384 joint start states** — guaranteed whatever the randomization draws.
+Capacity 2, of 185 placement points:
+
+| v \ t | 0 s | 2 s | 4 s | 6 s | 8 s |
+|---|---:|---:|---:|---:|---:|
+| **75 mm/s** | 155 | 140 | 120 | 120 | 120 |
+| **100** | 185 | 155 | 155 | 135 | 120 |
+| **125** | 185 | 185 | 165 | 155 | 140 |
+| **150** | 185 | 185 | 185 | 155 | 155 |
+| **200** | 185 | 185 | 185 | 185 | 155 |
+| **300** | 185 | 185 | 185 | 185 | 185 |
+
+The **exact** speed that reaches the ceiling — by formula, not search, since a subset fits iff
+`travel / v + count × t ≤ 120`:
+
+| t (s per object) | 0 | 2 | 4 | 6 | 8 | 10 |
+|---|---:|---:|---:|---:|---:|---:|
+| **needs (mm/s)** | **92.9** | 111.5 | 139.4 | 185.9 | 278.8 | 557.7 |
+
+**Above that line more speed buys literally nothing**, and in the sensitive region each extra
+second of handling costs about **15 points — one instrument**. Both platforms clear 93 mm/s
+without effort. **You do not need a fast robot; you need a fast gripper.** That is the same
+conclusion ADR-030 reached from the 12 s cliff, arrived at independently.
+
+**The drop order is not the obvious one.** At 120 mm/s the optimal subset sheds the three
+instruments first — 15 points each and two metres away — and the notes survive longest, as
+ADR-030's 5.2× points-per-metre gap predicted. But at 7 s per object **`mic` is dropped ahead of
+a cheaper instrument**, despite being worth 20 against 15, because it costs more travel than the
+instrument it displaces. A points-per-metre table gets that call wrong. It is why the frontier is
+computed rather than reasoned about.
+
+### Part 3 — the instruments are σ-proof, and they overtake the notes
+
+Pricing accuracy in changes **which** missions to attempt in 44 of 270 cells at capacity 2, and
+74 of 270 at capacity 1. The direction is the opposite of the raw ranking — at capacity 2,
+`instrument_keyboard` is *added* in **26** of those cells, `instrument_guitar` in **17** and
+`instrument_congas` in **13**, while notes are dropped.
+
+The cause is geometry, not scoring. The instruments deliver to **`backstage`, 124 924 mm²** —
+**20× a note target's 6 352 mm²** — so their `p_full` is still **1.000 at σ = 30 mm**:
+
+| σ (mm) | note (20 full) | instrument (15 full) |
+|---:|---:|---:|
+| 10 | 19.57 | 15.00 |
+| 15 | 17.49 | 15.00 |
+| 20 | 15.13 | 15.00 |
+| **30** | **11.81** | **15.00** |
+| 45 | 7.62 | 14.91 |
+
+**They cross at σ = 20.4 mm.** Below it a note is worth more; above it an instrument is, despite
+being worth five fewer points at full credit — and despite having **no partial tier at all**
+(ADR-026), which it does not need.
+
+**This qualifies CLAUDE.md §5.6.** *"Notes are 120/255 = 47 % of total"* is a statement about the
+**maximum** score. At realistic placement error it overstates their share of the **expected**
+score, and the three instruments are the robust play. Which side of 20.4 mm the robot lands on is
+work order **B5**.
+
+**What this does not claim.** Not that the team should build for any point on the frontier. `v`
+is unmeasured until **P6**, `t` until a mechanism exists (**A3**), and σ until **B5**. The
+frontier reports what is *reachable* at a given operating point; choosing one is a decision the
+measurements inform and this does not pre-empt.

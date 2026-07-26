@@ -74,7 +74,7 @@ fill inventory, the report and the decision records — is committed.
 | `docs/extracted/*/vector/fills_by_colour.json` | Raw fill-colour inventory from the mat, in mm. |
 | `docs/EXTRACTION_REPORT.md` | Human-readable verdict on extraction quality. |
 | `docs/ASSUMPTIONS.md` | Every `ASSUME:` with its consequence-if-wrong. |
-| `docs/AMBIGUITIES.md` | Ambiguity register A1–A9; five resolved by S4/S6. |
+| `docs/AMBIGUITIES.md` | Ambiguity register A1–A10; five resolved by S4/S6, the rest routed to the official Q&A. |
 | `docs/citations.json` | Every cited rule, quoted and page-referenced. |
 | `docs/s6_index.json` | Q&A answer timestamps — the change-detection diff target. |
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
@@ -84,12 +84,12 @@ fill inventory, the report and the decision records — is committed.
 | `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
 | `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |
 | `docs/object_map.toml`, `object_parts.toml` | Hand-written inputs to the object spec: S3 page ranges → object IDs, and part identification. |
-| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `rounds` (the score distribution) · `travel` (the note tour) · `robot_io_sim`. |
+| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `rounds` (the score distribution) · `travel` (tours) · `frontier` (what fits in 120 s) · `robot_io_sim`. |
 | `robot/` | `robot_io.py` — the one contract mission code imports — plus the EV3 and SPIKE backends and `missions/`. Must run on **MicroPython**; `tools/check_portability.py` enforces that. |
 | `tools/pdf_extract.py` | The extraction CLI. |
 | `tools/build_all.py` | Runs the derived-artefact pipeline in dependency order. |
 
-### `data/` — eight derived files and one that is not
+### `data/` — nine derived files and one that is not
 
 **Never hand-edit a derived file.** Edit its input and re-run `tools/build_all.py`.
 
@@ -103,6 +103,7 @@ fill inventory, the report and the decision records — is committed.
 | `expected_score.json` | E[score] as a function of σ and P(collision) — the **N = 1** case | `build_expected_score.py` |
 | `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, and the S4 §10.14 mulligan rule (ADR-027) | `build_round_strategy.py` |
 | `travel_budget.json` | Tour length per carry capacity — the six notes over all 24 randomization permutations (ADR-029), and the full ten-mission run over 384 joint start states with the pick-and-place cliff (ADR-030) | `build_travel_budget.py` |
+| `feasibility_frontier.json` | Which missions fit in 120 s at a given driving speed and pick-and-place time, and what they score (ADR-031) | `build_feasibility_frontier.py` |
 | `scoring_model.json` | Missions, predicates, time rules, randomization | **hand-authored** — a transcription of S1/S4/S6, not a derivation |
 
 ## The build chain
