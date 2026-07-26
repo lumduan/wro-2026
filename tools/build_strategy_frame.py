@@ -216,8 +216,23 @@ def build() -> dict[str, Any]:
                 {k: (list(v) if isinstance(v, tuple) else v) for k, v in c.items()}
                 for c in BONUS_CLUSTERS
             ],
-            "breakeven_formula": "P(collision)* = P(success) * points / risk",
-            "linear_in_p_success": True,
+            "breakeven_formula": (
+                "P(collision)* = (p_full(sigma)*full + p_partial(sigma)*partial) / risk "
+                "— see data/expected_score.json"
+            ),
+            "linear_in_p_success": False,
+            "breakeven_values_are_the_sigma_zero_limit": True,
+            "corrected_2026_07_27": (
+                "This block previously read 'P(collision)* = P(success) * points / risk, "
+                "linear_in_p_success: true'. The stored VALUES are correct — they are the "
+                "sigma -> 0 limit, where p_full = 1 and p_partial = 0, so E = points "
+                "exactly. The SCALING RULE was wrong: a missed placement usually scores "
+                "the PARTIAL tier, not zero, so EV is not linear in P(success). Following "
+                "the old rule understates EV by up to 45% (note_blue at sigma = 20 mm: "
+                "10.44 against a true 15.13). A correct number with a wrong usage "
+                "instruction attached. Not a blanket factor either: the three instruments "
+                "have no partial tier, and for them the old rule was exactly right."
+            ),
         },
         "zones": [zones[k] for k in sorted(zones)],
         "missions": rows,

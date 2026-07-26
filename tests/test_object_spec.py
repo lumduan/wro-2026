@@ -355,3 +355,30 @@ def test_the_1x6_part_attribution_is_withdrawn_not_guessed(spec: dict):
     limitation = curated["limitations"]["silhouette_cannot_see_interior_detail"]
     assert limitation["dimensional_impact"] == "NONE"
     assert "interior" in limitation["cause"]
+
+
+# --------------------------------------------------------------------------- #
+# Measurement ingestion — the path must exist and must be INERT
+# --------------------------------------------------------------------------- #
+
+
+def test_mass_ingestion_is_wired_but_carries_nothing_yet(objects: dict):
+    """Work order A2 lands masses in object_map.toml; the builder reads them.
+
+    Until then every value must be null. A plumbing change that quietly
+    introduced a placeholder would be worse than no plumbing at all — which is
+    exactly why the work order said "not before".
+    """
+    for name, obj in objects.items():
+        assert obj["mass_g"] is None, name
+        assert obj["mass_source"] is None, name
+        assert obj["needs_measurement"] is True, name
+
+
+def test_every_footprint_is_still_stud_derived_not_calipered(objects: dict):
+    """Work order A4. No caliper reading has superseded a derived value yet."""
+    for name, obj in objects.items():
+        if obj["contact_footprint_studs"] is None:
+            continue
+        assert obj["contact_footprint_source"] == "derived from stud count x 8.00 mm", name
+        assert "derived_contact_footprint_mm" not in obj, name

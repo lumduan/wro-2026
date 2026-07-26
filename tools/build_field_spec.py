@@ -529,7 +529,23 @@ def build(
             "nominal_start_pose_mm": None,
             "source": "S1 p7 — assigned at randomization, so there is no fixed pose",
         }
+    # Work order item B0: a pose measured off a set-up field lands in
+    # area_map.toml under [measured_start_poses] and supersedes the pending
+    # record. Absent one, the entry stays `nominal_pending` -- a coordinate is
+    # never invented (ADR-014), and the path is inert until someone measures.
+    measured_starts = amap.get("measured_start_poses", {})
     for obj, where in sorted(nominal_only.items()):
+        measured = measured_starts.get(obj)
+        if measured:
+            object_start_poses[obj] = {
+                "kind": "measured",
+                "nominal_start_pose_mm": RS(measured["pose_mm"]),
+                "placement_tolerance_mm": measured.get("tolerance_mm"),
+                "needs_measurement": False,
+                "source": where,
+                "measured_evidence": measured.get("evidence", ""),
+            }
+            continue
         object_start_poses[obj] = {
             "kind": "nominal_pending",
             "nominal_start_pose_mm": None,
@@ -538,8 +554,9 @@ def build(
             "source": where,
             "note": (
                 "No marker exists on the mat for this object (see ADR-012 on the four "
-                "unassigned markers). A coordinate is NOT invented here; measure it from "
-                "a set-up table (FIELD_TEST_PLAN P4) or S1 photography."
+                "unassigned markers). A coordinate is NOT invented here; measure it on "
+                "a set-up field and record it under [measured_start_poses] in "
+                "docs/area_map.toml — work order item B0."
             ),
         }
     object_start_poses["robot"] = {

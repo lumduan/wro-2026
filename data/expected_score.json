@@ -1,0 +1,3613 @@
+{
+  "formula": {
+    "bonus_floor": 40,
+    "bonus_floor_rule": "S6 2026-06-17 — a run that does nothing scores 40",
+    "expected_points": "p_full(sigma)*full + p_partial(sigma)*partial",
+    "expected_total": "40 + sum(expected_points) - P(collision)*risk",
+    "not_a_blanket_factor": "the partial tier is 5/15 for a cable, 10/20 for the microphone and notes, and ABSENT for the three instruments, where the naive form is exactly right",
+    "supersedes": "strategy_frame.json's 'linear_in_p_success' scaling rule. Its stored break-even values are the sigma -> 0 limit and are correct; the rule attached to them is not, and following it understates EV by up to 45%."
+  },
+  "provenance": {
+    "inputs": {
+      "placement_sensitivity": "cdc174d2fe3f8b31493c65d148251aedb43d73419611e1a38f5cc5afae3f474a",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
+      "strategy_frame": "edd56302f70a33d707d03de8390be5996eee9537751e0371cf28007a767e973a"
+    },
+    "p_collision_grid": [
+      0.0,
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "tool": {
+      "name": "build_expected_score",
+      "version": "1.0.0"
+    }
+  },
+  "readings": {
+    "contact": {
+      "full_attempt_run": [
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 0.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 1.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 2.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 3.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 5.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 254.71,
+              "p_collision": 0.0,
+              "share_of_max": 0.999
+            },
+            {
+              "expected_total": 252.71,
+              "p_collision": 0.05,
+              "share_of_max": 0.991
+            },
+            {
+              "expected_total": 250.71,
+              "p_collision": 0.1,
+              "share_of_max": 0.983
+            },
+            {
+              "expected_total": 244.71,
+              "p_collision": 0.25,
+              "share_of_max": 0.96
+            },
+            {
+              "expected_total": 234.71,
+              "p_collision": 0.5,
+              "share_of_max": 0.92
+            }
+          ],
+          "expected_placement_points": 214.71,
+          "sigma_mm": 7.5
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 251.765,
+              "p_collision": 0.0,
+              "share_of_max": 0.987
+            },
+            {
+              "expected_total": 249.765,
+              "p_collision": 0.05,
+              "share_of_max": 0.979
+            },
+            {
+              "expected_total": 247.765,
+              "p_collision": 0.1,
+              "share_of_max": 0.972
+            },
+            {
+              "expected_total": 241.765,
+              "p_collision": 0.25,
+              "share_of_max": 0.948
+            },
+            {
+              "expected_total": 231.765,
+              "p_collision": 0.5,
+              "share_of_max": 0.909
+            }
+          ],
+          "expected_placement_points": 211.765,
+          "sigma_mm": 10.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 235.475,
+              "p_collision": 0.0,
+              "share_of_max": 0.923
+            },
+            {
+              "expected_total": 233.475,
+              "p_collision": 0.05,
+              "share_of_max": 0.916
+            },
+            {
+              "expected_total": 231.475,
+              "p_collision": 0.1,
+              "share_of_max": 0.908
+            },
+            {
+              "expected_total": 225.475,
+              "p_collision": 0.25,
+              "share_of_max": 0.884
+            },
+            {
+              "expected_total": 215.475,
+              "p_collision": 0.5,
+              "share_of_max": 0.845
+            }
+          ],
+          "expected_placement_points": 195.475,
+          "sigma_mm": 15.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 216.32,
+              "p_collision": 0.0,
+              "share_of_max": 0.848
+            },
+            {
+              "expected_total": 214.32,
+              "p_collision": 0.05,
+              "share_of_max": 0.84
+            },
+            {
+              "expected_total": 212.32,
+              "p_collision": 0.1,
+              "share_of_max": 0.833
+            },
+            {
+              "expected_total": 206.32,
+              "p_collision": 0.25,
+              "share_of_max": 0.809
+            },
+            {
+              "expected_total": 196.32,
+              "p_collision": 0.5,
+              "share_of_max": 0.77
+            }
+          ],
+          "expected_placement_points": 176.32,
+          "sigma_mm": 20.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 184.685,
+              "p_collision": 0.0,
+              "share_of_max": 0.724
+            },
+            {
+              "expected_total": 182.685,
+              "p_collision": 0.05,
+              "share_of_max": 0.716
+            },
+            {
+              "expected_total": 180.685,
+              "p_collision": 0.1,
+              "share_of_max": 0.709
+            },
+            {
+              "expected_total": 174.685,
+              "p_collision": 0.25,
+              "share_of_max": 0.685
+            },
+            {
+              "expected_total": 164.685,
+              "p_collision": 0.5,
+              "share_of_max": 0.646
+            }
+          ],
+          "expected_placement_points": 144.685,
+          "sigma_mm": 30.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 150.66,
+              "p_collision": 0.0,
+              "share_of_max": 0.591
+            },
+            {
+              "expected_total": 148.66,
+              "p_collision": 0.05,
+              "share_of_max": 0.583
+            },
+            {
+              "expected_total": 146.66,
+              "p_collision": 0.1,
+              "share_of_max": 0.575
+            },
+            {
+              "expected_total": 140.66,
+              "p_collision": 0.25,
+              "share_of_max": 0.552
+            },
+            {
+              "expected_total": 130.66,
+              "p_collision": 0.5,
+              "share_of_max": 0.512
+            }
+          ],
+          "expected_placement_points": 110.66,
+          "sigma_mm": 45.0
+        }
+      ],
+      "missions": [
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.9,
+              "expected_points_ignoring_partial": 14.85,
+              "p_full": 0.99,
+              "p_none": 0.0,
+              "p_partial": 0.01,
+              "sigma_mm": 10.0,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 0.46,
+              "expected_points": 13.785,
+              "expected_points_ignoring_partial": 13.185,
+              "p_full": 0.879,
+              "p_none": 0.001,
+              "p_partial": 0.12,
+              "sigma_mm": 15.0,
+              "understatement": 0.6
+            },
+            {
+              "breakeven_p_collision": 0.395,
+              "expected_points": 11.845,
+              "expected_points_ignoring_partial": 10.32,
+              "p_full": 0.688,
+              "p_none": 0.007,
+              "p_partial": 0.305,
+              "sigma_mm": 20.0,
+              "understatement": 1.525
+            },
+            {
+              "breakeven_p_collision": 0.283,
+              "expected_points": 8.485,
+              "expected_points_ignoring_partial": 5.595,
+              "p_full": 0.373,
+              "p_none": 0.049,
+              "p_partial": 0.578,
+              "sigma_mm": 30.0,
+              "understatement": 2.89
+            },
+            {
+              "breakeven_p_collision": 0.196,
+              "expected_points": 5.895,
+              "expected_points_ignoring_partial": 2.52,
+              "p_full": 0.168,
+              "p_none": 0.158,
+              "p_partial": 0.675,
+              "sigma_mm": 45.0,
+              "understatement": 3.375
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": true,
+          "mission_id": "cable_area_lower",
+          "object_id": "cable_lower",
+          "partial_points": 5
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.905,
+              "expected_points_ignoring_partial": 14.85,
+              "p_full": 0.99,
+              "p_none": 0.0,
+              "p_partial": 0.011,
+              "sigma_mm": 10.0,
+              "understatement": 0.055
+            },
+            {
+              "breakeven_p_collision": 0.46,
+              "expected_points": 13.8,
+              "expected_points_ignoring_partial": 13.2,
+              "p_full": 0.88,
+              "p_none": 0.0,
+              "p_partial": 0.12,
+              "sigma_mm": 15.0,
+              "understatement": 0.6
+            },
+            {
+              "breakeven_p_collision": 0.398,
+              "expected_points": 11.945,
+              "expected_points_ignoring_partial": 10.485,
+              "p_full": 0.699,
+              "p_none": 0.009,
+              "p_partial": 0.292,
+              "sigma_mm": 20.0,
+              "understatement": 1.46
+            },
+            {
+              "breakeven_p_collision": 0.284,
+              "expected_points": 8.52,
+              "expected_points_ignoring_partial": 5.64,
+              "p_full": 0.376,
+              "p_none": 0.049,
+              "p_partial": 0.576,
+              "sigma_mm": 30.0,
+              "understatement": 2.88
+            },
+            {
+              "breakeven_p_collision": 0.195,
+              "expected_points": 5.86,
+              "expected_points_ignoring_partial": 2.415,
+              "p_full": 0.161,
+              "p_none": 0.151,
+              "p_partial": 0.689,
+              "sigma_mm": 45.0,
+              "understatement": 3.445
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": true,
+          "mission_id": "cable_area_upper",
+          "object_id": "cable_upper",
+          "partial_points": 5
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.498,
+              "expected_points": 14.955,
+              "expected_points_ignoring_partial": 14.955,
+              "p_full": 0.997,
+              "p_none": 0.0,
+              "p_partial": 0.003,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.479,
+              "expected_points": 14.355,
+              "expected_points_ignoring_partial": 14.355,
+              "p_full": 0.957,
+              "p_none": 0.006,
+              "p_partial": 0.037,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_congas",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.498,
+              "expected_points": 14.955,
+              "expected_points_ignoring_partial": 14.955,
+              "p_full": 0.997,
+              "p_none": 0.0,
+              "p_partial": 0.003,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.479,
+              "expected_points": 14.37,
+              "expected_points_ignoring_partial": 14.37,
+              "p_full": 0.958,
+              "p_none": 0.004,
+              "p_partial": 0.038,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_guitar",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.91,
+              "expected_points_ignoring_partial": 14.91,
+              "p_full": 0.994,
+              "p_none": 0.0,
+              "p_partial": 0.006,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_keyboard",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 19.98,
+              "p_full": 0.999,
+              "p_none": 0.0,
+              "p_partial": 0.002,
+              "sigma_mm": 7.5,
+              "understatement": 0.02
+            },
+            {
+              "breakeven_p_collision": 0.657,
+              "expected_points": 19.71,
+              "expected_points_ignoring_partial": 19.42,
+              "p_full": 0.971,
+              "p_none": 0.0,
+              "p_partial": 0.029,
+              "sigma_mm": 10.0,
+              "understatement": 0.29
+            },
+            {
+              "breakeven_p_collision": 0.609,
+              "expected_points": 18.28,
+              "expected_points_ignoring_partial": 16.56,
+              "p_full": 0.828,
+              "p_none": 0.0,
+              "p_partial": 0.172,
+              "sigma_mm": 15.0,
+              "understatement": 1.72
+            },
+            {
+              "breakeven_p_collision": 0.538,
+              "expected_points": 16.13,
+              "expected_points_ignoring_partial": 12.36,
+              "p_full": 0.618,
+              "p_none": 0.006,
+              "p_partial": 0.377,
+              "sigma_mm": 20.0,
+              "understatement": 3.77
+            },
+            {
+              "breakeven_p_collision": 0.424,
+              "expected_points": 12.72,
+              "expected_points_ignoring_partial": 7.02,
+              "p_full": 0.351,
+              "p_none": 0.079,
+              "p_partial": 0.57,
+              "sigma_mm": 30.0,
+              "understatement": 5.7
+            },
+            {
+              "breakeven_p_collision": 0.295,
+              "expected_points": 8.85,
+              "expected_points_ignoring_partial": 3.4,
+              "p_full": 0.17,
+              "p_none": 0.284,
+              "p_partial": 0.545,
+              "sigma_mm": 45.0,
+              "understatement": 5.45
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "mic_target",
+          "object_id": "mic",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.996,
+              "expected_points": 19.96,
+              "expected_points_ignoring_partial": 19.92,
+              "p_full": 0.996,
+              "p_none": 0.0,
+              "p_partial": 0.004,
+              "sigma_mm": 7.5,
+              "understatement": 0.04
+            },
+            {
+              "breakeven_p_collision": 1.955,
+              "expected_points": 19.55,
+              "expected_points_ignoring_partial": 19.1,
+              "p_full": 0.955,
+              "p_none": 0.0,
+              "p_partial": 0.045,
+              "sigma_mm": 10.0,
+              "understatement": 0.45
+            },
+            {
+              "breakeven_p_collision": 1.749,
+              "expected_points": 17.49,
+              "expected_points_ignoring_partial": 14.98,
+              "p_full": 0.749,
+              "p_none": 0.0,
+              "p_partial": 0.251,
+              "sigma_mm": 15.0,
+              "understatement": 2.51
+            },
+            {
+              "breakeven_p_collision": 1.524,
+              "expected_points": 15.24,
+              "expected_points_ignoring_partial": 10.66,
+              "p_full": 0.533,
+              "p_none": 0.009,
+              "p_partial": 0.458,
+              "sigma_mm": 20.0,
+              "understatement": 4.58
+            },
+            {
+              "breakeven_p_collision": 1.17,
+              "expected_points": 11.7,
+              "expected_points_ignoring_partial": 5.42,
+              "p_full": 0.271,
+              "p_none": 0.102,
+              "p_partial": 0.628,
+              "sigma_mm": 30.0,
+              "understatement": 6.28
+            },
+            {
+              "breakeven_p_collision": 0.787,
+              "expected_points": 7.87,
+              "expected_points_ignoring_partial": 2.48,
+              "p_full": 0.124,
+              "p_none": 0.337,
+              "p_partial": 0.539,
+              "sigma_mm": 45.0,
+              "understatement": 5.39
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_black",
+          "object_id": "note_black",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.995,
+              "expected_points": 19.95,
+              "expected_points_ignoring_partial": 19.9,
+              "p_full": 0.995,
+              "p_none": 0.0,
+              "p_partial": 0.005,
+              "sigma_mm": 7.5,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 1.957,
+              "expected_points": 19.57,
+              "expected_points_ignoring_partial": 19.14,
+              "p_full": 0.957,
+              "p_none": 0.0,
+              "p_partial": 0.043,
+              "sigma_mm": 10.0,
+              "understatement": 0.43
+            },
+            {
+              "breakeven_p_collision": 1.749,
+              "expected_points": 17.49,
+              "expected_points_ignoring_partial": 14.98,
+              "p_full": 0.749,
+              "p_none": 0.0,
+              "p_partial": 0.251,
+              "sigma_mm": 15.0,
+              "understatement": 2.51
+            },
+            {
+              "breakeven_p_collision": 1.513,
+              "expected_points": 15.13,
+              "expected_points_ignoring_partial": 10.44,
+              "p_full": 0.522,
+              "p_none": 0.008,
+              "p_partial": 0.469,
+              "sigma_mm": 20.0,
+              "understatement": 4.69
+            },
+            {
+              "breakeven_p_collision": 1.181,
+              "expected_points": 11.81,
+              "expected_points_ignoring_partial": 5.56,
+              "p_full": 0.278,
+              "p_none": 0.097,
+              "p_partial": 0.625,
+              "sigma_mm": 30.0,
+              "understatement": 6.25
+            },
+            {
+              "breakeven_p_collision": 0.762,
+              "expected_points": 7.62,
+              "expected_points_ignoring_partial": 2.24,
+              "p_full": 0.112,
+              "p_none": 0.35,
+              "p_partial": 0.538,
+              "sigma_mm": 45.0,
+              "understatement": 5.38
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_blue",
+          "object_id": "note_blue",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.995,
+              "expected_points": 19.95,
+              "expected_points_ignoring_partial": 19.9,
+              "p_full": 0.995,
+              "p_none": 0.0,
+              "p_partial": 0.005,
+              "sigma_mm": 7.5,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 1.954,
+              "expected_points": 19.54,
+              "expected_points_ignoring_partial": 19.08,
+              "p_full": 0.954,
+              "p_none": 0.0,
+              "p_partial": 0.046,
+              "sigma_mm": 10.0,
+              "understatement": 0.46
+            },
+            {
+              "breakeven_p_collision": 1.739,
+              "expected_points": 17.39,
+              "expected_points_ignoring_partial": 14.78,
+              "p_full": 0.739,
+              "p_none": 0.0,
+              "p_partial": 0.261,
+              "sigma_mm": 15.0,
+              "understatement": 2.61
+            },
+            {
+              "breakeven_p_collision": 1.528,
+              "expected_points": 15.28,
+              "expected_points_ignoring_partial": 10.7,
+              "p_full": 0.535,
+              "p_none": 0.007,
+              "p_partial": 0.458,
+              "sigma_mm": 20.0,
+              "understatement": 4.58
+            },
+            {
+              "breakeven_p_collision": 1.162,
+              "expected_points": 11.62,
+              "expected_points_ignoring_partial": 5.34,
+              "p_full": 0.267,
+              "p_none": 0.104,
+              "p_partial": 0.628,
+              "sigma_mm": 30.0,
+              "understatement": 6.28
+            },
+            {
+              "breakeven_p_collision": 0.764,
+              "expected_points": 7.64,
+              "expected_points_ignoring_partial": 2.36,
+              "p_full": 0.118,
+              "p_none": 0.353,
+              "p_partial": 0.528,
+              "sigma_mm": 45.0,
+              "understatement": 5.28
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_green",
+          "object_id": "note_green",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.995,
+              "expected_points": 19.95,
+              "expected_points_ignoring_partial": 19.9,
+              "p_full": 0.995,
+              "p_none": 0.0,
+              "p_partial": 0.005,
+              "sigma_mm": 7.5,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 1.951,
+              "expected_points": 19.51,
+              "expected_points_ignoring_partial": 19.02,
+              "p_full": 0.951,
+              "p_none": 0.0,
+              "p_partial": 0.049,
+              "sigma_mm": 10.0,
+              "understatement": 0.49
+            },
+            {
+              "breakeven_p_collision": 1.733,
+              "expected_points": 17.33,
+              "expected_points_ignoring_partial": 14.68,
+              "p_full": 0.734,
+              "p_none": 0.001,
+              "p_partial": 0.265,
+              "sigma_mm": 15.0,
+              "understatement": 2.65
+            },
+            {
+              "breakeven_p_collision": 1.532,
+              "expected_points": 15.32,
+              "expected_points_ignoring_partial": 10.78,
+              "p_full": 0.539,
+              "p_none": 0.007,
+              "p_partial": 0.454,
+              "sigma_mm": 20.0,
+              "understatement": 4.54
+            },
+            {
+              "breakeven_p_collision": 1.164,
+              "expected_points": 11.64,
+              "expected_points_ignoring_partial": 5.22,
+              "p_full": 0.261,
+              "p_none": 0.097,
+              "p_partial": 0.642,
+              "sigma_mm": 30.0,
+              "understatement": 6.42
+            },
+            {
+              "breakeven_p_collision": 0.774,
+              "expected_points": 7.74,
+              "expected_points_ignoring_partial": 2.38,
+              "p_full": 0.119,
+              "p_none": 0.345,
+              "p_partial": 0.536,
+              "sigma_mm": 45.0,
+              "understatement": 5.36
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_red",
+          "object_id": "note_red",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.995,
+              "expected_points": 19.95,
+              "expected_points_ignoring_partial": 19.9,
+              "p_full": 0.995,
+              "p_none": 0.0,
+              "p_partial": 0.005,
+              "sigma_mm": 7.5,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 1.954,
+              "expected_points": 19.54,
+              "expected_points_ignoring_partial": 19.08,
+              "p_full": 0.954,
+              "p_none": 0.0,
+              "p_partial": 0.046,
+              "sigma_mm": 10.0,
+              "understatement": 0.46
+            },
+            {
+              "breakeven_p_collision": 1.758,
+              "expected_points": 17.58,
+              "expected_points_ignoring_partial": 15.16,
+              "p_full": 0.758,
+              "p_none": 0.0,
+              "p_partial": 0.242,
+              "sigma_mm": 15.0,
+              "understatement": 2.42
+            },
+            {
+              "breakeven_p_collision": 1.52,
+              "expected_points": 15.2,
+              "expected_points_ignoring_partial": 10.6,
+              "p_full": 0.53,
+              "p_none": 0.01,
+              "p_partial": 0.46,
+              "sigma_mm": 20.0,
+              "understatement": 4.6
+            },
+            {
+              "breakeven_p_collision": 1.162,
+              "expected_points": 11.62,
+              "expected_points_ignoring_partial": 5.4,
+              "p_full": 0.27,
+              "p_none": 0.108,
+              "p_partial": 0.622,
+              "sigma_mm": 30.0,
+              "understatement": 6.22
+            },
+            {
+              "breakeven_p_collision": 0.766,
+              "expected_points": 7.66,
+              "expected_points_ignoring_partial": 2.4,
+              "p_full": 0.12,
+              "p_none": 0.354,
+              "p_partial": 0.526,
+              "sigma_mm": 45.0,
+              "understatement": 5.26
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_white",
+          "object_id": "note_white",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.995,
+              "expected_points": 19.95,
+              "expected_points_ignoring_partial": 19.9,
+              "p_full": 0.995,
+              "p_none": 0.0,
+              "p_partial": 0.005,
+              "sigma_mm": 7.5,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 1.954,
+              "expected_points": 19.54,
+              "expected_points_ignoring_partial": 19.06,
+              "p_full": 0.953,
+              "p_none": 0.0,
+              "p_partial": 0.048,
+              "sigma_mm": 10.0,
+              "understatement": 0.48
+            },
+            {
+              "breakeven_p_collision": 1.733,
+              "expected_points": 17.33,
+              "expected_points_ignoring_partial": 14.66,
+              "p_full": 0.733,
+              "p_none": 0.0,
+              "p_partial": 0.267,
+              "sigma_mm": 15.0,
+              "understatement": 2.67
+            },
+            {
+              "breakeven_p_collision": 1.523,
+              "expected_points": 15.23,
+              "expected_points_ignoring_partial": 10.62,
+              "p_full": 0.531,
+              "p_none": 0.008,
+              "p_partial": 0.461,
+              "sigma_mm": 20.0,
+              "understatement": 4.61
+            },
+            {
+              "breakeven_p_collision": 1.166,
+              "expected_points": 11.66,
+              "expected_points_ignoring_partial": 5.22,
+              "p_full": 0.261,
+              "p_none": 0.095,
+              "p_partial": 0.644,
+              "sigma_mm": 30.0,
+              "understatement": 6.44
+            },
+            {
+              "breakeven_p_collision": 0.789,
+              "expected_points": 7.89,
+              "expected_points_ignoring_partial": 2.6,
+              "p_full": 0.13,
+              "p_none": 0.342,
+              "p_partial": 0.529,
+              "sigma_mm": 45.0,
+              "understatement": 5.29
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_yellow",
+          "object_id": "note_yellow",
+          "partial_points": 10
+        }
+      ]
+    },
+    "projection": {
+      "full_attempt_run": [
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 0.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.0,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.0,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.0,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.0,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.0,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.0,
+          "sigma_mm": 1.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 255.01,
+              "p_collision": 0.0,
+              "share_of_max": 1.0
+            },
+            {
+              "expected_total": 253.01,
+              "p_collision": 0.05,
+              "share_of_max": 0.992
+            },
+            {
+              "expected_total": 251.01,
+              "p_collision": 0.1,
+              "share_of_max": 0.984
+            },
+            {
+              "expected_total": 245.01,
+              "p_collision": 0.25,
+              "share_of_max": 0.961
+            },
+            {
+              "expected_total": 235.01,
+              "p_collision": 0.5,
+              "share_of_max": 0.922
+            }
+          ],
+          "expected_placement_points": 215.01,
+          "sigma_mm": 2.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 254.29,
+              "p_collision": 0.0,
+              "share_of_max": 0.997
+            },
+            {
+              "expected_total": 252.29,
+              "p_collision": 0.05,
+              "share_of_max": 0.989
+            },
+            {
+              "expected_total": 250.29,
+              "p_collision": 0.1,
+              "share_of_max": 0.982
+            },
+            {
+              "expected_total": 244.29,
+              "p_collision": 0.25,
+              "share_of_max": 0.958
+            },
+            {
+              "expected_total": 234.29,
+              "p_collision": 0.5,
+              "share_of_max": 0.919
+            }
+          ],
+          "expected_placement_points": 214.29,
+          "sigma_mm": 3.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 246.28,
+              "p_collision": 0.0,
+              "share_of_max": 0.966
+            },
+            {
+              "expected_total": 244.28,
+              "p_collision": 0.05,
+              "share_of_max": 0.958
+            },
+            {
+              "expected_total": 242.28,
+              "p_collision": 0.1,
+              "share_of_max": 0.95
+            },
+            {
+              "expected_total": 236.28,
+              "p_collision": 0.25,
+              "share_of_max": 0.927
+            },
+            {
+              "expected_total": 226.28,
+              "p_collision": 0.5,
+              "share_of_max": 0.887
+            }
+          ],
+          "expected_placement_points": 206.28,
+          "sigma_mm": 5.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 233.86,
+              "p_collision": 0.0,
+              "share_of_max": 0.917
+            },
+            {
+              "expected_total": 231.86,
+              "p_collision": 0.05,
+              "share_of_max": 0.909
+            },
+            {
+              "expected_total": 229.86,
+              "p_collision": 0.1,
+              "share_of_max": 0.901
+            },
+            {
+              "expected_total": 223.86,
+              "p_collision": 0.25,
+              "share_of_max": 0.878
+            },
+            {
+              "expected_total": 213.86,
+              "p_collision": 0.5,
+              "share_of_max": 0.839
+            }
+          ],
+          "expected_placement_points": 193.86,
+          "sigma_mm": 7.5
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 222.065,
+              "p_collision": 0.0,
+              "share_of_max": 0.871
+            },
+            {
+              "expected_total": 220.065,
+              "p_collision": 0.05,
+              "share_of_max": 0.863
+            },
+            {
+              "expected_total": 218.065,
+              "p_collision": 0.1,
+              "share_of_max": 0.855
+            },
+            {
+              "expected_total": 212.065,
+              "p_collision": 0.25,
+              "share_of_max": 0.832
+            },
+            {
+              "expected_total": 202.065,
+              "p_collision": 0.5,
+              "share_of_max": 0.792
+            }
+          ],
+          "expected_placement_points": 182.065,
+          "sigma_mm": 10.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 204.845,
+              "p_collision": 0.0,
+              "share_of_max": 0.803
+            },
+            {
+              "expected_total": 202.845,
+              "p_collision": 0.05,
+              "share_of_max": 0.795
+            },
+            {
+              "expected_total": 200.845,
+              "p_collision": 0.1,
+              "share_of_max": 0.788
+            },
+            {
+              "expected_total": 194.845,
+              "p_collision": 0.25,
+              "share_of_max": 0.764
+            },
+            {
+              "expected_total": 184.845,
+              "p_collision": 0.5,
+              "share_of_max": 0.725
+            }
+          ],
+          "expected_placement_points": 164.845,
+          "sigma_mm": 15.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 192.21,
+              "p_collision": 0.0,
+              "share_of_max": 0.754
+            },
+            {
+              "expected_total": 190.21,
+              "p_collision": 0.05,
+              "share_of_max": 0.746
+            },
+            {
+              "expected_total": 188.21,
+              "p_collision": 0.1,
+              "share_of_max": 0.738
+            },
+            {
+              "expected_total": 182.21,
+              "p_collision": 0.25,
+              "share_of_max": 0.715
+            },
+            {
+              "expected_total": 172.21,
+              "p_collision": 0.5,
+              "share_of_max": 0.675
+            }
+          ],
+          "expected_placement_points": 152.21,
+          "sigma_mm": 20.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 173.56,
+              "p_collision": 0.0,
+              "share_of_max": 0.681
+            },
+            {
+              "expected_total": 171.56,
+              "p_collision": 0.05,
+              "share_of_max": 0.673
+            },
+            {
+              "expected_total": 169.56,
+              "p_collision": 0.1,
+              "share_of_max": 0.665
+            },
+            {
+              "expected_total": 163.56,
+              "p_collision": 0.25,
+              "share_of_max": 0.641
+            },
+            {
+              "expected_total": 153.56,
+              "p_collision": 0.5,
+              "share_of_max": 0.602
+            }
+          ],
+          "expected_placement_points": 133.56,
+          "sigma_mm": 30.0
+        },
+        {
+          "at_p_collision": [
+            {
+              "expected_total": 149.705,
+              "p_collision": 0.0,
+              "share_of_max": 0.587
+            },
+            {
+              "expected_total": 147.705,
+              "p_collision": 0.05,
+              "share_of_max": 0.579
+            },
+            {
+              "expected_total": 145.705,
+              "p_collision": 0.1,
+              "share_of_max": 0.571
+            },
+            {
+              "expected_total": 139.705,
+              "p_collision": 0.25,
+              "share_of_max": 0.548
+            },
+            {
+              "expected_total": 129.705,
+              "p_collision": 0.5,
+              "share_of_max": 0.509
+            }
+          ],
+          "expected_placement_points": 109.705,
+          "sigma_mm": 45.0
+        }
+      ],
+      "missions": [
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.9,
+              "expected_points_ignoring_partial": 14.85,
+              "p_full": 0.99,
+              "p_none": 0.0,
+              "p_partial": 0.01,
+              "sigma_mm": 10.0,
+              "understatement": 0.05
+            },
+            {
+              "breakeven_p_collision": 0.46,
+              "expected_points": 13.785,
+              "expected_points_ignoring_partial": 13.185,
+              "p_full": 0.879,
+              "p_none": 0.001,
+              "p_partial": 0.12,
+              "sigma_mm": 15.0,
+              "understatement": 0.6
+            },
+            {
+              "breakeven_p_collision": 0.395,
+              "expected_points": 11.845,
+              "expected_points_ignoring_partial": 10.32,
+              "p_full": 0.688,
+              "p_none": 0.007,
+              "p_partial": 0.305,
+              "sigma_mm": 20.0,
+              "understatement": 1.525
+            },
+            {
+              "breakeven_p_collision": 0.283,
+              "expected_points": 8.485,
+              "expected_points_ignoring_partial": 5.595,
+              "p_full": 0.373,
+              "p_none": 0.049,
+              "p_partial": 0.578,
+              "sigma_mm": 30.0,
+              "understatement": 2.89
+            },
+            {
+              "breakeven_p_collision": 0.196,
+              "expected_points": 5.895,
+              "expected_points_ignoring_partial": 2.52,
+              "p_full": 0.168,
+              "p_none": 0.158,
+              "p_partial": 0.675,
+              "sigma_mm": 45.0,
+              "understatement": 3.375
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": true,
+          "mission_id": "cable_area_lower",
+          "object_id": "cable_lower",
+          "partial_points": 5
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.905,
+              "expected_points_ignoring_partial": 14.85,
+              "p_full": 0.99,
+              "p_none": 0.0,
+              "p_partial": 0.011,
+              "sigma_mm": 10.0,
+              "understatement": 0.055
+            },
+            {
+              "breakeven_p_collision": 0.46,
+              "expected_points": 13.8,
+              "expected_points_ignoring_partial": 13.2,
+              "p_full": 0.88,
+              "p_none": 0.0,
+              "p_partial": 0.12,
+              "sigma_mm": 15.0,
+              "understatement": 0.6
+            },
+            {
+              "breakeven_p_collision": 0.398,
+              "expected_points": 11.945,
+              "expected_points_ignoring_partial": 10.485,
+              "p_full": 0.699,
+              "p_none": 0.009,
+              "p_partial": 0.292,
+              "sigma_mm": 20.0,
+              "understatement": 1.46
+            },
+            {
+              "breakeven_p_collision": 0.284,
+              "expected_points": 8.52,
+              "expected_points_ignoring_partial": 5.64,
+              "p_full": 0.376,
+              "p_none": 0.049,
+              "p_partial": 0.576,
+              "sigma_mm": 30.0,
+              "understatement": 2.88
+            },
+            {
+              "breakeven_p_collision": 0.195,
+              "expected_points": 5.86,
+              "expected_points_ignoring_partial": 2.415,
+              "p_full": 0.161,
+              "p_none": 0.151,
+              "p_partial": 0.689,
+              "sigma_mm": 45.0,
+              "understatement": 3.445
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": true,
+          "mission_id": "cable_area_upper",
+          "object_id": "cable_upper",
+          "partial_points": 5
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.498,
+              "expected_points": 14.955,
+              "expected_points_ignoring_partial": 14.955,
+              "p_full": 0.997,
+              "p_none": 0.0,
+              "p_partial": 0.003,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.479,
+              "expected_points": 14.355,
+              "expected_points_ignoring_partial": 14.355,
+              "p_full": 0.957,
+              "p_none": 0.006,
+              "p_partial": 0.037,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_congas",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.498,
+              "expected_points": 14.94,
+              "expected_points_ignoring_partial": 14.94,
+              "p_full": 0.996,
+              "p_none": 0.0,
+              "p_partial": 0.004,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.471,
+              "expected_points": 14.145,
+              "expected_points_ignoring_partial": 14.145,
+              "p_full": 0.943,
+              "p_none": 0.003,
+              "p_partial": 0.054,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_guitar",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 5.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 7.5,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 10.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 15.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 20.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.5,
+              "expected_points": 15.0,
+              "expected_points_ignoring_partial": 15.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 30.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.497,
+              "expected_points": 14.91,
+              "expected_points_ignoring_partial": 14.91,
+              "p_full": 0.994,
+              "p_none": 0.0,
+              "p_partial": 0.006,
+              "sigma_mm": 45.0,
+              "understatement": 0.0
+            }
+          ],
+          "full_points": 15,
+          "has_partial_tier": false,
+          "mission_id": "backstage",
+          "object_id": "instrument_keyboard",
+          "partial_points": 0
+        },
+        {
+          "bonus_points_exposed": 30,
+          "cells": [
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.667,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 3.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 0.666,
+              "expected_points": 19.98,
+              "expected_points_ignoring_partial": 19.94,
+              "p_full": 0.997,
+              "p_none": 0.0,
+              "p_partial": 0.004,
+              "sigma_mm": 5.0,
+              "understatement": 0.04
+            },
+            {
+              "breakeven_p_collision": 0.651,
+              "expected_points": 19.54,
+              "expected_points_ignoring_partial": 19.08,
+              "p_full": 0.954,
+              "p_none": 0.0,
+              "p_partial": 0.046,
+              "sigma_mm": 7.5,
+              "understatement": 0.46
+            },
+            {
+              "breakeven_p_collision": 0.607,
+              "expected_points": 18.22,
+              "expected_points_ignoring_partial": 16.44,
+              "p_full": 0.822,
+              "p_none": 0.0,
+              "p_partial": 0.178,
+              "sigma_mm": 10.0,
+              "understatement": 1.78
+            },
+            {
+              "breakeven_p_collision": 0.519,
+              "expected_points": 15.58,
+              "expected_points_ignoring_partial": 11.16,
+              "p_full": 0.558,
+              "p_none": 0.0,
+              "p_partial": 0.442,
+              "sigma_mm": 15.0,
+              "understatement": 4.42
+            },
+            {
+              "breakeven_p_collision": 0.448,
+              "expected_points": 13.43,
+              "expected_points_ignoring_partial": 6.94,
+              "p_full": 0.347,
+              "p_none": 0.004,
+              "p_partial": 0.649,
+              "sigma_mm": 20.0,
+              "understatement": 6.49
+            },
+            {
+              "breakeven_p_collision": 0.367,
+              "expected_points": 11.0,
+              "expected_points_ignoring_partial": 3.04,
+              "p_full": 0.152,
+              "p_none": 0.051,
+              "p_partial": 0.796,
+              "sigma_mm": 30.0,
+              "understatement": 7.96
+            },
+            {
+              "breakeven_p_collision": 0.282,
+              "expected_points": 8.45,
+              "expected_points_ignoring_partial": 1.2,
+              "p_full": 0.06,
+              "p_none": 0.214,
+              "p_partial": 0.725,
+              "sigma_mm": 45.0,
+              "understatement": 7.25
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "mic_target",
+          "object_id": "mic",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.987,
+              "expected_points": 19.87,
+              "expected_points_ignoring_partial": 19.74,
+              "p_full": 0.987,
+              "p_none": 0.0,
+              "p_partial": 0.013,
+              "sigma_mm": 3.0,
+              "understatement": 0.13
+            },
+            {
+              "breakeven_p_collision": 1.848,
+              "expected_points": 18.48,
+              "expected_points_ignoring_partial": 16.96,
+              "p_full": 0.848,
+              "p_none": 0.0,
+              "p_partial": 0.152,
+              "sigma_mm": 5.0,
+              "understatement": 1.52
+            },
+            {
+              "breakeven_p_collision": 1.643,
+              "expected_points": 16.43,
+              "expected_points_ignoring_partial": 12.88,
+              "p_full": 0.644,
+              "p_none": 0.0,
+              "p_partial": 0.355,
+              "sigma_mm": 7.5,
+              "understatement": 3.55
+            },
+            {
+              "breakeven_p_collision": 1.477,
+              "expected_points": 14.77,
+              "expected_points_ignoring_partial": 9.56,
+              "p_full": 0.478,
+              "p_none": 0.0,
+              "p_partial": 0.521,
+              "sigma_mm": 10.0,
+              "understatement": 5.21
+            },
+            {
+              "breakeven_p_collision": 1.294,
+              "expected_points": 12.94,
+              "expected_points_ignoring_partial": 5.88,
+              "p_full": 0.294,
+              "p_none": 0.0,
+              "p_partial": 0.706,
+              "sigma_mm": 15.0,
+              "understatement": 7.06
+            },
+            {
+              "breakeven_p_collision": 1.16,
+              "expected_points": 11.6,
+              "expected_points_ignoring_partial": 3.26,
+              "p_full": 0.163,
+              "p_none": 0.003,
+              "p_partial": 0.834,
+              "sigma_mm": 20.0,
+              "understatement": 8.34
+            },
+            {
+              "breakeven_p_collision": 1.014,
+              "expected_points": 10.14,
+              "expected_points_ignoring_partial": 1.46,
+              "p_full": 0.073,
+              "p_none": 0.059,
+              "p_partial": 0.868,
+              "sigma_mm": 30.0,
+              "understatement": 8.68
+            },
+            {
+              "breakeven_p_collision": 0.767,
+              "expected_points": 7.67,
+              "expected_points_ignoring_partial": 0.5,
+              "p_full": 0.025,
+              "p_none": 0.258,
+              "p_partial": 0.717,
+              "sigma_mm": 45.0,
+              "understatement": 7.17
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_black",
+          "object_id": "note_black",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.989,
+              "expected_points": 19.89,
+              "expected_points_ignoring_partial": 19.78,
+              "p_full": 0.989,
+              "p_none": 0.0,
+              "p_partial": 0.011,
+              "sigma_mm": 3.0,
+              "understatement": 0.11
+            },
+            {
+              "breakeven_p_collision": 1.853,
+              "expected_points": 18.53,
+              "expected_points_ignoring_partial": 17.06,
+              "p_full": 0.853,
+              "p_none": 0.0,
+              "p_partial": 0.147,
+              "sigma_mm": 5.0,
+              "understatement": 1.47
+            },
+            {
+              "breakeven_p_collision": 1.656,
+              "expected_points": 16.56,
+              "expected_points_ignoring_partial": 13.12,
+              "p_full": 0.656,
+              "p_none": 0.0,
+              "p_partial": 0.344,
+              "sigma_mm": 7.5,
+              "understatement": 3.44
+            },
+            {
+              "breakeven_p_collision": 1.492,
+              "expected_points": 14.92,
+              "expected_points_ignoring_partial": 9.84,
+              "p_full": 0.492,
+              "p_none": 0.0,
+              "p_partial": 0.508,
+              "sigma_mm": 10.0,
+              "understatement": 5.08
+            },
+            {
+              "breakeven_p_collision": 1.286,
+              "expected_points": 12.86,
+              "expected_points_ignoring_partial": 5.72,
+              "p_full": 0.286,
+              "p_none": 0.0,
+              "p_partial": 0.714,
+              "sigma_mm": 15.0,
+              "understatement": 7.14
+            },
+            {
+              "breakeven_p_collision": 1.16,
+              "expected_points": 11.6,
+              "expected_points_ignoring_partial": 3.26,
+              "p_full": 0.163,
+              "p_none": 0.003,
+              "p_partial": 0.834,
+              "sigma_mm": 20.0,
+              "understatement": 8.34
+            },
+            {
+              "breakeven_p_collision": 1.015,
+              "expected_points": 10.15,
+              "expected_points_ignoring_partial": 1.4,
+              "p_full": 0.07,
+              "p_none": 0.055,
+              "p_partial": 0.875,
+              "sigma_mm": 30.0,
+              "understatement": 8.75
+            },
+            {
+              "breakeven_p_collision": 0.771,
+              "expected_points": 7.71,
+              "expected_points_ignoring_partial": 0.52,
+              "p_full": 0.026,
+              "p_none": 0.255,
+              "p_partial": 0.719,
+              "sigma_mm": 45.0,
+              "understatement": 7.19
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_blue",
+          "object_id": "note_blue",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.989,
+              "expected_points": 19.89,
+              "expected_points_ignoring_partial": 19.78,
+              "p_full": 0.989,
+              "p_none": 0.0,
+              "p_partial": 0.011,
+              "sigma_mm": 3.0,
+              "understatement": 0.11
+            },
+            {
+              "breakeven_p_collision": 1.854,
+              "expected_points": 18.54,
+              "expected_points_ignoring_partial": 17.08,
+              "p_full": 0.854,
+              "p_none": 0.0,
+              "p_partial": 0.146,
+              "sigma_mm": 5.0,
+              "understatement": 1.46
+            },
+            {
+              "breakeven_p_collision": 1.649,
+              "expected_points": 16.49,
+              "expected_points_ignoring_partial": 12.98,
+              "p_full": 0.649,
+              "p_none": 0.0,
+              "p_partial": 0.351,
+              "sigma_mm": 7.5,
+              "understatement": 3.51
+            },
+            {
+              "breakeven_p_collision": 1.489,
+              "expected_points": 14.89,
+              "expected_points_ignoring_partial": 9.8,
+              "p_full": 0.49,
+              "p_none": 0.0,
+              "p_partial": 0.509,
+              "sigma_mm": 10.0,
+              "understatement": 5.09
+            },
+            {
+              "breakeven_p_collision": 1.267,
+              "expected_points": 12.67,
+              "expected_points_ignoring_partial": 5.34,
+              "p_full": 0.267,
+              "p_none": 0.0,
+              "p_partial": 0.733,
+              "sigma_mm": 15.0,
+              "understatement": 7.33
+            },
+            {
+              "breakeven_p_collision": 1.177,
+              "expected_points": 11.77,
+              "expected_points_ignoring_partial": 3.58,
+              "p_full": 0.179,
+              "p_none": 0.002,
+              "p_partial": 0.819,
+              "sigma_mm": 20.0,
+              "understatement": 8.19
+            },
+            {
+              "breakeven_p_collision": 1.002,
+              "expected_points": 10.02,
+              "expected_points_ignoring_partial": 1.24,
+              "p_full": 0.062,
+              "p_none": 0.06,
+              "p_partial": 0.878,
+              "sigma_mm": 30.0,
+              "understatement": 8.78
+            },
+            {
+              "breakeven_p_collision": 0.76,
+              "expected_points": 7.6,
+              "expected_points_ignoring_partial": 0.52,
+              "p_full": 0.026,
+              "p_none": 0.266,
+              "p_partial": 0.708,
+              "sigma_mm": 45.0,
+              "understatement": 7.08
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_green",
+          "object_id": "note_green",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.001,
+              "expected_points": 20.01,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.001,
+              "sigma_mm": 2.0,
+              "understatement": 0.01
+            },
+            {
+              "breakeven_p_collision": 1.987,
+              "expected_points": 19.87,
+              "expected_points_ignoring_partial": 19.74,
+              "p_full": 0.987,
+              "p_none": 0.0,
+              "p_partial": 0.013,
+              "sigma_mm": 3.0,
+              "understatement": 0.13
+            },
+            {
+              "breakeven_p_collision": 1.854,
+              "expected_points": 18.54,
+              "expected_points_ignoring_partial": 17.08,
+              "p_full": 0.854,
+              "p_none": 0.0,
+              "p_partial": 0.146,
+              "sigma_mm": 5.0,
+              "understatement": 1.46
+            },
+            {
+              "breakeven_p_collision": 1.657,
+              "expected_points": 16.57,
+              "expected_points_ignoring_partial": 13.14,
+              "p_full": 0.657,
+              "p_none": 0.0,
+              "p_partial": 0.343,
+              "sigma_mm": 7.5,
+              "understatement": 3.43
+            },
+            {
+              "breakeven_p_collision": 1.476,
+              "expected_points": 14.76,
+              "expected_points_ignoring_partial": 9.54,
+              "p_full": 0.477,
+              "p_none": 0.0,
+              "p_partial": 0.522,
+              "sigma_mm": 10.0,
+              "understatement": 5.22
+            },
+            {
+              "breakeven_p_collision": 1.275,
+              "expected_points": 12.75,
+              "expected_points_ignoring_partial": 5.5,
+              "p_full": 0.275,
+              "p_none": 0.0,
+              "p_partial": 0.725,
+              "sigma_mm": 15.0,
+              "understatement": 7.25
+            },
+            {
+              "breakeven_p_collision": 1.172,
+              "expected_points": 11.72,
+              "expected_points_ignoring_partial": 3.48,
+              "p_full": 0.174,
+              "p_none": 0.002,
+              "p_partial": 0.824,
+              "sigma_mm": 20.0,
+              "understatement": 8.24
+            },
+            {
+              "breakeven_p_collision": 1.016,
+              "expected_points": 10.16,
+              "expected_points_ignoring_partial": 1.46,
+              "p_full": 0.073,
+              "p_none": 0.057,
+              "p_partial": 0.87,
+              "sigma_mm": 30.0,
+              "understatement": 8.7
+            },
+            {
+              "breakeven_p_collision": 0.773,
+              "expected_points": 7.73,
+              "expected_points_ignoring_partial": 0.48,
+              "p_full": 0.024,
+              "p_none": 0.251,
+              "p_partial": 0.725,
+              "sigma_mm": 45.0,
+              "understatement": 7.25
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_red",
+          "object_id": "note_red",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.989,
+              "expected_points": 19.89,
+              "expected_points_ignoring_partial": 19.76,
+              "p_full": 0.988,
+              "p_none": 0.0,
+              "p_partial": 0.013,
+              "sigma_mm": 3.0,
+              "understatement": 0.13
+            },
+            {
+              "breakeven_p_collision": 1.861,
+              "expected_points": 18.61,
+              "expected_points_ignoring_partial": 17.22,
+              "p_full": 0.861,
+              "p_none": 0.0,
+              "p_partial": 0.139,
+              "sigma_mm": 5.0,
+              "understatement": 1.39
+            },
+            {
+              "breakeven_p_collision": 1.664,
+              "expected_points": 16.64,
+              "expected_points_ignoring_partial": 13.28,
+              "p_full": 0.664,
+              "p_none": 0.0,
+              "p_partial": 0.336,
+              "sigma_mm": 7.5,
+              "understatement": 3.36
+            },
+            {
+              "breakeven_p_collision": 1.482,
+              "expected_points": 14.82,
+              "expected_points_ignoring_partial": 9.64,
+              "p_full": 0.482,
+              "p_none": 0.0,
+              "p_partial": 0.518,
+              "sigma_mm": 10.0,
+              "understatement": 5.18
+            },
+            {
+              "breakeven_p_collision": 1.278,
+              "expected_points": 12.78,
+              "expected_points_ignoring_partial": 5.56,
+              "p_full": 0.278,
+              "p_none": 0.0,
+              "p_partial": 0.722,
+              "sigma_mm": 15.0,
+              "understatement": 7.22
+            },
+            {
+              "breakeven_p_collision": 1.164,
+              "expected_points": 11.64,
+              "expected_points_ignoring_partial": 3.34,
+              "p_full": 0.167,
+              "p_none": 0.004,
+              "p_partial": 0.83,
+              "sigma_mm": 20.0,
+              "understatement": 8.3
+            },
+            {
+              "breakeven_p_collision": 1.011,
+              "expected_points": 10.11,
+              "expected_points_ignoring_partial": 1.46,
+              "p_full": 0.073,
+              "p_none": 0.062,
+              "p_partial": 0.865,
+              "sigma_mm": 30.0,
+              "understatement": 8.65
+            },
+            {
+              "breakeven_p_collision": 0.764,
+              "expected_points": 7.64,
+              "expected_points_ignoring_partial": 0.48,
+              "p_full": 0.024,
+              "p_none": 0.261,
+              "p_partial": 0.716,
+              "sigma_mm": 45.0,
+              "understatement": 7.16
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_white",
+          "object_id": "note_white",
+          "partial_points": 10
+        },
+        {
+          "bonus_points_exposed": 10,
+          "cells": [
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 0.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 1.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 2.0,
+              "expected_points": 20.0,
+              "expected_points_ignoring_partial": 20.0,
+              "p_full": 1.0,
+              "p_none": 0.0,
+              "p_partial": 0.0,
+              "sigma_mm": 2.0,
+              "understatement": 0.0
+            },
+            {
+              "breakeven_p_collision": 1.988,
+              "expected_points": 19.88,
+              "expected_points_ignoring_partial": 19.76,
+              "p_full": 0.988,
+              "p_none": 0.0,
+              "p_partial": 0.012,
+              "sigma_mm": 3.0,
+              "understatement": 0.12
+            },
+            {
+              "breakeven_p_collision": 1.86,
+              "expected_points": 18.6,
+              "expected_points_ignoring_partial": 17.2,
+              "p_full": 0.86,
+              "p_none": 0.0,
+              "p_partial": 0.14,
+              "sigma_mm": 5.0,
+              "understatement": 1.4
+            },
+            {
+              "breakeven_p_collision": 1.663,
+              "expected_points": 16.63,
+              "expected_points_ignoring_partial": 13.26,
+              "p_full": 0.663,
+              "p_none": 0.0,
+              "p_partial": 0.337,
+              "sigma_mm": 7.5,
+              "understatement": 3.37
+            },
+            {
+              "breakeven_p_collision": 1.488,
+              "expected_points": 14.88,
+              "expected_points_ignoring_partial": 9.76,
+              "p_full": 0.488,
+              "p_none": 0.0,
+              "p_partial": 0.512,
+              "sigma_mm": 10.0,
+              "understatement": 5.12
+            },
+            {
+              "breakeven_p_collision": 1.268,
+              "expected_points": 12.68,
+              "expected_points_ignoring_partial": 5.36,
+              "p_full": 0.268,
+              "p_none": 0.0,
+              "p_partial": 0.732,
+              "sigma_mm": 15.0,
+              "understatement": 7.32
+            },
+            {
+              "breakeven_p_collision": 1.166,
+              "expected_points": 11.66,
+              "expected_points_ignoring_partial": 3.38,
+              "p_full": 0.169,
+              "p_none": 0.004,
+              "p_partial": 0.828,
+              "sigma_mm": 20.0,
+              "understatement": 8.28
+            },
+            {
+              "breakeven_p_collision": 1.008,
+              "expected_points": 10.08,
+              "expected_points_ignoring_partial": 1.32,
+              "p_full": 0.066,
+              "p_none": 0.057,
+              "p_partial": 0.876,
+              "sigma_mm": 30.0,
+              "understatement": 8.76
+            },
+            {
+              "breakeven_p_collision": 0.774,
+              "expected_points": 7.74,
+              "expected_points_ignoring_partial": 0.52,
+              "p_full": 0.026,
+              "p_none": 0.252,
+              "p_partial": 0.722,
+              "sigma_mm": 45.0,
+              "understatement": 7.22
+            }
+          ],
+          "full_points": 20,
+          "has_partial_tier": true,
+          "mission_id": "note_target_yellow",
+          "object_id": "note_yellow",
+          "partial_points": 10
+        }
+      ]
+    }
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "E[score] for a given sigma and P(collision)",
+    "does_not_answer": "which missions to attempt, or in what order",
+    "p_collision_is_not_measured": true,
+    "sigma_is_not_measured": true,
+    "sigma_source": "work order item B5 (field test P3) measures it",
+    "why_not": "Subset selection needs the 120 s budget and a route; a route needs the object start poses, still nominal_pending for ten objects (work order B0). CLAUDE.md 5.7 anti-pattern #3."
+  }
+}

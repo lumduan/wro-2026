@@ -372,3 +372,29 @@ def test_union_selectors_declare_expect_paths():
     for name, entry in amap["areas"].items():
         if entry.get("match") == "union":
             assert "expect_paths" in entry, f"{name}: union without expect_paths"
+
+
+def test_start_pose_ingestion_is_wired_but_carries_nothing_yet():
+    """Work order B0 lands measured poses in area_map.toml.
+
+    Ten objects are `nominal_pending` and measurable. The four randomized notes
+    are NOT a gap: S1 p7 assigns them at randomization, so they have no fixed
+    start pose to measure and never will.
+    """
+    import json
+    spec = json.loads((ROOT / "data" / "field_spec.json").read_text())
+    poses = spec["object_start_poses"]
+    kinds: dict[str, list[str]] = {}
+    for object_id, entry in poses.items():
+        kinds.setdefault(entry["kind"], []).append(object_id)
+
+    assert len(kinds["nominal_pending"]) == 10
+    assert sorted(kinds["randomized"]) == [
+        "note_black", "note_blue", "note_white", "note_yellow"]
+    assert sorted(kinds["measured"]) == ["note_green", "note_red"]
+
+    for object_id in kinds["nominal_pending"]:
+        entry = poses[object_id]
+        assert entry["nominal_start_pose_mm"] is None, object_id
+        assert entry["needs_measurement"] is True, object_id
+        assert "B0" in entry["note"], "the note must point at the work-order item"

@@ -261,13 +261,34 @@ def build(img_dir: Path, probe: Path, map_path: Path, parts_path: Path) -> dict[
             "identification_confidence": model["confidence"],
             "identification_evidence": model["evidence"].strip(),
             "bom_steps": dict(sorted(bom.items())),
-            # ADR-014 discipline: no number without a source.
-            "mass_g": None,
-            "needs_measurement": True,
+            # ADR-014 discipline: no number without a source. `mass_g` is read
+            # from object_map.toml if a measurement has been recorded there and
+            # is None otherwise -- it is never defaulted, because a plausible
+            # placeholder is worse than an obvious gap. Work order item A2.
+            "mass_g": (R(model["mass_g"]) if model.get("mass_g") is not None else None),
+            "mass_source": model.get("mass_source"),
+            "needs_measurement": model.get("mass_g") is None,
         }
         if base:
             entry["contact_footprint_studs"] = base["contact_studs"]
             entry["contact_footprint_mm"] = studs_to_mm(base["contact_studs"])
+            # Work order item A4. Calipers measure the object directly, where
+            # everything in Phase 4 came from counting studs in a raster and
+            # multiplying by 8.00 mm. A caliper reading supersedes the derived
+            # one -- and the derived one is KEPT, because a disagreement between
+            # two independent methods is a finding, not a value to overwrite.
+            measured = base.get("measured_contact_mm")
+            if measured:
+                entry["derived_contact_footprint_mm"] = entry["contact_footprint_mm"]
+                entry["contact_footprint_mm"] = RS(measured)
+                entry["contact_footprint_source"] = "MEASURED(calipers)"
+                entry["contact_footprint_agrees_with_derived"] = bool(
+                    all(abs(a - b) <= 0.5 for a, b in
+                        zip(RS(measured), entry["derived_contact_footprint_mm"])))
+                entry["measured_contact_evidence"] = base.get(
+                    "measured_contact_evidence", "")
+            else:
+                entry["contact_footprint_source"] = "derived from stud count x 8.00 mm"
             entry["max_projection_studs"] = base["projection_studs"]
             entry["max_projection_mm"] = studs_to_mm(base["projection_studs"])
             entry["overhang_height_mm"] = R(base.get("overhang_height_mm", 0.0))

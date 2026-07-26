@@ -2,7 +2,7 @@
 
 ADR format: **context → options → decision → consequence.**
 
-`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2); ADR-024 and ADR-025 added 2026-07-27.
+`last_reviewed: 2026-07-27` · ADR-013/014/015 signed off 2026-07-25; ADR-017/018/019 added 2026-07-26; ADR-020/021 added 2026-07-27 (Phase 6); ADR-022 added 2026-07-27 (Phase 7 part 1); ADR-023 added 2026-07-27 (Phase 7 part 2); ADR-024, ADR-025 and ADR-026 added 2026-07-27.
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -31,6 +31,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-023](#adr-023) | `RobotIO` is intent-level, and portability is linted, not assumed | accepted 2026-07-27 |
 | [ADR-024](#adr-024) | S6 is parsed structurally; the EV risk term is a worst case, not a constant | accepted 2026-07-27 |
 | [ADR-025](#adr-025) | An operator-dependent blocker carries the date it was last confirmed | accepted 2026-07-27 |
+| [ADR-026](#adr-026) | Expected value carries the partial tier; measurement paths ship inert | accepted 2026-07-27 |
 
 ---
 
@@ -1052,3 +1053,75 @@ phases ago. The remaining operator-dependent items now carry dates:
 **Scope.** This is about *recording* state, not about deciding anything. It does not license
 assuming an operator answer — the opposite: it forces the question to be re-asked rather than
 inherited.
+
+---
+
+## ADR-026
+
+**Expected value carries the partial tier, and measurement paths ship inert.**
+`2026-07-27 · accepted`
+
+### Part 1 — a correct number with a wrong usage instruction
+
+**Context.** `data/strategy_frame.json` publishes `breakeven_p_collision_at_p_success_1` and,
+beside it, the rule `P(collision)* = P(success) × points / risk` with `linear_in_p_success:
+true`.
+
+**The values are correct.** They are the σ → 0 limit, where `p_full = 1` and `p_partial = 0`, so
+`E = points` exactly.
+
+**The rule attached to them is not.** A missed placement usually does not score zero — it scores
+the **partial** tier, and `data/placement_sensitivity.json` has carried the per-tier
+probabilities since Phase 6. Applying the linear rule at any σ > 0 understates EV:
+
+| σ | p_full | p_partial | **p_none** | by that rule | true |
+|---:|---:|---:|---:|---:|---:|
+| 15 mm | 0.749 | 0.251 | 0.000 | 14.98 | **17.49** |
+| 20 mm | 0.522 | 0.469 | **0.008** | 10.44 | **15.13** |
+| 30 mm | 0.278 | 0.625 | 0.097 | 5.56 | **11.81** |
+
+Up to **45 %**. And the shape matters more than the size: **`p_none` stays near zero**. A note
+almost never scores nothing — it scores 20 or 10. Attempting one is far safer than the linear
+rule implied.
+
+**Decision.** `tools/build_expected_score.py` → `data/expected_score.json` computes
+
+```
+E[score](σ, P_collision) = 40  +  Σ p_full·full  +  Σ p_partial·partial  −  P_collision·risk
+```
+
+and `strategy_frame.json` records the superseded rule rather than deleting it.
+
+**It is not a blanket factor.** Cable 5/15, microphone 10/20, note 10/20 — and the three
+**instruments have no partial tier at all**, so for them the old rule was exactly right. A
+uniform correction would have been a second error.
+
+**Consequence.** The full-attempt run degrades gracefully rather than falling off a cliff: even
+at σ = 20 mm the expected total is **216/255** on the contact reading. On the silhouette reading
+it is 192 — A7 again, and again worth more than any measurement in the work order.
+
+**The pattern is worth naming.** This is the second EV correction in three units — ADR-024
+corrected a flat ×40 risk term that should have been 30 or 10 — and **both were pessimistic, and
+both were in artefacts I built**. Neither was caught by a test, because both were errors in what
+the number *meant* rather than in what it computed. The tests added here assert the *relationship
+between* published numbers, which is the class of thing that would have caught either.
+
+### Part 2 — measurement paths ship inert
+
+**Context.** The work order needs three measurements to land: mass (A2), calipered footprints
+(A4), start poses (B0). None had anywhere to go — `mass_g` was hard-coded `None`,
+`object_map.toml` carried only derived stud counts, and `nominal_pending` was hard-coded for ten
+objects. The work order itself said *"one-line change needed first"* and warned: not before,
+"so the field cannot quietly carry a placeholder".
+
+**Decision.** Wire all three now, each **read-if-present**, and test that every one is inert:
+all 16 masses `null`, all 10 start poses `nominal_pending`, every footprint still stud-derived.
+
+A calipered footprint **supersedes** the derived one and keeps it as
+`derived_contact_footprint_mm` with an agreement flag — because Phase 4 derived every dimension
+in this project by counting studs in a raster, and a disagreement between two independent
+methods is a finding, not a value to overwrite.
+
+**Consequence.** The session is spent measuring rather than editing builders: type numbers into
+TOML, re-run, get an updated spec. Verified end to end by putting a mass and a pose through both
+paths and reverting.

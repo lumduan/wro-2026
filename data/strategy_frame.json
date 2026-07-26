@@ -310,8 +310,8 @@
   ],
   "provenance": {
     "inputs": {
-      "field_spec": "fb2f01fe7a4ddf85963a7e56b3563dc4343401a6fdcf3a1a1319b3a3ee46efc9",
-      "placement_sensitivity": "4b9245172e380222190e7e2099457b1d15366173f07dcdc0d67c0121a7b771e4",
+      "field_spec": "d1516be53dc53b385e24d0b559f7fb05992d8a42d2fab0f6d3d4629a0dd1ddf4",
+      "placement_sensitivity": "cdc174d2fe3f8b31493c65d148251aedb43d73419611e1a38f5cc5afae3f474a",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
     },
     "risk_tiers_swept": [
@@ -325,7 +325,8 @@
     }
   },
   "risk_model": {
-    "breakeven_formula": "P(collision)* = P(success) * points / risk",
+    "breakeven_formula": "P(collision)* = (p_full(sigma)*full + p_partial(sigma)*partial) / risk — see data/expected_score.json",
+    "breakeven_values_are_the_sigma_zero_limit": true,
     "clusters": [
       {
         "id": "stage_cluster",
@@ -348,7 +349,8 @@
         "zone": "staff"
       }
     ],
-    "linear_in_p_success": true,
+    "corrected_2026_07_27": "This block previously read 'P(collision)* = P(success) * points / risk, linear_in_p_success: true'. The stored VALUES are correct — they are the sigma -> 0 limit, where p_full = 1 and p_partial = 0, so E = points exactly. The SCALING RULE was wrong: a missed placement usually scores the PARTIAL tier, not zero, so EV is not linear in P(success). Following the old rule understates EV by up to 45% (note_blue at sigma = 20 mm: 10.44 against a true 15.13). A correct number with a wrong usage instruction attached. Not a blanket factor either: the three instruments have no partial tier, and for them the old rule was exactly right.",
+    "linear_in_p_success": false,
     "refinement": "The 40 is four separate objects, and S1 places them apart. A route exposes the cluster it passes, not all of them. 40 is retained as the conservative default; see ADR-024.",
     "stated_form": "E[delta_score] = P(success) * points - P(collision) * 40",
     "stated_in": [

@@ -1,6 +1,6 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED — all hardware is held (ADR-025). The work order is `docs/HARDWARE_SESSION.md`.**
+`last_reviewed: 2026-07-27` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`, and every measurement it produces now has somewhere to land.**
 
 ## 0 · At a glance
 
@@ -50,7 +50,7 @@ flowchart TD
 | **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block A** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
 | **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **A2/A3** of the work order | — |
 | **H · Hardware** | ✅ **ALL HELD** | EV3 45544 · SPIKE Prime 45678 + 45681 · WRO Brick Set 45811 + Expansion 45819 · the printed mat · a competition-spec table. Recorded as a blocker from Phase 4 until 2026-07-27 on an operator answer that was never re-asked — see **ADR-025** | — |
-| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). Ordering still needs σ, which is work-order item **B5** | needs **B5** |
+| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). Ordering needs σ (**B5**) and a route (**B0**) | needs **B0** + **B5** |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
 > **Every phase that can be done from documents is done (0–6), and nothing is blocked.** The
@@ -307,7 +307,17 @@ the difference between "breaks even at 0.5" and "can never not be worth attempti
 ×40 retained as the conservative default). And **point density differs eightfold** — 27.3
 points per metre of round trip for the nearest note against 3.5 for a cable.
 
-**Still blocked:** ordering needs σ from field tests P2/P3 and the object pickup locations,
-15 of which are `nominal_pending` with null coordinates because ADR-014 refuses to invent them.
+**Part 2 delivered (2026-07-27):** `tools/build_expected_score.py` → `data/expected_score.json`.
+E[score] as a function of σ and P(collision), with the **partial tier** included — which
+corrects a usage rule part 1 published (ADR-026). The stored break-even values were right; the
+`linear_in_p_success` scaling attached to them was not, and following it understated EV by up to
+45 %. A note almost never scores nothing: at σ = 20 mm, `p_none` is 0.008.
+
+The whole run degrades gracefully rather than collapsing — **216/255 expected at σ = 20 mm** on
+the contact reading, 192 on the silhouette. A7 again.
+
+**Still blocked:** ordering needs σ (work order **B5**) and a route. Ten object start poses are
+`nominal_pending`; **B0** measures them. The four randomized notes have no fixed start pose by
+rule (S1 p7), which is not a gap.
 
 ### Phase 9 — Competition-ready run 🟪 GOAL

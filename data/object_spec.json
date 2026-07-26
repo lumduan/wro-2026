@@ -581,6 +581,7 @@
       "identification_confidence": "medium",
       "identification_evidence": "Page 152 shows a black cabinet with a light front panel, a row of grey control\nknobs along the top and a red control — an amplifier. S1 p6: 'There is an\namplifier together with 2 speakers on the field.' The run preview on page 126\nis a dense black grille panel, and pages 130/132/138/140 carry sub-assembly\nboxes in two IDENTICAL pairs (130 with 138, 132 with 140, byte-identical box\nsizes) — the cabinet's two symmetric sides.\n\n`medium`, not `high`: the identification rests on the page-152 render rather\nthan on a preview of the finished object, because this run's preview shows a\ncomponent. Nothing depends on the exact page range — see [scoring_relevance].",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": null,
       "max_projection_studs": null,
       "needs_measurement": true,
@@ -607,6 +608,7 @@
         16.0,
         128.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         2,
         16
@@ -617,6 +619,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         16.0,
         128.0
@@ -650,6 +653,7 @@
         16.0,
         128.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         2,
         16
@@ -660,6 +664,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         16.0,
         128.0
@@ -689,6 +694,7 @@
         32.0,
         48.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         6
@@ -696,6 +702,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p2: a blue, tall, curly S-form — the treble-clef silhouette.\nS1 p6: 'There is a clef (blue) on the field.'",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         48.0
@@ -727,6 +734,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -735,6 +743,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p102 shows a PAIR of yellow/white drum-shaped blocks, and page 113\nshows exactly that pair finished — congas are a paired drum. S1 p4 lists\n1x congas.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         32.0
@@ -768,6 +777,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -775,6 +785,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p114: a red body with a yellow neck rising from it — an unmistakable\nguitar silhouette. The run ends at 125, not 123: page 124 (step 123) still shows\nthe guitar mid-build and the next preview is at 126. S1 p4 lists 1x guitar.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -822,6 +833,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Page 101 shows the assembled instrument: four black key-bars in a row on a white\nbody with red trim — a keyboard. The run preview on page 89 and the one on page\n96 are its two sub-frames; page 95 shows an obviously incomplete L of loose\nbricks, so 89-95 is not a finished model. S1 p4 lists 1x keyboard.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": null,
       "max_projection_studs": null,
       "needs_measurement": true,
@@ -848,6 +860,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -855,6 +868,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p66: a black head on a tall white column — a microphone on a stand.\nS1 p4 places the microphone in the truck. The run extends to 88, not 72: page\n72 shows the column still UNCAPPED and page 88 shows the same column with the\nblack head fitted. The cream box on page 73 is a sub-assembly box inside this\nbuild (see subassemblies), which is why part 1 read 73-88 as a separate span.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -884,6 +898,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -891,6 +906,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p41: black, same form.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -920,6 +936,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -927,6 +944,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p26: the finished blue note, distinct from the clef at pages 2-16.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -957,6 +975,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -964,6 +983,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p48: green, same form.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -995,6 +1015,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -1002,6 +1023,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p56: red, same form.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -1031,6 +1053,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -1038,6 +1061,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p17: white, the same stepped note form as the five coloured notes that follow.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -1067,6 +1091,7 @@
         32.0,
         32.0
       ],
+      "contact_footprint_source": "derived from stud count x 8.00 mm",
       "contact_footprint_studs": [
         4,
         4
@@ -1074,6 +1099,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p34: yellow, same form as the other five.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": [
         32.0,
         64.0
@@ -1107,6 +1133,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": null,
       "max_projection_studs": null,
       "needs_measurement": true,
@@ -1133,6 +1160,7 @@
       "identification_confidence": "high",
       "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
       "mass_g": null,
+      "mass_source": null,
       "max_projection_mm": null,
       "max_projection_studs": null,
       "needs_measurement": true,

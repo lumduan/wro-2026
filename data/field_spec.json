@@ -1721,7 +1721,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p6: on the stage, left end of the field"
     },
@@ -1729,7 +1729,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: close to the stage (left end), lower end of the field"
     },
@@ -1737,7 +1737,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: close to the stage (left end), upper end of the field"
     },
@@ -1745,7 +1745,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p6: middle, at the left end of the staff lines"
     },
@@ -1753,7 +1753,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: lower end, in the truck"
     },
@@ -1761,7 +1761,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: lower end, in the truck"
     },
@@ -1769,7 +1769,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: lower end, in the truck"
     },
@@ -1777,7 +1777,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p4: lower end, in the truck"
     },
@@ -1854,7 +1854,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p6: on the stage, left end of the field"
     },
@@ -1862,7 +1862,7 @@
       "kind": "nominal_pending",
       "needs_measurement": true,
       "nominal_start_pose_mm": null,
-      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it from a set-up table (FIELD_TEST_PLAN P4) or S1 photography.",
+      "note": "No marker exists on the mat for this object (see ADR-012 on the four unassigned markers). A coordinate is NOT invented here; measure it on a set-up field and record it under [measured_start_poses] in docs/area_map.toml — work order item B0.",
       "placement_tolerance_mm": null,
       "source": "S1 p6: on the stage, left end of the field"
     }

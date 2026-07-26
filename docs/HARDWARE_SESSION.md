@@ -64,11 +64,10 @@ design constraint, not trivia.
 Grams, on a scale. `mass_g` has been `null` for all 16 objects since Phase 4 because mass cannot
 be derived from a building instruction.
 
-Record in `docs/object_map.toml` per model, tagged `MEASURED(scale, <date>)`.
-
-> **One-line change needed first:** `tools/build_object_spec.py` currently emits
-> `"mass_g": None` unconditionally. Wire it to read the TOML **when the numbers exist** — not
-> before, so the field cannot quietly carry a placeholder.
+Record in `docs/object_map.toml` per model as `mass_g` plus `mass_source`, tagged
+`MEASURED(scale, <date>)`, then re-run `tools/build_object_spec.py`. **The path is live** —
+values flow through to `data/object_spec.json`, and a test asserts every one is still `null`
+until you type a number.
 
 → closes: **P7** (first half); `mass_g` for every object; half of ADR-022's gate.
 
@@ -101,8 +100,10 @@ Measure and compare against `data/object_spec.json`:
 | `instrument_keyboard` | **≤ 56 × 56 mm — a BOUND** | upgrade to a measurement |
 | `instrument_congas` | **≤ 112 mm long — a BOUND** | upgrade to a measurement |
 
-Record agreements as confirmation and any disagreement as a `MEASURED(calipers, <date>)` value
-that supersedes the derived one, with the superseded figure kept.
+Record in `docs/object_map.toml` as `base.measured_contact_mm` plus
+`base.measured_contact_evidence`. The builder **keeps the stud-derived figure alongside** as
+`derived_contact_footprint_mm` and sets `contact_footprint_agrees_with_derived`, so a
+disagreement between the two methods is a visible finding rather than a silent overwrite.
 
 > **Calipers do not close A7.** A7 asks *which* extent `completely_in` consumes — the contact
 > patch or the silhouette. Both numbers are already known; the ambiguity is a rule
@@ -121,9 +122,29 @@ with the superseded value recorded rather than deleted.
 
 ---
 
-## Block B — table work. Robot required.
+## Block B — table work. Mat and table required.
 
-Needs a driveable platform, the mat and the table.
+### B0 · Measure the object start poses — do this while the field is set up
+
+Set the field up per S1's diagram and record where each object actually starts. **Ten objects**
+are `nominal_pending` with null coordinates, because ADR-014 refused to invent them:
+
+`amp` · `cable_lower` · `cable_upper` · `clef` · `instrument_congas` · `instrument_guitar` ·
+`instrument_keyboard` · `mic` · `speaker_a` · `speaker_b`
+
+Record in `docs/area_map.toml` under `[measured_start_poses.<object>]` as `pose_mm`,
+`tolerance_mm` and `evidence`, then re-run `tools/build_field_spec.py`.
+
+> **Do not try to measure the four randomized notes.** `note_black`, `note_blue`, `note_white`
+> and `note_yellow` are assigned to their start squares at randomization (S1 p7), so they have
+> no fixed start pose — that is the rule, not a gap in the data. `note_green` and `note_red` are
+> already measured from S2's fixed squares.
+
+→ closes: ADR-014's pending set. **Unblocks route planning**, which is the other half of what
+Phase 8 ordering needs besides σ — and it is what turns `P(collision)` from a free parameter
+into something estimable at all.
+
+First in this block because everything else here needs the field set up anyway.
 
 ### B1 · Run `robot/missions/trivial.py` on **both** hubs
 
