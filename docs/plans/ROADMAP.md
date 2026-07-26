@@ -39,10 +39,10 @@ flowchart TD
 | **1 · Human review gate** | ✅ DONE | extraction accepted 2026-07-25 | — |
 | **2 · `field_spec.json`** | ✅ **DONE** | **S5 built** by `tools/build_field_spec.py` from `docs/area_map.toml` — no hand-written coordinates. 17 areas (10 scoring), 6 note starts, 17 object start poses. Full-chain determinism verified. | — |
 | **3 · Scoring model (S1)** | ✅ **DONE** | `data/scoring_model.json` — missions, predicates, time rules, randomization. Maxima sum to 255 and `max == each × count` per rule, both tested. | — |
-| **4 · Object spec (S3)** | 🔵 **READY — re-scoped** | S4 §7.4: elements are WRO Brick Set 45811/45819 ⇒ LEGO geometry is a constant. **Count studs × 8.0 mm** rather than measure rasters | none — much cheaper than believed |
+| **4 · Object spec (S3)** | 🟡 **IN PROGRESS — part 1 done** | `docs/object_map.toml`: S3's step numbering is **continuous 1–176 with no resets** (the planned boundary signal does not exist); 12 models identified against S1 incl. all 6 notes, clef, mic, guitar, keyboard, congas, cables; 3 spans left explicitly **unresolved**. **Dimensions still pending** — counting studs on the assembly render was tested and rejected (the base is occluded by the object's own body); the parts-callout BOM is the replacement source | none — but it is the last item on the critical path |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Simulator** | ⬜ BLOCKED | run/score simulation; exposes `moved_semantics` (A1) and `upright_tolerance_deg` (A2). **Parameter acquisition can run in PARALLEL with phase 4** — see `docs/FIELD_TEST_PLAN.md`; only test P5 needs phase 4's objects | needs 2 **AND** 3 **AND** 4 |
-| **7 · Robot design** | ⬜ BLOCKED | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited** | **dependency set reduced to {4}** — it needs 4 AND 5; 5 is DONE, 4 has not run |
+| **7 · Robot design** | ⬜ BLOCKED | drivetrain, gripper, sensor layout. Budget: **4 motors**, 2 left after differential drive; cameras **prohibited**. A final **chassis** is permitted now; a final **manipulator** is not | **dependency set = {4}** — specifically phase 4's *dimensions*, which part 1 did not produce |
 | **8 · Strategy selection** | ⬜ BLOCKED | mission ordering; EV is `P(success)×pts − P(collision)×40` — the bonus 40 is a **floor** | needs 6 AND 7 |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 

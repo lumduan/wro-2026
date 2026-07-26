@@ -1,0 +1,193 @@
+# object_map.toml — S3 page ranges → canonical object IDs (Phase 4, part 1)
+#
+# The hand-curated judgement layer for data/object_spec.json, mirroring the split
+# that worked for S5: this file says WHICH pages build WHICH object and on what
+# evidence; the builder derives every number.
+#
+# STATUS: page mapping and identification are DONE. Per-object DIMENSIONS are NOT
+# yet in this file -- see the "dimension source" note below for why the planned
+# method was rejected after testing it.
+
+[meta]
+source = "S3 — WRO-2026-RM-Elementary-BI-All.pdf"
+source_sha256 = "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a"
+build_pages = "2..177"
+stud_pitch_mm = 8.0      # S4 7.4: elements are WRO Brick Set 45811/45819 => LEGO System
+plate_mm = 3.2
+brick_mm = 9.6
+
+# --------------------------------------------------------------------------- #
+# MEASURED(S3): the step numbering is CONTINUOUS, 1..176, one step per page
+# --------------------------------------------------------------------------- #
+# Page N carries step N-1, with no per-model reset. Verified by digit count:
+# 9 pages with a 1-digit numeral (steps 1-9), 90 with 2 digits (10-99) and 77
+# with 3 digits (100-176) -- an exact match for pages 2..177.
+#
+# This killed the planned primary boundary signal. The plan assumed the step
+# number resets to 1 at each model; it does not. Recorded so nobody re-derives
+# the same dead end.
+[structure]
+step_numbering = "continuous"
+step_of_page = "step = page - 1"
+resets = false
+boundary_signal = "top-right callout box (31 pages carry one)"
+boundary_caveat = """
+A callout marks a model start for the first 13 models, whose runs are 6-16 steps.
+From page 124 on, callouts also mark sub-assemblies and parts lists, producing
+1-2 step 'models' that are not models. Those runs are NOT treated as objects."""
+
+# --------------------------------------------------------------------------- #
+# Models — identification evidence is recorded per entry, never assumed
+# --------------------------------------------------------------------------- #
+# `confidence = "high"` means the finished-model callout is unambiguous against
+# S1's own description. Anything less says so.
+
+[[models]]
+id = "clef"
+pages = [2, 16]
+steps = [1, 15]
+confidence = "high"
+evidence = "Blue, tall, curly S-form — the treble-clef silhouette. S1 p6: 'There is a clef (blue) on the field.'"
+
+[[models]]
+id = "note_white"
+pages = [17, 25]
+steps = [16, 24]
+confidence = "high"
+evidence = "White; same stepped note form as the five coloured notes that follow."
+
+[[models]]
+id = "note_blue"
+pages = [26, 33]
+steps = [25, 32]
+confidence = "high"
+evidence = "Blue note form, distinct from the clef at pages 2-16. Step 25 starts a 4x4 core from 2x blue 2x4 bricks."
+
+[[models]]
+id = "note_yellow"
+pages = [34, 40]
+steps = [33, 39]
+confidence = "high"
+evidence = "Yellow note, same form as the other five."
+
+[[models]]
+id = "note_black"
+pages = [41, 47]
+steps = [40, 46]
+confidence = "high"
+evidence = "Black note, same form."
+
+[[models]]
+id = "note_green"
+pages = [48, 55]
+steps = [47, 54]
+confidence = "high"
+evidence = "Green note, same form."
+
+[[models]]
+id = "note_red"
+pages = [56, 65]
+steps = [55, 64]
+confidence = "high"
+evidence = "Red note, same form."
+
+[[models]]
+id = "mic"
+pages = [66, 72]
+steps = [65, 71]
+confidence = "high"
+evidence = "Black head on a white column — a microphone on a stand. S1 p4 places the microphone in the truck."
+
+[[models]]
+id = "instrument_keyboard"
+pages = [89, 95]
+steps = [88, 94]
+confidence = "medium"
+evidence = "White/black body with a row of black key-like elements along the top face. S1 p4 lists 1x keyboard."
+
+[[models]]
+id = "instrument_congas"
+pages = [102, 113]
+steps = [101, 112]
+confidence = "medium"
+evidence = "A PAIR of yellow/white drum-shaped blocks — congas are a paired drum. S1 p4 lists 1x congas."
+
+[[models]]
+id = "instrument_guitar"
+pages = [114, 123]
+steps = [113, 122]
+confidence = "high"
+evidence = "Red body with a yellow neck rising from it — an unmistakable guitar silhouette. S1 p4 lists 1x guitar."
+
+[[models]]
+id = "cable"
+pages = [167, 172]
+steps = [166, 171]
+confidence = "medium"
+evidence = "Long red/black bar carrying a ribbed flexible element, callout marked '2x' — and S1 p4 says there are 2 cables. Page 173 shows the flexible hose part alone."
+instances = ["cable_upper", "cable_lower"]
+
+# --------------------------------------------------------------------------- #
+# UNRESOLVED — recorded as unresolved rather than force-fitted
+# --------------------------------------------------------------------------- #
+# Same discipline as unassigned_marker_{1..4} in ADR-012: a wrong semantic in a
+# derived spec is read forward by every module without question.
+
+[[unresolved]]
+pages = [73, 88]
+steps = [72, 87]
+callout = "small white brick assembly marked '2x'"
+candidates = ["speaker_a", "speaker_b", "amp", "sub_assembly"]
+note = "16 steps is long for a sub-assembly, and '2x' fits the two speakers — but the callout does not resemble a speaker. Needs the parts-callout pass."
+
+[[unresolved]]
+pages = [96, 101]
+steps = [95, 100]
+callout = "white/grey body, black top, three round dials"
+candidates = ["amp"]
+note = "Dials strongly suggest an amplifier, but S1 p6 places the amp on the stage with the speakers and this has not been cross-checked against S1's photo."
+
+[[unresolved]]
+pages = [124, 166]
+steps = [123, 165]
+callout = "mixed: parts lists, black sub-assemblies, a dense black grid (p126), a blue block marked '2x' (p153)"
+candidates = ["speaker_a", "speaker_b", "amp", "sub_assemblies"]
+note = "This span contains the remaining objects plus many sub-assembly callouts. The p126 dense black grid reads as a speaker grille and p153's '2x' fits a pair, but neither is confirmed."
+
+# --------------------------------------------------------------------------- #
+# Dimension source — the planned method was tested and REJECTED
+# --------------------------------------------------------------------------- #
+[dimensions]
+status = "pending"
+planned_method = "count studs on the base in the assembly render"
+rejected_because = """
+Tested on note_blue's final step (page 33). The base plate is PARTLY OCCLUDED by
+the object's own body: fitting the isometric stud lattice (u = +49.6,+24.7 px and
+v = -49.6,+24.7 px per stud, |u| = 55.4 px) recovered only 10 stud centres, in two
+disjoint groups either side of the blue column, spanning lattice j from -7 to +1
+with the middle hidden. That admits several plate sizes, and the note footprint
+carries 120 of 255 points. A number that cannot be read reliably is not recorded."""
+replacement_method = """
+Read the PER-STEP PARTS CALLOUTS instead. Every step names its part and quantity
+('2x' of a 2x4 brick), drawn unoccluded and axis-aligned in a callout box. Summing
+them across a model's page range gives an exact bill of materials, from which
+dimensions follow without counting studs on an occluded render."""
+
+# --------------------------------------------------------------------------- #
+# A7 — a cross-source INFERENCE, explicitly not a measurement of the object
+# --------------------------------------------------------------------------- #
+[a7_inference]
+note_target_mm = 79.699        # MEASURED(S2), the #4e5252 outer square
+note_target_studs = 9.96       # 79.699 / 8.0 -> exactly 10 studs (79.700 mm)
+note_start_square_mm = 31.9    # MEASURED(S2), the #a0d187 randomised start squares
+note_start_square_studs = 3.99 # 31.9 / 8.0 -> exactly 4 studs (32.0 mm)
+inferred_note_base_studs = 4
+inferred_slack_per_side_mm = 23.85   # (79.699 - 32.0) / 2
+confidence = "inference, NOT a measurement"
+reasoning = """
+The mat's own note start square is exactly 4 studs and the note target exactly 10.
+A start square is sized to the object that stands on it, so the note base is very
+likely 4x4 studs = 32.0 mm, which matches the 4x4 core built at step 25. If so the
+containment slack is 23.85 mm per side and A7's default is comfortably achievable.
+This is inferred from S2 geometry, NOT measured from S3, and must be confirmed by
+the parts-callout pass or by calipers before anything depends on the exact value."""

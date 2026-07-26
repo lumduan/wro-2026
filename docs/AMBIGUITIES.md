@@ -134,9 +134,24 @@ touching a note target also touches the plaza beneath it, so **nothing could eve
 - **This is a FORCED reading, not a conservative choice.** Recording it as "conservative"
   would invite a later session to reconsider it as if a freer reading existed. None does.
 - **Route:** `NEEDS-VERIFY(S6)`. See `docs/DECISIONS.md` ADR-013.
-- **Consequence if wrong:** the containment margin changes. With a 79.7 mm note target and a
-  note base of `u = 31.9 mm` (`ASSUME:` 4 studs), slack is ±23.9 mm per side, so the default
-  is comfortably achievable — it does not block anything.
+- **Consequence if wrong:** the containment margin changes.
+
+**Cross-source inference, 2026-07-26** (`docs/object_map.toml`, `[a7_inference]`). Two S2
+measurements land on exact stud multiples:
+
+| feature | `MEASURED(S2)` | ÷ 8.0 mm |
+|---|---:|---:|
+| note target (`#4e5252` outer square) | 79.699 mm | **9.96 → exactly 10 studs** |
+| note start square (`#a0d187`) | 31.9 mm | **3.99 → exactly 4 studs** |
+
+A start square is sized to the object standing on it, so the note base is very likely
+**4 × 4 studs = 32.0 mm**, which also matches the 4×4 core built at S3 step 25. That gives
+**23.85 mm of slack per side** and A7's default is comfortably achievable.
+
+**This is an inference from S2's mat geometry, NOT a measurement of the object.** S3's
+assembly renders occlude the base behind the object's own body, so the footprint was
+deliberately *not* recorded rather than guessed. Confirm via the parts-callout BOM pass or
+calipers before anything depends on the exact figure.
 
 ## A8 — bonus-only run timing (added 2026-07-25)
 
