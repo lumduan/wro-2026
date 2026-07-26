@@ -1,10 +1,10 @@
 """Invariants on docs/object_map.toml (Phase 4, part 1).
 
-Phase 4 is deliberately split: this file records **which S3 pages build which
-object**, verified; per-object dimensions are pending a second pass. The tests
-below guard that split honestly — in particular that no dimension appears before
-it has a source, and that unresolved models stay unresolved rather than drifting
-into a canonical ID.
+This file records **which S3 pages build which object**, and — since part 2 —
+each model's base extents. The tests guard that a dimension never appears without
+the method that produced it, that both the contact and silhouette readings are
+kept (they give different A7 slack), and that unresolved models stay unresolved
+rather than drifting into a canonical ID.
 """
 
 from __future__ import annotations
@@ -113,28 +113,49 @@ def test_objects_not_yet_identified_are_accounted_for(omap: dict):
 # --------------------------------------------------------------------------- #
 
 
-def test_no_dimensions_are_recorded_yet(omap: dict):
-    """Guards against a plausible-looking footprint appearing without a source.
+def test_dimensions_record_the_method_that_produced_them(omap: dict):
+    """A footprint must arrive with its method, including the rejected one."""
+    dims = omap["dimensions"]
+    assert dims["status"] == "done_for_9_of_13"
+    assert dims["rejected_because"].strip()
+    assert dims["method_used"].strip()
+    assert dims["automatic_stud_count_coverage"].strip()
 
-    The planned method (counting studs on the assembly render) was tested and
-    rejected because the base is occluded by the object's own body. Until the
-    parts-callout pass runs, this file must carry no dimension.
-    """
-    assert omap["dimensions"]["status"] == "pending"
-    assert omap["dimensions"]["rejected_because"].strip()
-    assert omap["dimensions"]["replacement_method"].strip()
+
+def test_every_base_carries_evidence_and_both_extents(omap: dict):
+    """No bare numbers: a base states contact, projection and how it was read."""
     for m in omap["models"]:
-        for key in m:
-            assert "footprint" not in key and "height" not in key, (
-                f"{m['id']} carries a dimension before the dimension pass has run"
-            )
+        base = m.get("base")
+        if base is None:
+            continue
+        assert len(base["contact_studs"]) == 2, m["id"]
+        assert len(base["projection_studs"]) == 2, m["id"]
+        assert base["evidence"].strip(), m["id"]
+        assert isinstance(base["overhang_height_mm"], float), m["id"]
 
 
-def test_a7_is_labelled_an_inference_not_a_measurement(omap: dict):
-    """It is derived from S2's mat geometry, not measured from S3's objects."""
-    a7 = omap["a7_inference"]
-    assert "inference" in a7["confidence"].lower()
-    assert "NOT a measurement" in a7["confidence"]
+def test_a7_inference_is_kept_but_marked_superseded(omap: dict):
+    """The superseded value stays on the record; the measurement supersedes it."""
+    assert "inference" in omap["a7_inference"]["confidence"].lower()
+    a7m = omap["a7_measurement"]
+    assert a7m["confidence"] == "MEASURED(S3)"
+    assert "a7_inference" in a7m["supersedes"]
+
+
+def test_a7_measurement_records_BOTH_readings(omap: dict):
+    """Contact and silhouette give different slack; both must be present."""
+    a7 = omap["a7_measurement"]
+    pitch = omap["meta"]["stud_pitch_mm"]
+    assert a7["note_contact_footprint_mm"] == [a7["note_contact_footprint_studs"][0]*pitch,
+                                              a7["note_contact_footprint_studs"][1]*pitch]
+    assert a7["note_max_projection_mm"] == [a7["note_max_projection_studs"][0]*pitch,
+                                            a7["note_max_projection_studs"][1]*pitch]
+    tgt = a7["note_target_mm"]
+    assert a7["slack_per_side_contact_mm"] == pytest.approx(
+        (tgt - a7["note_contact_footprint_mm"][1])/2, abs=0.01)
+    assert a7["slack_per_side_projection_mm"] == pytest.approx(
+        (tgt - a7["note_max_projection_mm"][1])/2, abs=0.01)
+    assert a7["slack_per_side_projection_mm"] > 0, "the silhouette must fit too"
 
 
 def test_a7_arithmetic_is_self_consistent(omap: dict):

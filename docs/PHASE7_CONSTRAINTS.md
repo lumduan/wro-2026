@@ -138,7 +138,27 @@ catastrophic. Any deployable mechanism must be captive.
 
 ---
 
-## 7 · What is NOT yet designable
+## 7 · Placement tolerance — what the gripper actually has to hit
+
+`MEASURED(S3)`, 2026-07-26. The six notes, `mic` and `instrument_guitar` share one base:
+
+| | extent | slack per side in the 79.699 mm note target |
+|---|---|---|
+| contact patch (4×4 studs) | 32.0 × 32.0 mm | 23.85 mm |
+| silhouette incl. the 4×8 plate at +9.6 mm | 32.0 × 64.0 mm | **7.85 mm** |
+
+**Design against the 7.85 mm figure, not the 23.85 mm one.** Even if scoring only counts the
+contact patch, a placement that leaves the silhouette hanging over the target edge looks wrong
+to a judge and leaves no margin for the table tolerance (§7.2, ±5 mm) already accumulating
+toward −X. The `clef` differs: a 4×6 contact patch with no overhang.
+
+Combined with the start-area result in §2 — zero placement slack there — the robot must be
+accurate to a few millimetres at both ends of every note run. That is a **gripper and odometry
+requirement**, and field tests P2 and P3 are what will say whether it is met.
+
+---
+
+## 8 · What is NOT yet designable
 
 **The manipulator.** Gripper, lifter or any object-handling mechanism needs object dimensions,
 mass and grip points — those come from **Phase 4, which has not run**. A gripper designed

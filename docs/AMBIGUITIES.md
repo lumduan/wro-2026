@@ -136,22 +136,35 @@ touching a note target also touches the plaza beneath it, so **nothing could eve
 - **Route:** `NEEDS-VERIFY(S6)`. See `docs/DECISIONS.md` ADR-013.
 - **Consequence if wrong:** the containment margin changes.
 
-**Cross-source inference, 2026-07-26** (`docs/object_map.toml`, `[a7_inference]`). Two S2
-measurements land on exact stud multiples:
+**MEASURED(S3), 2026-07-26** — superseding the previous cross-source inference,
+which is kept in `docs/object_map.toml` `[a7_inference]` for the record.
 
-| feature | `MEASURED(S2)` | ÷ 8.0 mm |
-|---|---:|---:|
-| note target (`#4e5252` outer square) | 79.699 mm | **9.96 → exactly 10 studs** |
-| note start square (`#a0d187`) | 31.9 mm | **3.99 → exactly 4 studs** |
+Eight models (the six notes, `mic`, `instrument_guitar`) share one base pattern, read off the
+consecutive S3 pages 17 / 18 / 19:
 
-A start square is sized to the object standing on it, so the note base is very likely
-**4 × 4 studs = 32.0 mm**, which also matches the 4×4 core built at S3 step 25. That gives
-**23.85 mm of slack per side** and A7's default is comfortably achievable.
+```
+step n     2x (2x4 brick)  ->  a 4x4 core          <- THIS touches the mat
+step n+1   1x (4x8 plate)  ->  ON TOP of the core   <- overhangs at +9.6 mm
+step n+2   2x (2x4 brick)  ->  stacked on the plate
+```
 
-**This is an inference from S2's mat geometry, NOT a measurement of the object.** S3's
-assembly renders occlude the base behind the object's own body, so the footprint was
-deliberately *not* recorded rather than guessed. Confirm via the parts-callout BOM pass or
-calipers before anything depends on the exact figure.
+| reading of "touching" | note extent | slack per side vs the 79.699 mm target |
+|---|---|---|
+| **contact patch** (4×4) | 32.0 × 32.0 mm | **23.85 mm** |
+| **silhouette** (4×8 plate) | 32.0 × 64.0 mm | **7.85 mm** |
+
+**A7's default holds under either reading** — both are positive, so nothing is blocked.
+Which one the scorer uses is a scoring *interpretation* question, not an arithmetic one, and
+`data/object_spec.json` records both as `contact_footprint_mm` and `max_projection_mm`.
+
+**Cross-source check:** S2's note start square measures **31.9 mm** and the contact patch
+derives to **32.0 mm** from the stud count — two independent sources agreeing to 0.1 mm. The
+start square is sized to the note's *contact patch*, not its silhouette.
+
+**A correction worth recording.** Part 1 inferred a 4×4 base from the mat and reported
+23.85 mm. Mid-analysis I read the 4×8 plate as the base and "corrected" this to 7.85 mm. That
+was the error — caught by following the build sequence through pages 17–19 before it was
+committed. The inference was right; the plate is an overhang.
 
 ## A8 — bonus-only run timing (added 2026-07-25)
 

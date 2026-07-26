@@ -1,0 +1,99 @@
+# object_parts.toml — cluster ID → LEGO part (Phase 4 part 2, judgement layer)
+#
+# tools/s3_callouts.py groups the 152 parts-callouts in S3 into 45 distinct
+# renders. This file names the ones that matter and records how they were read.
+#
+# `studs`, where given, is CROSS-CHECKED against the extraction: the builder
+# hard-fails if a curated count disagrees with the detected one.
+#
+# COVERAGE IS PARTIAL AND DELIBERATELY SO. Automatic stud counting works on
+# LIGHT parts, where the stud ellipses are drawn black on white and segment
+# cleanly (10 of 45 clusters, lattice self-check rows*cols == studs). On
+# coloured parts the stud tops differ from the body by only ~5 luminance units
+# — blue body (1,80,199) vs stud (0,74,191) — so flood fill merges them and the
+# count is unreliable. Those clusters are left unnamed rather than guessed.
+
+[[parts]]
+cluster_id = 4
+part = "plate_4x8"
+studs = 32
+lattice = [4, 8]
+colour = "white"
+evidence = """
+424x303 px callout, quantity 1x, appearing on pages 18, 27, 35, 42, 49, 57, 67,
+115 — the SECOND step of all six notes plus mic and guitar, and nowhere else.
+32 stud centres detected; isometric lattice fit gives 4 x 8 = 32 cells, an exact
+self-consistency check. Identical render on all eight, which turns S1 p5's 'the
+bases of the notes are all the same' into a measurement."""
+
+[[parts]]
+cluster_id = 1
+part = "brick_2x4"
+studs = 8
+lattice = [2, 4]
+colour = "white"
+evidence = "236x227 px, quantity 2x, 8 studs, lattice 2x4 consistent. The step-1 part for note_white and mic."
+
+[[parts]]
+cluster_id = 6
+part = "brick_2x4"
+studs = 8
+lattice = [2, 4]
+colour = "yellow"
+evidence = "236x227 px, 8 studs, lattice 2x4 consistent. note_yellow step 1."
+
+[[parts]]
+cluster_id = 9
+part = "brick_2x4"
+studs = 8
+lattice = [2, 4]
+colour = "white"
+evidence = "235x227 px, 8 studs, lattice 2x4 consistent."
+
+[[parts]]
+cluster_id = 22
+part = "brick_2x4"
+studs = 8
+lattice = [2, 4]
+evidence = "352x227 px, 8 studs, lattice 2x4 consistent."
+
+[[parts]]
+cluster_id = 33
+part = "brick_2x4"
+studs = 8
+lattice = [2, 4]
+evidence = "376x227 px, 8 studs, lattice 2x4 consistent."
+
+[[parts]]
+cluster_id = 19
+part = "brick_2x2"
+studs = 4
+lattice = [2, 2]
+evidence = "376x227 px, 4 studs, lattice 2x2 consistent."
+
+[[parts]]
+cluster_id = 20
+part = "brick_2x2"
+studs = 4
+lattice = [2, 2]
+evidence = "492x227 px, 4 studs, lattice 2x2 consistent."
+
+[[parts]]
+cluster_id = 35
+part = "brick_2x2"
+studs = 4
+lattice = [2, 2]
+evidence = "376x227 px, 4 studs, lattice 2x2 consistent."
+
+[[parts]]
+cluster_id = 42
+part = "brick_2x2"
+studs = 4
+lattice = [2, 2]
+evidence = "372x195 px, 4 studs, lattice 2x2 consistent."
+
+# Clusters 0, 2, 3, 5, 7, 8, 10-18, 21, 23-32, 34, 36-41, 43, 44 are COLOURED or
+# small parts whose stud ellipses do not segment reliably (see the header). They
+# are intentionally unnamed. Cluster 0 (18 steps) and 2 (12 steps) are the
+# blue and black 2x4 bricks by visual inspection, but the automatic count reads
+# 0 studs on both, so no `studs` value is asserted for them here.

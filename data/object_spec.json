@@ -1,0 +1,1320 @@
+{
+  "callout_inventory": {
+    "build_pages": 176,
+    "clusters": [
+      {
+        "cluster_id": 0,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          3,
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          26,
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "part": null,
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 1,
+        "detected_studs": 8,
+        "lattice": [
+          2,
+          4
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          66,
+          68,
+          69,
+          70,
+          71,
+          72,
+          80
+        ],
+        "part": "brick_2x4",
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 2,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          41,
+          43,
+          44,
+          45,
+          46,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "part": null,
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 3,
+        "detected_studs": 3,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          104,
+          126,
+          134,
+          136,
+          142,
+          145,
+          146,
+          159,
+          161,
+          163
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 4,
+        "detected_studs": 32,
+        "lattice": [
+          4,
+          8
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          18,
+          27,
+          35,
+          42,
+          49,
+          57,
+          67,
+          115
+        ],
+        "part": "plate_4x8",
+        "size_px": [
+          424,
+          303
+        ]
+      },
+      {
+        "cluster_id": 5,
+        "detected_studs": 7,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          2,
+          90,
+          94,
+          97,
+          105,
+          110
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 6,
+        "detected_studs": 8,
+        "lattice": [
+          2,
+          4
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          34,
+          36,
+          37,
+          38,
+          39
+        ],
+        "part": "brick_2x4",
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 7,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          48,
+          50,
+          51,
+          52,
+          53
+        ],
+        "part": null,
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 8,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          56,
+          58,
+          59,
+          60,
+          63
+        ],
+        "part": null,
+        "size_px": [
+          236,
+          227
+        ]
+      },
+      {
+        "cluster_id": 9,
+        "detected_studs": 8,
+        "lattice": [
+          2,
+          4
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          103,
+          129,
+          135,
+          137,
+          143
+        ],
+        "part": "brick_2x4",
+        "size_px": [
+          235,
+          227
+        ]
+      },
+      {
+        "cluster_id": 10,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          114,
+          116,
+          119,
+          168,
+          169
+        ],
+        "part": null,
+        "size_px": [
+          235,
+          227
+        ]
+      },
+      {
+        "cluster_id": 11,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          130,
+          132,
+          138,
+          140,
+          148
+        ],
+        "part": null,
+        "size_px": [
+          235,
+          227
+        ]
+      },
+      {
+        "cluster_id": 12,
+        "detected_studs": 14,
+        "lattice": [
+          5,
+          9
+        ],
+        "lattice_consistent": false,
+        "pages": [
+          89,
+          92,
+          96,
+          99
+        ],
+        "part": null,
+        "size_px": [
+          488,
+          235
+        ]
+      },
+      {
+        "cluster_id": 13,
+        "detected_studs": 1,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          153,
+          156,
+          158,
+          160
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 14,
+        "detected_studs": 9,
+        "lattice": [
+          3,
+          7
+        ],
+        "lattice_consistent": false,
+        "pages": [
+          102,
+          108,
+          109
+        ],
+        "part": null,
+        "size_px": [
+          235,
+          227
+        ]
+      },
+      {
+        "cluster_id": 15,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          117,
+          120,
+          122
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 16,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          149,
+          164,
+          170
+        ],
+        "part": null,
+        "size_px": [
+          232,
+          195
+        ]
+      },
+      {
+        "cluster_id": 17,
+        "detected_studs": 1,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          61,
+          64
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 18,
+        "detected_studs": 2,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          76,
+          77
+        ],
+        "part": null,
+        "size_px": [
+          164,
+          167
+        ]
+      },
+      {
+        "cluster_id": 19,
+        "detected_studs": 4,
+        "lattice": [
+          2,
+          2
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          91,
+          98
+        ],
+        "part": "brick_2x2",
+        "size_px": [
+          376,
+          227
+        ]
+      },
+      {
+        "cluster_id": 20,
+        "detected_studs": 4,
+        "lattice": [
+          2,
+          2
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          93,
+          95
+        ],
+        "part": "brick_2x2",
+        "size_px": [
+          492,
+          227
+        ]
+      },
+      {
+        "cluster_id": 21,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          106,
+          162
+        ],
+        "part": null,
+        "size_px": [
+          164,
+          195
+        ]
+      },
+      {
+        "cluster_id": 22,
+        "detected_studs": 8,
+        "lattice": [
+          2,
+          4
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          111,
+          112
+        ],
+        "part": "brick_2x4",
+        "size_px": [
+          352,
+          227
+        ]
+      },
+      {
+        "cluster_id": 23,
+        "detected_studs": 2,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          127,
+          128
+        ],
+        "part": null,
+        "size_px": [
+          488,
+          235
+        ]
+      },
+      {
+        "cluster_id": 24,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          150,
+          165
+        ],
+        "part": null,
+        "size_px": [
+          139,
+          143
+        ]
+      },
+      {
+        "cluster_id": 25,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          155,
+          157
+        ],
+        "part": null,
+        "size_px": [
+          235,
+          227
+        ]
+      },
+      {
+        "cluster_id": 26,
+        "detected_studs": 1,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          6
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 27,
+        "detected_studs": 1,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          54
+        ],
+        "part": null,
+        "size_px": [
+          276,
+          235
+        ]
+      },
+      {
+        "cluster_id": 28,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          62
+        ],
+        "part": null,
+        "size_px": [
+          140,
+          171
+        ]
+      },
+      {
+        "cluster_id": 29,
+        "detected_studs": 1,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          73
+        ],
+        "part": null,
+        "size_px": [
+          156,
+          175
+        ]
+      },
+      {
+        "cluster_id": 30,
+        "detected_studs": 3,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          74
+        ],
+        "part": null,
+        "size_px": [
+          140,
+          183
+        ]
+      },
+      {
+        "cluster_id": 31,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          78
+        ],
+        "part": null,
+        "size_px": [
+          140,
+          143
+        ]
+      },
+      {
+        "cluster_id": 32,
+        "detected_studs": 5,
+        "lattice": [
+          3,
+          4
+        ],
+        "lattice_consistent": false,
+        "pages": [
+          107
+        ],
+        "part": null,
+        "size_px": [
+          164,
+          195
+        ]
+      },
+      {
+        "cluster_id": 33,
+        "detected_studs": 8,
+        "lattice": [
+          2,
+          4
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          118
+        ],
+        "part": "brick_2x4",
+        "size_px": [
+          376,
+          227
+        ]
+      },
+      {
+        "cluster_id": 34,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          121
+        ],
+        "part": null,
+        "size_px": [
+          280,
+          195
+        ]
+      },
+      {
+        "cluster_id": 35,
+        "detected_studs": 4,
+        "lattice": [
+          2,
+          2
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          123
+        ],
+        "part": "brick_2x2",
+        "size_px": [
+          376,
+          227
+        ]
+      },
+      {
+        "cluster_id": 36,
+        "detected_studs": 13,
+        "lattice": [
+          4,
+          7
+        ],
+        "lattice_consistent": false,
+        "pages": [
+          124
+        ],
+        "part": null,
+        "size_px": [
+          376,
+          227
+        ]
+      },
+      {
+        "cluster_id": 37,
+        "detected_studs": 4,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          144
+        ],
+        "part": null,
+        "size_px": [
+          488,
+          235
+        ]
+      },
+      {
+        "cluster_id": 38,
+        "detected_studs": 3,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          147
+        ],
+        "part": null,
+        "size_px": [
+          200,
+          195
+        ]
+      },
+      {
+        "cluster_id": 39,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          151
+        ],
+        "part": null,
+        "size_px": [
+          164,
+          195
+        ]
+      },
+      {
+        "cluster_id": 40,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          154
+        ],
+        "part": null,
+        "size_px": [
+          376,
+          227
+        ]
+      },
+      {
+        "cluster_id": 41,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          167
+        ],
+        "part": null,
+        "size_px": [
+          619,
+          395
+        ]
+      },
+      {
+        "cluster_id": 42,
+        "detected_studs": 4,
+        "lattice": [
+          2,
+          2
+        ],
+        "lattice_consistent": true,
+        "pages": [
+          171
+        ],
+        "part": "brick_2x2",
+        "size_px": [
+          372,
+          195
+        ]
+      },
+      {
+        "cluster_id": 43,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          172
+        ],
+        "part": null,
+        "size_px": [
+          139,
+          175
+        ]
+      },
+      {
+        "cluster_id": 44,
+        "detected_studs": 0,
+        "lattice": null,
+        "lattice_consistent": false,
+        "pages": [
+          173
+        ],
+        "part": null,
+        "size_px": [
+          672,
+          399
+        ]
+      }
+    ],
+    "distinct_parts": 45,
+    "pages_with_callout": 152,
+    "pages_without_callout": [
+      16,
+      25,
+      33,
+      40,
+      47,
+      55,
+      65,
+      75,
+      79,
+      88,
+      100,
+      101,
+      113,
+      125,
+      131,
+      133,
+      139,
+      141,
+      152,
+      166,
+      174,
+      175,
+      176,
+      177
+    ]
+  },
+  "lego_geometry": {
+    "brick_mm": 9.6,
+    "plate_mm": 3.2,
+    "source": "S4 7.4 — elements are WRO Brick Set 45811 / Expansion 45819",
+    "stud_mm": 8.0
+  },
+  "notes": [
+    "footprint = the CONTACT patch with the mat, not the silhouette. See the module docstring: eight models place a 4x8 plate ON TOP of a 4x4 core, so the plate overhangs at +9.6 mm and is not what touches the mat.",
+    "mass_g is null for every object: it cannot be derived from a building instruction. It needs the physical sets on a scale (ADR-014 discipline)."
+  ],
+  "objects": {
+    "cable_lower": {
+      "bom_steps": {
+        "brick_2x2": 1,
+        "cluster_10": 2,
+        "cluster_16": 1,
+        "cluster_41": 1,
+        "cluster_43": 1
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "medium",
+      "identification_evidence": "Long red/black bar carrying a ribbed flexible element, callout marked '2x' — and S1 p4 says there are 2 cables. Page 173 shows the flexible hose part alone.",
+      "mass_g": null,
+      "needs_measurement": true,
+      "source_pages": [
+        167,
+        172
+      ],
+      "source_steps": [
+        166,
+        171
+      ]
+    },
+    "cable_upper": {
+      "bom_steps": {
+        "brick_2x2": 1,
+        "cluster_10": 2,
+        "cluster_16": 1,
+        "cluster_41": 1,
+        "cluster_43": 1
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "medium",
+      "identification_evidence": "Long red/black bar carrying a ribbed flexible element, callout marked '2x' — and S1 p4 says there are 2 cables. Page 173 shows the flexible hose part alone.",
+      "mass_g": null,
+      "needs_measurement": true,
+      "source_pages": [
+        167,
+        172
+      ],
+      "source_steps": [
+        166,
+        171
+      ]
+    },
+    "clef": {
+      "base_evidence": "Step 1 (page 2) places 4x a 1x6 brick side by side giving a 4x6 assembly with nothing beneath it. The clef does NOT receive the 4x8 plate the notes, mic and guitar share.",
+      "bom_steps": {
+        "cluster_0": 12,
+        "cluster_26": 1,
+        "cluster_5": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        48.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        6
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Blue, tall, curly S-form — the treble-clef silhouette. S1 p6: 'There is a clef (blue) on the field.'",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        48.0
+      ],
+      "max_projection_studs": [
+        4,
+        6
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 0.0,
+      "source_pages": [
+        2,
+        16
+      ],
+      "source_steps": [
+        1,
+        15
+      ]
+    },
+    "instrument_congas": {
+      "bom_steps": {
+        "brick_2x4": 3,
+        "cluster_14": 3,
+        "cluster_21": 1,
+        "cluster_3": 1,
+        "cluster_32": 1,
+        "cluster_5": 2
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "medium",
+      "identification_evidence": "A PAIR of yellow/white drum-shaped blocks — congas are a paired drum. S1 p4 lists 1x congas.",
+      "mass_g": null,
+      "needs_measurement": true,
+      "source_pages": [
+        102,
+        113
+      ],
+      "source_steps": [
+        101,
+        112
+      ]
+    },
+    "instrument_guitar": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "brick_2x2": 1,
+        "brick_2x4": 1,
+        "cluster_10": 3,
+        "cluster_15": 3,
+        "cluster_34": 1,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Red body with a yellow neck rising from it — an unmistakable guitar silhouette. S1 p4 lists 1x guitar.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        114,
+        123
+      ],
+      "source_steps": [
+        113,
+        122
+      ]
+    },
+    "instrument_keyboard": {
+      "bom_steps": {
+        "brick_2x2": 3,
+        "cluster_12": 2,
+        "cluster_5": 2
+      },
+      "contact_footprint_mm": null,
+      "contact_footprint_studs": null,
+      "footprint_needs_analysis": true,
+      "identification_confidence": "medium",
+      "identification_evidence": "White/black body with a row of black key-like elements along the top face. S1 p4 lists 1x keyboard.",
+      "mass_g": null,
+      "needs_measurement": true,
+      "source_pages": [
+        89,
+        95
+      ],
+      "source_steps": [
+        88,
+        94
+      ]
+    },
+    "mic": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "brick_2x4": 6,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Black head on a white column — a microphone on a stand. S1 p4 places the microphone in the truck.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        66,
+        72
+      ],
+      "source_steps": [
+        65,
+        71
+      ]
+    },
+    "note_black": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "cluster_2": 5,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Black note, same form.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        41,
+        47
+      ],
+      "source_steps": [
+        40,
+        46
+      ]
+    },
+    "note_blue": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "cluster_0": 6,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Blue note form, distinct from the clef at pages 2-16. Step 25 starts a 4x4 core from 2x blue 2x4 bricks.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        26,
+        33
+      ],
+      "source_steps": [
+        25,
+        32
+      ]
+    },
+    "note_green": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "cluster_27": 1,
+        "cluster_7": 5,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Green note, same form.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        48,
+        55
+      ],
+      "source_steps": [
+        47,
+        54
+      ]
+    },
+    "note_red": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "cluster_17": 2,
+        "cluster_28": 1,
+        "cluster_8": 5,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Red note, same form.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        56,
+        65
+      ],
+      "source_steps": [
+        55,
+        64
+      ]
+    },
+    "note_white": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "brick_2x4": 7,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "White; same stepped note form as the five coloured notes that follow.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        17,
+        25
+      ],
+      "source_steps": [
+        16,
+        24
+      ]
+    },
+    "note_yellow": {
+      "base_evidence": "Step 1 places 2x a 2x4 brick forming a 4x4 core; step 2 places the 4x8 plate ON TOP of it (cluster 4); step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
+      "bom_steps": {
+        "brick_2x4": 5,
+        "plate_4x8": 1
+      },
+      "contact_footprint_mm": [
+        32.0,
+        32.0
+      ],
+      "contact_footprint_studs": [
+        4,
+        4
+      ],
+      "identification_confidence": "high",
+      "identification_evidence": "Yellow note, same form as the other five.",
+      "mass_g": null,
+      "max_projection_mm": [
+        32.0,
+        64.0
+      ],
+      "max_projection_studs": [
+        4,
+        8
+      ],
+      "needs_measurement": true,
+      "overhang_height_mm": 9.6,
+      "source_pages": [
+        34,
+        40
+      ],
+      "source_steps": [
+        33,
+        39
+      ]
+    }
+  },
+  "provenance": {
+    "callout_match_tol": 2.0,
+    "object_map": "docs/object_map.toml",
+    "object_map_sha256": "7379d6662d690a256d9be34b67328e8e873a52df24a1d91b6f61a07d3b09a5ce",
+    "object_parts": "docs/object_parts.toml",
+    "object_parts_sha256": "861e60fafc7e2149f21daf078da4e2de6d1c27201519dceccf4b56c607194318",
+    "s3_sha256": "ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a",
+    "source": "S3",
+    "tool": {
+      "name": "build_object_spec",
+      "version": "1.0.0"
+    }
+  },
+  "schema_version": 1,
+  "unresolved": [
+    {
+      "callout": "small white brick assembly marked '2x'",
+      "candidates": [
+        "speaker_a",
+        "speaker_b",
+        "amp",
+        "sub_assembly"
+      ],
+      "note": "16 steps is long for a sub-assembly, and '2x' fits the two speakers — but the callout does not resemble a speaker. Needs the parts-callout pass.",
+      "pages": [
+        73,
+        88
+      ],
+      "steps": [
+        72,
+        87
+      ]
+    },
+    {
+      "callout": "white/grey body, black top, three round dials",
+      "candidates": [
+        "amp"
+      ],
+      "note": "Dials strongly suggest an amplifier, but S1 p6 places the amp on the stage with the speakers and this has not been cross-checked against S1's photo.",
+      "pages": [
+        96,
+        101
+      ],
+      "steps": [
+        95,
+        100
+      ]
+    },
+    {
+      "callout": "mixed: parts lists, black sub-assemblies, a dense black grid (p126), a blue block marked '2x' (p153)",
+      "candidates": [
+        "speaker_a",
+        "speaker_b",
+        "amp",
+        "sub_assemblies"
+      ],
+      "note": "This span contains the remaining objects plus many sub-assembly callouts. The p126 dense black grid reads as a speaker grille and p153's '2x' fits a pair, but neither is confirmed.",
+      "pages": [
+        124,
+        166
+      ],
+      "steps": [
+        123,
+        165
+      ]
+    }
+  ]
+}
