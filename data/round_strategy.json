@@ -10,7 +10,7 @@
   },
   "provenance": {
     "inputs": {
-      "expected_score": "c22ec3834ce3a2401e061b2308e8654ceb2d33ed1688732fef30ad46d815dd0d",
+      "expected_score": "fe0bfff84c6126d26a3630a09e484d92fa89ebeb606add956ab7c4b2fbe11602",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
     },
     "round_counts": [

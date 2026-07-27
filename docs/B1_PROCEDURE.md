@@ -47,6 +47,35 @@ impossible and `robot/robot_io_ev3.py` can never be verified.
 **Archive both toolchains locally before doing anything else in this procedure.** It costs
 minutes, it is useful either way, and it is the only item here with a deadline.
 
+**A first pass ran on 2026-07-27** (`tools/archive_toolchains.sh`, logged in
+[`TOOLCHAIN_ARCHIVE.md`](TOOLCHAIN_ARCHIVE.md)). It pinned the two GitHub toolchains and left
+**five LEGO-hosted artifacts unobtained** — every one needs a manual download. Note that the
+pinned `pybricks-micropython v4.0.1` targets SPIKE and newer hubs; **EV3 needs Pybricks v2.x**,
+the separate *EV3 MicroPython* image, which is still on the manual list. **The EV3 side is not
+yet archived.**
+
+### What this procedure assumes you have
+
+Stated rather than inherited, because ADR-025 exists precisely because an operator answer was
+once hardened into a fact and never re-asked.
+
+| platform | B1 needs | provided by | Expansion 45681? |
+|---|---|---|---|
+| **EV3** | hub + 2 motors + 1 colour sensor | **45544** Core Set | — |
+| **SPIKE Prime** | hub + 2 motors + 1 colour sensor | **45678** base set | **not needed** |
+
+B1 uses only `wait_for_start`, `drive_straight`, `turn`, `read_reflection`, `stop` — so the base
+sets suffice and the Expansion is not required.
+
+**Where the claim comes from:** your own statement, recorded in **ADR-025** and confirmed
+**2026-07-27** in `docs/HARDWARE_SESSION.md`.
+
+**Worth re-verifying physically before building.** LEGO Education direct sales of the SPIKE
+portfolio **ended 30 June 2026** — already past. If either platform turns out not to be on the
+shelf, that is no longer a purchase away, and B1 loses the comparison that is its entire purpose.
+Open both boxes and count before cutting a single beam. That is also **MEAS-1**, so it costs
+nothing extra.
+
 ---
 
 ## Minimum viable chassis

@@ -496,7 +496,7 @@
     "inputs": {
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "strategy_frame": "a0fdc90b38977b1030c1a99a8d8ea165404e83f17185358414a1511bc73a9350"
+      "strategy_frame": "1e00a3512363ab5d9236fb8c1f83e99dfaab98e30fc81105861b6dc48dc2960d"
     },
     "permutation_count": 24,
     "round_counts": [

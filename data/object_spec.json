@@ -575,6 +575,8 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": null,
@@ -610,6 +612,8 @@
         "technic_brick_1x16": 1,
         "tile_2x4": 2
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -661,6 +665,8 @@
         "technic_brick_1x16": 1,
         "tile_2x4": 2
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -708,6 +714,8 @@
         "brick_1x6": 2,
         "brick_2x4": 12
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -754,6 +762,8 @@
         "brick_2x2": 2,
         "brick_2x4": 6
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -803,6 +813,8 @@
         "plate_4x8": 1,
         "technic_brick_1x2": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -848,6 +860,8 @@
         "brick_2x4": 8,
         "technic_brick_1x2": 2
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": null,
@@ -898,6 +912,8 @@
         "shape_11": 1,
         "tile_1x2": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -942,6 +958,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -986,6 +1004,8 @@
         "brick_2x4": 6,
         "plate_4x8": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -1031,6 +1051,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -1077,6 +1099,8 @@
         "plate_4x8": 1,
         "technic_brick_1x2": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -1121,6 +1145,8 @@
         "brick_2x4": 7,
         "plate_4x8": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -1165,6 +1191,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": [
@@ -1211,6 +1239,8 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": null,
@@ -1244,6 +1274,8 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cleat_contact_height_mm": null,
+      "cleat_contact_note": null,
       "cog_height_mm": null,
       "cog_source": null,
       "contact_footprint_mm": null,

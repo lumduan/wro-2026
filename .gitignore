@@ -44,3 +44,4 @@ docs/extracted/**/vector/drawings.json
 # two directories, that is a bug in the tool, not something to paper over here.
 *.tmp
 scratch/
+archive/

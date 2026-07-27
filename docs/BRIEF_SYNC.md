@@ -40,8 +40,28 @@ Found by scanning rather than by being told. These matter as much as the five ab
 |---|---|---|---|---|
 | 6 | the project is **blocked on procurement** | **Nothing is blocked.** All hardware is held — EV3 45544, SPIKE Prime 45678 + 45681, WRO Brick Set 45811 + 45819, the printed mat, a competition-spec table. The repo recorded itself as blocked from Phase 4 until 2026-07-27 on an operator answer of *"partially / not sure yet"* that was never re-asked. | **ADR-025** | **decays** |
 | 7 | bench work is **Block A, items A1–A5** | **Block MEAS, items MEAS-1…5.** Renamed 2026-07-27 because `A1`–`A5` collided with ambiguities A1–A5, two of which are *resolved* entries — so an unqualified "A5" read as settled fact in one document and an unstarted task in another. | **ADR-033** | **stable** once renamed |
-| 8 | the maximum score is **255** | 255 **is** the maximum. But the model reaches **225** — the two cables are `nominal_pending`, so no route through them can be costed and every published expected score is against 225. Quoting /255 overstates by 30. | **ADR-030**, `sim/model.py` | **decays** — B0 closes it |
-| 9 | *(counts, if the brief states any)* | 10 derived artefacts + 1 hand-authored · 19 areas · 16 objects mapped · 35 ADRs · 12 assumptions · 10 ambiguities · 522 tests | `data/`, `docs/` | **decays** — all of them |
+| 8 | *(counts, if the brief states any)* | 10 derived artefacts + 1 hand-authored · 19 areas · 16 objects mapped · 36 ADRs · 12 assumptions · 10 ambiguities · 529 tests | `data/`, `docs/` | **decays** — all of them |
+
+### Not drift — a distinction, and the row that was nearly wrong
+
+**255 is the maximum score and nothing corrects it.** An earlier draft of this file listed *"the
+maximum score is 255"* in the drift table above. That was a mistake and the row is removed: it put
+a **correct** number in a table of wrong ones, which is precisely the failure this document
+exists to prevent.
+
+There are two ceilings and they answer different questions:
+
+| | value | what it is | changes when |
+|---|---:|---|---|
+| **rule maximum** | **255** | S1's scoring sheet: 30 + 20 + 45 + 120 + 10 + 20 + 10. Confirmed against `scoring_model.json`, which sums to 255 and carries `max_score: 255`. | **never** |
+| **model coverage ceiling** | **225** | 40 (bonus floor) + 185 (the ten placement missions `sim/model.py` can route). The two cables are `nominal_pending`. | **B0** |
+
+**Neither supersedes the other.** A score, a rule, or a scoring-sheet total is out of **255**.
+`parameter_sensitivity.json` and `feasibility_frontier.json` report against **225** because that
+is their coverage, and each says so in its own `scope` block.
+
+If the brief states a maximum, it should say **255**. If it explains why model outputs are
+smaller, it should point here rather than restate the arithmetic.
 
 ---
 

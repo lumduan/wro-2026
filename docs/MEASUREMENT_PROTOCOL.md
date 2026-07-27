@@ -25,7 +25,7 @@ short stops cleanly instead of dying mid-block.
 | 2 | **MEAS-2** mass | 48 weighings | 20 min | 0:35 |
 | 3 | **MEAS-3** grip + pick-and-place timing | 12 objects | 50 min | **1:25** |
 | 4 | **MEAS-4** calipers | 120 readings | 50 min | 2:15 |
-| 5 | **MEAS-5a** tilt angle | 87 trials | 65–90 min | 3:20–3:45 |
+| 5 | **MEAS-5a** tilt angle | 55–71 trials | 45–60 min | 3:00–3:15 |
 | — | **MEAS-5b** CoG height | derived from 5a | — | — |
 
 Add ~20 min setup. **Call it four hours.**
@@ -49,7 +49,9 @@ threshold to a parameter. It is the softest consumer on this page.
 |---|---|---|
 | **Scale** | **0.1 g**, ±0.3 g accuracy | Mass feeds ADR-022's motor-torque arithmetic, not a containment predicate. The lightest object is a single note; at ~20 g, 0.1 g is 0.5 %. A 1 g kitchen scale is **not** enough — it is 5 % on the object that matters most. |
 | **Calipers** | digital **0.01 mm**, or vernier 0.05 mm | The builder flags agreement with the stud-derived value at **±0.5 mm**. Anything coarser than 0.1 mm cannot distinguish "agrees" from "instrument noise". |
-| **Angle** | **±1°** — protractor, or a phone inclinometer app | MEAS-5 replaces `AS-6`'s assumed 15°. A 5° instrument cannot improve on a 15° guess. |
+| **Angle** | **±0.5°** — digital angle gauge, or a phone inclinometer against a rigid flat reference | Error into CoG is amplified by `2/sin 2θ`, **never below 2×** and 3.11× at 20°. At ±1° that is 5.4 %, at ±2° 10.9 %. A protractor read by eye does not qualify. |
+| **Anti-slip cleat** | a **LEGO tile**, 3.2 mm, flat top | Mandatory for MEAS-5a — every object slides without it. A tile is dimensionally standard; a shim is not. Its height enters the answer 1 : 1, so measure it in situ. |
+| **Part-type set** | one of each of the **14 distinct parts** | The MEAS-2 cross-check predicts every object's mass from its BOM. Without the part masses there is nothing to check a reading against. |
 | **Flat reference surface** | — | Everything in MEAS-4 and MEAS-5 assumes the object sits on a true plane. A warped table silently biases every tilt reading in the same direction. |
 
 **Tag every value** `MEASURED(<instrument>, <date>)` per CLAUDE.md §5.5, and record the raw
@@ -73,26 +75,46 @@ So the repeat count depends on **whether the spread is the quantity you want**:
 | **mass** | **3** | The scale's own resolution dominates; three readings detect a gross error (wrong object, finger on the pan), they do **not** produce a useful σ and are not meant to. |
 | **footprint**, per axis | **5** | Catches a mis-seated caliper or a jaw on a stud rather than a face. **This is not enough for a σ** — 35 % error — and no downstream artefact treats it as one. |
 | **grip span** | **3** | Same as footprint; the answer is mostly pass/fail, the number is secondary. |
-| **tilt angle** | **11 / 3, tiered** | **Here the spread *is* the quantity.** It replaces `AS-6`, and an assumption is only worth replacing with something better than a guess. 11 readings give 22 %; below 6 you are not improving on the assumption you are retiring. But see the tiering below — 11 on *every* object is 143 trials and most of them are redundant. |
+| **tilt angle** | **3, then 11** | **Here the spread *is* the quantity.** It replaces `AS-6`, and an assumption is only worth replacing with something better than a guess. 11 readings give 22 %; below 6 you are not improving on the assumption you are retiring. But see the screen below — 11 on *every* object is 143 trials to feed a single swept scalar. |
 
-### Tiering — characterise each shape once, verify duplicates cheaply
+### Screen, then characterise — do not assign tiers in advance
 
-Six of the thirteen objects that need a tilt angle are notes, two are cables, two are speakers.
-Measuring all thirteen at n = 11 spends 88 trials re-characterising builds that are meant to be
-identical. So:
+An earlier draft grouped the thirteen objects into six "shape classes" and measured one of each
+at n = 11. **Two things were wrong with that**, and both are settled by the repo's own data.
 
-| tier | objects | n | trials |
+**The six notes are not one shape class.** Their BOMs differ — 5, 6, 6, 8, 7 and 5 bricks — so
+although they share a footprint (32 × 32), a projection (32 × 64) and an overhang (9.6 mm), they
+differ in **CoG height** and therefore in tipping angle, plausibly by several degrees. The pairs
+*are* genuinely identical, and that is verified, not assumed:
+
+| group | BOMs identical? | |
+|---|---|---|
+| `cable_upper` / `cable_lower` | **yes** | one class ✓ |
+| `speaker_a` / `speaker_b` | **yes** | one class ✓ |
+| the six notes | **no** | six builds ✗ |
+
+**And the consumer is a single scalar.** `sim/scoring.py` carries
+`upright_tolerance_deg: float = 15.0` — one value for every object, which S6 2026-06-30 demoted
+to a *swept parameter* when it made the operative test contact rather than angle. Characterising
+thirteen objects to ±0.5° to feed one swept scalar is over-specified by construction. What that
+scalar needs is its **range**: the least stable object and the most stable one.
+
+| step | objects | n | trials |
 |---|---|---:|---:|
-| **reference** — one per shape class | note, cable, mic, clef, speaker, amp | **11** | 66 |
-| **duplicate** — identity check only | 5 notes, 1 cable, 1 speaker | **3** | 21 |
-| | | | **87** |
+| **screen** | all 13 | **3** | 39 |
+| **promote** | the least-stable and the most-stable, **plus anything within 3° of either** | **11** | +8 each |
+| | | | **≈ 55–71** |
 
-**The duplicate check is a real test, not a formality.** If a duplicate's three readings fall
-outside the reference object's measured spread, the two builds are **not** identical and both
-need the full n = 11. Say so in the evidence field rather than averaging the disagreement away.
+**The 3° threshold** is six times the ±0.5° measurement resolution — wide enough that two objects
+inside it are not distinguishable by this rig, narrow enough to exclude anything clearly
+separated. Expect 2–4 promotions.
 
-**Never average across shape classes.** A note and a clef have different geometry and different
-answers; a mean over both is meaningless.
+**Nothing is below a line in advance.** The screen decides. If a cable turns out least stable it
+gets n = 11 on its merits — which matters, because the two cables carry a 10-point upright delta
+each. Assigning tiers by shape guessed at the answer; screening measures it, and costs less.
+
+**Never average across objects.** Thirteen objects, thirteen rows. The pairs may be *compared*
+once both are screened, but they are recorded separately.
 
 ---
 
@@ -123,7 +145,34 @@ mass_g = 23.4
 mass_source = "MEASURED(scale 0.1 g, 2026-08-02) n=3 readings [23.4, 23.4, 23.5]"
 ```
 
+### Precondition — weigh the 14 part types, then every object mass is *predicted*
+
+A single weighing has nothing to check it against, and the most likely error — **a dropped brick
+during handling** — produces a perfectly plausible number. So before weighing the objects, weigh
+**one of each of the 14 distinct part types** the sixteen objects are built from:
+
+`brick_1x2_with_side_pin` · `brick_1x6` · `brick_2x2` · `brick_2x2_with_pins` · `brick_2x4` ·
+`flexible_hose` · `plate_2x2` · `plate_4x8` · `shape_10` · `shape_11` · `technic_brick_1x16` ·
+`technic_brick_1x2` · `tile_1x2` · `tile_2x4`
+
+That is ~5 minutes. Every object then has a **predicted** mass from its own `bom_steps` in
+`data/object_spec.json`:
+
+```
+predicted = Σ (count × part mass)      # e.g. note_blue = 6 × brick_2x4 + 1 × plate_4x8
+```
+
+**Check every measured mass against its prediction.** Tolerance is the accumulated part-mass
+resolution — roughly **±1 g** for a ten-part object at 0.1 g. A discrepancy that equals **one
+part's mass** is a dropped brick, and it is the only cheap way to catch one.
+
+This uses no external data — the BOMs are the repo's own, from S3 — and it covers all sixteen
+objects rather than just the notes. **It is also the only cross-check available**: the six notes
+cannot be checked against each other, because their BOMs differ (5, 6, 6, 8, 7, 5 bricks), so
+they are *supposed* to weigh different amounts.
+
 → **Destination:** `docs/object_map.toml`, per `[[models]]` entry. Already wired (ADR-026).
+Part masses go in `docs/object_parts.toml` alongside the part identification.
 
 ---
 
@@ -176,10 +225,38 @@ axis**. Compare against `data/object_spec.json`:
 | `instrument_keyboard` | **≤ 56 × 56 — a BOUND** | upgrade to a measurement |
 | `instrument_congas` | **≤ 112 mm long — a BOUND** | upgrade to a measurement |
 
+### Precondition — every reading must land on the LEGO lattice
+
+LEGO geometry is a lattice, so a caliper reading is not a free number. It has to land on it:
+
+| axis | predicate | why |
+|---|---|---|
+| **horizontal** | **`8n − 0.2 mm`** for `n` studs | 8.0 mm stud pitch, 0.2 mm clearance. 4 studs = **31.8**, 8 = **63.8**, 16 = **127.8**. Assemblies follow the *total* stud count — two 2×4 bricks side by side span 8 studs = 63.8, not 2 × 31.8. |
+| **vertical** | **`3.2 mm × plates`** (a brick is 9.6 = 3 plates) | stacking is flush, so there is **no** −0.2 here |
+
+**More than ±0.3 mm off the lattice is a mis-measurement. Fail the field, do not record it** —
+unless the object was declared in advance as Technic or non-orthogonal. The declared exceptions
+are the cable's `flexible_hose` (ADR-017 gives it no footprint at all) and the two unidentified
+parts `shape_10` and `shape_11`.
+
+> **This makes MEAS-4 a test of a prediction, not a transcription — and there is a prediction to
+> test.** The repo derives footprints as `studs × 8.00`, so it reports **32.0 mm** where the
+> physical part is **31.8**. Every derived dimension is **systematically +0.2 mm** by
+> construction. It has never surfaced because the agreement tolerance is ±0.5 mm, which absorbs
+> it.
+>
+> **So calipers should read 0.2 mm *below* the repo value, consistently, on every orthogonal
+> object.** If they do, the stud-counting chain is confirmed *and* its bias is quantified. If
+> they read exactly 32.0, suspect the calipers spanned stud centres rather than part edges.
+>
+> **Do not change `studs_to_mm` on the strength of this.** Correcting a derived value on theory,
+> ahead of the measurement that would confirm it, is the wrong order — and it would destroy the
+> prediction this block exists to test.
+
 ```toml
 base = { contact_studs = [4, 4], projection_studs = [4, 8], overhang_height_mm = 9.6,
-         measured_contact_mm = [32.1, 32.0],
-         measured_contact_evidence = "MEASURED(calipers, 2026-08-02) n=5 x:[32.1,32.0,32.1,32.1,32.0] y:[32.0,32.0,31.9,32.0,32.1]" }
+         measured_contact_mm = [31.8, 31.8],
+         measured_contact_evidence = "MEASURED(calipers 0.01 mm, 2026-08-02) n=5 x:[31.79,31.80,31.81,31.80,31.79] y:[31.80,31.78,31.81,31.80,31.80]; on lattice (8x4-0.2=31.8)" }
 ```
 
 The builder **keeps the derived figure** as `derived_contact_footprint_mm` and sets
@@ -226,14 +303,42 @@ Every object would report ≈19.3°, which looks like excellent repeatability.
 
 **So the cleat is mandatory, not an option.**
 
-- **A cleat ≤ 3 mm high**, flush against the object's downhill face. Measure its height `c` with
-  calipers — it enters the arithmetic.
+- **Use a LEGO tile — 3.2 mm, flat top, no studs.** A tile is dimensionally standard and
+  repeatable; a fabricated shim is neither. Bound: **`c` ≤ 3.5 mm**, which a tile satisfies.
 - It lifts the effective pivot by `c`, so the tipping condition becomes `tan θ = w/(h − c)` and
   the recovery formula becomes **`h = w/tan θ + c`**.
 - Worked check: w = 16, true h = 27, c = 2 → tips at **32.62°**. With the correction you recover
   **27.00 mm**; without it, **25.00 mm — 7.4 % low**.
 - Keep the cleat **low**. A tall cleat is not wrong, but `c` becomes a large fraction of `h` and
   its own measurement error dominates.
+
+#### `c` enters `h` at 1 : 1 — measure it, never assume it
+
+A 0.2 mm error in `c` is a **0.2 mm error in `h`**, undamped. So:
+
+- **Measure `c` in situ, with calipers, including any tape or adhesive under the tile.** A tile
+  is 3.2 mm; a tile on a strip of double-sided tape is not, and the difference is entirely real.
+- **Log it once per session**, with the rig. If the cleat is re-seated, re-measure.
+- Do **not** take 3.2 mm as nominal. The one number in this method with no measurement behind it
+  is the one that propagates straight into the answer.
+
+#### The pivot is at `(0, c)` only for a flat, perpendicular face
+
+The derivation assumes the object's downhill face is flat and square to its base. **Several are
+not** — the notes have shaped bodies, and the cable's ends carry sloped feet. Where the face is
+shaped, contact happens somewhere else, and that perturbs **both** `w` and the effective `c`.
+
+**Per object, identify and record where the object actually touches the cleat:**
+
+| field | what it is |
+|---|---|
+| `cleat_contact_height_mm` | the height at which contact occurs — **use this as `c`**, not the tile's height |
+| `cleat_contact_note` | flat-and-square, or where and why it differs |
+
+If contact is **not** on a vertical face — a slope, a curve, a single protruding foot — then `w`
+is no longer the base half-width either. Measure `w` to the **actual contact**, or mark the
+object CoG-underivable and leave `cog_height_mm` null. A null is recoverable; a CoG computed
+from the wrong lever arm is not distinguishable from a right one.
 
 ### Validation — if this fires, fail the block and record nothing
 
@@ -263,7 +368,9 @@ against a rigid flat reference — target ±0.5°.** A protractor read by eye is
 
 ```toml
 tilt_angle_deg = 32.6
-tilt_evidence = "MEASURED(digital angle gauge ±0.5°, 2026-08-02) n=11 cleat c=2.0 mm; no translation observed; readings [32.4, 32.7, ...]"
+tilt_evidence = "MEASURED(digital angle gauge ±0.5°, 2026-08-02) n=11; no translation observed; readings [32.4, 32.7, ...]"
+cleat_contact_height_mm = 3.25
+cleat_contact_note = "LEGO tile 3.2 mm + 0.05 tape, measured in situ; contact on the flat 4-stud downhill face, square to the base"
 ```
 
 → **Destination:** `docs/object_map.toml` `[[models]]`. Record the superseded `AS-6` value rather

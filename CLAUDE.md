@@ -225,8 +225,18 @@ result. **σ leads in 27 of 35 grid cells.** Driving speed takes the top rank on
 per object — and there at *every* speed from 100 to 300 mm/s, so handling time causes that flip,
 not speed. The measurement order is therefore σ (**B5**) first, with that band as the exception.
 Carry capacity and the randomization are **boundary effects**: worth 0 when comfortable, 0 when
-tight, and 30 and 15 respectively at the margin where one more mission is borderline. Ceiling is
-**225, not 255** — the two cables are uncostable until B0.
+tight, and 30 and 15 respectively at the margin where one more mission is borderline.
+
+**Two ceilings, and they are different quantities — do not conflate them.**
+
+| | value | what it is |
+|---|---:|---|
+| **rule maximum** | **255** | what S1's sheet awards: 30 + 20 + 45 + 120 + 10 + 20 + 10. **Never changes.** |
+| **model coverage ceiling** | **225** | 40 bonus floor + the 185 placement points `sim/model.py` can currently *route*. The two cables are `nominal_pending`, so no tour through them exists. **B0 closes it.** |
+
+`data/parameter_sensitivity.json` and `data/feasibility_frontier.json` report against **225**
+because that is what they cover. **255 is not stale and nothing corrects it** — a score, a rule
+or a scoring-sheet total is always out of 255.
 
 **Time is spent on objects, not only on distance** (ADR-030). Ten of the twelve placement
 missions are costable — the notes plus the four truck objects, since the truck is two *measured*

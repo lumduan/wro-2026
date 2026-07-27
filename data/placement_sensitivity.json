@@ -18,7 +18,7 @@
     "deg_per_mm": 0.5,
     "inputs": {
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
-      "object_spec": "3c43f2353ad7497695dca711bfec35347e51d67fe651e0a0277f036555f4729e",
+      "object_spec": "487a0c68262678378bc7cd4ac7cf1bfbbc700b21f0f44aca6f0c777314a39af9",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
     },
     "samples_per_cell": 4000,

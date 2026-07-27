@@ -413,10 +413,10 @@
   "provenance": {
     "corners_evaluated": 64,
     "inputs": {
-      "expected_score": "c22ec3834ce3a2401e061b2308e8654ceb2d33ed1688732fef30ad46d815dd0d",
+      "expected_score": "fe0bfff84c6126d26a3630a09e484d92fa89ebeb606add956ab7c4b2fbe11602",
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "travel_budget": "ac537ee822c34510504acf1e0afc1a6af81f309dac21cd42ca86d37167f3b640"
+      "travel_budget": "f349203b1f46cfa9a4058b5ad8c055fb36682dc1ba0ea74196ba500e2017740c"
     },
     "joint_start_states": 384,
     "tool": {

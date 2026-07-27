@@ -161,8 +161,21 @@ def test_the_cleat_is_mandatory_and_corrected():
     text = PROTOCOL.read_text(encoding="utf-8")
     assert "cleat is mandatory" in text.lower() or "mandatory, not an option" in text
     assert "h = w/tan θ + c" in text
-    assert "≤ 3 mm" in text, "cleat height must be bounded — a tall cleat makes c dominate"
+    # 3.5, not 3: ADR-035 widened the bound so a LEGO tile (3.2 mm, flat,
+    # dimensionally standard) is legal in place of a fabricated shim.
+    assert "≤ 3.5 mm" in text, "cleat height must be bounded — a tall cleat makes c dominate"
+    assert "LEGO tile" in text, "a standard part beats a shim, because c enters h at 1:1"
     assert "w/μ_s" in text, "the protocol must name what a slide actually returns"
+
+
+def test_the_cleat_contact_point_is_recorded_per_object():
+    """The pivot is at (0, c) only for a flat face square to the base."""
+    text = PROTOCOL.read_text(encoding="utf-8")
+    assert "cleat_contact_height_mm" in text
+    assert "cleat_contact_note" in text
+    assert "1 : 1" in text, "c's undamped propagation into h must be stated"
+    assert "in situ" in text and "adhesive" in text
+    assert "CoG-underivable" in text, "a shaped face must be allowed to yield no CoG"
 
 
 def test_the_friction_validation_rule_is_present_with_a_number():
@@ -234,11 +247,74 @@ def test_every_block_carries_a_time_estimate():
     assert "1:25" in text, "the milestone where the manipulator decision closes"
 
 
-def test_the_tiered_tilt_design_is_justified():
+def test_the_screen_then_characterise_design_is_justified():
+    """ADR-035: tiers are not assigned in advance; the screen decides."""
     text = PROTOCOL.read_text(encoding="utf-8")
-    assert "87" in text, "the reduced trial count"
-    assert "shape class" in text
-    assert "identity check" in text.lower()
+    assert "Screen, then characterise" in text
+    assert "3°" in text, "the promotion threshold must be stated"
+    assert "55–71" in text, "the revised trial count"
+    assert "Nothing is below a line in advance" in text
+
+
+def test_the_notes_are_not_one_shape_class():
+    """Computed from object_spec, not quoted — the premise that failed."""
+    spec = json.loads((ROOT / "data" / "object_spec.json").read_text(encoding="utf-8"))
+    objects = spec["objects"]
+    notes = [k for k in objects if k.startswith("note_")]
+    boms = {k: json.dumps(objects[k]["bom_steps"], sort_keys=True) for k in notes}
+    assert len(set(boms.values())) > 1, (
+        "if the notes ever become identical builds, the screen design can be "
+        "simplified — and MEASUREMENT_PROTOCOL's justification needs rewriting")
+    # …while the duplicate PAIRS genuinely are identical.
+    for a, b in (("cable_upper", "cable_lower"), ("speaker_a", "speaker_b")):
+        assert objects[a]["bom_steps"] == objects[b]["bom_steps"], (a, b)
+
+
+def test_the_tilt_consumer_is_a_single_scalar():
+    """Why per-object characterisation is over-specified."""
+    source = (ROOT / "sim" / "scoring.py").read_text(encoding="utf-8")
+    assert re.search(r"upright_tolerance_deg:\s*float\s*=", source), \
+        "if this becomes per-object, the screen design needs revisiting"
+
+
+# --------------------------------------------------------------------------- #
+# ADR-035 — the two ceilings
+# --------------------------------------------------------------------------- #
+
+
+def test_the_rule_maximum_is_255_everywhere():
+    """255 is not stale and nothing may correct it."""
+    model = json.loads((ROOT / "data" / "scoring_model.json").read_text(encoding="utf-8"))
+    assert model["max_score"] == 255
+    total = 0
+    for mission in model["missions"]:
+        total += sum(e["max"] for e in mission["entries"]) if mission.get("entries") \
+            else mission["max"]
+    assert total == 255, "the sheet must sum to its stated maximum"
+
+
+def test_no_document_proposes_correcting_255_to_225():
+    """BRIEF_SYNC must never be the vector for a wrong number."""
+    brief = (ROOT / "docs" / "BRIEF_SYNC.md").read_text(encoding="utf-8")
+    drift = brief.split("### Not drift")[0]
+    assert "maximum score is **255**" not in drift, \
+        "255 is correct and must not appear in the drift table"
+    assert "255 is the maximum score and nothing corrects it" in brief
+    assert "rule maximum" in brief and "model coverage ceiling" in brief
+
+
+def test_claude_md_names_225_as_the_models_ceiling():
+    text = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+    assert "225, not 255" not in text, "that phrasing reads as correcting the rule"
+    assert "model coverage ceiling" in text
+    assert "255 is not stale and nothing corrects it" in text
+
+
+def test_the_dq_is_priced_at_the_rule_maximum(questions: str):
+    section = re.split(r"^## \d+ · ", questions, flags=re.M)[3]
+    assert "NO-TH (a)" in section.splitlines()[0]
+    assert "the full 255" in section
+    assert "denominator here is 255, not 225" in section
 
 
 def test_the_protocol_does_not_promise_that_calipers_close_a7():

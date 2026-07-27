@@ -282,6 +282,15 @@ def build(img_dir: Path, probe: Path, map_path: Path, parts_path: Path) -> dict[
             "tilt_angle_deg": (R(model["tilt_angle_deg"])
                                if model.get("tilt_angle_deg") is not None else None),
             "tilt_evidence": model.get("tilt_evidence"),
+            # The cleat's contact height, which is `c` in `h = w/tan(theta) + c`.
+            # Recorded per object because the derivation assumes a flat face
+            # square to the base, and several objects do not have one -- a
+            # shaped note body or the cable's sloped feet touch the cleat
+            # somewhere else, perturbing both `c` and the lever arm `w`.
+            "cleat_contact_height_mm": (R(model["cleat_contact_height_mm"])
+                                        if model.get("cleat_contact_height_mm") is not None
+                                        else None),
+            "cleat_contact_note": model.get("cleat_contact_note"),
             "needs_measurement": model.get("mass_g") is None,
         }
         if base:

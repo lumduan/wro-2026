@@ -9,9 +9,9 @@
   },
   "provenance": {
     "inputs": {
-      "placement_sensitivity": "493ae286ae010a63ed964d079fa10a37d1c37e3463f4de2276edaba82424ecc7",
+      "placement_sensitivity": "8d92f50e1fef7a64ebb99ff702e38d38157d50941a28c6bfdeba2d56124676cb",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "strategy_frame": "a0fdc90b38977b1030c1a99a8d8ea165404e83f17185358414a1511bc73a9350"
+      "strategy_frame": "1e00a3512363ab5d9236fb8c1f83e99dfaab98e30fc81105861b6dc48dc2960d"
     },
     "p_collision_grid": [
       0.0,

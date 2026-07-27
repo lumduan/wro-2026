@@ -14,7 +14,7 @@ estimated.
 |---|---|---|---:|---|
 | [1](#q1) | `completely_in`: contact patch or silhouette? (**A7**) | S6 | **24 pts** | silhouette |
 | [2](#q2) | round count, aggregation, mulligan, practice | NO-TH | **12.5 pts + inverts strategy** | N = 1 |
-| [3](#q3) | robot limits at national scope | NO-TH | **unbounded — all 225 + the entry** | international |
+| [3](#q3) | robot limits at national scope | NO-TH | **unbounded — all 255 + the entry** | international |
 | [4](#q4) | start area: whole panel or white part only? (**A9**) | S6 | **chassis width** | whole panel |
 | [5](#q5) | mulligan: replaces the round or the ranking? (**A10**) | S6 | **inverts retake rule** | ranking-global |
 | [6](#q6) | "moved": AND or OR? (**A1**) | S6 | **conservative already** | OR |
@@ -138,10 +138,15 @@ is exactly 4. `data/manipulator_requirements.json`, `docs/PHASE7_CONSTRAINTS.md`
 Phase 7 sit on it. A6 in the ambiguity register is *resolved at international scope only* and
 says so.
 
-**Magnitude — unbounded: the full 225 points, plus the entry.** Not a gradient, so it needs
-saying as a number rather than as "structural". A robot that fails inspection scores **0 of the
-225 reachable points** and does not compete; every other question on this page moves the score by
-between 0.1 and 24. This is the only one whose downside is the whole thing.
+**Magnitude — unbounded: the full 255, plus the entry.** Not a gradient, so it needs saying as a
+number rather than as "structural". A robot that fails inspection **scores nothing and does not
+compete**; every other question on this page moves the score by between 0.1 and 24. This is the
+only one whose downside is the whole thing.
+
+**The denominator here is 255, not 225.** 225 is the ceiling of what `sim/model.py` can currently
+*route* — it excludes the two cables, whose start poses are `nominal_pending`. A disqualification
+does not forfeit the model's coverage; it forfeits **the competition**, and the competition is
+scored out of S1's 255.
 
 Concretely: a national cap **below 4 motors invalidates ADR-022's budget outright** (2 drive +
 2 manipulator is exactly 4), and a start envelope below 250 mm invalidates every dimension in

@@ -40,6 +40,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-032](#adr-032) | The first end-to-end score, and which unknown to measure first | accepted 2026-07-27 |
 | [ADR-033](#adr-033) | `A1`–`A5` renamed to `MEAS-`; S6's scope stated; the seven questions drafted | accepted 2026-07-27 |
 | [ADR-034](#adr-034) | The tilt proxy measured friction, not centre of gravity | accepted 2026-07-27 |
+| [ADR-035](#adr-035) | Two ceilings (255 vs 225); the tiering premise was false; two more preconditions | accepted 2026-07-27 |
 
 ---
 
@@ -1834,3 +1835,98 @@ here is that the previous four were caught by a downstream inconsistency. **This
 downstream inconsistency to find** — it would have been caught only on the day, or never. The
 guard that works is the one that checks a **precondition of the method**, not a property of the
 output.
+
+---
+
+## ADR-035
+
+**Two ceilings, a tiering premise that was false, and two more preconditions.**
+`2026-07-27 · accepted`
+
+### Part 1 — 255 and 225 are different quantities, and 255 is not stale
+
+**Context.** ADR-032 introduced `REACHABLE_MAX = 225` for what `sim/model.py` can evaluate, and
+the number then leaked into places where it read as a *correction to the rules*:
+
+- `CLAUDE.md` said *"Ceiling is **225, not 255**"* — in the single source of truth, which is where
+  a wrong maximum would do the most damage.
+- `BRIEF_SYNC.md` listed *"the maximum score is 255"* as a **stale claim**. Its body text was
+  careful, but the framing put a correct number in a table of wrong ones — the exact failure that
+  document exists to prevent.
+- `QUESTIONS.md` priced a disqualification at *"the full 225 points"*.
+
+**They are different questions.** Verified against `data/scoring_model.json`, which sums
+30 + 20 + 45 + 120 + 10 + 20 + 10 = **255** and carries `max_score: 255`:
+
+| | value | what it is | changes when |
+|---|---:|---|---|
+| **rule maximum** | **255** | what S1's scoring sheet awards | **never** |
+| **model coverage ceiling** | **225** | 40 bonus floor + the 185 placement points `sim/model.py` can *route*; the two cables are `nominal_pending` | **B0** |
+
+**Decision.** Neither supersedes the other, and both say which they are wherever they appear. A
+score, a rule or a sheet total is out of **255**. `parameter_sensitivity.json` and
+`feasibility_frontier.json` report against **225** because that is their coverage, and each says
+so in its own `scope` block. **The `BRIEF_SYNC` row is removed rather than applied** — a document
+whose purpose is stopping wrong facts entering the source of truth must not be the vector.
+
+A disqualification forfeits **255**, not 225: it does not lose the model's coverage, it loses the
+competition.
+
+### Part 2 — the tiering premise was false, and the fix is cheaper
+
+ADR-034's protocol grouped the thirteen tilt objects into six "shape classes" and measured one of
+each at n = 11. **The repo's own BOMs refute the grouping:**
+
+| group | BOMs identical? | |
+|---|---|---|
+| `cable_upper` / `cable_lower` | **yes** | one class ✓ |
+| `speaker_a` / `speaker_b` | **yes** | one class ✓ |
+| the six notes | **no** — 5, 6, 6, 8, 7, 5 bricks | six builds ✗ |
+
+The notes share a footprint (32 × 32), a projection (32 × 64) and an overhang (9.6 mm), so the
+grouping looked safe from the geometry fields alone. But brick count sets **CoG height**, and CoG
+height sets the tipping angle — plausibly several degrees apart, far outside the ±0.5° rig.
+
+**And the consumer is one scalar.** `sim/scoring.py` carries `upright_tolerance_deg: float = 15.0`
+— a single value, which S6 2026-06-30 demoted to a *swept* parameter when it made the operative
+test contact rather than angle. Characterising thirteen objects to ±0.5° to feed one swept scalar
+is over-specified by construction; what a swept scalar needs is its **range**.
+
+**Decision — screen, then characterise.** All 13 at n = 3 (39 trials); promote to n = 11 the
+least-stable and most-stable, plus anything within **3°** of either — six times the measurement
+resolution, so it separates objects the rig can actually distinguish. **≈ 55–71 trials**, against
+87 for the tiered design and 176 for the original.
+
+**Nothing is assigned a tier in advance.** The screen decides, so a cable — carrying a 10-point
+upright delta each — gets n = 11 if it earns it. The tiered design guessed the answer; the screen
+measures it, and costs less.
+
+### Part 3 — two more preconditions, and a prediction worth keeping
+
+ADR-034 closed with *"the guard that works checks a precondition of the method, not a property of
+the output."* Applied to the other two fields:
+
+**MEAS-4, the lattice.** LEGO geometry is a lattice: horizontal spans are **8n − 0.2 mm** (8 mm
+pitch, 0.2 mm clearance), vertical are **3.2 mm × plates**, flush, with no −0.2. More than
+±0.3 mm off it is a mis-measurement — **fail the field** — unless declared Technic or
+non-orthogonal in advance (`flexible_hose`, `shape_10`, `shape_11`).
+
+This surfaced a standing bias: the repo derives footprints as `studs × 8.00`, reporting **32.0**
+where the part is **31.8**. Every derived dimension is **systematically +0.2 mm**, invisible
+because the agreement tolerance is ±0.5 mm. **`studs_to_mm` is deliberately not changed** —
+correcting a derived value on theory, ahead of the measurement that would confirm it, is the
+wrong order and would destroy the prediction. MEAS-4 now tests a prediction instead of
+transcribing numbers.
+
+**MEAS-2, the part-mass cross-check.** The 16 objects are built from **14 distinct part types**.
+Weigh each once (~5 min) and every object's mass becomes *predicted* from its `bom_steps`; a
+discrepancy equal to one part's mass **is a dropped brick**. It is also the only cross-check
+available for the notes, precisely because their BOMs differ — they are *supposed* to weigh
+different amounts, so they cannot be checked against each other.
+
+**And the cleat, second order.** `c` enters `h` at 1 : 1, so it is measured **in situ including
+any adhesive**, never taken as nominal — and a **LEGO tile (3.2 mm, flat, standard)** replaces
+the fabricated 2 mm shim of the worked example. The derivation also assumes a flat face square to
+the base, which several objects do not have; `cleat_contact_height_mm` and `cleat_contact_note`
+are now recorded per object, and an object whose contact is not on a vertical face is marked
+CoG-underivable rather than given a lever arm the formula does not fit.
