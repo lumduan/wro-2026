@@ -5,7 +5,7 @@
     "hardware_held": true,
     "measurement": "object mass and grip points",
     "why": "mass_g is null for all 16 objects; no document contains it",
-    "work_order": "docs/HARDWARE_SESSION.md items A2 (mass) and A3 (grip points)"
+    "work_order": "docs/HARDWARE_SESSION.md items MEAS-2 (mass) and MEAS-3 (grip points)"
   },
   "grip_requirement": {
     "capability_ladder": [
@@ -416,8 +416,8 @@
     "class_gap_mm": 8.0,
     "inputs": {
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
-      "object_spec": "396088f385d51f1b344cdc84221b570181754f8f4b359add77535e5ec70ea329",
-      "placement_sensitivity": "43ae1429754627716663e05470c0e5a660414ab7450c0a5cfd10dfbcc19747dd",
+      "object_spec": "3c43f2353ad7497695dca711bfec35347e51d67fe651e0a0277f036555f4729e",
+      "placement_sensitivity": "493ae286ae010a63ed964d079fa10a37d1c37e3463f4de2276edaba82424ecc7",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119"
     },
     "tool": {

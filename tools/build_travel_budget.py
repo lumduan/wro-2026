@@ -340,7 +340,7 @@ def build() -> dict[str, Any]:
             ),
             "does_not_choose_a_capacity": True,
             "capacity_gated_on": (
-                "note mass and grip geometry - work order A2/A3. ADR-022 left the "
+                "note mass and grip geometry - work order MEAS-2/3. ADR-022 left the "
                 "manipulator mechanism open and this does not close it."
             ),
             "speed_is_not_measured": True,

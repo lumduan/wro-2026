@@ -4128,10 +4128,10 @@
       2
     ],
     "inputs": {
-      "expected_score": "74bba109783842de5783f17450c28ef29a42a97f203e1bb35859a82b5e2a486d",
+      "expected_score": "c22ec3834ce3a2401e061b2308e8654ceb2d33ed1688732fef30ad46d815dd0d",
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "travel_budget": "fadd7cbe4e05bfa21611bd867cfcbd9fb9bd94c71441b8d91434c4fd1f28047c"
+      "travel_budget": "ac537ee822c34510504acf1e0afc1a6af81f309dac21cd42ca86d37167f3b640"
     },
     "joint_start_states": 384,
     "pick_place_seconds": [
@@ -4302,7 +4302,7 @@
     "excludes_the_bonus_floor": 40,
     "feasibility_is_not_success": "A mission that fits still has to be placed accurately enough to score. That is what the expected-value view keeps visible, and why the bonus floor of 40 is excluded from every figure here.",
     "pick_place_is_not_measured": true,
-    "pick_place_source": "work order A3, once a mechanism exists",
+    "pick_place_source": "work order MEAS-3, once a mechanism exists",
     "speed_is_not_measured": true,
     "speed_source": "field test P6 (motor characterisation)",
     "why_this_is_allowed_now": "strategy_frame.json refused mission ordering because it needed the pickup locations and a route; ADR-029 and ADR-030 supplied both for these ten. Feasibility does not need sigma - sigma decides whether a placement SCORES, not whether it FITS. CLAUDE.md 5.7 anti-pattern #3 asks for simulator evidence, and this is it."

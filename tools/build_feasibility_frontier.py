@@ -281,7 +281,7 @@ def build() -> dict[str, Any]:
             "speed_is_not_measured": True,
             "speed_source": "field test P6 (motor characterisation)",
             "pick_place_is_not_measured": True,
-            "pick_place_source": "work order A3, once a mechanism exists",
+            "pick_place_source": "work order MEAS-3, once a mechanism exists",
             "feasibility_is_not_success": (
                 "A mission that fits still has to be placed accurately enough to "
                 "score. That is what the expected-value view keeps visible, and why "

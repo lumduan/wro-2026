@@ -13,10 +13,10 @@ parameter               declared in                            closed by
 ======================  =====================================  ============
 sigma, placement error  expected_score, placement_sensitivity  **B5**
 v, driving speed        travel_budget, feasibility_frontier    **P6**
-t, pick-and-place       feasibility_frontier                   **A3**
+t, pick-and-place       feasibility_frontier                   **MEAS-3**
 N, rounds               round_strategy                         **NO-TH**
 P(collision)            expected_score                         nothing
-carry capacity          travel_budget                          **A2/A3**
+carry capacity          travel_budget                          **MEAS-2/3**
 ======================  =====================================  ============
 
 Six unknowns across five files, and no statement anywhere of **which one

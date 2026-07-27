@@ -89,19 +89,37 @@ def test_both_setup_steps_are_sequenced(session: str):
     assert "trivial.py" in session
 
 
+#: Work-item heading pattern. The bench block is `MEAS-n`, not `An`: ADR-033
+#: renamed it because `A1`-`A5` collided with ambiguities A1-A5, two of which
+#: are *resolved* entries — so an unqualified "A5" read as settled fact in one
+#: document and an unstarted task in another.
+ITEM_RE = r"^### (MEAS-\d|B\d) · (.+)$"
+
+
 def test_every_work_item_says_what_it_closes(session: str):
     """An item that does not name its consequence is busywork."""
-    items = re.findall(r"^### ([AB]\d) · (.+)$", session, re.M)
-    assert len(items) >= 11, f"expected the full A1-A5 / B1-B6 set, found {items}"
-    blocks = re.split(r"^### [AB]\d · ", session, flags=re.M)[1:]
+    items = re.findall(ITEM_RE, session, re.M)
+    assert len(items) >= 12, f"expected MEAS-1..5 and B0..B6, found {items}"
+    blocks = re.split(r"^### (?:MEAS-\d|B\d) · ", session, flags=re.M)[1:]
     for (item_id, _title), body in zip(items, blocks):
         assert "→ closes:" in body or "→ feeds:" in body, item_id
 
 
+def test_the_bench_block_uses_no_ambiguity_ids(session: str):
+    """The collision ADR-033 removed must not come back.
+
+    A bare `### A1 ·` heading in the work order means the same string identifies
+    a measurement here and a rule ambiguity in `docs/AMBIGUITIES.md`.
+    """
+    assert not re.search(r"^### A\d+ ·", session, re.M), \
+        "work items must be MEAS-n, never An — see ADR-033"
+    assert len(re.findall(r"^### MEAS-\d ·", session, re.M)) == 5
+
+
 def test_the_bench_block_is_marked_as_needing_no_robot(session: str):
-    """A1-A3 are the highest-leverage items and need nothing built."""
+    """MEAS-1..3 are the highest-leverage items and need nothing built."""
     assert "No robot needed" in session or "no robot" in session.lower()
-    assert "A1 → A3 outrank everything" in session or "A1 to A3" in session
+    assert "MEAS-1 → MEAS-3 outrank everything" in session
 
 
 # --------------------------------------------------------------------------- #

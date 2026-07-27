@@ -40,6 +40,9 @@ ALLOWED_ABSENT = (
     "vector/drawings.json",
     # prose containing an ellipsis rather than a real path
     "...",
+    # written by the operator on the day, not by this repo — docs/B1_PROCEDURE.md
+    # gives its schema precisely so it can be filled in without a second design step
+    "docs/b1_results.json",
 )
 
 

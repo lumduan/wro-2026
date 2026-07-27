@@ -64,7 +64,7 @@ computed here is a floor the robot must clear, never a prediction that it will.
 See AS-11, and AS-12 for the truck's residual.
 
 This does not choose a capacity — that needs note mass and grip geometry (work
-order **A2/A3**), and ADR-022 left the mechanism open on purpose.
+order **MEAS-2/3**), and ADR-022 left the mechanism open on purpose.
 """
 
 from __future__ import annotations

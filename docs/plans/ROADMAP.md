@@ -2,10 +2,14 @@
 
 `last_reviewed: 2026-07-27 (parameter sensitivity)` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
 
-**Two questions now sit with the National Organizer, not with a measurement** (ADR-027): the
-**robot limits** were already open, and the **tournament format** joins them — how many rounds,
-how they are aggregated, and whether a mulligan is offered. The second sets the *objective
-function*, so it outranks anything the field tests can produce.
+**Seven questions now sit ahead of every measurement** (ADR-033), and all seven are drafted in
+[`docs/QUESTIONS.md`](../QUESTIONS.md), ordered by magnitude with fallbacks: five open
+ambiguities for the official Q&A and two for the National Organizer. **A7 is worth 24 points**
+of expected score and a 2.64× swing in required accuracy; the **tournament format** sets the
+*objective function* itself, so it outranks anything the field tests can produce.
+
+The bench-work items are **MEAS-1…5** as of 2026-07-27 — renamed from `A1`–`A5`, which collided
+with ambiguities A1–A5 in a register where A4 and A5 are *resolved* entries (ADR-033).
 
 ## 0 · At a glance
 
@@ -53,8 +57,8 @@ flowchart TD
 | **4 · Object spec (S3)** | ✅ **DONE** | `data/object_spec.json`: **all 16 objects mapped, no unresolved spans.** Boundaries re-derived from the cream **run-preview box** (ADR-019), which corrected three of part 1's page ranges and its step count. Contact footprints for every object on a containment path except the keyboard, which is **bounded** at ≤ 56 × 56 mm. **Cables measured at 128.0 mm — they do not fit across their 79.70 mm target area, so placement orientation is forced** (figure corrected 2026-07-27, ADR-021: the first published value read `bbox_mm` as the area). Parts inventory (pp. 176–177) gives canonical LEGO ids, cross-checked against the extraction | — |
 | **5 · S4 + S6** | ✅ **DONE** | S4 Jan 15 2026 (31 pp) + S6 snapshot acquired 2026-07-25; A2/A3/A4/A5/A6 resolved; 43 rules cited in `docs/citations.json` | — |
 | **6 · Scorer + accuracy sweep** | ✅ **DONE** | `sim/` package (ADR-020) + `data/placement_sensitivity.json`. A perfect run verifies at **255/255**, a do-nothing run at the **40-point bonus floor**. All five open interpretations (A1/A2/A5/A7/A8) are named parameters, not hard-coded readings. The sweep reports **required placement accuracy per mission** under both A7 readings — see `docs/PHASE7_CONSTRAINTS.md` §7b. Dynamics deliberately **not** modelled: its every parameter is an unmeasured `ASSUME:` until the field tests run | — |
-| **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block A** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
-| **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **A2/A3** of the work order. **ADR-029 gave that decision a price:** carry capacity 1 → 2 takes **2213 mm (29 %)** off the worst-case note tour, and capacity 6 removes the randomization from the travel budget entirely — an exact zero spread, structurally, because collecting every note before delivering any visits the same point set whatever the permutation. Not a smooth trend: the spread *rises* from capacity 3 to 4, so carrying *most* of the notes buys distance without buying predictability | — |
+| **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block MEAS** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
+| **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **MEAS-2/3** of the work order. **ADR-029 gave that decision a price:** carry capacity 1 → 2 takes **2213 mm (29 %)** off the worst-case note tour, and capacity 6 removes the randomization from the travel budget entirely — an exact zero spread, structurally, because collecting every note before delivering any visits the same point set whatever the permutation. Not a smooth trend: the spread *rises* from capacity 3 to 4, so carrying *most* of the notes buys distance without buying predictability | — |
 | **H · Hardware** | ✅ **ALL HELD** | EV3 45544 · SPIKE Prime 45678 + 45681 · WRO Brick Set 45811 + Expansion 45819 · the printed mat · a competition-spec table. Recorded as a blocker from Phase 4 until 2026-07-27 on an operator answer that was never re-asked — see **ADR-025** | — |
 | **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). **The objective itself was then corrected (ADR-027):** S4 §10.13 makes the ranking depend on the tournament format and offers *"the best attempt out of three rounds"* as an example, so `E[score]` is the **N = 1** case, not the objective. `data/round_strategy.json` publishes the full run-score *distribution* and `E[max of N]` — at σ = 20 mm, 216 becomes **229 at N = 3**, and the premium **grows with σ**, so extra rounds reward the less precise, more ambitious strategy. Break-even `P(collision)` moves with it: `cable_upper` tolerates 0.398 across one attempt, **0.603** across three. Ordering still needs σ (**B5**) and a route (**B0**). **Travel entered the model (ADR-029):** `data/travel_budget.json` costs the six notes exactly over all 24 randomization permutations and publishes the mean speed each manipulator capacity demands inside 120 s — 63.3 mm/s at capacity 1 against 24.9 at capacity 6. It also corrected `strategy_frame.json`, whose `points_per_metre_round_trip` omitted the fetch leg and is **anti-correlated** (ρ = −0.486) with true cost at the unluckiest permutation while being exactly right (ρ = +1.000) at the luckiest. **ADR-030 then reached the whole field:** the truck is two measured bodies, so the four objects that start in it are *bounded* rather than pending, and **ten of twelve missions (185 of 215 placement points) are now costed** — 9 550–11 154 mm at capacity 2, needing **93 mm/s** before any pick-and-place time. **ADR-031 joined the pieces and lifted the ban on mission ordering** for those ten: `data/feasibility_frontier.json` says which missions fit at a given speed and handling time. **Speed saturates** (above 92.9 mm/s at instant handling, 278.8 at 8 s, more speed scores nothing) **and the instruments turn out to be σ-proof** — `backstage` is 20× a note target, so they overtake the notes at **σ = 20.4 mm**. **ADR-032 finally composed the chain**: `data/parameter_sensitivity.json` is the project's first end-to-end score (225 at the perfect corner, 40 when nothing fits) and ranks all six unmeasured parameters by how far they move it. **σ leads in 27 of 35 grid cells** — driving speed takes the top rank only at ≈ 8 s of handling per object, and there at *every* speed swept, so handling time causes that flip rather than speed. The measurement order is σ (**B5**) first with that band as the named exception | needs **B5** to pick a side of 20.4 mm; **B0** for the two cables; N is `NEEDS-VERIFY(NO-TH)` |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
@@ -64,7 +68,7 @@ flowchart TD
 > because an operator answer of *"partially / not sure yet"* was hardened into a blocker and
 > never re-asked (**ADR-025**).
 >
-> **The highest-leverage action is `docs/HARDWARE_SESSION.md` Block A — items A1 to A3.** No
+> **The highest-leverage action is `docs/HARDWARE_SESSION.md` Block MEAS — items MEAS-1 to MEAS-3.** No
 > robot is needed. A scale and a pair of calipers close the manipulator mechanism decision that
 > ADR-022 deliberately left open, fill in `mass_g` for all 16 objects, replace AS-6, upgrade two
 > bounds to measurements, and independently check Phase 4's entire stud-counting chain. It is
@@ -86,9 +90,9 @@ flowchart TD
 > grows. A programme built to minimise σ is optimising the right quantity only if N = 1. The
 > same conversation settles the robot limits, which have also never been asked.
 >
-> **Block A got sharper (ADR-029).** Weighing the notes is no longer only about the gripper: carry
+> **Block MEAS got sharper (ADR-029).** Weighing the notes is no longer only about the gripper: carry
 > **capacity** is worth 2213 mm off the worst-case note tour at the first extra slot, and carrying
-> all six deletes the randomization from the travel budget outright. A2 and A3 now decide how much
+> all six deletes the randomization from the travel budget outright. MEAS-2 and MEAS-3 now decide how much
 > of that is reachable, and P6 has a speed to beat — 63.3 mm/s at capacity 1, 24.9 at capacity 6.
 >
 > **And sharper again (ADR-030), in a direction that reorders the work.** Ten of twelve missions
@@ -104,7 +108,7 @@ flowchart TD
 > `p_full = 1.000` to σ = 30 mm while a note loses a third of its value. B5 therefore decides
 > *which half of the field is the priority*, not merely how precisely to aim at it.
 >
-> **The real bottlenecks are therefore an AFTERNOON of measurement (Block A) and TWO UNASKED
+> **The real bottlenecks are therefore an AFTERNOON of measurement (Block MEAS) and TWO UNASKED
 > QUESTIONS — A7 to the official Q&A, and the round format to the National Organizer.** No
 > technical blocker exists anywhere in this repo; everything else is buildable or cleanly
 > sequenced behind σ.

@@ -59,7 +59,7 @@
           "what": "driving speed"
         },
         {
-          "closed_by": "A3",
+          "closed_by": "MEAS-3",
           "high": 8.0,
           "low": 2.0,
           "parameter": "pick_place_s",
@@ -95,7 +95,7 @@
           "what": "chance of toppling a bonus object"
         },
         {
-          "closed_by": "A2/A3",
+          "closed_by": "MEAS-2/3",
           "high": 2,
           "low": 1,
           "parameter": "capacity",
@@ -168,7 +168,7 @@
           "what": "driving speed"
         },
         {
-          "closed_by": "A3",
+          "closed_by": "MEAS-3",
           "high": 8.0,
           "low": 2.0,
           "parameter": "pick_place_s",
@@ -180,7 +180,7 @@
           "what": "pick-and-place time"
         },
         {
-          "closed_by": "A2/A3",
+          "closed_by": "MEAS-2/3",
           "high": 2,
           "low": 1,
           "parameter": "capacity",
@@ -262,7 +262,7 @@
           "what": "driving speed"
         },
         {
-          "closed_by": "A3",
+          "closed_by": "MEAS-3",
           "high": 8.0,
           "low": 2.0,
           "parameter": "pick_place_s",
@@ -310,7 +310,7 @@
           "what": "chance of toppling a bonus object"
         },
         {
-          "closed_by": "A2/A3",
+          "closed_by": "MEAS-2/3",
           "high": 2,
           "low": 1,
           "parameter": "capacity",
@@ -365,7 +365,7 @@
       "what": "driving speed"
     },
     {
-      "closed_by": "A3",
+      "closed_by": "MEAS-3",
       "declared_in": [
         "feasibility_frontier"
       ],
@@ -399,7 +399,7 @@
       "what": "chance of toppling a bonus object"
     },
     {
-      "closed_by": "A2/A3",
+      "closed_by": "MEAS-2/3",
       "declared_in": [
         "travel_budget"
       ],
@@ -413,10 +413,10 @@
   "provenance": {
     "corners_evaluated": 64,
     "inputs": {
-      "expected_score": "74bba109783842de5783f17450c28ef29a42a97f203e1bb35859a82b5e2a486d",
+      "expected_score": "c22ec3834ce3a2401e061b2308e8654ceb2d33ed1688732fef30ad46d815dd0d",
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "travel_budget": "fadd7cbe4e05bfa21611bd867cfcbd9fb9bd94c71441b8d91434c4fd1f28047c"
+      "travel_budget": "ac537ee822c34510504acf1e0afc1a6af81f309dac21cd42ca86d37167f3b640"
     },
     "joint_start_states": 384,
     "tool": {

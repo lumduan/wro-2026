@@ -12,11 +12,12 @@ accuracy each mission demands and the expected score as a function of that accur
 derived and tested. What remains is measurement on real hardware, ordered by leverage in
 [`docs/HARDWARE_SESSION.md`](docs/HARDWARE_SESSION.md).
 
-**One thing outranks the measurements**, and it is a question rather than a task: S4 §10.13
-makes the ranking depend on the tournament format and offers *"the best attempt out of three
-rounds"* only as an example. Under a best-of-N ranking the objective is `E[max of N]`, which
-rewards variance — so the round count decides *what to optimise*, not just how precisely. Both
-answers sit with the National Organizer. See [ADR-027](docs/DECISIONS.md#adr-027).
+**Seven questions outrank the measurements**, and they are questions rather than tasks: five open
+ambiguities routed to the official Q&A and two never asked of the National Organizer. They cost
+minutes, and two of them decide *what to optimise* rather than how precisely — S4 §10.13 makes
+the ranking depend on a tournament format nobody has confirmed, and under best-of-N the objective
+becomes `E[max of N]`, which rewards variance. All seven are drafted, ordered by magnitude, with
+fallbacks, in **[`docs/QUESTIONS.md`](docs/QUESTIONS.md)**.
 
 ---
 
@@ -80,6 +81,10 @@ fill inventory, the report and the decision records — is committed.
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
 | `docs/plans/ROADMAP.md` | Phase dependency diagram and status. |
 | `docs/HARDWARE_SESSION.md` | **The current work order** — every measurement, ordered by what it unblocks. |
+| `docs/QUESTIONS.md` | **The seven unasked questions** — five for the official Q&A, two for the National Organizer — ordered by magnitude, each with a fallback and its consequence-if-wrong. |
+| `docs/MEASUREMENT_PROTOCOL.md` | How to run MEAS-1…5: resolutions, repeat counts with the arithmetic, the destination field for every number, proxies decided in advance. |
+| `docs/B1_PROCEDURE.md` | Minimum viable chassis for B1, throwaway parts named, pass/fail without interpretation, and the one-or-two-implementations decision rule. |
+| `docs/BRIEF_SYNC.md` | Where the project-level instructions have drifted from the repo — every stale fact, its current value, its source, and whether it will decay again. |
 | `docs/PHASE7_CONSTRAINTS.md` | Robot-design constraints, recorded before a chassis is chosen. |
 | `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
 | `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |

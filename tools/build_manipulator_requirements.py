@@ -304,7 +304,7 @@ def build() -> dict[str, Any]:
                          "as of 2026-07-27 (ADR-025), so this is work to do, not to wait for",
             "hardware_held": True,
             "hardware_confirmed": "2026-07-27",
-            "work_order": "docs/HARDWARE_SESSION.md items A2 (mass) and A3 (grip points)",
+            "work_order": "docs/HARDWARE_SESSION.md items MEAS-2 (mass) and MEAS-3 (grip points)",
         },
     }
 

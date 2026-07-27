@@ -496,7 +496,7 @@
     "inputs": {
       "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
       "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
-      "strategy_frame": "a4cd6cd50cc64d9600a80bae8f6f731b72199b8350947f573aca093ccdaabe51"
+      "strategy_frame": "a0fdc90b38977b1030c1a99a8d8ea165404e83f17185358414a1511bc73a9350"
     },
     "permutation_count": 24,
     "round_counts": [
@@ -518,7 +518,7 @@
   "schema_version": 1,
   "scope": {
     "answers": "how far the six notes are to fetch and deliver, how that varies over the 24 randomization permutations, and the mean speed each capacity demands to fit 120 s",
-    "capacity_gated_on": "note mass and grip geometry - work order A2/A3. ADR-022 left the manipulator mechanism open and this does not close it.",
+    "capacity_gated_on": "note mass and grip geometry - work order MEAS-2/3. ADR-022 left the manipulator mechanism open and this does not close it.",
     "covers": "the six notes exactly, and under `full_run` the four truck objects as well - ten of the twelve placement missions, 185 of the 215 placement points",
     "does_not_choose_a_capacity": true,
     "does_not_cover": "the two cables: S1 puts them 'close to the stage (left end)', which is not a measured region, so they stay nominal_pending (work order B0)",

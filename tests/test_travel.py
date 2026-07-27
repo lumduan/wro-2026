@@ -491,7 +491,7 @@ def test_the_artefact_declares_itself_a_lower_bound(spec):
 def test_the_artefact_refuses_to_choose_a_capacity(spec):
     scope = spec["scope"]
     assert scope["does_not_choose_a_capacity"] is True
-    assert "A2/A3" in scope["capacity_gated_on"]
+    assert "MEAS-2/3" in scope["capacity_gated_on"]
     assert "ADR-022" in scope["capacity_gated_on"]
 
 

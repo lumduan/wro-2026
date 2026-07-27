@@ -575,9 +575,13 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "medium",
       "identification_evidence": "Page 152 shows a black cabinet with a light front panel, a row of grey control\nknobs along the top and a red control — an amplifier. S1 p6: 'There is an\namplifier together with 2 speakers on the field.' The run preview on page 126\nis a dense black grille panel, and pages 130/132/138/140 carry sub-assembly\nboxes in two IDENTICAL pairs (130 with 138, 132 with 140, byte-identical box\nsizes) — the cabinet's two symmetric sides.\n\n`medium`, not `high`: the identification rests on the page-152 render rather\nthan on a preview of the finished object, because this run's preview shows a\ncomponent. Nothing depends on the exact page range — see [scoring_relevance].",
       "mass_g": null,
@@ -592,7 +596,9 @@
       "source_steps": [
         125,
         151
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "cable_lower": {
       "base_evidence": "The rigid carrier is 2x Technic Brick 1x16 (3703) side by side = 2x16 studs = 16.0 x 128.0 mm. Inventory p177 lists 4x 3703 Red, which is exactly 2 per cable, agreeing with the page-167 callout quantity of 2x. Per ADR-017 the flexible hose gets no footprint. Two small red feet protrude at the ends; their exact geometry needs calipers and is not asserted.",
@@ -604,6 +610,8 @@
         "technic_brick_1x16": 1,
         "tile_2x4": 2
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         16.0,
         128.0
@@ -615,6 +623,8 @@
       ],
       "flexible_element": true,
       "footprint_covers": "the rigid carrier only",
+      "grip_face": null,
+      "grip_face_evidence": null,
       "hose_footprint_studs": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
@@ -637,7 +647,9 @@
       "source_steps": [
         166,
         174
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "cable_upper": {
       "base_evidence": "The rigid carrier is 2x Technic Brick 1x16 (3703) side by side = 2x16 studs = 16.0 x 128.0 mm. Inventory p177 lists 4x 3703 Red, which is exactly 2 per cable, agreeing with the page-167 callout quantity of 2x. Per ADR-017 the flexible hose gets no footprint. Two small red feet protrude at the ends; their exact geometry needs calipers and is not asserted.",
@@ -649,6 +661,8 @@
         "technic_brick_1x16": 1,
         "tile_2x4": 2
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         16.0,
         128.0
@@ -660,6 +674,8 @@
       ],
       "flexible_element": true,
       "footprint_covers": "the rigid carrier only",
+      "grip_face": null,
+      "grip_face_evidence": null,
       "hose_footprint_studs": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p167 and the finished render on page 174, both marked 2x: a red\nTechnic bar carrying a ribbed flexible hose, with red feet at each end. Page 173\nshows the hose alone. S1 p4 says there are 2 cables. Page 175 is the last step\npage and shows the whole set assembled together — the family photo — which is\nthe single best cross-check on the whole map: it shows 2 cables, 6 notes, clef,\nmic, guitar, keyboard, congas, amp and 2 speakers, and nothing else.",
@@ -682,7 +698,9 @@
       "source_steps": [
         166,
         174
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "clef": {
       "base_evidence": "Step 1 (page 2) places 4x a Technic Brick 1x6 (3894) side by side giving a 4x6 assembly with nothing beneath it. The clef does NOT receive the 4x8 plate the notes, mic and guitar share.",
@@ -690,6 +708,8 @@
         "brick_1x6": 2,
         "brick_2x4": 12
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         48.0
@@ -699,6 +719,8 @@
         4,
         6
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p2: a blue, tall, curly S-form — the treble-clef silhouette.\nS1 p6: 'There is a clef (blue) on the field.'",
       "mass_g": null,
@@ -720,7 +742,9 @@
       "source_steps": [
         1,
         15
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "instrument_congas": {
       "base_evidence": "Step 1 (p102) places 4x a yellow 2x4 brick (3001) as TWO separate 4x4 cores — one per drum. Each drum's contact patch is therefore 4x4 = 32.0 x 32.0 mm. The SEPARATION between the two drums is not derivable from an isometric render and is not asserted; see [congas_pair_extent].",
@@ -730,6 +754,8 @@
         "brick_2x2": 2,
         "brick_2x4": 6
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -740,6 +766,8 @@
         4
       ],
       "contact_patches": 2,
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p102 shows a PAIR of yellow/white drum-shaped blocks, and page 113\nshows exactly that pair finished — congas are a paired drum. S1 p4 lists\n1x congas.",
       "mass_g": null,
@@ -762,7 +790,9 @@
       "source_steps": [
         101,
         112
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "instrument_guitar": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; the 4x8 plate (3035) arrives on p115, ON TOP. Page 124's render independently shows the white plate sandwiched with red bricks below it.",
@@ -773,6 +803,8 @@
         "plate_4x8": 1,
         "technic_brick_1x2": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -782,6 +814,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p114: a red body with a yellow neck rising from it — an unmistakable\nguitar silhouette. The run ends at 125, not 123: page 124 (step 123) still shows\nthe guitar mid-build and the next preview is at 126. S1 p4 lists 1x guitar.",
       "mass_g": null,
@@ -803,7 +837,9 @@
       "source_steps": [
         113,
         124
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "instrument_keyboard": {
       "bom_steps": {
@@ -812,6 +848,8 @@
         "brick_2x4": 8,
         "technic_brick_1x2": 2
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
@@ -830,6 +868,8 @@
         ],
         "why_the_self_check_cannot_apply": "The lattice self-check asserts rows*cols == stud count. That holds for a filled rectangle and is false by construction for a frame, whose studs sit only on the perimeter. This is a DIFFERENT failure mode from the note base, which failed on occlusion — here nothing is stacked on the frame at all and the studs are plainly visible. Recording the distinction so the next pass does not retry the occlusion workaround on a problem that is not occlusion."
       },
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Page 101 shows the assembled instrument: four black key-bars in a row on a white\nbody with red trim — a keyboard. The run preview on page 89 and the one on page\n96 are its two sub-frames; page 95 shows an obviously incomplete L of loose\nbricks, so 89-95 is not a finished model. S1 p4 lists 1x keyboard.",
       "mass_g": null,
@@ -844,7 +884,9 @@
       "source_steps": [
         88,
         100
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "mic": {
       "base_evidence": "Step 1 (p66) places 2x a 2x4 brick (3001) forming a 4x4 core; the 4x8 plate (3035) arrives on p67, ON TOP. Same sandwich as the six notes and the guitar; extending the run to page 88 does not change the base.",
@@ -856,6 +898,8 @@
         "shape_11": 1,
         "tile_1x2": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -865,6 +909,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p66: a black head on a tall white column — a microphone on a stand.\nS1 p4 places the microphone in the truck. The run extends to 88, not 72: page\n72 shows the column still UNCAPPED and page 88 shows the same column with the\nblack head fitted. The cream box on page 73 is a sub-assembly box inside this\nbuild (see subassemblies), which is why part 1 read 73-88 as a separate span.",
       "mass_g": null,
@@ -886,7 +932,9 @@
       "source_steps": [
         65,
         87
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_black": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -894,6 +942,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -903,6 +953,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p41: black, same form.",
       "mass_g": null,
@@ -924,7 +976,9 @@
       "source_steps": [
         40,
         46
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_blue": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -932,6 +986,8 @@
         "brick_2x4": 6,
         "plate_4x8": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -941,6 +997,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p26: the finished blue note, distinct from the clef at pages 2-16.",
       "mass_g": null,
@@ -962,7 +1020,9 @@
       "source_steps": [
         25,
         32
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_green": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -971,6 +1031,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -980,6 +1042,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p48: green, same form.",
       "mass_g": null,
@@ -1001,7 +1065,9 @@
       "source_steps": [
         47,
         54
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_red": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -1011,6 +1077,8 @@
         "plate_4x8": 1,
         "technic_brick_1x2": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -1020,6 +1088,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p56: red, same form.",
       "mass_g": null,
@@ -1041,7 +1111,9 @@
       "source_steps": [
         55,
         64
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_white": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -1049,6 +1121,8 @@
         "brick_2x4": 7,
         "plate_4x8": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -1058,6 +1132,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p17: white, the same stepped note form as the five coloured notes that follow.",
       "mass_g": null,
@@ -1079,7 +1155,9 @@
       "source_steps": [
         16,
         24
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "note_yellow": {
       "base_evidence": "Step 1 places 2x a 2x4 brick (3001) forming a 4x4 core; step 2 places the 4x8 plate (3035) ON TOP of it; step 3 stacks 2x 2x4 bricks on the plate. Verified on the consecutive pages 17/18/19 - page 19 is decisive: the new bricks sit on the plate, its studs protrude either side, and the step-16 bricks are below. The plate overhangs at +9.6 mm; the 4x4 core touches the mat.",
@@ -1087,6 +1165,8 @@
         "brick_2x4": 5,
         "plate_4x8": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": [
         32.0,
         32.0
@@ -1096,6 +1176,8 @@
         4,
         4
       ],
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p34: yellow, same form as the other five.",
       "mass_g": null,
@@ -1117,7 +1199,9 @@
       "source_steps": [
         33,
         39
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "speaker_a": {
       "bom_steps": {
@@ -1127,9 +1211,13 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
       "mass_g": null,
@@ -1144,7 +1232,9 @@
       "source_steps": [
         152,
         165
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     },
     "speaker_b": {
       "bom_steps": {
@@ -1154,9 +1244,13 @@
         "tile_1x2": 1,
         "tile_2x4": 1
       },
+      "cog_height_mm": null,
+      "cog_source": null,
       "contact_footprint_mm": null,
       "contact_footprint_studs": null,
       "footprint_needs_analysis": true,
+      "grip_face": null,
+      "grip_face_evidence": null,
       "identification_confidence": "high",
       "identification_evidence": "Run preview p153 shows a finished blue box with a black grille panel on a black\nbase, and carries a 2x multiplier beside it. Page 166 shows the same object\nfinished, also marked 2x. S1 p6 says there are 2 speakers.",
       "mass_g": null,
@@ -1171,7 +1265,9 @@
       "source_steps": [
         152,
         165
-      ]
+      ],
+      "tilt_angle_deg": null,
+      "tilt_evidence": null
     }
   },
   "parts_inventory": {

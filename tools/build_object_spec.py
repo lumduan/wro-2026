@@ -264,15 +264,30 @@ def build(img_dir: Path, probe: Path, map_path: Path, parts_path: Path) -> dict[
             # ADR-014 discipline: no number without a source. `mass_g` is read
             # from object_map.toml if a measurement has been recorded there and
             # is None otherwise -- it is never defaulted, because a plausible
-            # placeholder is worse than an obvious gap. Work order item A2.
+            # placeholder is worse than an obvious gap. Work order item MEAS-2.
             "mass_g": (R(model["mass_g"]) if model.get("mass_g") is not None else None),
             "mass_source": model.get("mass_source"),
+            # Work order items MEAS-3 (grip face) and MEAS-5 (CoG height). Same
+            # read-if-present discipline as `mass_g`, and inert for exactly the
+            # same reason: ADR-022's mechanism decision needs both, and a
+            # plausible default would let it be made on invented numbers.
+            # `cog_height_mm` may be measured directly or derived from the MEAS-5
+            # tilt angle -- `cog_source` says which, so a proxy is never mistaken
+            # for a reading.
+            "grip_face": model.get("grip_face"),
+            "grip_face_evidence": model.get("grip_face_evidence"),
+            "cog_height_mm": (R(model["cog_height_mm"])
+                              if model.get("cog_height_mm") is not None else None),
+            "cog_source": model.get("cog_source"),
+            "tilt_angle_deg": (R(model["tilt_angle_deg"])
+                               if model.get("tilt_angle_deg") is not None else None),
+            "tilt_evidence": model.get("tilt_evidence"),
             "needs_measurement": model.get("mass_g") is None,
         }
         if base:
             entry["contact_footprint_studs"] = base["contact_studs"]
             entry["contact_footprint_mm"] = studs_to_mm(base["contact_studs"])
-            # Work order item A4. Calipers measure the object directly, where
+            # Work order item MEAS-4. Calipers measure the object directly, where
             # everything in Phase 4 came from counting studs in a raster and
             # multiplying by 8.00 mm. A caliper reading supersedes the derived
             # one -- and the derived one is KEPT, because a disagreement between

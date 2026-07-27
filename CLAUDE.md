@@ -10,14 +10,16 @@ Listed in **precedence order**. S4 §4.4: general rules < game document < Q&A < 
 
 | # | Source | Authoritative for | Status |
 |---|---|---|---|
-| **S6** | **Official Q&A** (`wro-association.org/competition/questions-answers/`) | **overrides everything below it** | snapshot 2026-07-25, content `2026-06-30T16:45:33+02:00` |
+| **S6** | **Official Q&A** (`wro-association.org/competition/questions-answers/`) | **any question a lower source leaves ambiguous** — scoring predicates, rule wording, and the meaning of a term S1/S4 use without defining. It does **not** originate geometry or robot limits; it *reinterprets* them. **Overrides everything below it** (S4 §4.4) | snapshot 2026-07-25, content `2026-06-30T16:45:33+02:00` |
 | S1 | Game Rules PDF | missions, scoring, definitions, randomization | ✅ |
 | S4 | RoboMission General Rules PDF (Jan 15 2026, 31 pp) | robot limits, run procedure, table setup, tie-break | ✅ acquired 2026-07-25 |
 | S2 | Game Mat printing PDF | ALL geometry: coordinates, area sizes, mat colours | ✅ **VECTOR**, 50,479 paths |
 | S3 | Building Instructions PDF | game-object dimensions, mass, grip points | ⚠️ **DEGRADED** — fully rasterized |
 | S5 | `data/field_spec.json` (derived) | single source of truth read by all code | ✅ built 2026-07-25 |
 
-Rule: no rule/number/dimension may be stated unless it traces to S1–S4 or S6.
+Rule: no rule/number/dimension may be stated unless it traces to **S1, S2, S3, S4 or S6** — or
+to **S5**, which is *derived from* them and carries a provenance sha for every input it read.
+S5 is not an independent authority: it may only restate what S1–S4 and S6 already say.
 **Never substitute memory of prior-season WRO rules** — the 2026 general rules changed.
 
 **S6 has already overwritten two S4 clauses** (battery voltage, current limit). It is live

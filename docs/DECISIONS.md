@@ -38,6 +38,8 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-030](#adr-030) | A bounded start beats a pending one — the truck, and the pick-and-place cliff | accepted 2026-07-26 |
 | [ADR-031](#adr-031) | The feasibility frontier; speed saturates; the instruments are σ-proof | accepted 2026-07-26 |
 | [ADR-032](#adr-032) | The first end-to-end score, and which unknown to measure first | accepted 2026-07-27 |
+| [ADR-033](#adr-033) | `A1`–`A5` renamed to `MEAS-`; S6's scope stated; the seven questions drafted | accepted 2026-07-27 |
+| [ADR-034](#adr-034) | The tilt proxy measured friction, not centre of gravity | accepted 2026-07-27 |
 
 ---
 
@@ -1316,7 +1318,7 @@ it must be read at runtime (`PHASE7_CONSTRAINTS.md` §5). At high capacity the r
 slot anyway; at capacity 1 it must spend a scanning pass or commit blind.
 
 **This does not choose a capacity.** That needs note mass and grip geometry — work order
-**A2/A3** — and **ADR-022** left the mechanism open deliberately. This says what each choice buys.
+**MEAS-2/3** — and **ADR-022** left the mechanism open deliberately. This says what each choice buys.
 
 ### Part 3 — `strategy_frame.json` was not costing a mission
 
@@ -1569,7 +1571,7 @@ measurements inform and this does not pre-empt.
 | `t`, pick-and-place | `feasibility_frontier` | **A3** |
 | `N`, rounds | `round_strategy` | **NEEDS-VERIFY(NO-TH)** |
 | `P(collision)` | `expected_score`, `strategy_frame` | **nothing measures it** |
-| carry capacity | `travel_budget` | **A2/A3** |
+| carry capacity | `travel_budget` | **MEAS-2/3** |
 
 Nowhere did the repo say which one matters. The operator is about to spend an afternoon
 measuring, and that is the one question a work order should already answer.
@@ -1658,4 +1660,177 @@ rather than by pretending one suffices.
 
 **What this does not claim.** Not a score. Every figure is an evaluation at an assumed operating
 point, and all six parameters are unmeasured. This ranks what to *measure*; what to build stays
-gated on A2/A3, and what to attempt on B5.
+gated on MEAS-2/3, and what to attempt on B5.
+
+---
+
+## ADR-033
+
+**Two identifier collisions, and the seven questions nobody had written down.**
+`2026-07-27 · accepted`
+
+### Part 1 — `A1`–`A5` meant two different things
+
+**Context.** `docs/HARDWARE_SESSION.md` numbered its bench-work items **A1–A5**;
+`docs/AMBIGUITIES.md` numbers its rule ambiguities **A1–A10**. The same five strings identified
+both. Worse than a clash of namespaces: **A4 and A5 are *resolved* ambiguities** — return-to-start
+(S4 §10.7/§10.13) and held objects scoring the partial tier (S6 2026-06-30) — so an unqualified
+"A5" read as **settled fact** in one document and an **unstarted task** in another.
+
+**Decision.** The measurement block becomes **MEAS-1 … MEAS-5**. The ambiguity register keeps
+`A1`–`A10`, which is the older and more widely cited family.
+
+**The rename could not be mechanical.** 171 occurrences of `A1`–`A5` exist across 35 files with
+the two senses interleaved — `ROADMAP.md` line 54 reads *"A2/A3/A4/A5/A6 resolved"* (ambiguity
+sense, **kept**) thirteen lines from *"Block A — items A1 to A3"* (measurement sense, renamed).
+Every occurrence was read. A `sed` would have corrupted more than a hundred correct citations.
+
+**Consequence.** Five builders emit the identifier into their artefacts, so
+`manipulator_requirements`, `travel_budget`, `feasibility_frontier` and `parameter_sensitivity`
+changed content — a string change to existing artefacts, not a new one.
+`tests/test_hardware_session.py` gains a guard that no `### A<n> ·` heading returns.
+
+### Part 2 — S6's row stated its precedence but never its scope
+
+**Context.** The brief reported S6 as missing from the source table. It is not: `CLAUDE.md` §5.1
+has it as **row 1**. But the premise pointed at something real. Every other row says what its
+source is authoritative *for* — S1 *"missions, scoring, definitions, randomization"*, S4
+*"robot limits, run procedure, table setup, tie-break"* — while S6's cell said only
+*"overrides everything below it"*. It declared that S6 **wins** without saying what it wins
+**about**.
+
+**Decision.** S6's cell now states its scope: *any question a lower source leaves ambiguous —
+scoring predicates, rule wording, and the meaning of a term S1/S4 use without defining.* And,
+explicitly, that it **does not originate** geometry or robot limits; it reinterprets them. That
+distinction is what makes `docs/QUESTIONS.md` §1 answerable and §3 not: A7 is a reading of a
+sentence and belongs to S6; the national robot limits are a *fact* and belong to the organizer.
+
+**A second defect, found beside it.** The rule line under the table read *"must trace to S1–S4 or
+S6"* and **silently omitted S5** — the derived spec the same table lists as a source, and which
+every module actually reads. Now stated, with the qualification that S5 is not an independent
+authority: it may only restate what S1–S4 and S6 already say, and carries a provenance sha for
+every input it read.
+
+### Part 3 — the questions, and the two protocols
+
+**Context.** Eight consecutive analysis units left the repo with eleven derived artefacts, 503
+tests and **zero measured values**. Every remaining path runs through numbers only the operator
+can produce, or through **seven questions that had never been written down** — five open
+ambiguities routed to the official Q&A since 2026-07-25, and two `NEEDS-VERIFY(NO-TH)` items
+never asked at all.
+
+**Decision.** Three documents, no new derived artefact:
+
+| document | what it settles |
+|---|---|
+| `docs/QUESTIONS.md` | the seven, **ordered by magnitude**, each with a verbatim quote and page, *all* plausible readings (A7 and A9 have three, not two), the artefact or ADR that changes, the magnitude as a number, and a fallback with its consequence-if-wrong |
+| `docs/MEASUREMENT_PROTOCOL.md` | instrument resolutions justified against what consumes the number, repeat counts derived from `1/√(2(n−1))`, the destination field for every value, and proxies decided in advance |
+| `docs/B1_PROCEDURE.md` | the minimum viable chassis, which parts are throwaway, pass/fail judged without interpretation, and the decision rule for one implementation or two |
+
+**Two magnitudes worth recording here**, because they set the order everything else follows:
+**A7 is worth 24 points** of expected score at σ = 20 mm (216 against 192 of 255) and a **2.64×**
+swing in required note accuracy; the **tournament format** is worth **+12.5** at N = 3 and,
+unlike everything else on the list, *inverts* strategy rather than scaling it — under best-of-N
+variance becomes an asset.
+
+**The schema gained two fields it was missing.** `grip_face` and `cog_height_mm` had **no
+destination at all**, so MEAS-3 and MEAS-5 would have produced numbers with nowhere to go.
+Added to `docs/object_map.toml` and `build_object_spec.py` read-if-present, with `tilt_angle_deg`
+and `cog_source` beside them so a derived CoG is never mistaken for a measured one. All five ship
+`null` across all 16 objects, guarded — the ADR-026 precedent exactly.
+
+**What this deliberately does not do.** It sends nothing: the questions are drafted for review,
+and transmission is the operator's. And it produces no twelfth derived artefact — the four that
+changed did so only because a renamed string flows through them.
+
+---
+
+## ADR-034
+
+**The tilt proxy measured friction, not centre of gravity.**
+`2026-07-27 · accepted`
+
+### The error
+
+ADR-033 shipped a measurement protocol whose MEAS-5 derived centre-of-gravity height from a
+tilt-table reading: *"An object tips when its centre of gravity passes over the pivot edge, so
+`tan θ = w/h` … therefore `h = w/tan θ`."*
+
+The formula is correct. **Its precondition was never checked.** An object on an incline **tips**
+at `tan θ = w/h` and **slides** at `tan θ = μ_s`, and whichever angle is lower happens first. So
+`h = w/tan θ` is valid only when `w/h < μ_s`. Evaluated against μ_s ≈ 0.35 for ABS on a smooth
+surface, using the repo's own footprints:
+
+| object | w (mm) | h est | w/h | θ_tip | θ_slide | |
+|---|---:|---:|---:|---:|---:|---|
+| note | 16 | 27 | 0.59 | 30.7° | 19.3° | slides |
+| cable | 8 | 10 | 0.80 | 38.7° | 19.3° | slides |
+| microphone | 16 | 45 | 0.36 | 19.6° | 19.3° | slides |
+| amplifier | 30 | 35 | 0.86 | 40.6° | 19.3° | slides |
+| speaker | 20 | 30 | 0.67 | 33.7° | 19.3° | slides |
+| clef | 16 | 40 | 0.40 | 21.8° | 19.3° | slides |
+
+**Every shape slides. All six.** The protocol would have produced 176 trials of `arctan μ_s`.
+
+### Why nothing in the repo would have caught it
+
+This is the failure mode the project has now hit four times, and this is the worst instance.
+
+A sliding object **still stops at a definite angle**. The operator still reads a number, the
+formula still returns a plausible CoG height, and the field lands in `object_spec.json` tagged
+`MEASURED(...)`. Nothing is null, nothing is out of range, no test fires.
+
+Worse: because friction does not depend on shape, **every object would have reported ≈19.3°**.
+Thirteen objects agreeing to a fraction of a degree reads as *excellent repeatability*. The
+strongest available signal that the measurement was sound would in fact have been proof that it
+was worthless.
+
+The value recovered would have been `w/μ_s` — a **friction measurement wearing a geometry
+label**, and one that would then have informed ADR-022's manipulator decision.
+
+### Decision
+
+Three changes, all mandatory, none of them optional refinements:
+
+1. **An anti-slip cleat, ≤ 3 mm, flush against the downhill face**, with its height `c` measured.
+   It lifts the effective pivot, so the recovery formula becomes **`h = w/tan θ + c`**. Verified:
+   w = 16, true h = 27, c = 2 → tips at 32.62°; the correction recovers **27.00 mm**, omitting it
+   gives **25.00 mm, 7.4 % low**.
+2. **A validation rule that fails the block.** Watch for translation before rotation; and at the
+   data level, `arctan(0.35) ≈ 19.3°` regardless of shape, so **angles that agree across objects
+   whose base widths differ by more than 1.5× are the friction angle, not tipping**. Do not
+   record them. *Disagreement between shapes is the success signal.*
+3. **±0.5° angular resolution.** Error propagates as `|dh/h| = 2·dθ/sin 2θ` — an amplification
+   that never drops below **2×**, and is **3.11×** at θ = 20°. At ±1° that is 5.4 %; at ±2°,
+   10.9 %. Below ±0.5°, do not derive CoG at all.
+
+**And an alternative that cannot fail this way.** The reaction-board method never requires the
+object to tip, so friction is irrelevant: `h = L(R₀ − R₁)/(W tan θ)` from two scale readings,
+level and tilted. At L = 200 mm, W = 25 g, θ = 30° a 0.1 g scale resolves h to ≈ 5 % — as good as
+the ±0.5° tilt method, with no mode that returns a confident wrong answer.
+
+### And a cut, found while fixing it
+
+`data/scoring_model.json`, `m2_prepare_show_instruments`:
+`full_condition: "completely_in(instrument, backstage)"`, note *"No uprightness requirement and
+no partial credit."* **No predicate consumes the instruments' tilt angle.** Cables, microphone
+and notes carry `AND upright` / `OR not upright`; the four bonus objects reach it through
+`NOT moved`. Tilt therefore covers **13 objects, not 16** — 33 trials removed with no loss.
+
+With a tiered design as well — full characterisation at n = 11 on one object per *shape class*,
+n = 3 on duplicates as an identity check — tilt drops from **176 trials to 87**, and the
+statistics improve: measuring six notes eleven times each was re-characterising the same build.
+
+### Consequence
+
+The session is budgeted honestly for the first time: **≈ 4 hours**, block by block, ordered so
+that **ADR-022's manipulator decision closes at 1 h 25 m** and a session that runs short stops
+cleanly. MEAS-5a goes last despite being longest, because A2 records that S6 demoted
+`upright_tolerance_deg` from a threshold to a parameter — the softest consumer on the page.
+
+**The pattern, fifth instance.** ADR-024, ADR-026, ADR-028, ADR-029 and now this: every one an
+error in what a number *meant*, none caught by testing the code that produced it. The difference
+here is that the previous four were caught by a downstream inconsistency. **This one had no
+downstream inconsistency to find** — it would have been caught only on the day, or never. The
+guard that works is the one that checks a **precondition of the method**, not a property of the
+output.

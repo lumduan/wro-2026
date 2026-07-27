@@ -21,13 +21,21 @@ Every measurement below is **runnable now**. All of it is held:
 replaces. This file is the **order of work**, and the two are checked against each other by
 `tests/test_hardware_session.py`.
 
+**Three companion documents carry the detail this one deliberately does not:**
+
+| document | what it is for |
+|---|---|
+| [`docs/QUESTIONS.md`](QUESTIONS.md) | the **seven unasked questions** — five for the official Q&A, two for the National Organizer — ordered by magnitude, each with its fallback. They cost minutes and two of them decide *what to optimise*. Send them first; the replies arrive while you measure. |
+| [`docs/MEASUREMENT_PROTOCOL.md`](MEASUREMENT_PROTOCOL.md) | **how** to run MEAS-1…5: instrument resolutions, repeat counts with the arithmetic behind them, the destination field for every number, and a proxy decided in advance for anything that proves unmeasurable. |
+| [`docs/B1_PROCEDURE.md`](B1_PROCEDURE.md) | the **minimum viable chassis** for B1, with throwaway parts named, pass/fail criteria that need no interpretation, and the decision rule for *one implementation or two*. |
+
 ---
 
 ## Priority, if the session is cut short
 
-**A1 → A3 outrank everything else on this page.** They close a *design decision* — the
+**MEAS-1 → MEAS-3 outrank everything else on this page.** They close a *design decision* — the
 manipulator mechanism, gated since ADR-022 — where every other item refines a parameter that
-already has a working default. A2 and A3 together are perhaps an hour, and they are the only
+already has a working default. MEAS-2 and MEAS-3 together are perhaps an hour, and they are the only
 hour that unblocks Phase 7's completion.
 
 After those, **B5** is the single most valuable: it produces σ, which converts
@@ -43,11 +51,11 @@ to be**, so it is given at three operating points:
 | rank | comfortable — `v` 200, `t` 4 | | tight — `v` 100, `t` 8 | |
 |---|---|---:|---|---:|
 | 1 | **σ** (B5) | **57.3** | **`v`, speed** (B6/P6) | **62.3** |
-| 2 | `v`, speed (B6/P6) | 30.0 | `t`, handling (A3) | 47.3 |
-| 3 | `t`, handling (A3) | 15.0 | σ (B5) | 45.2 |
+| 2 | `v`, speed (B6/P6) | 30.0 | `t`, handling (MEAS-3) | 47.3 |
+| 3 | `t`, handling (MEAS-3) | 15.0 | σ (B5) | 45.2 |
 | 4 | `N`, rounds (ask the NO) | 11.1 | `N`, rounds | 10.4 |
 | 5 | `P(collision)` | 7.5 | `P(collision)` | 7.5 |
-| 6 | carry capacity (A2/A3) | 0.0 | carry capacity | 1.1 |
+| 6 | carry capacity (MEAS-2/3) | 0.0 | carry capacity | 1.1 |
 
 **Take the first row, with one exception.** The two columns disagree, which invites the reading
 *"σ for a fast robot, speed for a slow one"*. A grid sweep of seven speeds × five handling times
@@ -55,23 +63,31 @@ does not support it: **σ leads in 27 of 35 cells**, and driving speed takes the
 **`t` ≈ 8 s per object — at every speed from 100 to 300 mm/s**. Handling time causes that, not
 speed (ADR-032). So:
 
-1. **A1–A3** as already stated: bench work, no robot, and they close the mechanism.
+1. **MEAS-1–MEAS-3** as already stated: bench work, no robot, and they close the mechanism.
 2. **B5 (σ)** — the largest single source of uncertainty nearly everywhere.
 3. **`v` and `t`** — smaller, *unless* handling comes out near 8 s per object, where 10 objects
    consume 80 of the 120 seconds and driving distance starts deciding how many missions fit.
 
 Carry capacity is last in every column and worth **30 points at the margin** (ADR-032): a
-boundary effect, not a constant. Measure it if A2/A3 give it to you free; do not spend a session
+boundary effect, not a constant. Measure it if MEAS-2/3 give it to you free; do not spend a session
 on it.
 
 ---
 
-## Block A — bench work. No robot needed.
+## Block MEAS — bench work. No robot needed.
 
 Everything here needs the game objects, a scale, calipers and a flat surface. It can be done
 before a single motor is attached, and it closes more open questions than Block B.
 
-### A1 · Count the parts — before anything else
+> **Read [`docs/MEASUREMENT_PROTOCOL.md`](MEASUREMENT_PROTOCOL.md) before touching anything.**
+> This section says *what*; the protocol says *how many times, to what resolution, and into which
+> field* — so that one session's access produces numbers that do not need taking again.
+>
+> **These items were named A1–A5 until 2026-07-27**, which collided with ambiguities A1–A5 in
+> `docs/AMBIGUITIES.md` — where A4 and A5 are *resolved* entries, so an unqualified "A5" read as
+> settled fact in one document and an unstarted task in another. Renamed to **MEAS-** (ADR-033).
+
+### MEAS-1 · Count the parts — before anything else
 
 **No BOM figure enters this repo unmeasured.** Fill in `docs/FIELD_TEST_PLAN.md` Step 0's table
 and tag it `MEASURED(inventory, <date>)`.
@@ -89,7 +105,7 @@ design constraint, not trivia.
 
 → closes: Step 0. Feeds ADR-022's motor arithmetic with a measured, not assumed, supply.
 
-### A2 · Weigh all 12 placement objects
+### MEAS-2 · Weigh all 12 placement objects
 
 Grams, on a scale. `mass_g` has been `null` for all 16 objects since Phase 4 because mass cannot
 be derived from a building instruction.
@@ -105,10 +121,10 @@ until you type a number.
 **carry capacity** is worth 2213 mm off the worst-case note tour going from 1 to 2, and that
 carrying **all six** removes the randomization from the travel budget entirely — an exact zero,
 not a small number. What a mechanism can lift at once is set by note mass and grip geometry, so
-this measurement and A3 together decide how much of that is reachable. Weigh a single note
+this measurement and MEAS-3 together decide how much of that is reachable. Weigh a single note
 carefully; it is the number that scales.
 
-### A3 · Grip points — the measurement that closes a decision
+### MEAS-3 · Grip points — the measurement that closes a decision
 
 For each of the 12 placement objects, find where a mechanism can hold it without the object
 rotating, tipping, or shedding a part. Two cases decide the mechanism between them:
@@ -118,7 +134,7 @@ rotating, tipping, or shedding a part. Two cases decide the mechanism between th
 - **the congas** — one rigid object with **two** contact patches on a 2×6 Technic bridge. Does it
   grip on the bridge or on a drum?
 
-**A3 is now a feasibility question, not only a selection one (ADR-030).** Ten objects have to be
+**MEAS-3 is now a feasibility question, not only a selection one (ADR-030).** Ten objects have to be
 picked up and put down inside 120 seconds, so **every second of pick-and-place costs ten seconds
 of the attempt**:
 
@@ -133,7 +149,7 @@ cannot buy it back. **While you have an object in hand, time a realistic pick an
 stopwatch and ten repetitions is the whole measurement, and it is worth more than any figure P6
 produces.
 
-**A3 and P6 now have a joint target (ADR-031).** All 185 costable points are reachable at these
+**MEAS-3 and P6 now have a joint target (ADR-031).** All 185 costable points are reachable at these
 pairs, worst case over every randomization draw:
 
 | handling, s per object | 0 | 2 | 4 | 6 | 8 | 10 |
@@ -142,12 +158,12 @@ pairs, worst case over every randomization draw:
 
 Read it as a pair, not two numbers. **Above the speed in each column, more speed scores nothing**
 — so the moment P6 clears the figure your handling time implies, P6 stops mattering and every
-further point comes from A3.
+further point comes from MEAS-3.
 
 → closes: **P7** (second half) and **ADR-022's gated half**. Write the outcome as a new ADR
 with the arithmetic shown, exactly as ADR-022 refused to do without this measurement.
 
-### A4 · Calipers on every footprint — the independent check
+### MEAS-4 · Calipers on every footprint — the independent check
 
 Phase 4 derived **every** dimension in this project by counting studs in rasterised building
 instructions and multiplying by 8.00 mm. Nothing has ever tested that chain by another method.
@@ -175,10 +191,19 @@ disagreement between the two methods is a visible finding rather than a silent o
 
 → closes: two bounds; independently verifies Phase 4's entire method.
 
-### A5 · Tilt each object until its base lifts
+### MEAS-5 · Tilt each object until its base lifts — **13 objects, and only with a cleat**
 
 S6 2026-06-30 defines *not upright* as **not fully touching the floor**. Measure the tilt angle
 at which the base first lifts, per object shape.
+
+> **Two things you must not skip — see [`MEASUREMENT_PROTOCOL.md`](MEASUREMENT_PROTOCOL.md).**
+>
+> **An anti-slip cleat is mandatory.** Every one of the six object shapes **slides before it
+> tips** on a bare ramp (`w/h > μ_s ≈ 0.35` for all of them). Without a cleat the reading is
+> `arctan μ_s ≈ 19.3°` for every object — a plausible number that measures friction. ADR-034.
+>
+> **The three instruments are excluded.** `scoring_model.json` says of them: *"No uprightness
+> requirement and no partial credit."* Nothing consumes their tilt angle. That is 33 trials saved.
 
 → closes: **P5**. Replaces `AS-6` / `upright_tolerance_deg = 15°` in `docs/ASSUMPTIONS.md`,
 with the superseded value recorded rather than deleted.
@@ -223,6 +248,10 @@ First in this block because everything else here needs the field set up anyway.
 Drive 500 mm, turn 90°, read a colour. The file imports only `robot_io.RobotIO`; the two
 backends are written out call by call and cited to their doc pages.
 
+> **Full procedure: [`docs/B1_PROCEDURE.md`](B1_PROCEDURE.md)** — the minimum viable chassis
+> (2 motors, 1 sensor, **no manipulator**), which parts are throwaway, pass/fail criteria that
+> need no interpretation, the log schema, and the decision rule for one implementation or two.
+
 Fill in `robot/robot_io_ev3.py` and `robot/robot_io_spike.py`, then set
 `VERIFIED_ON_HARDWARE = True` in each — **only** once the calls have actually run.
 
@@ -238,7 +267,7 @@ covered by `tools/check_portability.py`; this is the half only hardware can test
 Sample the six note colours, the four `#a0d187` start squares and the mat background under
 venue lighting. Report per-channel values and **pairwise separation between every pair**.
 
-The discriminator to settle: EV3 has 1 colour sensor, SPIKE has 2 (confirm against A1). **Can
+The discriminator to settle: EV3 has 1 colour sensor, SPIKE has 2 (confirm against MEAS-1). **Can
 one sensor time-share identification and navigation, or not?** Cameras are prohibited (§5.2.7),
 so there is no fallback.
 
@@ -303,10 +332,10 @@ robot cannot clear on paper is already ruled out, and the six notes are only 120
 **Across all ten costable missions** (ADR-030 — the notes plus the four truck objects, 185 of the
 215 placement points) the floor is **151 mm/s at capacity 1 and 93 mm/s at capacity 2**, before
 any pick-and-place time. Both are undemanding for either platform, which is the useful result:
-**P6 is probably not the binding constraint — A3 is.** See the cliff under A3.
+**P6 is probably not the binding constraint — MEAS-3 is.** See the cliff under MEAS-3.
 
 → feeds: `dynamics.py`, which does not exist yet and is parameterless by design until this runs;
-and the capacity decision ADR-022 left open, together with **A2/A3**.
+and the capacity decision ADR-022 left open, together with **MEAS-2/3**.
 
 ---
 
@@ -315,7 +344,9 @@ and the capacity decision ADR-022 left open, together with **A2/A3**.
 **A7** — whether `completely_in` consumes the contact patch or the silhouette. It swings the
 required note placement accuracy by **2.6×** (σ ≈ 11.4 mm against ≈ 4.3 mm) on the mission
 carrying 120 of 255 points. Only the official Q&A settles it, and submitting it is the highest
-value action available that is not on this page. **A1**, **A8**, **A9** and **A10** likewise.
+value action available that is not on this page. **A1**, **A8**, **A9** and **A10** likewise —
+all five are drafted and ready to send in [`docs/QUESTIONS.md`](QUESTIONS.md), ordered by
+magnitude.
 
 **`NEEDS-VERIFY(NO-TH)`** — two questions for the Thai National Organizer, neither yet asked:
 

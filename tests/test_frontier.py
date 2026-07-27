@@ -355,7 +355,10 @@ def test_the_artefact_says_why_the_ban_lifted(spec):
 def test_neither_free_parameter_is_asserted(spec):
     scope = spec["scope"]
     assert scope["speed_is_not_measured"] is True and "P6" in scope["speed_source"]
-    assert scope["pick_place_is_not_measured"] is True and "A3" in scope["pick_place_source"]
+    assert scope["pick_place_is_not_measured"] is True
+    # MEAS-3, not A3: ADR-033 renamed the bench-work block off the ambiguity
+    # namespace, where A3 is a *resolved* entry about robot overlap.
+    assert "MEAS-3" in scope["pick_place_source"]
     assert "fits" in scope["feasibility_is_not_success"]
     assert scope["excludes_the_bonus_floor"] == 40
 

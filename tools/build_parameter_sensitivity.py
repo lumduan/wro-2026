@@ -66,7 +66,7 @@ PARAMETERS: Final = (
      "what": "driving speed", "closed_by": "P6 (work order B6)",
      "declared_in": ["travel_budget", "feasibility_frontier"]},
     {"name": "pick_place_s", "low": 2.0, "high": 8.0, "unit": "s per object",
-     "what": "pick-and-place time", "closed_by": "A3",
+     "what": "pick-and-place time", "closed_by": "MEAS-3",
      "declared_in": ["feasibility_frontier"]},
     {"name": "rounds_n", "low": 1, "high": 3, "unit": "rounds",
      "what": "how many rounds are ranked", "closed_by": "NEEDS-VERIFY(NO-TH)",
@@ -75,7 +75,7 @@ PARAMETERS: Final = (
      "what": "chance of toppling a bonus object", "closed_by": "nothing measures it",
      "declared_in": ["expected_score", "strategy_frame"]},
     {"name": "capacity", "low": 1, "high": 2, "unit": "objects carried",
-     "what": "manipulator carry capacity", "closed_by": "A2/A3",
+     "what": "manipulator carry capacity", "closed_by": "MEAS-2/3",
      "declared_in": ["travel_budget"]},
 )
 
