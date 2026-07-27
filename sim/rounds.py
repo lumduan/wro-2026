@@ -41,6 +41,7 @@ costs nothing real: the rounding is +/-0.05 pp against the underlying sweep's
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any, Final, Iterable, Sequence
 
@@ -183,6 +184,76 @@ def e_max(pmf: np.ndarray, n: int) -> float:
 # --------------------------------------------------------------------------- #
 # The two decisions this enables
 # --------------------------------------------------------------------------- #
+
+
+def survival(pmf: np.ndarray) -> np.ndarray:
+    """``P(score > k)`` for every k. The primary metric under best-of-2.
+
+    Under a single attempt the mean ranks strategies. Under best-of-2 it does
+    not: round 2 only matters where it **exceeds** round 1, so what matters is
+    the upper tail, not the centre. The survival curve carries that whole tail
+    where a mean collapses it to one number.
+    """
+    return 1.0 - np.cumsum(pmf)
+
+
+def premium_with_correlation(score_sd: float, rounds_n: int = 2,
+                             rho: float = 0.0) -> float:
+    """Best-of-N gain over a single attempt, for a correlated normal approximation.
+
+    For two iid normals ``E[max] = mu + sd/sqrt(pi)``. Two rounds are **not**
+    iid: they share one robot, one program and one calibration, so a systematic
+    component repeats. With correlation ``rho`` only the independent part varies
+    between rounds, and the effective spread is ``sd * sqrt(1 - rho)``::
+
+        gain = sd * sqrt(1 - rho) / sqrt(pi)
+
+    **The `sd` here is the SCORE standard deviation in points, not the placement
+    error in millimetres.** At sigma = 20 mm the run's score sd is 15.11 points;
+    using 20 in this formula overstates the gain by a third. The two quantities
+    have different units and there is no reason they should be close.
+
+    **Systematic variance is pure cost. Only independent variance is an asset.**
+    At rho = 0.9 the gain collapses from +8.5 to +2.7, which materially narrows
+    ADR-027's "extra rounds reward variance" — that claim did not distinguish
+    the two components. See ADR-037.
+
+    Exact only for N = 2; higher N uses the same ``sqrt(1 - rho)`` scaling on the
+    iid expectation, which is an approximation and is labelled as one.
+    """
+    if not 0.0 <= rho < 1.0:
+        raise ValueError(f"rho must be in [0, 1), got {rho!r}")
+    if rounds_n < 1:
+        raise ValueError(f"rounds_n must be at least 1, got {rounds_n}")
+    if rounds_n == 1:
+        return 0.0
+    effective = score_sd * math.sqrt(1.0 - rho)
+    if rounds_n == 2:
+        return effective / math.sqrt(math.pi)
+    # E[max of n iid standard normals], Blom's approximation.
+    alpha = 0.375
+    from statistics import NormalDist
+    expected_max = NormalDist().inv_cdf((rounds_n - alpha) / (rounds_n - 2 * alpha + 1))
+    return effective * expected_max
+
+
+def conditional_gain(pmf: np.ndarray, realised: int) -> float:
+    """``E[(X - realised)+]`` — what a second round is worth given the first.
+
+    This is the round-2 objective, and it is **not** the mean. Best-of-2 makes
+    round 2 a call option struck at the realised round-1 score: only the excess
+    counts, everything below is discarded. So a **low** round 1 argues for the
+    safe strategy (any competent run beats it) and a **high** round 1 argues for
+    the aggressive one (only the tail can beat it) — the opposite of the naive
+    reading, in which round 2 is simply another draw.
+
+    Requires that the program may differ between rounds, which S4 §9.3 permits
+    only during practice time — open until the organizer confirms whether a
+    practice block sits between the two rounds.
+    """
+    scores = np.arange(pmf.size)
+    excess = np.clip(scores - realised, 0, None)
+    return float(excess @ pmf)
 
 
 def breakeven_p_collision(with_mission: np.ndarray, without_mission: np.ndarray,

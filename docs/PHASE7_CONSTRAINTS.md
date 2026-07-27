@@ -153,6 +153,55 @@ catastrophic. Any deployable mechanism must be captive.
 
 ---
 
+## 6b · Two chapter-5 rules that constrain the chassis, not the software
+
+Both are cited in `docs/citations.json` and neither had a design consumer until now.
+
+### The start/stop button — §5.2.6 is a *layout* requirement
+
+> *"One (1) obviously recognizable button is needed to start and stop the robot. This means the
+> same button, that is used to start the robot, stops the robot as well. The button has to be
+> placed on the **outer side of the robot (not below)** and needs to be easily identifiable and
+> accessible. A physical button is preferred over a button on a touch screen. When the button is
+> pressed during the run, **every movement has to stop immediately**. Exception: The separate stop
+> button of the EV3 can be used to stop a program as well."* — S4 §5.2.6, p6
+
+| requirement | what it forces on the build |
+|---|---|
+| **one** button, start **and** stop | not two buttons, and not "start on A, stop on B" |
+| **outer side, not below** | a hub buried inside the chassis or mounted face-down **fails inspection**. The hub's orientation is fixed by this before any wiring argument. |
+| easily identifiable **and accessible** | a judge must reach it with the robot on the table, so no attachment may overhang it in any deployed state |
+| physical **preferred** over touch screen | preference, not prohibition — but it argues against relying on a SPIKE screen tap |
+| every movement stops **immediately** | the stop path cannot be "set a flag and let the current mission step finish". It has to interrupt. |
+
+**This rule creates a real platform asymmetry, and it is the first one found.** The exception —
+*"The separate stop button of the EV3 can be used to stop a program as well"* — is granted to
+**EV3 only**. It is named nowhere else in chapter 5, so it is an input to the B1 platform
+decision, not a detail.
+
+**The two-controller case** (§5.4 permits *"controller(s)"*, plural) is where this bites hardest:
+two hubs mean two physical buttons, and §5.2.6 allows exactly **one**. So a two-controller design
+must make the second hub's button non-functional as a start/stop control and route everything
+through one button — which is a *wiring and firmware* obligation, not a labelling one, given the
+"every movement has to stop immediately" clause. **A two-controller build carries this cost; a
+one-controller build does not.**
+
+### Wheels — §5.2.9
+
+> *"Any kind of wheels (including omni wheels) or tracks can be used. Contact with the mat must be
+> such that the mat is not damaged. In particular, **pointed and metallic contact surfaces must be
+> avoided**. Wheels are not allowed to leave **sticky material** on the field."* — S4 §5.2.9, p6
+
+**Omni wheels are explicitly permitted**, which is not obvious and is worth knowing before the
+drivetrain is chosen — a holonomic base is legal.
+
+The prohibitions bound the **traction** side of the trade, and they connect directly to MEAS-5:
+the anti-slip cleat specified there is a *bench-measurement fixture*, and this rule is why it must
+**never** migrate onto the robot. Tape residue on the mat is exactly the "sticky material" §5.2.9
+forbids. Grip has to come from wheel compound and normal load, not from anything adhesive.
+
+---
+
 ## 7 · Placement tolerance — what the gripper actually has to hit
 
 `MEASURED(S3)`, 2026-07-26. The six notes, `mic` and `instrument_guitar` share one base:

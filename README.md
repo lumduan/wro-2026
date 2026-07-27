@@ -12,12 +12,17 @@ accuracy each mission demands and the expected score as a function of that accur
 derived and tested. What remains is measurement on real hardware, ordered by leverage in
 [`docs/HARDWARE_SESSION.md`](docs/HARDWARE_SESSION.md).
 
-**Seven questions outrank the measurements**, and they are questions rather than tasks: five open
-ambiguities routed to the official Q&A and two never asked of the National Organizer. They cost
-minutes, and two of them decide *what to optimise* rather than how precisely — S4 §10.13 makes
-the ranking depend on a tournament format nobody has confirmed, and under best-of-N the objective
-becomes `E[max of N]`, which rewards variance. All seven are drafted, ordered by magnitude, with
-fallbacks, in **[`docs/QUESTIONS.md`](docs/QUESTIONS.md)**.
+**Ten questions outrank the measurements**, and they are questions rather than tasks: six routed
+to the official Q&A and four never asked of the National Organizer. They cost minutes. All ten
+are drafted, ordered by magnitude, with fallbacks, in
+**[`docs/QUESTIONS.md`](docs/QUESTIONS.md)**.
+
+**The tournament format is confirmed — 2 rounds, best single round counts** (ADR-037), so the
+objective is `E[max(X₁,X₂)]` rather than `E[score]`. That **narrows** the earlier "extra rounds
+reward variance" finding: only *independent* variance re-rolls between rounds, and at correlation
+ρ = 0.9 the premium collapses from +8.5 points to +2.7. Systematic error is pure cost. `P(score >
+t)` is now the primary metric, because round 2 is an option struck at the round-1 score and a
+mean collapses the tail it trades on.
 
 ---
 
@@ -33,6 +38,13 @@ documents. Download them from the WRO website and drop them in `docs/`:
 | `WRO-2026-GameMat-Elementary-Printing-File.pdf` | S2 — all field geometry | `8d58381fdcd9bc1784ae893e5b133707ca81f19aff51e31ca41c02276466c4d9` |
 | `WRO-2026-RM-Elementary-BI-All.pdf` | S3 — game-object dimensions | `ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a` |
 | `WRO-2026-RoboMission-General-Rules.pdf` | S4 — robot limits, run procedure, table setup | `90a28d8bf77f628227e5f544ec57b5230d620f3ae581f092bed1fda23de9e795` |
+
+**S4 re-verified against source, 2026-07-27.** Fetched from
+`https://wro-association.org/wp-content/uploads/WRO-2026-RoboMission-General-Rules.pdf` and
+compared byte-for-byte with the committed copy: **identical** — 3 967 741 bytes, sha256 as above.
+The document's own version string is **"VERSION: JANUARY 15TH 2026"**, which is later than the
+`UPDATED-2025-12-16` revision also in circulation, so this is the current one. 31 pages;
+**Attachment B and Attachment D are referenced but not included** (ADR-036).
 
 **S6** is the official Q&A at `wro-association.org/competition/questions-answers/`. It sits
 **above** S1 and S4 in the precedence hierarchy (S4 §4.4) and is live and unversioned, so it
@@ -81,10 +93,11 @@ fill inventory, the report and the decision records — is committed.
 | `docs/DECISIONS.md` | ADRs: context → options → decision → consequence. |
 | `docs/plans/ROADMAP.md` | Phase dependency diagram and status. |
 | `docs/HARDWARE_SESSION.md` | **The current work order** — every measurement, ordered by what it unblocks. |
-| `docs/QUESTIONS.md` | **The seven unasked questions** — five for the official Q&A, two for the National Organizer — ordered by magnitude, each with a fallback and its consequence-if-wrong. |
+| `docs/QUESTIONS.md` | **The ten unasked questions** — six for the official Q&A, four for the National Organizer — ordered by magnitude, each with a fallback and its consequence-if-wrong. |
 | `docs/MEASUREMENT_PROTOCOL.md` | How to run MEAS-1…5: resolutions, repeat counts with the arithmetic, the destination field for every number, proxies decided in advance. |
 | `docs/B1_PROCEDURE.md` | Minimum viable chassis for B1, throwaway parts named, pass/fail without interpretation, and the one-or-two-implementations decision rule. |
 | `docs/BRIEF_SYNC.md` | Where the project-level instructions have drifted from the repo — every stale fact, its current value, its source, and whether it will decay again. |
+| `docs/RUN_PROCEDURE.md` | What happens on the day — S4 chapters 8–10, quoted with rule numbers: the practice→quarantine→round cycle, how an attempt ends, and the surprise elements. |
 | `docs/PHASE7_CONSTRAINTS.md` | Robot-design constraints, recorded before a chassis is chosen. |
 | `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
 | `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |
@@ -106,7 +119,7 @@ fill inventory, the report and the decision records — is committed.
 | `manipulator_requirements.json` | Grip span, yaw tolerance, handling classes, the motor budget | `build_manipulator_requirements.py` |
 | `strategy_frame.json` | Travel cost and bonus-points-at-risk per mission | `build_strategy_frame.py` |
 | `expected_score.json` | E[score] as a function of σ and P(collision) — the **N = 1** case | `build_expected_score.py` |
-| `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, and the S4 §10.14 mulligan rule (ADR-027) | `build_round_strategy.py` |
+| `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, survival curves, the correlation-split premium and the conditional round-2 option at the **confirmed N = 2** (ADR-027, ADR-037) | `build_round_strategy.py` |
 | `travel_budget.json` | Tour length per carry capacity — the six notes over all 24 randomization permutations (ADR-029), and the full ten-mission run over 384 joint start states with the pick-and-place cliff (ADR-030) | `build_travel_budget.py` |
 | `feasibility_frontier.json` | Which missions fit in 120 s at a given driving speed and pick-and-place time, and what they score (ADR-031) | `build_feasibility_frontier.py` |
 | `parameter_sensitivity.json` | The end-to-end score, and every unmeasured parameter ranked by how far it moves it — the measurement order (ADR-032) | `build_parameter_sensitivity.py` |

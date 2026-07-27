@@ -113,7 +113,10 @@ def test_the_bench_block_uses_no_ambiguity_ids(session: str):
     """
     assert not re.search(r"^### A\d+ ·", session, re.M), \
         "work items must be MEAS-n, never An — see ADR-033"
-    assert len(re.findall(r"^### MEAS-\d ·", session, re.M)) == 5
+    # MEAS-6 (robot mass, S4 5.2.1) joined on 2026-07-27. Unlike 1-5 it has a
+    # precondition — a chassis must exist — and it is a recurring gate, so it is
+    # deliberately NOT in MEASUREMENT_PROTOCOL.md, which is the bench session.
+    assert len(re.findall(r"^### MEAS-\d ·", session, re.M)) == 6
 
 
 def test_the_bench_block_is_marked_as_needing_no_robot(session: str):

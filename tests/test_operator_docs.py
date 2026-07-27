@@ -16,6 +16,7 @@ not wait for replies.
 from __future__ import annotations
 
 import json
+import math
 import re
 from pathlib import Path
 
@@ -26,8 +27,10 @@ QUESTIONS = ROOT / "docs" / "QUESTIONS.md"
 PROTOCOL = ROOT / "docs" / "MEASUREMENT_PROTOCOL.md"
 B1 = ROOT / "docs" / "B1_PROCEDURE.md"
 
-#: Every open ambiguity routed to S6, plus the two organizer questions.
-EXPECTED_ASKS = 7
+#: Every open ambiguity routed to S6, plus the four organizer questions, plus
+#: the three added on 2026-07-27 (Thailand's game rules, the technical summary,
+#: the tie-break-within-a-tie). The round-count question retired: confirmed.
+EXPECTED_ASKS = 10
 
 
 @pytest.fixture(scope="module")
@@ -45,7 +48,7 @@ def sections(questions: str) -> list[str]:
 # --------------------------------------------------------------------------- #
 
 
-def test_there_are_seven_questions(sections: list[str]):
+def test_the_question_count_is_pinned(sections: list[str]):
     assert len(sections) == EXPECTED_ASKS
 
 
@@ -394,3 +397,162 @@ def test_b1_gives_a_log_schema():
     assert "docs/b1_results.json" in text
     assert "semantic_differences" in text
     assert "implementations_needed" in text
+
+
+# --------------------------------------------------------------------------- #
+# ADR-037 — best-of-2 confirmed. These guards exist to stop the two mistakes
+# the rework was made to fix: the wrong quantity in sigma/sqrt(pi), and rho
+# silently defaulting to zero.
+# --------------------------------------------------------------------------- #
+
+ROUND_STRATEGY = ROOT / "data" / "round_strategy.json"
+AMBIGUITIES = ROOT / "docs" / "AMBIGUITIES.md"
+
+
+@pytest.fixture(scope="module")
+def round_strategy() -> dict:
+    return json.loads(ROUND_STRATEGY.read_text(encoding="utf-8"))
+
+
+def _row(strategy: dict, reading: str, block: str, sigma: float = 20.0) -> dict:
+    return next(r for r in strategy["readings"][reading][block] if r["sigma_mm"] == sigma)
+
+
+def test_the_premium_uses_the_score_sd_not_the_placement_sigma(round_strategy):
+    """The exact figure and sd/sqrt(pi) must agree; sigma_mm/sqrt(pi) does not.
+
+    At placement sigma = 20 mm the score sd is ~15.1 points. Feeding 20 into the
+    closed form gives +11.28 against an exact +8.41 — a third too high. This is
+    the arithmetic error ADR-037 exists to prevent recurring.
+    """
+    dist = _row(round_strategy, "contact", "distribution")
+    best = _row(round_strategy, "contact", "best_of")
+    exact = next(c for c in best["at_n"] if c["n"] == 2)["premium_over_single_attempt"]
+    closed = next(c for c in best["premium_at_rho"] if c["rho"] == 0.0)["premium"]
+    assert abs(closed - exact) / exact < 0.02, (closed, exact)
+
+    wrong = dist["sigma_mm"] / math.sqrt(math.pi)
+    assert abs(wrong - exact) / exact > 0.25, \
+        "the placement sigma must NOT reproduce the premium — that is the bug"
+
+
+def test_correlation_collapses_the_premium(round_strategy):
+    """Systematic variance is pure cost. rho = 0.9 must leave almost nothing."""
+    best = _row(round_strategy, "contact", "best_of")
+    at = {c["rho"]: c["premium"] for c in best["premium_at_rho"]}
+    assert at[0.9] < 3.0, at
+    assert at[0.0] / at[0.9] > 3.0, "the rho = 0 default must be visibly optimistic"
+    assert at[0.0] > at[0.5] > at[0.9], "the premium must fall monotonically in rho"
+
+
+def test_round_two_is_priced_as_an_option(round_strategy):
+    """E[(X - S1)+] must fall as the realised round-1 score rises."""
+    for reading in round_strategy["readings"]:
+        best = _row(round_strategy, reading, "best_of")
+        worth = [c["round_2_worth"] for c in best["conditional_round_2"]]
+        assert worth == sorted(worth, reverse=True), (reading, worth)
+        assert worth[0] > worth[-1], reading
+
+
+def test_survival_is_emitted_and_monotone(round_strategy):
+    for reading, block in round_strategy["readings"].items():
+        for row in block["distribution"]:
+            ps = [c["p"] for c in row["survival"]]
+            assert ps == sorted(ps, reverse=True), (reading, row["sigma_mm"])
+            assert all(0.0 <= x <= 1.0 for x in ps)
+
+
+def test_the_round_count_is_recorded_as_confirmed(round_strategy):
+    scope = round_strategy["scope"]
+    assert scope["n"] == 2 and scope["n_is_not_known"] is False
+    assert "operator" in scope["n_source"].lower()
+    assert scope["rho_is_not_measured"] is True, "rho is NOT measured and must say so"
+
+
+def test_the_safe_default_for_rho_is_high_not_zero(round_strategy):
+    """The one default whose safe direction inverts under best-of-2."""
+    register = AMBIGUITIES.read_text(encoding="utf-8")
+    assert "safe default for ρ is HIGH" in register
+    assert "overstates the premium" in register
+    assert "overstates" in round_strategy["scope"]["rho_source"].lower()
+
+
+def test_the_sigma_direction_audit_covers_every_open_default():
+    """Each open ambiguity must be classified as touching sd or not."""
+    register = AMBIGUITIES.read_text(encoding="utf-8")
+    audit = register.split("σ-direction audit", 1)[1].split("## Detail", 1)[0]
+    open_ids = set(re.findall(r"^\| (A\d+) \| \*\*OPEN\*\*", register, re.M))
+    for ambiguity in open_ids:
+        assert f"**{ambiguity}**" in audit or f"| {ambiguity} " in audit, \
+            f"{ambiguity} is open but was not audited for sigma-direction"
+
+
+def test_the_variance_claim_is_narrowed_to_independent_variance(round_strategy):
+    """ADR-027 said 'extra rounds reward variance'. Only INDEPENDENT variance."""
+    why = round_strategy["formula"]["why_variance_matters"]
+    assert "INDEPENDENT" in why
+    assert "Systematic variance is pure cost" in why
+
+
+# --------------------------------------------------------------------------- #
+# S4 rules that do not exist, and rules that now have consumers
+# --------------------------------------------------------------------------- #
+
+#: Chapter 5 of S4 runs 5.1 / 5.2 / 5.2.1-5.2.22 / 5.3 / 5.4 and stops.
+#: These were asserted in a brief and are absent from the document (ADR-036).
+ABSENT_S4_RULES = tuple(f"5.{n}" for n in range(5, 14))
+
+
+#: Only an *S4* citation is a defect. CLAUDE.md has its own 5.x sections and
+#: this repo quotes them constantly, so the S4-ness has to be explicit or the
+#: guard fires on every "CLAUDE.md 5.7 anti-pattern" reference.
+ABSENT_S4_CITATION = re.compile(r"S4[^\n]{0,10}?§?5\.(?:5|6|7|8|9|1[0-3])(?![.\d])")
+
+
+def test_no_document_cites_a_chapter_5_rule_that_does_not_exist():
+    """Chapter 5 ends at 5.4. Inventing a rule is worse than misquoting one."""
+    for path in sorted((ROOT / "docs").glob("*.md")):
+        # these three name the absent numbers precisely in order to say they are absent
+        if path.name in {"DECISIONS.md", "RUN_PROCEDURE.md", "BRIEF_SYNC.md"}:
+            continue
+        hits = ABSENT_S4_CITATION.findall(path.read_text(encoding="utf-8"))
+        assert not hits, f"{path.name} cites an S4 chapter-5 rule that does not exist"
+
+
+def test_the_guard_would_actually_catch_a_fabricated_rule():
+    """A guard that cannot fail is not a guard."""
+    assert ABSENT_S4_CITATION.search("wireless off during runs — S4 §5.9")
+    assert not ABSENT_S4_CITATION.search("CLAUDE.md 5.7 anti-pattern #3")
+    assert not ABSENT_S4_CITATION.search("S4 §5.2.9 wheels and tracks")
+    assert not ABSENT_S4_CITATION.search("S4 §5.4 one full robot")
+
+
+def test_the_button_rule_reached_the_chassis_constraints():
+    text = (ROOT / "docs" / "PHASE7_CONSTRAINTS.md").read_text(encoding="utf-8")
+    assert "5.2.6" in text and "outer side" in text
+    assert "separate stop button of the EV3" in text, "the platform asymmetry must be named"
+    assert "5.2.9" in text and "sticky material" in text
+    assert "omni" in text.lower(), "omni wheels are explicitly permitted and worth knowing"
+
+
+def test_the_mass_limit_has_a_measurement_and_is_a_gate():
+    text = (ROOT / "docs" / "HARDWARE_SESSION.md").read_text(encoding="utf-8")
+    assert "MEAS-6" in text and "1500 g" in text
+    assert "robot_mass_g" in text
+    assert "gate" in text.lower(), "mass is checked repeatedly, not once"
+
+
+def test_chapter_6_is_tracked_outside_the_255():
+    text = (ROOT / "docs" / "HARDWARE_SESSION.md").read_text(encoding="utf-8")
+    assert "technical summary" in text.lower()
+    assert "two (2) DIN A4 page" in text, "two pages, not one"
+    assert "Attachment B" in text
+    assert "not folded into" in text or "outside the 255" in text
+
+
+def test_b1_separates_the_contract_question_from_the_platform_decision():
+    text = B1.read_text(encoding="utf-8")
+    assert "5.4" in text and "one full robot" in text
+    assert "Which platform competes?" in text
+    assert "before the twelve mission programs are written" in text
+

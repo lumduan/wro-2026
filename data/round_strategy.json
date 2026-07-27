@@ -2,11 +2,14 @@
   "formula": {
     "breakeven_is_marginal_and_does_not_add_up": "Each figure holds the rest of the run fixed and asks what P(collision) makes THIS mission stop paying, assuming it is the only reason the robot approaches its bonus cluster. Six missions share the 30-point stage cluster and six notes share the 10-point clef, so a route that attempts several of them risks that cluster ONCE, not once per mission. Summing these numbers over a route is wrong; costing the route needs B0. expected_score.json's per-mission break-evens carry the same restriction and do not state it.",
     "breakeven_method": "bisection on P(collision), comparing E[max] of the run with the mission against the run without it. At N = 1 this reduces to the closed form in expected_score.json, E[points] / bonus_points_exposed.",
+    "conditional_round_2": "E[max(X1, X2)] = E[X1] + E[(X2 - S1)+], so round 2 is a call option struck at the realised round-1 score S1: only the excess counts. A LOW round 1 argues for the SAFE strategy (almost anything beats it, so maximise P(beat S1)); a HIGH round 1 argues for the AGGRESSIVE one (only the tail can beat it). GATED: S4 9.3 permits code changes only during practice times, so switching needs a practice block BETWEEN the two rounds, which S4 does not promise.",
+    "correlation_decomposition": "premium = sd * sqrt(1 - rho) / sqrt(pi) for N = 2, where sd is the SCORE standard deviation in POINTS, not the placement error in mm. Those are different quantities in different units: at placement sigma = 20 mm the score sd is 15.11 points, and using 20 in the formula overstates the premium by a third.",
     "mulligan_free_rule": "Under best-of-N a round at or below your running best contributes nothing, so replacing it is weakly dominant — free. A run that does nothing scores exactly the 40-point bonus floor, so a 40 is always free to retake. AMBIGUITY(A10) qualifies this.",
     "mulligan_gamble_rule": "Above the running best, retake iff realised < E[max(running_best, fresh)] — the threshold tabulated per sigma.",
     "objective": "E[max(X1..XN)], from P(max <= k) = P(X <= k)**N",
     "single_attempt_case": "N = 1 reduces to E[X], the Phase 8 objective",
-    "why_variance_matters": "E[max of N] is convex in the score distribution, so at equal means a wider distribution ranks higher. The premium grows with sigma, which means extra rounds reward the less precise, more ambitious strategy — the opposite of the single-attempt reading."
+    "survival_is_primary": "P(score > t) is the primary metric under best-of-2, above the mean. A mean collapses the tail to one number and the tail is exactly what round 2 trades on.",
+    "why_variance_matters": "E[max of N] is convex in the score distribution, so at equal means a wider distribution ranks higher. But ONLY INDEPENDENT variance is rewarded: two rounds share one robot, one program and one calibration, so a systematic component repeats identically in both. Systematic variance is pure cost with no best-of-2 upside — it lowers the mean and does not re-roll. ADR-037 narrows ADR-027 here."
   },
   "provenance": {
     "inputs": {
@@ -20,7 +23,7 @@
     ],
     "tool": {
       "name": "build_round_strategy",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   },
   "readings": {
@@ -44,6 +47,26 @@
               "premium_over_single_attempt": 0.0
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 0.0
         },
         {
@@ -62,6 +85,26 @@
               "e_max": 255.0,
               "n": 3,
               "premium_over_single_attempt": 0.0
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 1.0
@@ -84,6 +127,26 @@
               "premium_over_single_attempt": 0.0
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 2.0
         },
         {
@@ -104,6 +167,26 @@
               "premium_over_single_attempt": 0.0
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 3.0
         },
         {
@@ -122,6 +205,26 @@
               "e_max": 255.0,
               "n": 3,
               "premium_over_single_attempt": 0.0
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 5.0
@@ -144,6 +247,26 @@
               "premium_over_single_attempt": 0.31
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.991,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.701,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.313,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 7.5
         },
         {
@@ -162,6 +285,30 @@
               "e_max": 254.77,
               "n": 3,
               "premium_over_single_attempt": 3.04
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 245,
+              "round_2_worth": 7.16
+            },
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 3.157,
+              "rho": 0.0
+            },
+            {
+              "premium": 2.232,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.998,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 10.0
@@ -184,6 +331,34 @@
               "premium_over_single_attempt": 9.8
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 215,
+              "round_2_worth": 20.784
+            },
+            {
+              "round_1_scored": 235,
+              "round_2_worth": 4.926
+            },
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 6.913,
+              "rho": 0.0
+            },
+            {
+              "premium": 4.888,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.186,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 15.0
         },
         {
@@ -202,6 +377,34 @@
               "e_max": 228.824,
               "n": 3,
               "premium_over_single_attempt": 12.505
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 195,
+              "round_2_worth": 21.842
+            },
+            {
+              "round_1_scored": 215,
+              "round_2_worth": 6.556
+            },
+            {
+              "round_1_scored": 235,
+              "round_2_worth": 0.582
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 8.527,
+              "rho": 0.0
+            },
+            {
+              "premium": 6.029,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.696,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 20.0
@@ -224,6 +427,34 @@
               "premium_over_single_attempt": 14.367
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 165,
+              "round_2_worth": 20.666
+            },
+            {
+              "round_1_scored": 185,
+              "round_2_worth": 6.525
+            },
+            {
+              "round_1_scored": 205,
+              "round_2_worth": 0.9
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 9.674,
+              "rho": 0.0
+            },
+            {
+              "premium": 6.841,
+              "rho": 0.5
+            },
+            {
+              "premium": 3.059,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 30.0
         },
         {
@@ -244,6 +475,34 @@
               "premium_over_single_attempt": 15.873
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 125,
+              "round_2_worth": 26.329
+            },
+            {
+              "round_1_scored": 150,
+              "round_2_worth": 7.844
+            },
+            {
+              "round_1_scored": 175,
+              "round_2_worth": 0.842
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 10.592,
+              "rho": 0.0
+            },
+            {
+              "premium": 7.49,
+              "rho": 0.5
+            },
+            {
+              "premium": 3.349,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 45.0
         }
       ],
@@ -255,7 +514,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 0.0
+          "sigma_mm": 0.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 255.0,
@@ -264,7 +549,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 1.0
+          "sigma_mm": 1.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 255.0,
@@ -273,7 +584,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 2.0
+          "sigma_mm": 2.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 255.0,
@@ -282,7 +619,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 3.0
+          "sigma_mm": 3.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 255.0,
@@ -291,7 +654,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 5.0
+          "sigma_mm": 5.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 254.69,
@@ -300,7 +689,33 @@
           "p90": 255,
           "p_max_score": 0.969,
           "sd": 1.757,
-          "sigma_mm": 7.5
+          "sigma_mm": 7.5,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 251.731,
@@ -309,7 +724,33 @@
           "p90": 255,
           "p_max_score": 0.716,
           "sd": 5.595,
-          "sigma_mm": 10.0
+          "sigma_mm": 10.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 0.96,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 235.475,
@@ -318,7 +759,33 @@
           "p90": 255,
           "p_max_score": 0.108,
           "sd": 12.253,
-          "sigma_mm": 15.0
+          "sigma_mm": 15.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 0.996,
+              "score_above": 200
+            },
+            {
+              "p": 0.384,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 216.319,
@@ -327,7 +794,33 @@
           "p90": 235,
           "p_max_score": 0.007,
           "sd": 15.114,
-          "sigma_mm": 20.0
+          "sigma_mm": 20.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 0.858,
+              "score_above": 200
+            },
+            {
+              "p": 0.051,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 184.676,
@@ -336,7 +829,33 @@
           "p90": 205,
           "p_max_score": 0.0,
           "sd": 17.147,
-          "sigma_mm": 30.0
+          "sigma_mm": 30.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 0.919,
+              "score_above": 160
+            },
+            {
+              "p": 0.18,
+              "score_above": 200
+            },
+            {
+              "p": 0.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 150.657,
@@ -345,7 +864,33 @@
           "p90": 175,
           "p_max_score": 0.0,
           "sd": 18.774,
-          "sigma_mm": 45.0
+          "sigma_mm": 45.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 0.937,
+              "score_above": 120
+            },
+            {
+              "p": 0.285,
+              "score_above": 160
+            },
+            {
+              "p": 0.004,
+              "score_above": 200
+            },
+            {
+              "p": 0.0,
+              "score_above": 240
+            }
+          ]
         }
       ],
       "missions": [
@@ -3256,6 +3801,26 @@
               "premium_over_single_attempt": 0.0
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 0.0
         },
         {
@@ -3274,6 +3839,26 @@
               "e_max": 255.0,
               "n": 3,
               "premium_over_single_attempt": 0.0
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.0,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.0,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 1.0
@@ -3296,6 +3881,26 @@
               "premium_over_single_attempt": 0.01
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 0.178,
+              "rho": 0.0
+            },
+            {
+              "premium": 0.126,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.056,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 2.0
         },
         {
@@ -3314,6 +3919,26 @@
               "e_max": 254.996,
               "n": 3,
               "premium_over_single_attempt": 0.726
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 1.515,
+              "rho": 0.0
+            },
+            {
+              "premium": 1.071,
+              "rho": 0.5
+            },
+            {
+              "premium": 0.479,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 3.0
@@ -3336,6 +3961,34 @@
               "premium_over_single_attempt": 6.362
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 235,
+              "round_2_worth": 11.757
+            },
+            {
+              "round_1_scored": 245,
+              "round_2_worth": 3.891
+            },
+            {
+              "round_1_scored": 255,
+              "round_2_worth": 0.0
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 4.879,
+              "rho": 0.0
+            },
+            {
+              "premium": 3.45,
+              "rho": 0.5
+            },
+            {
+              "premium": 1.543,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 5.0
         },
         {
@@ -3354,6 +4007,34 @@
               "e_max": 243.462,
               "n": 3,
               "premium_over_single_attempt": 9.585
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 215,
+              "round_2_worth": 19.151
+            },
+            {
+              "round_1_scored": 235,
+              "round_2_worth": 3.939
+            },
+            {
+              "round_1_scored": 245,
+              "round_2_worth": 0.757
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 6.672,
+              "rho": 0.0
+            },
+            {
+              "premium": 4.718,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.11,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 7.5
@@ -3376,6 +4057,34 @@
               "premium_over_single_attempt": 10.69
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 205,
+              "round_2_worth": 17.539
+            },
+            {
+              "round_1_scored": 225,
+              "round_2_worth": 3.623
+            },
+            {
+              "round_1_scored": 235,
+              "round_2_worth": 0.899
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 7.281,
+              "rho": 0.0
+            },
+            {
+              "premium": 5.149,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.302,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 10.0
         },
         {
@@ -3394,6 +4103,34 @@
               "e_max": 215.616,
               "n": 3,
               "premium_over_single_attempt": 10.771
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 185,
+              "round_2_worth": 20.03
+            },
+            {
+              "round_1_scored": 205,
+              "round_2_worth": 4.839
+            },
+            {
+              "round_1_scored": 225,
+              "round_2_worth": 0.307
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 7.277,
+              "rho": 0.0
+            },
+            {
+              "premium": 5.145,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.301,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 15.0
@@ -3416,6 +4153,34 @@
               "premium_over_single_attempt": 10.359
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 175,
+              "round_2_worth": 17.455
+            },
+            {
+              "round_1_scored": 195,
+              "round_2_worth": 3.466
+            },
+            {
+              "round_1_scored": 205,
+              "round_2_worth": 0.936
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 7.002,
+              "rho": 0.0
+            },
+            {
+              "premium": 4.951,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.214,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 20.0
         },
         {
@@ -3434,6 +4199,34 @@
               "e_max": 183.734,
               "n": 3,
               "premium_over_single_attempt": 10.161
+            }
+          ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 155,
+              "round_2_worth": 18.852
+            },
+            {
+              "round_1_scored": 175,
+              "round_2_worth": 3.943
+            },
+            {
+              "round_1_scored": 185,
+              "round_2_worth": 1.048
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 6.917,
+              "rho": 0.0
+            },
+            {
+              "premium": 4.891,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.187,
+              "rho": 0.9
             }
           ],
           "sigma_mm": 30.0
@@ -3456,6 +4249,34 @@
               "premium_over_single_attempt": 12.425
             }
           ],
+          "conditional_round_2": [
+            {
+              "round_1_scored": 130,
+              "round_2_worth": 20.425
+            },
+            {
+              "round_1_scored": 150,
+              "round_2_worth": 5.808
+            },
+            {
+              "round_1_scored": 165,
+              "round_2_worth": 0.989
+            }
+          ],
+          "premium_at_rho": [
+            {
+              "premium": 8.442,
+              "rho": 0.0
+            },
+            {
+              "premium": 5.969,
+              "rho": 0.5
+            },
+            {
+              "premium": 2.67,
+              "rho": 0.9
+            }
+          ],
           "sigma_mm": 45.0
         }
       ],
@@ -3467,7 +4288,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 0.0
+          "sigma_mm": 0.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 255.0,
@@ -3476,7 +4323,33 @@
           "p90": 255,
           "p_max_score": 1.0,
           "sd": 0.0,
-          "sigma_mm": 1.0
+          "sigma_mm": 1.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 254.99,
@@ -3485,7 +4358,33 @@
           "p90": 255,
           "p_max_score": 0.999,
           "sd": 0.316,
-          "sigma_mm": 2.0
+          "sigma_mm": 2.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 1.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 254.27,
@@ -3494,7 +4393,33 @@
           "p90": 255,
           "p_max_score": 0.929,
           "sd": 2.685,
-          "sigma_mm": 3.0
+          "sigma_mm": 3.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 0.998,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 246.26,
@@ -3503,7 +4428,33 @@
           "p90": 255,
           "p_max_score": 0.389,
           "sd": 8.647,
-          "sigma_mm": 5.0
+          "sigma_mm": 5.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 1.0,
+              "score_above": 200
+            },
+            {
+              "p": 0.787,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 233.876,
@@ -3512,7 +4463,33 @@
           "p90": 245,
           "p_max_score": 0.076,
           "sd": 11.825,
-          "sigma_mm": 7.5
+          "sigma_mm": 7.5,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 0.997,
+              "score_above": 200
+            },
+            {
+              "p": 0.318,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 222.095,
@@ -3521,7 +4498,33 @@
           "p90": 235,
           "p_max_score": 0.01,
           "sd": 12.905,
-          "sigma_mm": 10.0
+          "sigma_mm": 10.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 0.96,
+              "score_above": 200
+            },
+            {
+              "p": 0.08,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 204.845,
@@ -3530,7 +4533,33 @@
           "p90": 225,
           "p_max_score": 0.0,
           "sd": 12.898,
-          "sigma_mm": 15.0
+          "sigma_mm": 15.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 1.0,
+              "score_above": 160
+            },
+            {
+              "p": 0.637,
+              "score_above": 200
+            },
+            {
+              "p": 0.004,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 192.187,
@@ -3539,7 +4568,33 @@
           "p90": 205,
           "p_max_score": 0.0,
           "sd": 12.411,
-          "sigma_mm": 20.0
+          "sigma_mm": 20.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 0.998,
+              "score_above": 160
+            },
+            {
+              "p": 0.252,
+              "score_above": 200
+            },
+            {
+              "p": 0.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 173.573,
@@ -3548,7 +4603,33 @@
           "p90": 185,
           "p_max_score": 0.0,
           "sd": 12.261,
-          "sigma_mm": 30.0
+          "sigma_mm": 30.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 1.0,
+              "score_above": 120
+            },
+            {
+              "p": 0.86,
+              "score_above": 160
+            },
+            {
+              "p": 0.016,
+              "score_above": 200
+            },
+            {
+              "p": 0.0,
+              "score_above": 240
+            }
+          ]
         },
         {
           "mean": 149.694,
@@ -3557,7 +4638,33 @@
           "p90": 165,
           "p_max_score": 0.0,
           "sd": 14.963,
-          "sigma_mm": 45.0
+          "sigma_mm": 45.0,
+          "survival": [
+            {
+              "p": 1.0,
+              "score_above": 40
+            },
+            {
+              "p": 1.0,
+              "score_above": 80
+            },
+            {
+              "p": 0.961,
+              "score_above": 120
+            },
+            {
+              "p": 0.224,
+              "score_above": 160
+            },
+            {
+              "p": 0.0,
+              "score_above": 200
+            },
+            {
+              "p": 0.0,
+              "score_above": 240
+            }
+          ]
         }
       ],
       "missions": [
@@ -6477,14 +7584,18 @@
     "s4_10_14": "Mulligan (optional element): The organizer of a competition may allow that teams can retake a round right on the spot after the run. If a team decides to redo the run the new score will be used for the ranking no matter what. This concept is optional and has to be announced by the organizer of an event upfront.",
     "s4_9_1_2": "A number of robot rounds."
   },
-  "schema_version": 1,
+  "schema_version": 2,
   "scope": {
     "answers": "the objective function under a best-of-N ranking, and when a S4 10.14 mulligan is worth taking",
     "does_not_answer": "which missions to attempt, or in what order",
     "independence_assumption": "AS-10",
     "missions_assumed_independent": true,
-    "n_is_not_known": true,
-    "n_source": "S4 10.13 makes the aggregation rule organizer-set and offers best-of-three only as an example. NEEDS-VERIFY(NO-TH).",
+    "n": 2,
+    "n_is_not_known": false,
+    "n_source": "Organizer reply relayed by the operator 2026-07-27: 2 rounds, best single round counts. S4 10.13 leaves the aggregation rule organizer-set, so this is the organizer exercising it. Recorded as an operator assertion; the written source is not yet in the repo.",
+    "n_still_emitted_parametrically": "Every row still carries all of DEFAULT_ROUND_COUNTS. N = 2 is the confirmed case to read, not a filter applied to the artefact — if the format is restated the other columns are already here.",
+    "rho_is_not_measured": true,
+    "rho_source": "Round-to-round repeatability of the same program on the same table. Work order B5 measures it; until then ADR-037 fixes the safe default at rho HIGH, because rho = 0 OVERSTATES the premium by 3.2x.",
     "sigma_is_not_measured": true,
     "sigma_source": "work order item B5 (field test P3) measures it",
     "why_not": "Subset selection needs the 120 s budget and a route; a route needs the object start poses, still nominal_pending for ten objects (work order B0). CLAUDE.md 5.7 anti-pattern #3."

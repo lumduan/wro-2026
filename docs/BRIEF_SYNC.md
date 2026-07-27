@@ -108,3 +108,27 @@ sed -n '/^## 5.1 Source ranking/,/^Rule:/p' CLAUDE.md   # S6 is row 1
 
 Anything in §1 or §2 can be re-derived the same way. If a row here is wrong, the repo is the
 arbiter — not this file.
+
+---
+
+## 5 · Drift recorded 2026-07-27 (S4 re-verification and the best-of-2 brief)
+
+Same rule as §1–2: current value, its source, and whether it will decay again.
+
+| brief said | repo says | source | decays again? |
+|---|---|---|---|
+| S4 §5.5–§5.13 carry offline-software, SD-card, wireless and documentation rules | **§5.5–§5.13 do not exist.** Chapter 5 is `5.1 · 5.2 · 5.2.1…5.2.22 · 5.3 · 5.4` | the PDF itself, enumerated | **no** — a structural fact, and `tests/test_operator_docs.py` now fails if any doc cites one |
+| wireless-off lives at §5.9 | **§9.7**, in the quarantine procedure — *"Before the robot is placed in quarantine… Any wireless communication has to be turned off"* | S4 §9.7 | no |
+| §5.2.9 is a general prohibition | §5.2.9 is titled **"Wheels and tracks"** and carries the pointed/metallic/sticky clause. It also **explicitly permits omni wheels** | S4 §5.2.9 p6 | no |
+| the technical summary is one page | **two (2) DIN A4 page** — §6.2 | S4 §6.2 p9 | no |
+| S1 is dated Jan 15 2026 | **Jan 15 2026 is S4's** version string. The fetched copy is byte-identical to the committed one | S4 title page | no |
+| a larger actuator budget was assumed somewhere | **empty list.** ADR-022 already reasons from §5.2.8's 4-motor cap: *"A differential drive takes 2, leaving 2 for twelve objects"* | ADR-022, `manipulator_requirements.json:139` | no |
+| the premium is `σ/√π` with σ = 20 mm → **+11.28** | **+8.53** — σ there is the **score sd, 15.11 points**, not the placement error in mm. Exact figure **+8.41** | ADR-037, `round_strategy.json` | **no** — now guarded by `test_the_premium_uses_the_score_sd_not_the_placement_sigma` |
+| *"extra rounds reward variance"* (ADR-027, unqualified) | only **independent** variance. At ρ = 0.9 the premium falls to **+2.70**. Systematic variance is pure cost | ADR-037 | no |
+| Thailand follows the international rules | recorded as an **operator assertion** dated 2026-07-27, with two caveats, and it covers the **General Rules only** — the Game Rules (S1) became QUESTIONS.md #4 | ADR-036 | **yes** — upgrade it when the written source arrives |
+| 2 rounds, best single round counts | **applied**, and it is the one item in this table that *changed the repo* rather than correcting the brief | ADR-037 | **yes** — it is operator-relayed, not a document |
+
+**The 255 row from §1 is still not applied and is still not a correction.** 255 is the rule
+maximum and nothing corrects it; 225 is the ceiling of what `sim/model.py` can currently *route*,
+and B0 closes that gap. The two numbers answer different questions and neither replaces the other.
+

@@ -43,8 +43,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pdf_extract import R, json_bytes, sha256_file  # noqa: E402
 from sim import rounds  # noqa: E402
 
-TOOL_VERSION: Final = "1.0.0"
-SCHEMA_VERSION: Final = 1
+TOOL_VERSION: Final = "1.1.0"
+SCHEMA_VERSION: Final = 2
 
 DEFAULT_OUT: Final = Path("data/round_strategy.json")
 SPECS: Final = {
@@ -55,6 +55,17 @@ SPECS: Final = {
 #: Running-best anchors for the mulligan card. 40 is the bonus floor — the score
 #: of a round that did nothing — and the two quantiles bracket a plausible one.
 MULLIGAN_ANCHOR_QUANTILES: Final = (0.50, 0.90)
+
+#: A regular grid, deliberately not cherry-picked, for the survival curve
+#: P(score > t). Under best-of-2 the tail is what round 2 trades on, so the
+#: curve — not the mean — is the primary metric (ADR-037).
+SURVIVAL_THRESHOLDS: Final = (40, 80, 120, 160, 200, 240)
+
+#: Between-round correlation. Two rounds share one robot, one program and one
+#: calibration, so they are not iid: only the independent part re-rolls, and the
+#: best-of-2 premium scales by sqrt(1 - rho). rho is NOT measured — B5 measures
+#: it — and ADR-037 fixes the SAFE default at rho HIGH, not rho = 0.
+RHO_GRID: Final = (0.0, 0.5, 0.9)
 
 S4_RULES: Final = {
     "s4_9_1_2": "A number of robot rounds.",
@@ -132,13 +143,27 @@ def build() -> dict[str, Any]:
                 "p50": rounds.quantile(pmf, 0.50),
                 "p90": rounds.quantile(pmf, 0.90),
                 "p_max_score": R(float(pmf[maximum])),
+                "survival": [
+                    {"score_above": t, "p": R(float(rounds.survival(pmf)[t]))}
+                    for t in SURVIVAL_THRESHOLDS
+                ],
             })
+            sd = rounds.stdev(pmf)
             best_of.append({
                 "sigma_mm": R(sigma),
                 "at_n": [
                     {"n": n, "e_max": R(rounds.e_max(pmf, n)),
                      "premium_over_single_attempt": R(rounds.e_max(pmf, n) - mu)}
                     for n in rounds.DEFAULT_ROUND_COUNTS
+                ],
+                "premium_at_rho": [
+                    {"rho": R(rho),
+                     "premium": R(rounds.premium_with_correlation(sd, 2, rho))}
+                    for rho in RHO_GRID
+                ],
+                "conditional_round_2": [
+                    {"round_1_scored": s1, "round_2_worth": R(rounds.conditional_gain(pmf, s1))}
+                    for s1 in sorted({rounds.quantile(pmf, q) for q in (0.10, 0.50, 0.90)})
                 ],
             })
             anchors = [floor] + [rounds.quantile(pmf, q) for q in MULLIGAN_ANCHOR_QUANTILES]
@@ -197,10 +222,24 @@ def build() -> dict[str, Any]:
                 "the object start poses, still nominal_pending for ten objects "
                 "(work order B0). CLAUDE.md 5.7 anti-pattern #3."
             ),
-            "n_is_not_known": True,
+            "n_is_not_known": False,
+            "n": 2,
             "n_source": (
-                "S4 10.13 makes the aggregation rule organizer-set and offers "
-                "best-of-three only as an example. NEEDS-VERIFY(NO-TH)."
+                "Organizer reply relayed by the operator 2026-07-27: 2 rounds, best "
+                "single round counts. S4 10.13 leaves the aggregation rule "
+                "organizer-set, so this is the organizer exercising it. Recorded as "
+                "an operator assertion; the written source is not yet in the repo."
+            ),
+            "n_still_emitted_parametrically": (
+                "Every row still carries all of DEFAULT_ROUND_COUNTS. N = 2 is the "
+                "confirmed case to read, not a filter applied to the artefact — if "
+                "the format is restated the other columns are already here."
+            ),
+            "rho_is_not_measured": True,
+            "rho_source": (
+                "Round-to-round repeatability of the same program on the same table. "
+                "Work order B5 measures it; until then ADR-037 fixes the safe default "
+                "at rho HIGH, because rho = 0 OVERSTATES the premium by 3.2x."
             ),
             "sigma_is_not_measured": True,
             "sigma_source": "work order item B5 (field test P3) measures it",
@@ -214,9 +253,32 @@ def build() -> dict[str, Any]:
             "single_attempt_case": "N = 1 reduces to E[X], the Phase 8 objective",
             "why_variance_matters": (
                 "E[max of N] is convex in the score distribution, so at equal means "
-                "a wider distribution ranks higher. The premium grows with sigma, "
-                "which means extra rounds reward the less precise, more ambitious "
-                "strategy — the opposite of the single-attempt reading."
+                "a wider distribution ranks higher. But ONLY INDEPENDENT variance is "
+                "rewarded: two rounds share one robot, one program and one "
+                "calibration, so a systematic component repeats identically in both. "
+                "Systematic variance is pure cost with no best-of-2 upside — it "
+                "lowers the mean and does not re-roll. ADR-037 narrows ADR-027 here."
+            ),
+            "correlation_decomposition": (
+                "premium = sd * sqrt(1 - rho) / sqrt(pi) for N = 2, where sd is the "
+                "SCORE standard deviation in POINTS, not the placement error in mm. "
+                "Those are different quantities in different units: at placement "
+                "sigma = 20 mm the score sd is 15.11 points, and using 20 in the "
+                "formula overstates the premium by a third."
+            ),
+            "conditional_round_2": (
+                "E[max(X1, X2)] = E[X1] + E[(X2 - S1)+], so round 2 is a call option "
+                "struck at the realised round-1 score S1: only the excess counts. A "
+                "LOW round 1 argues for the SAFE strategy (almost anything beats it, "
+                "so maximise P(beat S1)); a HIGH round 1 argues for the AGGRESSIVE "
+                "one (only the tail can beat it). GATED: S4 9.3 permits code changes "
+                "only during practice times, so switching needs a practice block "
+                "BETWEEN the two rounds, which S4 does not promise."
+            ),
+            "survival_is_primary": (
+                "P(score > t) is the primary metric under best-of-2, above the mean. "
+                "A mean collapses the tail to one number and the tail is exactly what "
+                "round 2 trades on."
             ),
             "breakeven_method": (
                 "bisection on P(collision), comparing E[max] of the run with the "

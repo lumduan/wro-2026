@@ -41,6 +41,8 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-033](#adr-033) | `A1`–`A5` renamed to `MEAS-`; S6's scope stated; the seven questions drafted | accepted 2026-07-27 |
 | [ADR-034](#adr-034) | The tilt proxy measured friction, not centre of gravity | accepted 2026-07-27 |
 | [ADR-035](#adr-035) | Two ceilings (255 vs 225); the tiering premise was false; two more preconditions | accepted 2026-07-27 |
+| [ADR-036](#adr-036) | S4 re-verified at source; Thailand scope asserted; §5.5–5.13 do not exist | accepted 2026-07-27 |
+| [ADR-037](#adr-037) | Best-of-2 confirmed: only *independent* variance is an asset | accepted 2026-07-27 |
 
 ---
 
@@ -1930,3 +1932,194 @@ the fabricated 2 mm shim of the worked example. The derivation also assumes a fl
 the base, which several objects do not have; `cleat_contact_height_mm` and `cleat_contact_note`
 are now recorded per object, and an object whose contact is not on a vertical face is marked
 CoG-underivable rather than given a lever arm the formula does not fit.
+
+---
+
+## ADR-036
+
+**S4 re-verified at source; Thailand scope recorded as an assertion; §5.5–5.13 do not exist.**
+`2026-07-27 · accepted`
+
+### Part 1 — the document is current, and it is the one we hold
+
+Fetched from `wro-association.org/wp-content/uploads/WRO-2026-RoboMission-General-Rules.pdf` and
+compared byte-for-byte with the committed copy:
+
+| | |
+|---|---|
+| bytes | **3 967 741** — identical |
+| sha256 | `90a28d8bf77f628227e5f544ec57b5230d620f3ae581f092bed1fda23de9e795` — identical |
+| version string | **"VERSION: JANUARY 15TH 2026"** |
+| pages | 31 |
+
+**Which version and why:** January 15 2026 postdates the `UPDATED-2025-12-16` revision also in
+circulation, so this is the later document — and the URL serves it today. There is no
+draft-versus-updated ambiguity left to resolve at this URL.
+
+**Attachment B and Attachment D are referenced but not included.** B carries the technical-summary
+template (§6.1), D the competition-day examples (chapter 8). Obtaining them is an open question.
+
+### Part 2 — §5.5 through §5.13 are not in this document
+
+Chapter 5 is: `5.1 · 5.2 · 5.2.1 … 5.2.22 · 5.3 · 5.4`. Chapters present are 2–11. **There is no
+5.5, 5.6, 5.7, 5.8, 5.9, 5.10, 5.11, 5.12 or 5.13.**
+
+A brief in circulation attributes rules to those numbers. Checked by content across the **whole**
+document rather than by number alone:
+
+| claim | verdict |
+|---|---|
+| pointed/metallic contact surfaces, no sticky residue | **present** — §5.2.9, titled *"Wheels and tracks"* |
+| wireless connection between components prohibited | **present** — §5.2.5 |
+| wireless off during check and runs | **present** — **§9.7**, *"Any wireless communication has to be turned off"* — before quarantine, not merely during the run |
+| software needing an online connection must have an offline version | **ABSENT** — the only "online" hit is a plagiarism clause |
+| SD cards / USB sticks inserted before practice ends | **ABSENT** — zero hits document-wide |
+| documentation may be brought to the table | **ABSENT** — zero hits |
+
+**Decision: the three absent items are not written into the repo as rules.** They receive a
+`NEEDS-VERIFY` naming what is missing and asking for the source. Citing a rule number that does
+not exist would be a worse failure than ADR-035's 225/255 conflation — that was a correct number
+misapplied; this would be **fabricated rules** in the source of truth, and every downstream module
+reads S5 and the citation file without question.
+
+If a document containing §5.5–5.13 exists, it needs identifying before it binds anything. It is
+not this one.
+
+**Also corrected:** §6.2 permits **two** DIN A4 pages, not one.
+
+### Part 3 — Thailand scope: an operator assertion, dated, with two caveats
+
+**Asserted by the operator, 2026-07-27:** *for Thailand, this international document is the
+binding ruleset for RoboMission, and every rule in it applies as written.*
+
+**Provenance: operator-asserted. No source document supplied.** Recorded as such, in the same
+discipline ADR-025 installed after an operator answer was once hardened into a fact and never
+re-asked. **The source is requested so this can be upgraded from assertion to citation.**
+
+Two caveats the documents raise themselves, both recorded alongside it:
+
+1. **§9.2:** *"Additional elements — listed or not listed in this rule document — can be added by
+   the National Organizer."* So *"Thailand follows this document"* means **no additions have been
+   communicated as of 2026-07-27**, not that additions are impossible. The date is part of the
+   claim.
+2. **This covers the GENERAL rules only.** S1's cover page says rules for local WRO events may
+   vary, and its front matter allows National Organizers to simplify missions. **Whether Thailand
+   modifies the Elementary game rules is a separate open question** — raised in `QUESTIONS.md`,
+   not closed by this assertion.
+
+`NEEDS-VERIFY(NO-TH)`'s robot-limits row is **not** retired by this. The assertion says the
+international limits apply; it is not a National Organizer's confirmation, and the two are
+different evidentiary weights.
+
+### Part 4 — the actuator audit returns empty
+
+The brief asked for every repo assumption that presumed an actuator budget larger than §5.2.8's
+four motors. **There are none.** `data/manipulator_requirements.json` cites
+*"S4 5.2.8 — Elementary: 4 motors"*, and ADR-022 opens: *"S4 §5.2.8 gives Elementary 4 motors. A
+differential drive takes 2, leaving 2 for twelve objects."* The requested analysis **is** ADR-022.
+Reported as empty rather than padded.
+
+**The electromagnet route is closed permanently, not deferred.** §5.2.10 exempts electromagnets
+from the motor count when *"only used to attach parts via magnetism"* — but the game objects are
+LEGO plastic and **non-ferrous**, so magnetic attachment cannot act on them at all. It is not a
+way to buy a third degree of freedom. Recorded so it is not reopened.
+
+**§5.1's second half is the live opportunity:** the 250 mm cube applies *before* the run starts,
+cables included; after the start, dimensions are unrestricted. **A mechanism that folds inside
+250 mm for inspection and deploys afterwards is legal**, and may be how two degrees of freedom
+reach twelve objects. That is a Phase 7 design question, deliberately not started here.
+
+---
+
+## ADR-037
+
+**Best-of-2 confirmed: only *independent* variance is an asset.**
+`2026-07-27 · accepted`
+
+**Context.** The tournament format is resolved by organizer reply: **2 rounds, best single round
+counts.** ADR-027 published `E[max of N]` parametric in N and concluded *"extra rounds reward
+variance"*. With N fixed at 2, that conclusion needs narrowing in one important way and correcting
+in one arithmetic way.
+
+### The arithmetic: `σ` in `σ/√π` is a score, not a length
+
+`E[max(X₁,X₂)] = μ + σ/√π` for iid normals is right. But the σ it wants is the **score standard
+deviation in points**, not the placement error in millimetres. At placement σ = 20 mm the run's
+score sd is **15.11 points** — a different quantity in different units, with no reason to be close:
+
+| | premium |
+|---|---:|
+| σ/√π with σ = 20 **mm** | +11.28 |
+| σ/√π with the score sd, **15.11 pts** | **+8.53** |
+| exact, by discrete convolution | **+8.41** |
+
+The normal approximation and the exact model agree to **1.4 %** once the right quantity goes in.
+Using the placement error overstates by a third.
+
+### The narrowing: systematic variance is pure cost
+
+Two rounds are **not** iid. They share one robot, one program, one calibration and one table, so a
+systematic component repeats identically. With correlation ρ only the independent part varies
+between rounds:
+
+> **gain = sd · √(1 − ρ) / √π**
+
+| ρ | 0.0 | 0.5 | **0.9** | 0.95 |
+|---|---:|---:|---:|---:|
+| premium | +8.53 | +6.03 | **+2.70** | +1.91 |
+
+**So "extra rounds reward variance" was too broad.** Only **independent** variance is rewarded.
+**Systematic variance is pure cost with no best-of-2 upside** — it lowers the mean and repeats in
+both rounds. A design choice that adds scatter which repeats identically (a mis-calibrated gyro, a
+biased wheel diameter) is strictly worse; one that adds scatter which re-rolls (a marginal grab
+that sometimes catches) is now an asset. ADR-027's claim is amended, not withdrawn.
+
+### Round 2 is a call option, and its objective inverts the naive reading
+
+Best-of-2 makes round 2 an option struck at the realised round-1 score `S₁`:
+
+> `E[max(X₁,X₂)] = E[X₁] + E[(X₂ − S₁)⁺]`
+
+Only the **excess** counts; everything below `S₁` is discarded. Computed on the σ = 20 mm
+distribution:
+
+| round 1 scored | 180 | 200 | 216 | 230 | 245 |
+|---|---:|---:|---:|---:|---:|
+| round 2 is worth | +36.4 | +17.5 | +6.1 | +1.5 | +0.1 |
+
+**A low round 1 argues for the SAFE strategy** — almost any competent run beats it, so maximise
+`P(beat S₁)`. **A high round 1 argues for the AGGRESSIVE one** — only the tail can beat it, so
+maximise the tail. That is the opposite of treating round 2 as simply another draw.
+
+**Therefore `P(score > t)` is promoted to the primary metric**, and `sim.rounds.survival()` emits
+the full curve. A mean collapses the tail to one number, and the tail is exactly what round 2
+trades on. At σ = 20 mm: `P(>200) = 0.858`, `P(>216) = 0.415`, `P(>230) = 0.184`.
+
+**This is gated.** S4 §9.3 permits code changes *"only… during practice times"*, and §9.5–9.6 put
+quarantine between practice and the round. So adapting round 2 requires **a practice block between
+the two rounds**, which S4 does not promise — §9.1.1 only says a tournament should *start* with
+one. Open question; the survival curves are useful either way, the strategy switch is contingent.
+
+### The σ-direction audit — every conservative default re-checked
+
+The defaults in `AMBIGUITIES.md` were chosen to **understate** achievable score, which is safe
+under a single run. Under best-of-2 the score sd now carries a **positive** coefficient, so any
+default that *inflates* sd would flatter risky strategies. Checked:
+
+| default | touches sd? | direction | still safe? |
+|---|---|---|---|
+| **A7** silhouette (harsher) | yes | sd **12.41** vs contact's 15.11 — **deflates by 2.70**, premium +7.00 vs +8.53 | ✅ understates the premium |
+| **A1** "moved" as OR (stricter) | yes, via the bonus Bernoulli | treats more objects as moved ⇒ less bonus retained ⇒ deflates | ✅ |
+| **AS-10** missions independent | yes | ignores positive within-run correlation ⇒ understates run variance ⇒ understates premium | ✅ |
+| A8 bonus-run timing | no | time only, and time is a pure tie-break | n/a |
+| A9 start area | no | chassis geometry | n/a |
+| A10 mulligan | no | a retake rule, not a distribution | n/a |
+
+**Every existing default survives.** The dangerous one is the parameter this ADR introduces:
+**assuming ρ = 0 overstates the premium by 3.2×** against ρ = 0.9. So the safe default for
+between-round correlation is **ρ high, not ρ = 0** — the opposite convention to a variance
+parameter under a single run, and it is stated here so it is not set to zero for convenience.
+
+**This raises the value of the MEAS σ work rather than lowering it.** Keep the n = 11 tier: σ now
+enters the objective twice — once through the mean and once through a premium that depends on how
+much of it re-rolls.

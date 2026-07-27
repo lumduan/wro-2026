@@ -46,11 +46,12 @@ yet asked:
 
 1. **Robot limits** — S4 §4.3 and §5.2. All figures here are **international level** until the
    Thai National Organizer confirms.
-2. **Tournament format** — S4 §9.1.2 ("a number of robot rounds"), §10.13 (ranking "depends on
-   the overall tournament format"; best-of-three is offered only as an *example*), §10.14
-   (mulligan, optional and announced upfront), §9.3 (code changes only during practice, so
-   whether practice is interleaved between rounds decides whether strategy can vary by round).
-   This sets the **objective function** — see ADR-027.
+2. **Tournament format** — **round count RESOLVED 2026-07-27: 2 rounds, best single round
+   counts** (organizer reply, operator-relayed; ADR-037). Still open: §9.3 (code changes only
+   during practice, so whether practice is **interleaved between the two rounds** decides whether
+   strategy can vary by round — this is now QUESTIONS.md #2), §10.14 (mulligan, optional and
+   announced upfront), and chapter 8 (surprise elements). The objective function is settled —
+   see ADR-027 as narrowed by ADR-037.
 
 **File locations**
 
@@ -181,12 +182,27 @@ immediately stops scores 40/255. Bonus points can only be *lost*. Every mission'
 
 never a gross point gain.
 
-**`E[score]` is the `N = 1` objective, not the objective** (ADR-027). S4 §10.13 makes the
-ranking depend on the tournament format and offers *"the best attempt out of three rounds"* as
-an example. Under best-of-N the objective is `E[max(X₁…X_N)]`, which **rewards variance**: at
-σ = 20 mm, `E[X] = 216` but `E[max3] = 229`, and the premium **grows with σ**. So extra rounds
-favour the less precise, more ambitious strategy. N is `NEEDS-VERIFY(NO-TH)`; everything in
-`data/round_strategy.json` is published against N, never for a chosen N.
+**`E[score]` is the `N = 1` objective, not the objective** (ADR-027). Under best-of-N the
+objective is `E[max(X₁…X_N)]`. **N is now confirmed: 2 rounds, best single round counts**
+(organizer reply relayed 2026-07-27, ADR-037). Everything in `data/round_strategy.json` is still
+published against every N, never filtered to the confirmed one.
+
+**Only *independent* variance is an asset** (ADR-037 narrows ADR-027). Two rounds share one
+robot, one program and one calibration, so a systematic component repeats identically:
+
+    premium = sd · √(1 − ρ) / √π          # ρ = 0 → +8.53 · ρ = 0.5 → +6.03 · ρ = 0.9 → +2.70
+
+The `sd` there is the **score** standard deviation in **points** — 15.11 at placement σ = 20 mm —
+**not** the placement error in millimetres. Feeding 20 mm into the formula gives +11.28 against
+an exact +8.41, a third too high. Systematic variance is **pure cost**: it lowers the mean and
+does not re-roll. **The safe default for ρ is HIGH, not zero** — the opposite convention to every
+other variance parameter here, because ρ = 0 flatters the risky strategy.
+
+**`P(score > t)` is the primary metric, above the mean.** `E[max(X₁,X₂)] = E[X₁] + E[(X₂ − S₁)⁺]`
+makes round 2 a call option struck at the realised round-1 score, so only the tail counts — and a
+mean collapses exactly that tail. Switching strategy between rounds is **gated**: S4 §9.3 permits
+code changes only during practice, so it needs a practice block *between* the rounds, which S4
+does not promise (`NEEDS-VERIFY(NO-TH)`).
 
 **The ×40 is a worst case, not a constant** (ADR-024, `data/strategy_frame.json`). The 40 is
 four separate objects — clef 10, speakers 2×10, amp 10 — and S1 places them apart: amp and both

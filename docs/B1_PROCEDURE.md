@@ -208,3 +208,59 @@ programs exist.
 
 → closes: the hardware half of **ADR-023**. Unblocks the twelve mission programs, which are
 deliberately unwritten until this returns.
+
+---
+
+## §5.4 — two test rigs are fine, **one robot competes**
+
+> *"…allowed to bring and use only **one full robot** containing their controller(s)"* — S4 §5.4, p8
+
+This does **not** conflict with the two chassis this procedure requires. B1 builds two *test rigs*,
+on a bench, to answer a software question. §5.4 governs what is brought to the **competition**.
+
+**But it does mean B1 has a second deliverable, and it is the one with a deadline.**
+
+| question | who answers it | when |
+|---|---|---|
+| Does one `robot_io` contract cover both platforms? | B1's pass/fail table above | as soon as both rigs run |
+| **Which platform competes?** | **this section** | **before the twelve mission programs are written** |
+
+These are different questions and answering the first does not answer the second. A contract that
+holds on both platforms is *good news* for portability and says **nothing** about which hub to
+take to the table.
+
+### Why the decision cannot be deferred
+
+§5.4 permits *"controller(s)"* — plural — so a two-hub robot is legal. It is **not** a way to
+avoid choosing:
+
+- **§5.2.6 allows exactly one start/stop button.** Two hubs mean two physical buttons, and one of
+  them has to be made non-functional as a control, with *"every movement has to stop immediately"*
+  still holding. See `PHASE7_CONSTRAINTS.md` §6b — that is real firmware work, bought for nothing
+  unless the second hub is genuinely needed.
+- **§5.2.1 caps total weight at 1.5 kg.** A second hub spends mass budget that has no mission
+  behind it (MEAS-6).
+- **§5.2.8 caps Elementary at 4 motors** regardless of how many hubs carry them, so a second
+  controller buys **ports, not actuators** — and ADR-022 established the binding constraint is
+  motors, not ports.
+
+**So the default is one controller, and a second needs a named requirement it alone satisfies.**
+
+### The inputs the decision actually turns on
+
+| input | status | note |
+|---|---|---|
+| colour-sensor count | **MEAS-1** | EV3 base set 1, SPIKE 2 — confirm by counting both boxes. This is the discriminator flagged in `HARDWARE_SESSION.md`. |
+| the §5.2.6 exception | **known** | *"The separate stop button of the EV3 can be used to stop a program as well."* — granted to **EV3 only** |
+| firmware longevity | **known, and adverse to EV3** | `TOOLCHAIN_ARCHIVE.md`: pybricks-micropython **v4.0.1 does not cover EV3**. The EV3 route depends on artifacts that must be archived now. |
+| contract portability | **B1** | if the verdict is *two implementations*, the cost of keeping both platforms alive doubles for every mission program |
+
+### The deadline, stated plainly
+
+**The platform decision closes before the first mission program is written.** After that point,
+every additional mission program written against the wrong hub is work to be redone, and there are
+twelve of them. If B1 returns *"one implementation"* the decision is cheap to delay a little; if it
+returns *"two"*, the decision is the more urgent of the two findings, not the lesser.
+
+Record it as an ADR with the MEAS-1 sensor count in it. **Do not record it as a preference.**
+

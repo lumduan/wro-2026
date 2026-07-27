@@ -8,7 +8,7 @@ resolved by a source (S1, S2, S4 or S6) or it stays open with its default in for
 **All remaining open items route to S6**, which answers questions that were *asked* —
 so submitting them is an action, not a wait.
 
-`last_reviewed: 2026-07-26` · S4 and S6 acquired; four of six original ambiguities resolved; A7 measured against three independent sources; **A10 added** from S4 §10.14, the first ambiguity that is about the *tournament format* rather than the field.
+`last_reviewed: 2026-07-27` · S4 and S6 acquired; four of six original ambiguities resolved; A7 measured against three independent sources; **A10 added** from S4 §10.14, the first ambiguity that is about the *tournament format* rather than the field; every default re-audited for σ-direction under the confirmed best-of-2 format (ADR-037, below).
 
 | ID | Status | Ambiguity | Conservative default |
 |---|---|---|---|
@@ -22,6 +22,45 @@ so submitting them is an action, not a wait.
 | A9 | **OPEN** — route: S6 | S4 §7.8 defines the start area as "the white area within a coloured border", but 29.56 % of this mat's start-area interior is **not white** (logo, band, text, QR). The *boundary* is measured; the *interpretation* is not. | the measured 250.02 × 250.02 mm placement rect |
 | A8 | **OPEN** — route: S6 | Bonus-only run (40 pts, no mission solved): actual elapsed time, or forced 120 s under S4 §10.12? | forced 120 s |
 | A10 | **OPEN** — route: S6 | S4 §10.14: a mulligan's "new score will be used for the ranking **no matter what**" — does it replace *that round's* score, or the team's **ranking** score outright? | the **harsher** reading: it replaces the ranking score |
+
+---
+
+## The σ-direction audit — why these defaults were re-checked (ADR-037)
+
+Every default above was chosen to **understate** the achievable score, which is unambiguously
+safe when the objective is `E[X]` — one run, one number, and understating it cannot mislead.
+
+**Best-of-2 changes the sign of one coefficient.** Under `E[max(X₁,X₂)] = μ + sd·√(1−ρ)/√π`, the
+score standard deviation now enters the objective with a **positive** coefficient. So a default
+that *inflates* sd would no longer be conservative: it would flatter the risky, imprecise strategy
+— exactly the strategy a conservative register is supposed to guard against.
+
+Each default was therefore re-checked for which way it moves sd, not only which way it moves the
+mean:
+
+| default | touches sd? | direction, computed at placement σ = 20 mm | still safe? |
+|---|---|---|---|
+| **A7** — full containment (the harsher silhouette reading) | **yes** | score sd **12.41** vs the contact reading's **15.11** — **deflates by 2.70 pts**; premium +7.00 vs +8.53 | ✅ **understates** the premium |
+| **A1** — "moved" as OR (the stricter reading) | **yes**, through the bonus Bernoulli | treats more objects as moved ⇒ less bonus retained ⇒ deflates | ✅ |
+| **AS-10** — missions independent | **yes** | ignores positive *within-run* correlation ⇒ understates run variance ⇒ understates the premium | ✅ |
+| A8 — bonus-run timing | no | affects recorded **time**, and time is a pure tie-break under §10.13 | n/a |
+| A9 — start-area interpretation | no | chassis geometry, not a score distribution | n/a |
+| A10 — what a mulligan replaces | no | a retake rule; it selects among draws, it does not shape one | n/a |
+
+**Every existing default survives the re-audit.** None of them inflates sd.
+
+**The dangerous parameter is the new one.** Between-round correlation ρ did not exist as a
+concept before the format was confirmed, and assuming ρ = 0 — the convenient default, and the one
+the iid formula invites — **overstates the premium by 3.2×** against ρ = 0.9 (+8.53 vs +2.70).
+
+> **The safe default for ρ is HIGH, not zero.** This is the opposite convention to every other
+> variance parameter in this register, and it is written down here so that ρ is not quietly set to
+> zero for arithmetic convenience. Two rounds share one robot, one program, one calibration and
+> one table; the burden of proof is on showing that anything re-rolls, not that it repeats.
+
+ρ is unmeasured. Work order **B5** measures it, as round-to-round repeatability of the same
+program on the same table — the same runs that measure σ, read as a variance decomposition rather
+than a single pooled number.
 
 ---
 

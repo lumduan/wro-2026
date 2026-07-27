@@ -210,6 +210,40 @@ with the superseded value recorded rather than deleted.
 
 ---
 
+### MEAS-6 · Weigh the robot — a **gate**, not a one-shot measurement
+
+> *"Total weight | <= 1,5 kg"* — S4 §5.2.1, p6
+
+**Precondition: a chassis exists.** Unlike MEAS-1…5 this cannot be done on the bench today, and it
+is listed here because it has no other home, not because it belongs to this session.
+
+**It is a recurring gate.** Weigh at every structural change, and again after the final build —
+mass only ever goes up, and it goes up fastest exactly when a mechanism is being added late to
+cover one more object. Discovering an over-mass robot at inspection is unrecoverable: §5.4 allows
+*"only one full robot"*, so there is no second machine to fall back on.
+
+| step | how |
+|---|---|
+| weigh | the robot **as it will be inspected** — battery in, all attachments fitted, in its pre-start folded state |
+| record | `robot_mass_g`, with the date and a one-line note on what was on the robot |
+| compare | against 1500 g, and against the previous entry, so the **trend** is visible and not just the pass/fail |
+
+**Two things S4 does not say, and both matter.** §5.2.1 is a bare table row — *"Total weight"*
+against *"<= 1,5 kg"* — with no qualifying sentence anywhere in chapter 5:
+
+1. **Whether the battery counts.** Almost certainly yes on a plain reading of "total", and the
+   conservative default is to include it — but the document does not state it.
+2. **Which configuration is weighed** — folded to the 250 mm inspection envelope, or with
+   attachments deployed. Mass is the same either way, so this one is harmless; it is recorded only
+   so nobody re-derives it.
+
+`NEEDS-VERIFY(S6)` on (1) **only if a build lands within ~100 g of the limit.** It is not worth a
+question slot otherwise, and the seven questions already queued all outrank it.
+
+→ closes: nothing yet. Consumes **S4 §5.2.1**, which was cited and had no consumer.
+
+---
+
 ## Block B — table work. Mat and table required.
 
 ### B0 · Measure the object start poses — do this while the field is set up
@@ -360,3 +394,36 @@ than a parameter in it (ADR-027). If the ranking is best-of-three, the target is
 `E[max of 3]`, which rewards variance — at σ = 20 mm that is 229 rather than 216, and the gap
 *widens* as σ grows. A measurement session tuned to minimise σ is optimising the right thing
 only if N = 1.
+
+---
+
+## Block D — deliverables that are not measurements
+
+Tracked here because they are dated obligations with no other owner, and because a session that
+only measures will miss them.
+
+### D1 · The technical summary — chapter 6, and it is **scored**
+
+| § | rule |
+|---|---|
+| **6.1** | *"Teams should bring a filled technical summary of their robot (see **attachment B**) on paper. The summary **must reflect the actual robot**. In addition, teams can be asked to upload it shortly before the competition."* |
+| **6.2** | *"The summary may not be longer than **two (2) DIN A4 page** or US LETTER."* |
+| **6.3** | Points can be awarded for bringing the filled summary, **or** the summary can be mandatory. |
+| **8.1** | Season Challenge: *"The points for the technical summary (chapter 6) will be part of this."* |
+
+**It sits outside the 255-point model** and is deliberately not folded into `scoring_model.json`
+— §6.3 leaves scored-vs-mandatory to the organizer, so its value is unknown, but §8.1 confirms it
+is not zero.
+
+**Two blockers, both external:**
+
+1. **Attachment B is referenced twice in S4 and is not in the 31-page document.** Neither is
+   Attachment D. Where to obtain them is one of the queued questions.
+2. *"Must reflect the actual robot"* (§6.1) means this **cannot be written before the robot is
+   final** — and *"can be asked to upload it shortly before the competition"* means it cannot be
+   left to the morning either. It is a real deadline, ahead of the event, on a document that
+   depends on the last build change.
+
+**Two pages, not one** — worth stating because one page is the more common assumption.
+
+→ closes: nothing. Consumes **S4 chapter 6**, cited with no consumer.

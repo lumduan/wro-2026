@@ -395,10 +395,18 @@ def test_the_rounding_defect_is_recorded_with_evidence(spec):
     assert "256.30" in defect["consequence"]
 
 
-def test_neither_free_parameter_is_asserted(spec):
+def test_the_free_parameters_are_named_and_n_is_no_longer_one(spec):
+    """N was confirmed on 2026-07-27; rho took its place as the open parameter.
+
+    The point of the original guard survives unchanged: nothing unmeasured may
+    be silently asserted. Only the membership of that set moved.
+    """
     scope = spec["scope"]
-    assert scope["n_is_not_known"] is True
-    assert "NEEDS-VERIFY(NO-TH)" in scope["n_source"]
+    assert scope["n_is_not_known"] is False and scope["n"] == 2
+    assert "operator" in scope["n_source"].lower(), \
+        "a confirmed N must still carry its provenance, not become a bare fact"
+    assert scope["rho_is_not_measured"] is True
+    assert "B5" in scope["rho_source"]
     assert scope["sigma_is_not_measured"] is True
     assert scope["missions_assumed_independent"] is True
     assert scope["independence_assumption"] == "AS-10"

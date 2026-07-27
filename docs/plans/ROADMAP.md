@@ -1,12 +1,20 @@
 # WRO 2026 RoboMission Elementary — Roadmap
 
-`last_reviewed: 2026-07-27 (parameter sensitivity)` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
+`last_reviewed: 2026-07-27 (best-of-2 confirmed — ADR-037)` · **NOTHING IS BLOCKED (ADR-025). The work order is `docs/HARDWARE_SESSION.md`; every measurement it produces has somewhere to land, and the build chain is `tools/build_all.py`.**
 
-**Seven questions now sit ahead of every measurement** (ADR-033), and all seven are drafted in
-[`docs/QUESTIONS.md`](../QUESTIONS.md), ordered by magnitude with fallbacks: five open
-ambiguities for the official Q&A and two for the National Organizer. **A7 is worth 24 points**
-of expected score and a 2.64× swing in required accuracy; the **tournament format** sets the
-*objective function* itself, so it outranks anything the field tests can produce.
+**Ten questions now sit ahead of every measurement** (ADR-033), all drafted in
+[`docs/QUESTIONS.md`](../QUESTIONS.md), ordered by magnitude with fallbacks: six for the official
+Q&A and four for the National Organizer. **A7 is worth 24 points** of expected score and a 2.64×
+swing in required accuracy.
+
+**The tournament format is no longer among them — it is confirmed: 2 rounds, best single round
+counts** (organizer reply relayed 2026-07-27, **ADR-037**). That resolves what ADR-027 called the
+objective function, and it **narrows** ADR-027's conclusion rather than confirming it: only
+*independent* variance is rewarded by a second round. Systematic variance — anything that repeats
+identically because both rounds share one robot, one program and one calibration — is **pure
+cost**. What survives as a question is the schedule: S4 §9.3 permits code changes *only during
+practice times*, so an adaptive round 2 exists **iff a practice block sits between the two
+rounds**, which S4 does not promise.
 
 The bench-work items are **MEAS-1…5** as of 2026-07-27 — renamed from `A1`–`A5`, which collided
 with ambiguities A1–A5 in a register where A4 and A5 are *resolved* entries (ADR-033).
@@ -30,7 +38,7 @@ flowchart TD
     P7 --> P8
     P5 --> P8
     FT --> P8
-    NO["N · Ask the National Organizer<br/>READY — robot limits + round format"] --> P8
+    NO["N · Ask the National Organizer<br/>READY — format CONFIRMED, 9 asks left"] --> P8
     P8 --> P9["9 · Competition-ready run<br/>GOAL"]
 
     classDef done     fill:#d4f4dd,stroke:#2d8a4e,color:#1a5c33
@@ -60,7 +68,7 @@ flowchart TD
 | **F · Bench + field work** | 🔵 **READY** | `docs/HARDWARE_SESSION.md` — an ordered work order. **Block MEAS** needs no robot and closes the manipulator decision, `mass_g`, AS-6 and two bounds, plus an independent caliper check on Phase 4's whole stud-counting chain. **Block B** supplies σ, colour separation, table reality and motor characterisation | — |
 | **7 · Robot design** | 🔵 **budget + `RobotIO` done / mechanism READY to close** | **Part 1** — `data/manipulator_requirements.json` + **ADR-022**: **2 drive + 0 yaw + 2 manipulator**; yaw costs nothing (measured ±31°); 8 of 12 objects share one 32 mm grip and that alone reaches **195/255 (76 %)**. **Part 2** — `robot/robot_io.py`, an intent-level contract with a simulator backend and two cited hardware backends, plus `tools/check_portability.py`, which makes the "one file runs on both" invariant **tested** rather than claimed (ADR-023). The mechanism is refused, not chosen — and is now closable by weighing the objects and finding grip points, items **MEAS-2/3** of the work order. **ADR-029 gave that decision a price:** carry capacity 1 → 2 takes **2213 mm (29 %)** off the worst-case note tour, and capacity 6 removes the randomization from the travel budget entirely — an exact zero spread, structurally, because collecting every note before delivering any visits the same point set whatever the permutation. Not a smooth trend: the spread *rises* from capacity 3 to 4, so carrying *most* of the notes buys distance without buying predictability | — |
 | **H · Hardware** | ✅ **ALL HELD** | EV3 45544 · SPIKE Prime 45678 + 45681 · WRO Brick Set 45811 + Expansion 45819 · the printed mat · a competition-spec table. Recorded as a blocker from Phase 4 until 2026-07-27 on an operator answer that was never re-asked — see **ADR-025** | — |
-| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). **The objective itself was then corrected (ADR-027):** S4 §10.13 makes the ranking depend on the tournament format and offers *"the best attempt out of three rounds"* as an example, so `E[score]` is the **N = 1** case, not the objective. `data/round_strategy.json` publishes the full run-score *distribution* and `E[max of N]` — at σ = 20 mm, 216 becomes **229 at N = 3**, and the premium **grows with σ**, so extra rounds reward the less precise, more ambitious strategy. Break-even `P(collision)` moves with it: `cable_upper` tolerates 0.398 across one attempt, **0.603** across three. Ordering still needs σ (**B5**) and a route (**B0**). **Travel entered the model (ADR-029):** `data/travel_budget.json` costs the six notes exactly over all 24 randomization permutations and publishes the mean speed each manipulator capacity demands inside 120 s — 63.3 mm/s at capacity 1 against 24.9 at capacity 6. It also corrected `strategy_frame.json`, whose `points_per_metre_round_trip` omitted the fetch leg and is **anti-correlated** (ρ = −0.486) with true cost at the unluckiest permutation while being exactly right (ρ = +1.000) at the luckiest. **ADR-030 then reached the whole field:** the truck is two measured bodies, so the four objects that start in it are *bounded* rather than pending, and **ten of twelve missions (185 of 215 placement points) are now costed** — 9 550–11 154 mm at capacity 2, needing **93 mm/s** before any pick-and-place time. **ADR-031 joined the pieces and lifted the ban on mission ordering** for those ten: `data/feasibility_frontier.json` says which missions fit at a given speed and handling time. **Speed saturates** (above 92.9 mm/s at instant handling, 278.8 at 8 s, more speed scores nothing) **and the instruments turn out to be σ-proof** — `backstage` is 20× a note target, so they overtake the notes at **σ = 20.4 mm**. **ADR-032 finally composed the chain**: `data/parameter_sensitivity.json` is the project's first end-to-end score (225 at the perfect corner, 40 when nothing fits) and ranks all six unmeasured parameters by how far they move it. **σ leads in 27 of 35 grid cells** — driving speed takes the top rank only at ≈ 8 s of handling per object, and there at *every* speed swept, so handling time causes that flip rather than speed. The measurement order is σ (**B5**) first with that band as the named exception | needs **B5** to pick a side of 20.4 mm; **B0** for the two cables; N is `NEEDS-VERIFY(NO-TH)` |
+| **8 · Strategy selection** | 🟡 **inputs framed / ordering needs σ** | `data/strategy_frame.json` — travel cost, point density and **break-even P(collision)** per mission. The field splits in two: **120 pts of notes 367–1110 mm from start risking only the 10-pt clef**, against **95 pts 2 m away risking the 30-pt stage cluster**. A note is therefore *always* worth attempting; the left-hand missions are conditional (ADR-024). `data/expected_score.json` now turns σ straight into an expected score — even at σ = 20 mm the full-attempt run expects **216/255** on the contact reading, because the partial tier makes it degrade gracefully (ADR-026). **The objective itself was then corrected (ADR-027):** S4 §10.13 makes the ranking depend on the tournament format and offers *"the best attempt out of three rounds"* as an example, so `E[score]` is the **N = 1** case, not the objective. `data/round_strategy.json` publishes the full run-score *distribution* and `E[max of N]` — at σ = 20 mm, 216 becomes **229 at N = 3**, and the premium **grows with σ**, so extra rounds reward the less precise, more ambitious strategy. Break-even `P(collision)` moves with it: `cable_upper` tolerates 0.398 across one attempt, **0.603** across three. Ordering still needs σ (**B5**) and a route (**B0**). **Travel entered the model (ADR-029):** `data/travel_budget.json` costs the six notes exactly over all 24 randomization permutations and publishes the mean speed each manipulator capacity demands inside 120 s — 63.3 mm/s at capacity 1 against 24.9 at capacity 6. It also corrected `strategy_frame.json`, whose `points_per_metre_round_trip` omitted the fetch leg and is **anti-correlated** (ρ = −0.486) with true cost at the unluckiest permutation while being exactly right (ρ = +1.000) at the luckiest. **ADR-030 then reached the whole field:** the truck is two measured bodies, so the four objects that start in it are *bounded* rather than pending, and **ten of twelve missions (185 of 215 placement points) are now costed** — 9 550–11 154 mm at capacity 2, needing **93 mm/s** before any pick-and-place time. **ADR-031 joined the pieces and lifted the ban on mission ordering** for those ten: `data/feasibility_frontier.json` says which missions fit at a given speed and handling time. **Speed saturates** (above 92.9 mm/s at instant handling, 278.8 at 8 s, more speed scores nothing) **and the instruments turn out to be σ-proof** — `backstage` is 20× a note target, so they overtake the notes at **σ = 20.4 mm**. **ADR-032 finally composed the chain**: `data/parameter_sensitivity.json` is the project's first end-to-end score (225 at the perfect corner, 40 when nothing fits) and ranks all six unmeasured parameters by how far they move it. **σ leads in 27 of 35 grid cells** — driving speed takes the top rank only at ≈ 8 s of handling per object, and there at *every* speed swept, so handling time causes that flip rather than speed. The measurement order is σ (**B5**) first with that band as the named exception **ADR-037 then fixed the objective**: N = 2 confirmed, so the target is `E[max(X₁,X₂)]` — but only the *independent* part of σ earns the premium, and at ρ = 0.9 it collapses from +8.5 to +2.7. `P(score > t)` replaces the mean as the primary metric, and B5 now has to return a **variance split**, not one pooled σ | needs **B5** to pick a side of 20.4 mm **and to split σ into systematic vs independent**; **B0** for the two cables |
 | **9 · Competition-ready run** | 🟪 GOAL | scored, repeatable run | needs 8 |
 
 > **Every phase that can be done from documents is done (0–6), and nothing is blocked.** The
@@ -82,13 +90,20 @@ flowchart TD
 > 255 points. A7 was previously recorded as "holds either way, nothing is blocked", which is true
 > for feasibility and misleading for design.
 >
-> **And one that outranks all of them, because it decides *what* to optimise rather than how
-> well: ask the National Organizer how many rounds there are and how they are aggregated**
-> (**ADR-027**). S4 §10.13 makes the ranking format organizer-set and offers *"the best attempt
-> out of three rounds"* only as an example. If N > 1 the objective is `E[max of N]`, which
-> **rewards variance** — at σ = 20 mm, 216 becomes 229 at N = 3, and the premium *widens* as σ
-> grows. A programme built to minimise σ is optimising the right quantity only if N = 1. The
-> same conversation settles the robot limits, which have also never been asked.
+> **The question that used to outrank all of these is answered: 2 rounds, best single round
+> counts** (**ADR-037**, organizer reply relayed 2026-07-27). So the objective is
+> `E[max(X₁,X₂)] = μ + sd·√(1−ρ)/√π` — and the `sd` there is the **score** standard deviation in
+> **points** (15.11 at σ = 20 mm), not the placement error in millimetres; using 20 overstates the
+> premium by a third. **ADR-027's "extra rounds reward variance" is narrowed, not confirmed:**
+> only *independent* variance re-rolls. At ρ = 0.9 the premium collapses from +8.5 to **+2.7**,
+> so a systematic error is pure cost with no best-of-2 upside.
+>
+> **What is still open is the schedule, and it is now question 2.** §9.3 allows code changes only
+> during practice, so an adaptive round 2 needs a practice block *between* the rounds. `P(score >
+> t)` is promoted to the primary metric either way — round 2 is a call option struck at the
+> realised round-1 score, and a mean collapses exactly the tail it trades on. The same
+> conversation settles the robot limits and whether Thailand alters the **game** rules, neither of
+> which has been asked.
 >
 > **Block MEAS got sharper (ADR-029).** Weighing the notes is no longer only about the gripper: carry
 > **capacity** is worth 2213 mm off the worst-case note tour at the first extra slot, and carrying
@@ -126,7 +141,7 @@ Drawn from stated constraints, not assumed ordering:
 | **Join** | {5, 6, 7, F} → 8 | `CLAUDE.md` §5.7 anti-pattern #3 needs the scorer (6) and #5 needs `P(success)`, which needs σ from the field tests (F) |
 | **Fork** | H → {7, F} | one purchase unblocks both the manipulator and every field test; that is why it is the bottleneck rather than one blocker among several |
 | **Independent root** | 5 | S4 acquisition is external/operator work — it waits on nothing in this repo |
-| **Independent root** | N → 8 | S4 §10.13 makes the ranking format organizer-set, and that format *is* Phase 8's objective function (`E[score]` vs `E[max of N]`, ADR-027). It waits on nothing in this repo and no measurement substitutes for it — a separate branch, not a step in the chain. **`ready`, not `decision`**: nothing is blocked on the answer, because every figure in `data/round_strategy.json` is published against N rather than for a chosen N. Painting it red would re-import exactly the framing ADR-025 removed |
+| **Independent root** | N → 8 | **Partly closed 2026-07-27:** the format is confirmed (2 rounds, best single — ADR-037), which was the half that set Phase 8's objective function. The branch stays because nine asks remain, and it stays **`ready`, not `decision`** for the original reason: `data/round_strategy.json` is still published against every N rather than filtered to 2, so nothing is blocked on the rest. What the answer *changed* is the shape of the objective, not whether work could proceed — `E[max(X₁,X₂)]` with the correlation split, and `P(score > t)` promoted above the mean |
 | **Gate** | 0 → 1 | session brief §6: extraction quality must be human-reviewed before geometry is frozen |
 
 ---
