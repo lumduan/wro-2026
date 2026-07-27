@@ -196,6 +196,40 @@ def test_the_angular_resolution_is_specified_with_its_amplification():
     assert "h = L (R₀ − R₁) / (W · tan θ)" in text
 
 
+def test_the_operating_point_is_the_tipping_angle_not_the_friction_angle():
+    """The 20° row must never read as the expected reading.
+
+    `arctan(0.35) ≈ 19.3°` is the *friction* angle — what a sliding object
+    reports when the cleat fails. Budgeting error there is planning against the
+    measurement the method exists to avoid, and it is pessimistic by ~2.6×.
+    A cleated object reads at 30–35°.
+    """
+    text = PROTOCOL.read_text(encoding="utf-8")
+    assert "not your operating point" in text
+    assert "30–35°" in text, "the real operating point must be named"
+    assert "Evaluate sensitivity at the TIPPING angle" in text
+    assert "32.6°" in text, "the worked tipping angle anchors it"
+    assert "the cleat is not working, fail the block" in text, \
+        "the 20-degree row must tie back to the validation rule"
+
+
+def test_the_sensitivity_figures_are_arithmetically_right():
+    """Re-derive both ends rather than trusting the table."""
+    import math
+    w, h, c = 16.0, 27.0, 2.0
+    tip = math.degrees(math.atan(w / (h - c)))
+    assert tip == pytest.approx(32.62, abs=0.01)
+    # |dh/dtheta| = w / sin^2(theta), in mm per radian
+    at_tip = w / math.sin(math.radians(tip)) ** 2
+    at_slide = w / math.sin(math.radians(19.3)) ** 2
+    assert at_tip == pytest.approx(55.1, abs=0.2)
+    assert at_slide == pytest.approx(146.5, abs=0.5)
+    # +-0.5 deg on h = 27
+    assert at_tip * math.radians(0.5) / h == pytest.approx(0.018, abs=0.001)
+    assert at_slide / at_tip == pytest.approx(2.66, abs=0.05), \
+        "the friction angle overstates the error budget by ~2.6x"
+
+
 def test_the_instruments_are_excluded_from_tilt():
     """No predicate consumes their tilt angle — scoring_model says so verbatim."""
     text = PROTOCOL.read_text(encoding="utf-8")

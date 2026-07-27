@@ -356,15 +356,28 @@ differs across shapes. Agreement between a note and an amp is the failure signal
 
 Error propagates as `|dh/h| = 2·dθ / sin 2θ`, which is an **amplification, never a reduction**:
 
-| θ | amplification | at ±0.5° | at ±1° | at ±2° |
-|---:|---:|---:|---:|---:|
-| 20° | **3.11×** | 2.7 % | 5.4 % | 10.9 % |
-| 30° | 2.31× | 2.0 % | 4.0 % | 8.1 % |
-| 45° (best case) | **2.00×** | 1.7 % | 3.5 % | 7.0 % |
+| θ | amplification | at ±0.5° | at ±1° | at ±2° | |
+|---:|---:|---:|---:|---:|---|
+| **20°** | **3.11×** | 2.7 % | 5.4 % | 10.9 % | ⚠ **not your operating point — this is the friction angle.** See below. |
+| **30–35°** | 2.31 – 2.13× | **1.8 – 2.0 %** | 3.7 – 4.0 % | 7.4 – 8.1 % | ← **where a cleated object actually reads** |
+| 45° (best case) | **2.00×** | 1.7 % | 3.5 % | 7.0 % | |
 
 **Even at the optimum the error doubles.** Use a **digital angle gauge or a phone inclinometer
 against a rigid flat reference — target ±0.5°.** A protractor read by eye is ±2° and gives
 7–11 % on CoG; at that point do not derive CoG at all (see MEAS-5b).
+
+> **Evaluate sensitivity at the TIPPING angle, not at 20°.** With a cleat these objects tip at
+> **≈ 30–35°** — a note with `w = 16`, `h = 27`, `c = 2` tips at **32.6°** — so the expected
+> error at ±0.5° is **≈ 1.8 %**, not the 2.7 % the 20° row shows.
+>
+> The 20° row is kept as **contrast, not as a target**: `arctan(0.35) ≈ 19.3°` is the *friction*
+> angle, which is what you read **if the cleat fails**. Computing your error budget there is
+> planning against a measurement you are trying to avoid — and it is pessimistic by roughly 2.6×
+> (`dh/dθ` is −146.5 mm/rad at 19.3° against −55.1 at 32.6°).
+>
+> **This is the same fact as the validation rule, seen from the other side.** A reading near 20°
+> is the friction signature. If your angles land there, the answer is not "the error is 2.7 %" —
+> it is "the cleat is not working, fail the block."
 
 ```toml
 tilt_angle_deg = 32.6
