@@ -216,6 +216,16 @@ before delivering any visits the same point set whatever the draw. Not a smooth 
 capacity 1** and 24.9 at capacity 6 — straight-line, no turns, no pick-and-place (AS-11), so
 every figure is a floor. Never report a strategy without the speed it assumes.
 
+**The measurement order is published, and it is not stable** (ADR-032).
+`data/parameter_sensitivity.json` composes the whole chain — subset choice → score distribution
+→ collision → best-of-N — and ranks all six unmeasured parameters by how far they move the
+result. **σ leads in 27 of 35 grid cells.** Driving speed takes the top rank only at `t` ≈ 8 s
+per object — and there at *every* speed from 100 to 300 mm/s, so handling time causes that flip,
+not speed. The measurement order is therefore σ (**B5**) first, with that band as the exception.
+Carry capacity and the randomization are **boundary effects**: worth 0 when comfortable, 0 when
+tight, and 30 and 15 respectively at the margin where one more mission is borderline. Ceiling is
+**225, not 255** — the two cables are uncostable until B0.
+
 **Time is spent on objects, not only on distance** (ADR-030). Ten of the twelve placement
 missions are costable — the notes plus the four truck objects, since the truck is two *measured*
 bodies — and the full run needs only **93 mm/s at capacity 2**. The binding constraint is

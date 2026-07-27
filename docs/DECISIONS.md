@@ -37,6 +37,7 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-029](#adr-029) | Travel is a budget; capacity buys it; `strategy_frame` never costed a mission | accepted 2026-07-26 |
 | [ADR-030](#adr-030) | A bounded start beats a pending one — the truck, and the pick-and-place cliff | accepted 2026-07-26 |
 | [ADR-031](#adr-031) | The feasibility frontier; speed saturates; the instruments are σ-proof | accepted 2026-07-26 |
+| [ADR-032](#adr-032) | The first end-to-end score, and which unknown to measure first | accepted 2026-07-27 |
 
 ---
 
@@ -1549,3 +1550,112 @@ work order **B5**.
 is unmeasured until **P6**, `t` until a mechanism exists (**A3**), and σ until **B5**. The
 frontier reports what is *reachable* at a given operating point; choosing one is a decision the
 measurements inform and this does not pre-empt.
+
+---
+
+## ADR-032
+
+**The first end-to-end score — and which unknown to measure first.**
+`2026-07-27 · accepted`
+
+### Part 1 — six unknowns, five artefacts, no ranking
+
+**Context.** Every artefact declares its own free parameter and stops:
+
+| parameter | declared in | closed by |
+|---|---|---|
+| σ, placement error | `expected_score`, `placement_sensitivity`, `round_strategy` | **B5** |
+| `v`, driving speed | `travel_budget`, `feasibility_frontier` | **P6** |
+| `t`, pick-and-place | `feasibility_frontier` | **A3** |
+| `N`, rounds | `round_strategy` | **NEEDS-VERIFY(NO-TH)** |
+| `P(collision)` | `expected_score`, `strategy_frame` | **nothing measures it** |
+| carry capacity | `travel_budget` | **A2/A3** |
+
+Nowhere did the repo say which one matters. The operator is about to spend an afternoon
+measuring, and that is the one question a work order should already answer.
+
+**Decision.** Compose the chain — `sim/model.py`:
+
+```
+choose the highest-EXPECTED-value subset that fits   (sim.frontier, ADR-031)
+  → convolve its tier probabilities into a distribution  (sim.rounds, ADR-028)
+    → subtract the exposed bonus cluster once            (ADR-024)
+      → take E[max] over N rounds                        (ADR-027)
+```
+
+**There is no new arithmetic.** Every step already existed; eleven artefacts and nothing had
+composed them. The anchors verify exactly: σ = 0 with unlimited speed, instant handling, one
+round and no collision returns **225.000**, and a run that fits nothing returns **40.000**.
+
+**The ceiling is 225, not 255.** The two cables are still `nominal_pending`, so 40 (bonus floor)
++ 185 (costable placement points) is everything on the table. Quoting /255 would overstate by the
+30 points nobody can cost until **B0**.
+
+### Part 2 — the ranking is not stable, and that is the finding
+
+Swing in expected score across each parameter's plausible range, one at a time:
+
+| rank | comfortable (v 200, t 4) | | marginal (v 150, t 6) | | tight (v 100, t 8) | |
+|---|---|---:|---|---:|---|---:|
+| 1 | **σ** | **57.3** | **σ** | **54.0** | **`v`** | **62.3** |
+| 2 | `v` | 30.0 | `v` | 45.0 | `t` | 47.3 |
+| 3 | `t` | 15.0 | `t` | 30.0 | σ | 45.2 |
+| 4 | `N` | 11.1 | **capacity** | **30.0** | `N` | 10.4 |
+| 5 | `P(coll)` | 7.5 | `N` | 11.1 | `P(coll)` | 7.5 |
+| 6 | capacity | 0.0 | `P(coll)` | 7.5 | capacity | 1.1 |
+
+Nominal scores: **204.9**, **189.9**, **142.6** of 225. Across all 64 corners the envelope is
+**107.5 – 225.0** — the answer is still anywhere, which is the honest measure of what remains
+unknown.
+
+**Three contexts disagree — but three points are not a shape.** Read alone, the table above says
+*"σ for a fast robot, speed for a slow one"*, and that is what this ADR first concluded. A grid
+sweep of seven speeds × five handling times says otherwise:
+
+|  | 2 s | 4 s | 6 s | **8 s** | 10 s |
+|---|:---:|:---:|:---:|:---:|:---:|
+| 100 – 300 mm/s | σ | σ | σ | **`v`** | σ (one cell `v`) |
+
+**σ leads in 27 of 35 cells.** Driving speed takes the top rank at **`t` = 8 s per object and at
+every speed swept, from 100 to 300 mm/s** — and essentially nowhere else. That is the clinching
+detail: if *slow driving* caused the flip, speed would lead in the slow rows and not the fast
+ones. It leads across the whole column instead, so **handling time causes it, not speed**.
+
+The mechanism is ADR-030's cliff seen from the other side: at 8 s per object, ten objects consume
+80 of the 120 seconds and only 40 remain for driving, so how far the robot can travel decides how
+many missions fit at all. Below that speed is not binding; above it, so little fits that speed
+stops changing the count.
+
+**So the measurement order is simply σ (B5) first, with one named exception** — not *"find out
+which regime you are in"*. That is a simpler instruction than the one this ADR started with, and
+it took a grid rather than two chosen points to earn it.
+
+### Part 3 — two of this project's own emphases, qualified
+
+**Carry capacity and the randomization are boundary effects.** Neither is well described by *"it
+matters"* or *"it doesn't"*:
+
+| | comfortable | marginal | tight |
+|---|---:|---:|---:|
+| capacity swing | **0.0** | **30.0** | 1.1 |
+| randomization band over 384 states | **0.0** | **15.0** | **0.0** |
+
+Both cost nothing when the budget is comfortable, nothing when it is tight, and a great deal at
+the margin where one more mission is borderline. **Subset selection absorbs them everywhere
+else** — an unlucky draw or a smaller gripper costs a mission only when a mission was borderline
+anyway.
+
+**ADR-029 stands unchanged.** Its travel findings are travel findings: 2213 mm off the
+worst-case note tour at the first extra slot, and the randomization deleted entirely at capacity
+6. What this adds is *where that travel converts into score* — only at the boundary. That is a
+narrower claim than either the earlier emphasis or the flat "capacity barely matters" this
+analysis first suggested, and it took a third operating context to see.
+
+**The method's own limit, stated.** Each swing varies one parameter with the others at the
+context nominal, so interactions are invisible *within* a context. The interaction between σ,
+speed and handling time is precisely the finding, so it is exposed by publishing three contexts
+rather than by pretending one suffices.
+
+**What this does not claim.** Not a score. Every figure is an evaluation at an assumed operating
+point, and all six parameters are unmeasured. This ranks what to *measure*; what to build stays
+gated on A2/A3, and what to attempt on B5.

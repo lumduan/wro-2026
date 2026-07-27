@@ -34,6 +34,36 @@ After those, **B5** is the single most valuable: it produces σ, which converts
 `data/placement_sensitivity.json` from a statement of what accuracy is *required* into a
 prediction of what will actually score, and it is what Phase 8's mission ordering waits on.
 
+### The order, with numbers behind it (ADR-032)
+
+`data/parameter_sensitivity.json` ranks every unmeasured parameter by how far it moves the
+expected score across its plausible range. **The ranking depends on how fast the robot turns out
+to be**, so it is given at three operating points:
+
+| rank | comfortable — `v` 200, `t` 4 | | tight — `v` 100, `t` 8 | |
+|---|---|---:|---|---:|
+| 1 | **σ** (B5) | **57.3** | **`v`, speed** (B6/P6) | **62.3** |
+| 2 | `v`, speed (B6/P6) | 30.0 | `t`, handling (A3) | 47.3 |
+| 3 | `t`, handling (A3) | 15.0 | σ (B5) | 45.2 |
+| 4 | `N`, rounds (ask the NO) | 11.1 | `N`, rounds | 10.4 |
+| 5 | `P(collision)` | 7.5 | `P(collision)` | 7.5 |
+| 6 | carry capacity (A2/A3) | 0.0 | carry capacity | 1.1 |
+
+**Take the first row, with one exception.** The two columns disagree, which invites the reading
+*"σ for a fast robot, speed for a slow one"*. A grid sweep of seven speeds × five handling times
+does not support it: **σ leads in 27 of 35 cells**, and driving speed takes the top rank only at
+**`t` ≈ 8 s per object — at every speed from 100 to 300 mm/s**. Handling time causes that, not
+speed (ADR-032). So:
+
+1. **A1–A3** as already stated: bench work, no robot, and they close the mechanism.
+2. **B5 (σ)** — the largest single source of uncertainty nearly everywhere.
+3. **`v` and `t`** — smaller, *unless* handling comes out near 8 s per object, where 10 objects
+   consume 80 of the 120 seconds and driving distance starts deciding how many missions fit.
+
+Carry capacity is last in every column and worth **30 points at the margin** (ADR-032): a
+boundary effect, not a constant. Measure it if A2/A3 give it to you free; do not spend a session
+on it.
+
 ---
 
 ## Block A — bench work. No robot needed.

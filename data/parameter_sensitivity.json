@@ -1,0 +1,714 @@
+{
+  "contexts": [
+    {
+      "bonus_points_exposed": 30,
+      "expected_score": 204.89,
+      "missions_attempted": 10,
+      "name": "comfortable",
+      "nominal": {
+        "capacity": 2,
+        "p_collision": 0.1,
+        "pick_place_s": 4.0,
+        "rounds_n": 1,
+        "sigma": 15.0,
+        "speed_mm_s": 200
+      },
+      "of_reachable_max": 225,
+      "randomization_band": {
+        "max": 204.89,
+        "min": 204.89,
+        "states": 384,
+        "width": 0.0
+      },
+      "seconds_used": 90.342,
+      "subset": [
+        "instrument_congas",
+        "instrument_guitar",
+        "instrument_keyboard",
+        "mic",
+        "note_black",
+        "note_blue",
+        "note_green",
+        "note_red",
+        "note_white",
+        "note_yellow"
+      ],
+      "swings": [
+        {
+          "closed_by": "B5",
+          "high": 30.0,
+          "low": 5.0,
+          "parameter": "sigma",
+          "rank": 1,
+          "score_at_high": 164.68,
+          "score_at_low": 222.0,
+          "swing": 57.32,
+          "unit": "mm",
+          "what": "placement error"
+        },
+        {
+          "closed_by": "P6 (work order B6)",
+          "high": 400,
+          "low": 100,
+          "parameter": "speed_mm_s",
+          "rank": 2,
+          "score_at_high": 204.89,
+          "score_at_low": 174.89,
+          "swing": 30.0,
+          "unit": "mm/s",
+          "what": "driving speed"
+        },
+        {
+          "closed_by": "A3",
+          "high": 8.0,
+          "low": 2.0,
+          "parameter": "pick_place_s",
+          "rank": 3,
+          "score_at_high": 189.89,
+          "score_at_low": 204.89,
+          "swing": 15.0,
+          "unit": "s per object",
+          "what": "pick-and-place time"
+        },
+        {
+          "closed_by": "NEEDS-VERIFY(NO-TH)",
+          "high": 3,
+          "low": 1,
+          "parameter": "rounds_n",
+          "rank": 4,
+          "score_at_high": 215.971,
+          "score_at_low": 204.89,
+          "swing": 11.081,
+          "unit": "rounds",
+          "what": "how many rounds are ranked"
+        },
+        {
+          "closed_by": "nothing measures it",
+          "high": 0.25,
+          "low": 0.0,
+          "parameter": "p_collision",
+          "rank": 5,
+          "score_at_high": 200.39,
+          "score_at_low": 207.89,
+          "swing": 7.5,
+          "unit": "probability",
+          "what": "chance of toppling a bonus object"
+        },
+        {
+          "closed_by": "A2/A3",
+          "high": 2,
+          "low": 1,
+          "parameter": "capacity",
+          "rank": 6,
+          "score_at_high": 204.89,
+          "score_at_low": 204.89,
+          "swing": 0.0,
+          "unit": "objects carried",
+          "what": "manipulator carry capacity"
+        }
+      ],
+      "travel_mm": 10068.404,
+      "why": "a robot that is not short of time - the full ten missions fit"
+    },
+    {
+      "bonus_points_exposed": 30,
+      "expected_score": 189.89,
+      "missions_attempted": 9,
+      "name": "marginal",
+      "nominal": {
+        "capacity": 2,
+        "p_collision": 0.1,
+        "pick_place_s": 6.0,
+        "rounds_n": 1,
+        "sigma": 15.0,
+        "speed_mm_s": 150
+      },
+      "of_reachable_max": 225,
+      "randomization_band": {
+        "max": 189.89,
+        "min": 174.89,
+        "states": 384,
+        "width": 15.0
+      },
+      "seconds_used": 117.51,
+      "subset": [
+        "instrument_congas",
+        "instrument_keyboard",
+        "mic",
+        "note_black",
+        "note_blue",
+        "note_green",
+        "note_red",
+        "note_white",
+        "note_yellow"
+      ],
+      "swings": [
+        {
+          "closed_by": "B5",
+          "high": 30.0,
+          "low": 5.0,
+          "parameter": "sigma",
+          "rank": 1,
+          "score_at_high": 153.048,
+          "score_at_low": 207.0,
+          "swing": 53.952,
+          "unit": "mm",
+          "what": "placement error"
+        },
+        {
+          "closed_by": "P6 (work order B6)",
+          "high": 400,
+          "low": 100,
+          "parameter": "speed_mm_s",
+          "rank": 2,
+          "score_at_high": 204.89,
+          "score_at_low": 159.89,
+          "swing": 45.0,
+          "unit": "mm/s",
+          "what": "driving speed"
+        },
+        {
+          "closed_by": "A3",
+          "high": 8.0,
+          "low": 2.0,
+          "parameter": "pick_place_s",
+          "rank": 3,
+          "score_at_high": 174.89,
+          "score_at_low": 204.89,
+          "swing": 30.0,
+          "unit": "s per object",
+          "what": "pick-and-place time"
+        },
+        {
+          "closed_by": "A2/A3",
+          "high": 2,
+          "low": 1,
+          "parameter": "capacity",
+          "rank": 4,
+          "score_at_high": 189.89,
+          "score_at_low": 159.89,
+          "swing": 30.0,
+          "unit": "objects carried",
+          "what": "manipulator carry capacity"
+        },
+        {
+          "closed_by": "NEEDS-VERIFY(NO-TH)",
+          "high": 3,
+          "low": 1,
+          "parameter": "rounds_n",
+          "rank": 5,
+          "score_at_high": 200.971,
+          "score_at_low": 189.89,
+          "swing": 11.081,
+          "unit": "rounds",
+          "what": "how many rounds are ranked"
+        },
+        {
+          "closed_by": "nothing measures it",
+          "high": 0.25,
+          "low": 0.0,
+          "parameter": "p_collision",
+          "rank": 6,
+          "score_at_high": 185.39,
+          "score_at_low": 192.89,
+          "swing": 7.5,
+          "unit": "probability",
+          "what": "chance of toppling a bonus object"
+        }
+      ],
+      "travel_mm": 9526.46,
+      "why": "the boundary, where the randomization draw decides whether one more mission fits - the only place the permutation costs anything"
+    },
+    {
+      "bonus_points_exposed": 30,
+      "expected_score": 142.56,
+      "missions_attempted": 6,
+      "name": "tight",
+      "nominal": {
+        "capacity": 2,
+        "p_collision": 0.1,
+        "pick_place_s": 8.0,
+        "rounds_n": 1,
+        "sigma": 15.0,
+        "speed_mm_s": 100
+      },
+      "of_reachable_max": 225,
+      "randomization_band": {
+        "max": 142.56,
+        "min": 142.56,
+        "states": 384,
+        "width": 0.0
+      },
+      "seconds_used": 113.116,
+      "subset": [
+        "mic",
+        "note_black",
+        "note_blue",
+        "note_green",
+        "note_red",
+        "note_white"
+      ],
+      "swings": [
+        {
+          "closed_by": "P6 (work order B6)",
+          "high": 400,
+          "low": 100,
+          "parameter": "speed_mm_s",
+          "rank": 1,
+          "score_at_high": 204.89,
+          "score_at_low": 142.56,
+          "swing": 62.33,
+          "unit": "mm/s",
+          "what": "driving speed"
+        },
+        {
+          "closed_by": "A3",
+          "high": 8.0,
+          "low": 2.0,
+          "parameter": "pick_place_s",
+          "rank": 2,
+          "score_at_high": 142.56,
+          "score_at_low": 189.89,
+          "swing": 47.33,
+          "unit": "s per object",
+          "what": "pick-and-place time"
+        },
+        {
+          "closed_by": "B5",
+          "high": 30.0,
+          "low": 5.0,
+          "parameter": "sigma",
+          "rank": 3,
+          "score_at_high": 113.753,
+          "score_at_low": 159.0,
+          "swing": 45.247,
+          "unit": "mm",
+          "what": "placement error"
+        },
+        {
+          "closed_by": "NEEDS-VERIFY(NO-TH)",
+          "high": 3,
+          "low": 1,
+          "parameter": "rounds_n",
+          "rank": 4,
+          "score_at_high": 152.923,
+          "score_at_low": 142.56,
+          "swing": 10.363,
+          "unit": "rounds",
+          "what": "how many rounds are ranked"
+        },
+        {
+          "closed_by": "nothing measures it",
+          "high": 0.25,
+          "low": 0.0,
+          "parameter": "p_collision",
+          "rank": 5,
+          "score_at_high": 138.06,
+          "score_at_low": 145.56,
+          "swing": 7.5,
+          "unit": "probability",
+          "what": "chance of toppling a bonus object"
+        },
+        {
+          "closed_by": "A2/A3",
+          "high": 2,
+          "low": 1,
+          "parameter": "capacity",
+          "rank": 6,
+          "score_at_high": 142.56,
+          "score_at_low": 143.61,
+          "swing": 1.05,
+          "unit": "objects carried",
+          "what": "manipulator carry capacity"
+        }
+      ],
+      "travel_mm": 6511.634,
+      "why": "slow driving and slow handling - the budget binds hard"
+    }
+  ],
+  "envelope": {
+    "corners": 64,
+    "max": 225.0,
+    "min": 107.55,
+    "note": "Across the corners of all six ranges the answer spans nearly the whole scale. That is the honest summary of how much is still unknown."
+  },
+  "model": {
+    "anchor_note": "sigma = 0, unlimited speed, instant handling, one round, no collision -> exactly 225",
+    "anchor_perfect_corner": 225.0,
+    "chain": "choose the highest-expected-value subset that fits (sim.frontier) -> convolve its tier probabilities into a score distribution (sim.rounds) -> subtract the exposed bonus cluster once (ADR-024) -> take E[max] over N rounds (ADR-027)",
+    "no_new_arithmetic": "Every step already existed in sim/. Eleven artefacts and none had composed them; the value is in stating the chain in one place."
+  },
+  "parameters": [
+    {
+      "closed_by": "B5",
+      "declared_in": [
+        "expected_score",
+        "placement_sensitivity",
+        "round_strategy"
+      ],
+      "high": 30.0,
+      "low": 5.0,
+      "name": "sigma",
+      "unit": "mm",
+      "what": "placement error"
+    },
+    {
+      "closed_by": "P6 (work order B6)",
+      "declared_in": [
+        "travel_budget",
+        "feasibility_frontier"
+      ],
+      "high": 400,
+      "low": 100,
+      "name": "speed_mm_s",
+      "unit": "mm/s",
+      "what": "driving speed"
+    },
+    {
+      "closed_by": "A3",
+      "declared_in": [
+        "feasibility_frontier"
+      ],
+      "high": 8.0,
+      "low": 2.0,
+      "name": "pick_place_s",
+      "unit": "s per object",
+      "what": "pick-and-place time"
+    },
+    {
+      "closed_by": "NEEDS-VERIFY(NO-TH)",
+      "declared_in": [
+        "round_strategy"
+      ],
+      "high": 3,
+      "low": 1,
+      "name": "rounds_n",
+      "unit": "rounds",
+      "what": "how many rounds are ranked"
+    },
+    {
+      "closed_by": "nothing measures it",
+      "declared_in": [
+        "expected_score",
+        "strategy_frame"
+      ],
+      "high": 0.25,
+      "low": 0.0,
+      "name": "p_collision",
+      "unit": "probability",
+      "what": "chance of toppling a bonus object"
+    },
+    {
+      "closed_by": "A2/A3",
+      "declared_in": [
+        "travel_budget"
+      ],
+      "high": 2,
+      "low": 1,
+      "name": "capacity",
+      "unit": "objects carried",
+      "what": "manipulator carry capacity"
+    }
+  ],
+  "provenance": {
+    "corners_evaluated": 64,
+    "inputs": {
+      "expected_score": "74bba109783842de5783f17450c28ef29a42a97f203e1bb35859a82b5e2a486d",
+      "field_spec": "cc1f0e507f4b00b0064eb17bb8cadc656e76d71875cc2d199ae1098c5f946b9e",
+      "scoring_model": "02606bfa866fbf0787c1d8194f8d5034bd8f06ff275eff124aa93b669d00a119",
+      "travel_budget": "fadd7cbe4e05bfa21611bd867cfcbd9fb9bd94c71441b8d91434c4fd1f28047c"
+    },
+    "joint_start_states": 384,
+    "tool": {
+      "name": "build_parameter_sensitivity",
+      "version": "1.0.0"
+    }
+  },
+  "qualifies": {
+    "both_are_boundary_effects": "Carry capacity and the randomization behave the same way, and neither is well described by 'it matters' or 'it does not'. Both cost NOTHING when the budget is comfortable, nothing when it is tight, and a great deal at the margin where one more mission is borderline. Subset selection absorbs them everywhere else: an unlucky draw or a smaller gripper costs a mission only when a mission was borderline anyway.",
+    "carry_capacity": "0.0 points at the comfortable context, 30.0 at the margin, 1.1 when tight. ADR-029's travel findings stand unchanged - 2213 mm off the worst-case note tour at the first extra slot, and the randomization deleted entirely at capacity 6. What this adds is where that travel converts into score: only at the boundary.",
+    "randomization": "The band across all 384 joint start states is 0.0 at the comfortable context, 0.0 when tight, and 15.0 at the margin between them - where the draw decides whether one more mission fits. That is narrower than 'the randomization is expensive when the budget is tight': it is expensive only at a boundary."
+  },
+  "rank_order": {
+    "by_context": {
+      "comfortable": [
+        "sigma",
+        "speed_mm_s",
+        "pick_place_s",
+        "rounds_n",
+        "p_collision",
+        "capacity"
+      ],
+      "marginal": [
+        "sigma",
+        "speed_mm_s",
+        "pick_place_s",
+        "capacity",
+        "rounds_n",
+        "p_collision"
+      ],
+      "tight": [
+        "speed_mm_s",
+        "pick_place_s",
+        "sigma",
+        "rounds_n",
+        "p_collision",
+        "capacity"
+      ]
+    },
+    "differs_between_contexts": true,
+    "finding": "The three contexts disagree, but a grid sweep says sigma leads in most cells: driving speed takes the top rank only inside a narrow BAND of handling time near 8 s per object, and sigma leads again beyond it. So the measurement order is simply sigma (B5) first, with the band as a named exception - not 'find out which regime you are in'. See rank_stability.",
+    "superseded_2026_07_27": "This block first read 'placement error dominates when the robot is comfortably fast; driving speed and handling time dominate when it is not', generalised from two chosen operating points. The grid sweep does not support it: speed leads at EVERY swept speed inside the band and at none outside it, so handling time causes the flip, not speed."
+  },
+  "rank_stability": {
+    "cells": 35,
+    "grid": [
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 100,
+        "swing": 53.952
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 100,
+        "swing": 50.592
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 100,
+        "swing": 51.627
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 100,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 100,
+        "swing": 49.95
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 125,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 125,
+        "swing": 53.952
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 125,
+        "swing": 50.572
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 125,
+        "swing": 62.33
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 125,
+        "swing": 46.28
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 150,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 150,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 150,
+        "swing": 53.952
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 150,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 150,
+        "swing": 51.627
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 175,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 175,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 175,
+        "swing": 57.32
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 175,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 175,
+        "swing": 47.212
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 200,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 200,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 200,
+        "swing": 57.32
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 200,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 200,
+        "swing": 54.995
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 250,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 250,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 250,
+        "swing": 57.32
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 250,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 250,
+        "swing": 50.572
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 2.0,
+        "speed_mm_s": 300,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 4.0,
+        "speed_mm_s": 300,
+        "swing": 57.32
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 6.0,
+        "speed_mm_s": 300,
+        "swing": 57.32
+      },
+      {
+        "leads": "speed_mm_s",
+        "pick_place_s": 8.0,
+        "speed_mm_s": 300,
+        "swing": 62.33
+      },
+      {
+        "leads": "sigma",
+        "pick_place_s": 10.0,
+        "speed_mm_s": 300,
+        "swing": 50.572
+      }
+    ],
+    "handling_times_where_sigma_does_not_lead": [
+      8.0,
+      10.0
+    ],
+    "leads_in_cells": {
+      "sigma": 27,
+      "speed_mm_s": 8
+    },
+    "pick_place_seconds": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0
+    ],
+    "sigma_leads_fraction": 0.771,
+    "speeds_mm_s": [
+      100,
+      125,
+      150,
+      175,
+      200,
+      250,
+      300
+    ],
+    "what_causes_the_band": "At about 8 s per object, ten objects consume 80 of the 120 s and only 40 s of driving is left, so how far the robot can travel decides how many missions fit at all. Below that, speed is not binding; above it, so little fits that speed stops changing the count.",
+    "why_this_exists": "The three contexts disagree on the top-ranked parameter, which reads as a regime split - placement error for a fast robot, driving speed for a slow one. The grid does not support that: sigma leads in most cells, and speed leads only in a narrow band of HANDLING time, at every speed swept. Beyond the band sigma leads again."
+  },
+  "schema_version": 1,
+  "scope": {
+    "answers": "which unmeasured parameter moves the expected score most",
+    "covers": "the ten costable placement missions; the two cables are still nominal_pending, so the ceiling here is 225 and never 255",
+    "does_not_answer": "what the score will be. Every figure is an evaluation at an ASSUMED operating point, not a forecast - all six parameters are unmeasured",
+    "one_at_a_time": "Each swing varies ONE parameter with the others at the context nominal, so interactions are invisible within a context. That is why two contexts are published rather than one - the interaction between sigma, speed and handling time is the whole finding.",
+    "reachable_max": 225,
+    "why_not_255": "40 bonus floor + 185 costable placement points. The two cables add 30 more, and no route through them can be costed until work order B0."
+  }
+}

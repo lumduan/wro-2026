@@ -84,12 +84,12 @@ fill inventory, the report and the decision records — is committed.
 | `docs/FIELD_TEST_PLAN.md` | Step 0–1 and P1–P7, each naming the `ASSUME:` it replaces. |
 | `docs/area_map.toml` | Hand-written input to S5: canonical ID → drawn path, with citations. |
 | `docs/object_map.toml`, `object_parts.toml` | Hand-written inputs to the object spec: S3 page ranges → object IDs, and part identification. |
-| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `rounds` (the score distribution) · `travel` (tours) · `frontier` (what fits in 120 s) · `robot_io_sim`. |
+| `sim/` | `geometry` · `world` · `scoring` (the scorer) · `sensitivity` · `rounds` (the score distribution) · `travel` (tours) · `frontier` (what fits in 120 s) · `model` (the end-to-end score) · `robot_io_sim`. |
 | `robot/` | `robot_io.py` — the one contract mission code imports — plus the EV3 and SPIKE backends and `missions/`. Must run on **MicroPython**; `tools/check_portability.py` enforces that. |
 | `tools/pdf_extract.py` | The extraction CLI. |
 | `tools/build_all.py` | Runs the derived-artefact pipeline in dependency order. |
 
-### `data/` — nine derived files and one that is not
+### `data/` — ten derived files and one that is not
 
 **Never hand-edit a derived file.** Edit its input and re-run `tools/build_all.py`.
 
@@ -104,6 +104,7 @@ fill inventory, the report and the decision records — is committed.
 | `round_strategy.json` | The run-score *distribution*, `E[max of N rounds]`, and the S4 §10.14 mulligan rule (ADR-027) | `build_round_strategy.py` |
 | `travel_budget.json` | Tour length per carry capacity — the six notes over all 24 randomization permutations (ADR-029), and the full ten-mission run over 384 joint start states with the pick-and-place cliff (ADR-030) | `build_travel_budget.py` |
 | `feasibility_frontier.json` | Which missions fit in 120 s at a given driving speed and pick-and-place time, and what they score (ADR-031) | `build_feasibility_frontier.py` |
+| `parameter_sensitivity.json` | The end-to-end score, and every unmeasured parameter ranked by how far it moves it — the measurement order (ADR-032) | `build_parameter_sensitivity.py` |
 | `scoring_model.json` | Missions, predicates, time rules, randomization | **hand-authored** — a transcription of S1/S4/S6, not a derivation |
 
 ## The build chain

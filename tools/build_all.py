@@ -9,8 +9,9 @@
                                                           └─► round_strategy│
                                                        travel_budget ◄──────┘
                                                              └─► feasibility_frontier
+                                                                   └─► parameter_sensitivity
 
-Nine of the ten files in ``data/`` are derived. Nothing in the repo stated that
+Ten of the eleven files in ``data/`` are derived. Nothing in the repo stated that
 chain until this file, and running the builders out of order does **not** fail:
 it silently leaves an artefact pinning a ``provenance`` sha that no longer
 matches the file on disk. That happened while adding ``mass_g`` to
@@ -83,6 +84,8 @@ PIPELINE: Final = (
     Artefact("travel_budget", "build_travel_budget", "data/travel_budget.json", slow=True),
     Artefact("feasibility_frontier", "build_feasibility_frontier",
              "data/feasibility_frontier.json", slow=True),
+    Artefact("parameter_sensitivity", "build_parameter_sensitivity",
+             "data/parameter_sensitivity.json", slow=True),
 )
 
 #: `provenance.inputs` keys are logical names; these are the files they mean.

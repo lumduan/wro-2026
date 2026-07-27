@@ -88,7 +88,7 @@ def test_the_pipeline_is_in_dependency_order():
 
 def test_every_derived_artefact_exists_and_is_declared_once():
     outs = [a.out for a in PIPELINE]
-    assert len(outs) == len(set(outs)) == 9
+    assert len(outs) == len(set(outs)) == 10
     for out in outs:
         assert (ROOT / out).exists(), out
 
