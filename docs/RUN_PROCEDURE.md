@@ -115,17 +115,48 @@ and does not fold it into `scoring_model.json`.
 
 ---
 
-## What S4 does **not** say
+## What S4 says that this repo had missed — §5.5 to §5.13
 
-Recorded so nobody re-derives them from memory. Each was searched for across the whole document,
-not just the chapter where it might be expected:
+**RETRACTION.** The first issue of this document reported these rules as *absent document-wide*.
+They are not: all nine exist on **page 9**, and the absence was an extraction defect in this
+repo's own toolchain, not a gap in the rulebook. See **ADR-038**. Quoted here in full because
+three of them bind design decisions that were being made without them.
+
+| § | rule |
+|---|---|
+| **5.5** | *"Teams can bring **tools** to repair or modify their robot. The tools must be safe, must not pose a major risk of injury, have to fit on the table of the team and must be **battery operated**. Especially the following items are not permitted: 3D printer, saws, soldering irons, knives."* |
+| **5.6** | *"A robot must be **autonomous** and finish the missions by itself. Any radio communication, remote control and wired control systems are not allowed while the robot is running. **No wireless communication is allowed between components within the robot.**"* |
+| **5.7** | *"A team is not allowed to perform any actions or movements to **interfere or assist the robot after randomization** of the game objects."* |
+| **5.8** | *"Any software to code the robot is allowed and teams can prepare the code before the competition day. If a team uses a software that requires an online connection (e.g. a browser-based tool), **the team should check if there is an offline version for the competition day.** The competition organizer is not responsible for providing an online infrastructure (e.g. WiFi for everyone). The online connection can only be used for coding."* |
+| **5.9** | *"**Bluetooth, Wi-Fi or any remote connection must be switched off during check time and robot runs.** If there is any doubt about this, the team must be able to show that wireless transmission has been deactivated and how this is done. If the team cannot do this, **it is assumed that the wireless transmission has not been deactivated.** In case the feature cannot be turned off for technical reasons, it may remain activated, but it is strictly not allowed to use it. However, it is strongly recommended to **transfer code via cable**…"* |
+| **5.10** | *"Use of hardware (like **SD cards or USB sticks**) to store programs is allowed. The hardware **must be inserted before the end of practice time and may not be removed until the next practice time starts.**"* |
+| **5.11** | *"A team should prepare and bring all the equipment, enough spare parts, software and portable computers… **Teams are not allowed to share a laptop and / or the program** for a robot on the competition day."* |
+| **5.12** | *"The robot and components can be **marked** (label, ribbons, mini-flags, etc.)."* |
+| **5.13** | *"Teams can bring supportive materials such as **measuring tape** (to check the robot size) or **pens and paper** (to make notes). **Documentation about the robot and games and rules is allowed as well.**"* |
+
+**§5.9 and §9.7 are two statements of the same requirement**, not a relocation — §5.9 carries the
+burden-of-proof clause (*if you cannot demonstrate it, it is assumed not deactivated*), §9.7 pins
+the deadline to quarantine. Both bind.
+
+**What each one changes** is worked through in `PHASE7_CONSTRAINTS.md` §6c. In short: §5.8 makes
+an offline coding path the **team's** responsibility, §5.10 puts a hard deadline on inserting
+storage hardware, and §5.13 makes the printed abort card and randomization decision table
+**explicitly legal** — which had been an open question.
+
+---
+
+## What S4 genuinely does not say
+
+Now verified against the **repaired** extraction, in which 132 of 132 rule numbers round-trip.
+Each was searched by content across all 31 pages, not by rule number:
 
 | topic | status |
 |---|---|
-| offline availability of software | **absent** — the only "online" hit is a plagiarism clause |
-| SD cards / USB sticks, insertion timing | **absent** — zero hits document-wide |
-| documentation permitted at the table | **absent** — zero hits |
-| a §5.5 – §5.13 | **do not exist**; chapter 5 ends at **5.4** |
+| how many rounds a tournament has | **absent** — §9.1.2 says only *"A number of robot rounds"*; organizer-set (confirmed for Thailand: 2) |
+| whether a practice block sits **between** rounds | **absent** — §9.1.1 requires only that a tournament *start* with one. `QUESTIONS.md` #2 |
+| what breaks a tie in **both** score and time | **absent** — §10.13 gives one tie-break and stops. `QUESTIONS.md` #10 |
+| Attachment B and Attachment D | **referenced twice, not included** in the 31 pages |
 
-Anything above must not be cited as an S4 rule. If a source exists for them it is a different
-document, and it needs identifying before it binds anything (ADR-036).
+**The difference between this table and the one it replaces:** these four are absences in a
+document whose extraction has been verified complete. The previous table's entries were absences
+in a file that had silently lost a page.

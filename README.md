@@ -34,7 +34,7 @@ documents. Download them from the WRO website and drop them in `docs/`:
 
 | Expected filename | Role | sha256 (the copy this analysis was built from) |
 |---|---|---|
-| `WRO-2026-RoboMission-Elementary-Game-Rules.pdf` | S1 — missions, scoring, randomization | `3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f` |
+| `WRO-2026-RoboMission-Elementary-Game-Rules.pdf` | S1 — missions, scoring, randomization (**Version: January 15th 2026**) | `3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f` |
 | `WRO-2026-GameMat-Elementary-Printing-File.pdf` | S2 — all field geometry | `8d58381fdcd9bc1784ae893e5b133707ca81f19aff51e31ca41c02276466c4d9` |
 | `WRO-2026-RM-Elementary-BI-All.pdf` | S3 — game-object dimensions | `ab7fa33bcae102d800bcc390e1155125c07c1fdcdf06d55df1e8ea38d166bd7a` |
 | `WRO-2026-RoboMission-General-Rules.pdf` | S4 — robot limits, run procedure, table setup | `90a28d8bf77f628227e5f544ec57b5230d620f3ae581f092bed1fda23de9e795` |
@@ -43,8 +43,23 @@ documents. Download them from the WRO website and drop them in `docs/`:
 `https://wro-association.org/wp-content/uploads/WRO-2026-RoboMission-General-Rules.pdf` and
 compared byte-for-byte with the committed copy: **identical** — 3 967 741 bytes, sha256 as above.
 The document's own version string is **"VERSION: JANUARY 15TH 2026"**, which is later than the
-`UPDATED-2025-12-16` revision also in circulation, so this is the current one. 31 pages;
+`UPDATED-2025-12-16` revision also in circulation, so this is the current one. **S1 carries the
+same version date** — *"Official Game Rules for the WRO International Final. Version: January 15th
+2026"* — so the two documents are a matched pair, not one newer than the other. 31 pages;
 **Attachment B and Attachment D are referenced but not included** (ADR-036).
+
+> **Extraction defect, found and fixed 2026-07-28 (ADR-038).** Page 9 of S4 lost 75 % of its text
+> to a spurious table detection, taking §5.5–§5.13 with it — and the absence was written up as a
+> finding. The extractor now discards any table that does not reproduce the prose it displaces,
+> and a test compares every page's markdown against its spans so a future loss fails CI rather
+> than becoming a conclusion. **132 of 132 rule numbers round-trip.**
+
+**Two ceilings, and they are different quantities.** **255** is the rule maximum — what S1's
+scoring sheet awards, printed as *"Maximum Score 255"* on S1 p14. It never changes. **225** is the
+top of `sim/model.py`'s coverage envelope: the 40-point bonus floor plus the 185 placement points
+it can currently *route*, with the two cables still `nominal_pending` (work order B0 closes it).
+A score or a rule total is always out of **255**; only a statement about the model's present reach
+is out of 225. Neither number corrects the other.
 
 **S6** is the official Q&A at `wro-association.org/competition/questions-answers/`. It sits
 **above** S1 and S4 in the precedence hierarchy (S4 §4.4) and is live and unversioned, so it

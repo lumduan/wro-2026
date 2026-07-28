@@ -32,6 +32,32 @@ not facts about the sources and do not appear here. Those are what should surviv
 
 ---
 
+## 1b · The 255 row — **APPLIED 2026-07-28, and it is NOT a correction**
+
+Held unapplied since 2026-07-26 pending operator confirmation. Confirmed 2026-07-28: **255 is
+correct and is not to be changed.**
+
+| | value | what it is | changes? |
+|---|---:|---|---|
+| **rule maximum** | **255** | what S1's scoring sheet awards: 30 + 20 + 45 + 120 + 10 + 20 + 10, and S1 p14 prints **"Maximum Score 255"** | **never** |
+| **model coverage ceiling** | **225** | the top of `sim/model.py`'s envelope (107.5 – 225.0): the 40-point bonus floor plus the 185 placement points it can currently *route*. The two cables are `nominal_pending`, so no tour through them exists | **yes** — work order **B0** closes it |
+
+**These are different quantities that happen to look similar.** 225 does not correct 255 and never
+did. A score, a rule, or a scoring-sheet total is **always out of 255**; only a statement about
+what the *model* can currently reach is out of 225.
+
+**The row is applied by making the distinction explicit wherever both numbers appear** —
+`CLAUDE.md` §5.6, `README.md`, `docs/QUESTIONS.md` #3, `data/parameter_sensitivity.json` and
+`data/feasibility_frontier.json` — rather than by changing a number anywhere. Nothing was edited
+from 255 to 225.
+
+**Why it was held.** The proposal reached this file as a "stale fact" needing correction. It was
+neither stale nor a fact about the same thing, and applying it would have written a wrong number
+into the single source of truth. The correct action for a proposed correction that is really a
+category error is to **name both quantities**, not to pick one.
+
+---
+
 ## 2 · Drift the brief does not name
 
 Found by scanning rather than by being told. These matter as much as the five above.
@@ -111,17 +137,20 @@ arbiter — not this file.
 
 ---
 
-## 5 · Drift recorded 2026-07-27 (S4 re-verification and the best-of-2 brief)
+## 5 · Drift recorded 2026-07-27 / 28 (S4 re-verification and the best-of-2 brief)
+
+> **Three rows in the first issue of this section were wrong and are corrected below,
+> marked ⚠. Two of them were mine, not the brief's — see ADR-038.**
 
 Same rule as §1–2: current value, its source, and whether it will decay again.
 
 | brief said | repo says | source | decays again? |
 |---|---|---|---|
-| S4 §5.5–§5.13 carry offline-software, SD-card, wireless and documentation rules | **§5.5–§5.13 do not exist.** Chapter 5 is `5.1 · 5.2 · 5.2.1…5.2.22 · 5.3 · 5.4` | the PDF itself, enumerated | **no** — a structural fact, and `tests/test_operator_docs.py` now fails if any doc cites one |
-| wireless-off lives at §5.9 | **§9.7**, in the quarantine procedure — *"Before the robot is placed in quarantine… Any wireless communication has to be turned off"* | S4 §9.7 | no |
+| ⚠ S4 §5.5–§5.13 carry offline-software, SD-card, wireless and documentation rules | **The brief was RIGHT and I was wrong.** All nine rules exist, on page 9. My "chapter 5 ends at 5.4" reading was an extraction defect: page 9 lost 75 % of its text to a spurious table and I grepped the broken file. **ADR-038** retracts it; the extractor is fixed and a precondition guard replaces the guard that enforced the error | S4 §5.5–§5.13 p9 | **no** — 132/132 rule numbers now round-trip, and a test fails on any future page loss |
+| ⚠ wireless-off lives at §5.9 | **§5.9 — the brief was right.** *"Bluetooth, Wi-Fi or any remote connection must be switched off during check time and robot runs."* §9.7 states the same requirement again inside the quarantine procedure; both exist, and §5.9 is the one that carries the burden-of-proof clause | S4 §5.9 p9, §9.7 p12 | no |
 | §5.2.9 is a general prohibition | §5.2.9 is titled **"Wheels and tracks"** and carries the pointed/metallic/sticky clause. It also **explicitly permits omni wheels** | S4 §5.2.9 p6 | no |
 | the technical summary is one page | **two (2) DIN A4 page** — §6.2 | S4 §6.2 p9 | no |
-| S1 is dated Jan 15 2026 | **Jan 15 2026 is S4's** version string. The fetched copy is byte-identical to the committed one | S4 title page | no |
+| ⚠ S1 is dated Jan 15 2026 | **Correct — both documents carry that date.** S1's cover reads *"Official Game Rules for the WRO International Final. Version: January 15th 2026"*; S4's reads *"VERSION: JANUARY 15TH 2026"*. My claim that the brief had swapped them was wrong | S1 p1, S4 title page | no |
 | a larger actuator budget was assumed somewhere | **empty list.** ADR-022 already reasons from §5.2.8's 4-motor cap: *"A differential drive takes 2, leaving 2 for twelve objects"* | ADR-022, `manipulator_requirements.json:139` | no |
 | the premium is `σ/√π` with σ = 20 mm → **+11.28** | **+8.53** — σ there is the **score sd, 15.11 points**, not the placement error in mm. Exact figure **+8.41** | ADR-037, `round_strategy.json` | **no** — now guarded by `test_the_premium_uses_the_score_sd_not_the_placement_sigma` |
 | *"extra rounds reward variance"* (ADR-027, unqualified) | only **independent** variance. At ρ = 0.9 the premium falls to **+2.70**. Systematic variance is pure cost | ADR-037 | no |

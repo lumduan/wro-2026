@@ -41,8 +41,10 @@ ADR format: **context → options → decision → consequence.**
 | [ADR-033](#adr-033) | `A1`–`A5` renamed to `MEAS-`; S6's scope stated; the seven questions drafted | accepted 2026-07-27 |
 | [ADR-034](#adr-034) | The tilt proxy measured friction, not centre of gravity | accepted 2026-07-27 |
 | [ADR-035](#adr-035) | Two ceilings (255 vs 225); the tiering premise was false; two more preconditions | accepted 2026-07-27 |
-| [ADR-036](#adr-036) | S4 re-verified at source; Thailand scope asserted; §5.5–5.13 do not exist | accepted 2026-07-27 |
+| [ADR-036](#adr-036) | S4 re-verified at source; Thailand scope asserted | accepted 2026-07-27 — **the §5.5–5.13 finding is RETRACTED by ADR-038** |
 | [ADR-037](#adr-037) | Best-of-2 confirmed: only *independent* variance is an asset | accepted 2026-07-27 |
+| [ADR-038](#adr-038) | §5.5–§5.13 exist; the extraction lost page 9 and the absence was reported as a finding | accepted 2026-07-28 — **retracts part of ADR-036** |
+| [ADR-039](#adr-039) | The √(1−ρ) premium checked against correlated draws; latent ρ ≠ measured ρ | accepted 2026-07-28 |
 
 ---
 
@@ -1154,7 +1156,21 @@ paths and reverting.
 ## ADR-027
 
 **The objective is `E[max of N rounds]`, not `E[score]` of one attempt.**
-`2026-07-26 · accepted`
+`2026-07-26 · accepted · narrowed by ADR-037 · arithmetic refined by ADR-039`
+
+> **GATED, 2026-07-28.** N is now confirmed at **2**, and this ADR's conditional round-2 rule —
+> play safe after a low round 1, play aggressive after a high one — **requires a practice block
+> between the two rounds and is unusable without one.** S4 §9.3 permits modifying construction or
+> code *"only… during practice times"*, and §9.5 puts the robot into quarantine before practice
+> ends. So if no practice sits between round 1 and round 2, **both rounds must be committed in
+> advance**: one program, chosen before either score is known, and the conditional rule cannot be
+> executed at all. Whether such a block exists is **`QUESTIONS.md` #2**, unanswered.
+>
+> What survives unconditionally is the *metric*, not the *tactic*: the survival curve
+> `P(score > t)` is the right way to rank a fixed strategy under best-of-2 either way, because
+> round 2 is still an option struck at the realised round-1 score even when its program is fixed.
+> Only the **switch** is gated. Two further amendments: only *independent* variance is rewarded
+> (ADR-037), and the closed-form premium is an upper bound (ADR-039).
 
 **Context.** Phase 8 optimises the expected score of a **single attempt**. Everything downstream
 of it — `data/expected_score.json`, the break-even `P(collision)` table in
@@ -1940,6 +1956,12 @@ CoG-underivable rather than given a lever arm the formula does not fit.
 **S4 re-verified at source; Thailand scope recorded as an assertion; §5.5–5.13 do not exist.**
 `2026-07-27 · accepted`
 
+> **PARTIALLY RETRACTED 2026-07-28 — see ADR-038.** This ADR's finding that S4's chapter 5 *"ends
+> at 5.4"* and that the offline-software, SD-card and documentation-at-the-table rules were absent
+> is **wrong**. All nine rules (§5.5–§5.13) exist on page 9; the extraction had lost 75 % of that
+> page. Everything else here — the byte-identical fetch, the Thailand scope assertion, the empty
+> actuator audit, the electromagnet closure — stands unchanged.
+
 ### Part 1 — the document is current, and it is the one we hold
 
 Fetched from `wro-association.org/wp-content/uploads/WRO-2026-RoboMission-General-Rules.pdf` and
@@ -2123,3 +2145,122 @@ parameter under a single run, and it is stated here so it is not set to zero for
 **This raises the value of the MEAS σ work rather than lowering it.** Keep the n = 11 tier: σ now
 enters the objective twice — once through the mean and once through a premium that depends on how
 much of it re-rolls.
+
+---
+
+## ADR-038
+
+**§5.5–§5.13 exist. The extraction lost them, and the absence was reported as a finding.**
+`2026-07-28 · accepted · RETRACTS part of ADR-036`
+
+**What was claimed.** ADR-036 recorded that S4's chapter 5 *"ends at 5.4"*, and that the
+offline-software, SD-card and documentation-at-the-table rules were **absent document-wide**. A
+guard was then committed (`test_no_document_cites_a_chapter_5_rule_that_does_not_exist`) to stop
+anyone citing §5.5–§5.13.
+
+**All of that is wrong.** §5.5 through §5.13 exist, on **page 9**, and carry exactly the content
+the operator's pasted text described.
+
+**What actually happened.** `_page_markdown` in `tools/pdf_extract.py` suppresses any text block
+whose centre falls inside a detected table's bbox, on the assumption it was already emitted *as*
+the table. On page 9 `find_tables()` reported a spurious table spanning most of the page, and
+`table.extract()` recovered only three short rows from it. The rest of the page was suppressed and
+**never re-emitted**:
+
+| | page 9 |
+|---|---:|
+| text in the PDF's spans | 3 355 chars |
+| text in `page_009.md` | **830 chars** |
+| lost | **75 %** |
+
+It is the only page of the only document affected — 31 + 15 + 177 + 1 pages were checked and every
+other one is complete. A single-page defect, on the page that happened to carry nine rules.
+
+**Why the check that was run did not catch it.** The absence was verified by grepping the
+markdown. The markdown was the thing that was broken, so the search confirmed its own defect. The
+spans file — same extraction run, same sha — held the text the whole time.
+
+**The compounding error was the guard.** A test was written to enforce the conclusion. Had it
+stood, every future attempt to cite a real rule would have failed CI, and the fabrication would
+have been permanent and self-defending. **This is the MEAS-5 failure repeated**: a guard checking
+the *output* of a method instead of the method's *precondition*.
+
+### Decision
+
+1. **Fix the extractor, not the file.** A table is now kept only if it actually reproduces the
+   prose it displaces — `_table_covers_suppressed_text` counts word tokens and discards any
+   detected table covering less than `TABLE_COVERAGE_FLOOR` (0.60) of the blocks inside its bbox.
+   The observed split is ~0.95 for real tables against ~0.2 for the spurious one, so the threshold
+   sits in a wide gap rather than on a boundary. Page 9 goes 830 → 3 424 chars.
+2. **Replace the guard with a precondition guard.** `test_no_extracted_page_loses_text` compares
+   every page's markdown against the same page's spans and fails on loss. It guards **the method**,
+   so it would have caught this defect on the day it was introduced, and it cannot enforce a
+   conclusion because it does not encode one. **132 of 132 rule numbers** now round-trip.
+3. **Retract the absence claim** everywhere it was written, and restore the constraints the nine
+   rules carry (`PHASE7_CONSTRAINTS.md` §6c).
+
+### Consequence
+
+The rules recovered are not incidental — three of them bind design decisions that were being made
+without them: §5.8 (an offline coding path is the team's responsibility), §5.10 (storage hardware
+must be inserted before practice ends and may not be removed until the next practice starts) and
+§5.13 (documentation, pens and paper are permitted at the table). §5.13 in particular makes the
+printed abort card and the randomization decision table **legal**, which was previously an open
+question.
+
+**And the general lesson, which is the reason this ADR is long:** *"I searched and found nothing"*
+is a claim about the search, not about the document. It needs the search itself verified before it
+becomes a finding — and it must never become a test.
+
+---
+
+## ADR-039
+
+**The √(1−ρ) premium is a bivariate-normal property. Checked against correlated draws.**
+`2026-07-28 · accepted · refines ADR-037`
+
+**Context.** ADR-037 scaled the iid best-of-2 premium by `√(1−ρ)`. That identity holds for
+bivariate normals; this repo's score distribution is a **discrete convolution** over 0–255 with a
+40-point floor and a hard 255 ceiling, and it is neither normal nor unbounded. So the scaling
+cannot be verified by re-deriving it — it has to be compared against a genuinely correlated
+construction on the real distribution.
+
+**Method** (`sim.rounds.correlated_best_of_two`). Split each round's latent draw into a systematic
+part drawn **once** and shared, and an independent part drawn afresh:
+`Z = √ρ·S + √(1−ρ)·E`. Map `Z` through the marginal quantile function, which preserves the
+marginal *exactly*, so this re-couples the same distribution rather than substituting a normal for
+it. Conditional on `S = s` the rounds are independent, giving a single quadrature:
+
+    E[max] = ∫ φ(s) · Σ_k (1 − F_s(k)²) ds
+
+**Result at placement σ = 20 mm, contact reading, score sd 15.11 pts:**
+
+| ρ latent | ρ **realised** | exact | analytic | gap |
+|---:|---:|---:|---:|---:|
+| 0.00 | 0.000 | **8.406** | 8.527 | −0.121 |
+| 0.50 | 0.482 | **5.931** | 6.029 | −0.098 |
+| 0.90 | 0.868 | **2.648** | 2.696 | −0.049 |
+| 0.95 | 0.917 | **1.872** | 1.907 | −0.035 |
+
+**Two findings, and the second is the one that matters.**
+
+1. The analytic form is **optimistic at every ρ**, by 1.4–1.9 %. Small, one-directional, and now
+   visible rather than assumed.
+2. **The latent ρ is not the ρ anyone will measure.** Pushing a latent correlation through a
+   bounded discrete marginal attenuates it: latent 0.90 realises as **0.868**. B5 will measure the
+   *realised* Pearson correlation, and feeding that measured number straight into `√(1−ρ)`
+   compounds both errors in the same direction:
+
+| what B5 measures | exact premium | analytic on the measured ρ | overstatement |
+|---:|---:|---:|---:|
+| ρ = 0.5 | +5.819 | +6.029 | **+3.6 %** |
+| ρ = 0.9 | **+2.175** | +2.696 | **+24.0 %** |
+
+**Decision.** Both figures are published; `premium_with_correlation` keeps its place as the
+closed form and is now documented as an **upper bound**, not an estimate. Where a decision turns on
+the premium at high ρ — which is exactly where the safe default sits — use
+`correlated_best_of_two`.
+
+**Consequence.** ADR-037's conclusion strengthens rather than weakens: at a measured ρ = 0.9 the
+real premium is **+2.18**, not +2.70 — barely a tenth of one note's partial credit. The case that
+systematic variance is pure cost is stronger than the analytic form made it look.

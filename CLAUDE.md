@@ -198,6 +198,14 @@ an exact +8.41, a third too high. Systematic variance is **pure cost**: it lower
 does not re-roll. **The safe default for ρ is HIGH, not zero** — the opposite convention to every
 other variance parameter here, because ρ = 0 flatters the risky strategy.
 
+**`√(1−ρ)` is an upper bound, not an estimate** (ADR-039). It is a bivariate-normal identity and
+this model is a discrete convolution, so it is checked against correlated draws
+(`sim.rounds.correlated_best_of_two`), not assumed. The closed form is optimistic at every ρ. And
+the ρ in the formula is **latent**: a bounded discrete score attenuates it, so latent 0.9 realises
+as 0.868. Feeding a *measured* ρ = 0.9 straight in gives **+2.70 against an exact +2.18 — 24 % too
+high**. `ASSUME: AS-13` — ρ is high until B5 measures it, the one assumption in this repo whose
+safe direction is inverted.
+
 **`P(score > t)` is the primary metric, above the mean.** `E[max(X₁,X₂)] = E[X₁] + E[(X₂ − S₁)⁺]`
 makes round 2 a call option struck at the realised round-1 score, so only the tail counts — and a
 mean collapses exactly that tail. Switching strategy between rounds is **gated**: S4 §9.3 permits

@@ -1,155 +1,420 @@
 {
-  "schema_version": 1,
-  "note": "Every rule this repo relies on, read out of the LOCAL source and quoted only long enough to identify it. Full text extractions stay gitignored (they reproduce WRO's documents verbatim); this file exists so that each cited rule number is auditable from git without redistributing the rulebook.",
+  "citations": [
+    {
+      "page": 3,
+      "quote": "place the mat against the short wall close to the start area (right side)",
+      "rule": "2",
+      "source": "S1",
+      "used_for": "AS-5: the registration datum; centred in the other axis"
+    },
+    {
+      "page": 3,
+      "quote": "place the mat against the short wall close to the start area (right side)",
+      "rule": "p3/mat-placement",
+      "source": "S1",
+      "used_for": "registration datum: X = right wall, Y = centred"
+    },
+    {
+      "page": 7,
+      "quote": "randomly placed on the four light green squares at the upper end",
+      "rule": "p7/randomization",
+      "source": "S1",
+      "used_for": "4! = 24 permutations; green and red fixed"
+    },
+    {
+      "page": 8,
+      "quote": "Cable is only partly in the grey area or not upright",
+      "rule": "p8/cable-partial",
+      "source": "S1",
+      "used_for": "C1 - cable partial credit is 5/15 = 33.3%, NOT 50%"
+    },
+    {
+      "page": 9,
+      "quote": "Completely means that the game object is touching the corresponding area and no other area",
+      "rule": "p9/completely-in",
+      "source": "S1",
+      "used_for": "ADR-013 - the predicate whose domain is undefined"
+    },
+    {
+      "page": 10,
+      "quote": "The microphone target area is the light green area on the stage",
+      "rule": "p10/mic-target",
+      "source": "S1",
+      "used_for": "identifies mic_target as #c3d82d"
+    },
+    {
+      "page": 11,
+      "quote": "The backstage area is the pink area in the bottom left corner",
+      "rule": "p11/backstage",
+      "source": "S1",
+      "used_for": "identifies backstage as #cf8fbb; EXCLUDES the grey border"
+    },
+    {
+      "page": 13,
+      "quote": "no longer touches its initial position and is no longer upright",
+      "rule": "p13/moved",
+      "source": "S1",
+      "used_for": "A1 - the AND wording that the same page's photos contradict"
+    },
+    {
+      "page": 6,
+      "quote": "maximum robot dimensions before the robot starts a run are 250mm x 250mm x 250mm",
+      "rule": "5.1",
+      "source": "S4",
+      "used_for": "A6 envelope; start_area sizing"
+    },
+    {
+      "page": 6,
+      "quote": "not allowed anymore to limit the competition to specific robot brands only",
+      "rule": "5.2",
+      "source": "S4",
+      "used_for": "EV3+SPIKE mixing allowed at international level"
+    },
+    {
+      "page": 6,
+      "quote": "Total weight <= 1,5 kg",
+      "rule": "5.2.1",
+      "source": "S4",
+      "used_for": "A6 weight limit"
+    },
+    {
+      "page": 6,
+      "quote": "Battery <= 6.000 mAh",
+      "rule": "5.2.2",
+      "source": "S4",
+      "used_for": "A6 battery capacity"
+    },
+    {
+      "page": 6,
+      "quote": "Voltage of electric components <= 14 V",
+      "rule": "5.2.3",
+      "source": "S4",
+      "used_for": "A6 voltage - SUPERSEDED by S6 2026-05-14 to 14.8V nominal"
+    },
+    {
+      "page": 6,
+      "quote": "Current / Amperage <= 4 A",
+      "rule": "5.2.4",
+      "source": "S4",
+      "used_for": "A6 current - DELETED by S6 2026-05-14"
+    },
+    {
+      "page": 6,
+      "quote": "wireless connection between different components is not allowed",
+      "rule": "5.2.5",
+      "source": "S4",
+      "used_for": "controller architecture"
+    },
+    {
+      "page": 6,
+      "quote": "the same button, that is used to start the robot, stops the robot",
+      "rule": "5.2.6",
+      "source": "S4",
+      "used_for": "start/stop button constraint"
+    },
+    {
+      "page": 7,
+      "quote": "usage of cameras is limited to the age groups Junior and Senior",
+      "rule": "5.2.7",
+      "source": "S4",
+      "used_for": "cameras PROHIBITED for Elementary; forces ratiometric colour sensing"
+    },
+    {
+      "page": 7,
+      "quote": "Elementary: 4 motors Junior: 5 motors Senior: 6 motors",
+      "rule": "5.2.8",
+      "source": "S4",
+      "used_for": "motor budget - 4 motors, 2 left after differential drive"
+    },
+    {
+      "page": 7,
+      "quote": "only used to attach parts via magnetism, they are not counted a motor",
+      "rule": "5.2.10",
+      "source": "S4",
+      "used_for": "motor budget exemption"
+    },
+    {
+      "page": 8,
+      "quote": "Only the compressor of the pneumatic system is counted as a motor",
+      "rule": "5.2.16",
+      "source": "S4",
+      "used_for": "motor budget exemption - pneumatics buy DOF for one slot"
+    },
+    {
+      "page": 8,
+      "quote": "allowed to bring and use only one full robot containing their controller(s)",
+      "rule": "5.4",
+      "source": "S4",
+      "used_for": "no spare chassis; repair parts only"
+    },
+    {
+      "page": 9,
+      "quote": "tools must be safe... battery operated",
+      "rule": "5.5",
+      "source": "S4",
+      "used_for": "no soldering iron: no repair path for a wiring failure"
+    },
+    {
+      "page": 9,
+      "quote": "No wireless communication is allowed between components within the robot",
+      "rule": "5.6",
+      "source": "S4",
+      "used_for": "closes a Bluetooth-linked two-hub design"
+    },
+    {
+      "page": 9,
+      "quote": "not allowed to perform any actions or movements to interfere or assist the robot",
+      "rule": "5.7",
+      "source": "S4",
+      "used_for": "the 24 permutations are a runtime-sensing problem"
+    },
+    {
+      "page": 9,
+      "quote": "the team should check if there is an offline version for the competition day",
+      "rule": "5.8",
+      "source": "S4",
+      "used_for": "makes TOOLCHAIN_ARCHIVE a rule requirement, not prudence"
+    },
+    {
+      "page": 9,
+      "quote": "Bluetooth, Wi-Fi or any remote connection must be switched off during check time",
+      "rule": "5.9",
+      "source": "S4",
+      "used_for": "burden of proof is on the team; see also 9.7"
+    },
+    {
+      "page": 9,
+      "quote": "must be inserted before the end of practice time and may not be removed",
+      "rule": "5.10",
+      "source": "S4",
+      "used_for": "EV3 boot card is committed for the whole round block"
+    },
+    {
+      "page": 9,
+      "quote": "Teams are not allowed to share a laptop and / or the program",
+      "rule": "5.11",
+      "source": "S4",
+      "used_for": "one laptop per team on the day"
+    },
+    {
+      "page": 9,
+      "quote": "The robot and components can be marked (label, ribbons, mini-flags, etc.)",
+      "rule": "5.12",
+      "source": "S4",
+      "used_for": "marking the single 5.2.6 start/stop button"
+    },
+    {
+      "page": 9,
+      "quote": "Documentation about the robot and games and rules is allowed as well",
+      "rule": "5.13",
+      "source": "S4",
+      "used_for": "the printed abort card and randomization table are legal"
+    },
+    {
+      "page": 10,
+      "quote": "a printed mat that is put into the game table",
+      "rule": "7.1",
+      "source": "S4",
+      "used_for": "AS-5: the mat sits inside the table walls"
+    },
+    {
+      "page": 10,
+      "quote": "dimensions of a WRO mat are 2362 mm x 1143 mm",
+      "rule": "7.2",
+      "source": "S4",
+      "used_for": "AS-5 resolved; table tolerance +/-5mm; 50mm borders"
+    },
+    {
+      "page": 10,
+      "quote": "game elements for 2026 are built from the WRO Brick Set (no. 45811)",
+      "rule": "7.4",
+      "source": "S4",
+      "used_for": "Phase 4 re-scope - LEGO stud pitch is a known constant"
+    },
+    {
+      "page": 10,
+      "quote": "object has to fit within the 250 mm x 250 mm x 250 mm",
+      "rule": "7.5",
+      "source": "S4",
+      "used_for": "does not bind for Elementary 2026; noted for the Extra Task"
+    },
+    {
+      "page": 10,
+      "quote": "If an object is damaged, a potential score of the object does not count",
+      "rule": "7.7",
+      "source": "S4",
+      "used_for": "C2 - damaged => 0, a predicate above every mission block"
+    },
+    {
+      "page": 10,
+      "quote": "start area of the robot is exclusively the white area within a coloured border",
+      "rule": "7.8",
+      "source": "S4",
+      "used_for": "start_area definition (a definition, NOT a location)"
+    },
+    {
+      "page": 10,
+      "quote": "you should always expect some variability",
+      "rule": "7.10",
+      "source": "S4",
+      "used_for": "noise-model spec - 8 named sources become parameters"
+    },
+    {
+      "page": 10,
+      "quote": "Waviness in the mat itself. Location and severity of waviness varies",
+      "rule": "7.10.7",
+      "source": "S4",
+      "used_for": "AS-5 residual: the mat is not a rigid datum"
+    },
+    {
+      "page": 12,
+      "quote": "Teams need to calibrate their robots during practice time, not directly before an attempt",
+      "rule": "9.3",
+      "source": "S4",
+      "used_for": "calibration must survive quarantine"
+    },
+    {
+      "page": 13,
+      "quote": "prepare the competition tables for the next round (including possible randomization of game objects)",
+      "rule": "9.6",
+      "source": "S4",
+      "used_for": "randomization AFTER quarantine => runtime sensing is mandatory"
+    },
+    {
+      "page": 13,
+      "quote": "Before the robot is placed in quarantine, the robot must be ready",
+      "rule": "9.7",
+      "source": "S4",
+      "used_for": "no post-randomization preparation"
+    },
+    {
+      "page": 13,
+      "quote": "Each robot attempt is 2 minutes",
+      "rule": "10.1",
+      "source": "S4",
+      "used_for": "A4 - run length"
+    },
+    {
+      "page": 13,
+      "quote": "not allowed to enter data to a program by changing positions or orientation",
+      "rule": "10.2",
+      "source": "S4",
+      "used_for": "closes the manual randomization workaround a second time"
+    },
+    {
+      "page": 13,
+      "quote": "A start module / start frame can be used to adjust the starting position",
+      "rule": "10.3",
+      "source": "S4",
+      "used_for": "reduces initial-pose variance; interacts with ADR-014"
+    },
+    {
+      "page": 13,
+      "quote": "not allowed to lose the controller, motors or sensors",
+      "rule": "10.4",
+      "source": "S4",
+      "used_for": "part_detachment => 0 points and 120 seconds; a design constraint"
+    },
+    {
+      "page": 14,
+      "quote": "A robot attempt will end if the robot attempt time (2 minutes) has ended",
+      "rule": "10.7",
+      "source": "S4",
+      "used_for": "A4 - no return-to-start requirement anywhere in 10.7"
+    },
+    {
+      "page": 14,
+      "quote": "judge scores the attempt based on the situation on the field",
+      "rule": "10.8",
+      "source": "S4",
+      "used_for": "end-of-attempt field state; ADR-014 run-time initial pose"
+    },
+    {
+      "page": 14,
+      "quote": "If a team touches or changes the task objects during the attempt",
+      "rule": "10.10",
+      "source": "S4",
+      "used_for": "DQ for the round"
+    },
+    {
+      "page": 14,
+      "quote": "result in a robot attempt with the worst possible score",
+      "rule": "10.11",
+      "source": "S4",
+      "used_for": "DQ scoring and 120 seconds"
+    },
+    {
+      "page": 14,
+      "quote": "without having solved a (partial) task that yields positive points",
+      "rule": "10.12",
+      "source": "S4",
+      "used_for": "A8 - is a bonus-only run a solved task?"
+    },
+    {
+      "page": 14,
+      "quote": "same points, the ranking is decided by the record of time",
+      "rule": "10.13",
+      "source": "S4",
+      "used_for": "A4 - score first, then time"
+    },
+    {
+      "page": null,
+      "quote": "The 4A current limit has been removed (General Rule 5.2.4)",
+      "rule": "QA/2026-05-14/current",
+      "source": "S6",
+      "used_for": "deletes S4 5.2.4"
+    },
+    {
+      "page": null,
+      "quote": "The maximum allowed battery voltage has been updated to 14.8V (nominal value)",
+      "rule": "QA/2026-05-14/voltage",
+      "source": "S6",
+      "used_for": "supersedes S4 5.2.3"
+    },
+    {
+      "page": null,
+      "quote": "bonus points can be awarded even if the robot does not leave the Start Area",
+      "rule": "QA/2026-06-17/bonus",
+      "source": "S6",
+      "used_for": "C6 - 40 bonus points are a FLOOR, not a prize"
+    },
+    {
+      "page": null,
+      "quote": "A microphone that is not fully touching the floor should not be considered upright",
+      "rule": "QA/2026-06-30/upright",
+      "source": "S6",
+      "used_for": "C3 A5 resolved (partial tier), C4 A2 contact predicate, C5 A3 by implication"
+    }
+  ],
   "constraints": {
+    "enforced_by": "tests/test_citations.py",
     "max_quote_words": 15,
-    "unique_key": ["source", "rule"],
-    "enforced_by": "tests/test_citations.py"
+    "unique_key": [
+      "source",
+      "rule"
+    ]
   },
+  "note": "Every rule this repo relies on, read out of the LOCAL source and quoted only long enough to identify it. Full text extractions stay gitignored (they reproduce WRO's documents verbatim); this file exists so that each cited rule number is auditable from git without redistributing the rulebook.",
+  "schema_version": 1,
   "sources": {
     "S1": {
       "name": "WRO-2026-RoboMission-Elementary-Game-Rules.pdf",
-      "sha256": "3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f"
+      "pages": 15,
+      "sha256": "3ec1bb2b16c298676f180da0b664963a4ab4e36a85408ab4b54fb4c8b187877f",
+      "version_line": "Official Game Rules for the WRO International Final. Version: January 15th 2026",
+      "version_note": "S1 and S4 carry the SAME version date. An earlier claim that Jan 15 2026 was S4's date alone was wrong — corrected 2026-07-28."
     },
     "S4": {
       "name": "WRO-2026-RoboMission-General-Rules.pdf",
+      "pages": 31,
       "sha256": "90a28d8bf77f628227e5f544ec57b5230d620f3ae581f092bed1fda23de9e795",
-      "version_line": "VERSION: JANUARY 15TH 2026",
-      "pages": 31
+      "version_line": "VERSION: JANUARY 15TH 2026"
     },
     "S6": {
+      "article_modified_time": "2026-06-30T16:45:33+02:00",
       "name": "s6-qa-snapshot-2026-07-25.html",
       "sha256": "d6667dfbfff0b45dcd60f0ff3b2643289d7c04f5414cd58949f9f59d9c288a02",
-      "article_modified_time": "2026-06-30T16:45:33+02:00",
       "url": "https://wro-association.org/competition/questions-answers/"
     }
-  },
-  "citations": [
-    {"source": "S4", "rule": "5.1", "page": 6,
-     "quote": "maximum robot dimensions before the robot starts a run are 250mm x 250mm x 250mm",
-     "used_for": "A6 envelope; start_area sizing"},
-    {"source": "S4", "rule": "5.2", "page": 6,
-     "quote": "not allowed anymore to limit the competition to specific robot brands only",
-     "used_for": "EV3+SPIKE mixing allowed at international level"},
-    {"source": "S4", "rule": "5.2.1", "page": 6, "quote": "Total weight <= 1,5 kg",
-     "used_for": "A6 weight limit"},
-    {"source": "S4", "rule": "5.2.2", "page": 6, "quote": "Battery <= 6.000 mAh",
-     "used_for": "A6 battery capacity"},
-    {"source": "S4", "rule": "5.2.3", "page": 6, "quote": "Voltage of electric components <= 14 V",
-     "used_for": "A6 voltage - SUPERSEDED by S6 2026-05-14 to 14.8V nominal"},
-    {"source": "S4", "rule": "5.2.4", "page": 6, "quote": "Current / Amperage <= 4 A",
-     "used_for": "A6 current - DELETED by S6 2026-05-14"},
-    {"source": "S4", "rule": "5.2.5", "page": 6,
-     "quote": "wireless connection between different components is not allowed",
-     "used_for": "controller architecture"},
-    {"source": "S4", "rule": "5.2.6", "page": 6,
-     "quote": "the same button, that is used to start the robot, stops the robot",
-     "used_for": "start/stop button constraint"},
-    {"source": "S4", "rule": "5.2.7", "page": 7,
-     "quote": "usage of cameras is limited to the age groups Junior and Senior",
-     "used_for": "cameras PROHIBITED for Elementary; forces ratiometric colour sensing"},
-    {"source": "S4", "rule": "5.2.8", "page": 7,
-     "quote": "Elementary: 4 motors Junior: 5 motors Senior: 6 motors",
-     "used_for": "motor budget - 4 motors, 2 left after differential drive"},
-    {"source": "S4", "rule": "5.2.10", "page": 7,
-     "quote": "only used to attach parts via magnetism, they are not counted a motor",
-     "used_for": "motor budget exemption"},
-    {"source": "S4", "rule": "5.2.16", "page": 8,
-     "quote": "Only the compressor of the pneumatic system is counted as a motor",
-     "used_for": "motor budget exemption - pneumatics buy DOF for one slot"},
-    {"source": "S4", "rule": "5.4", "page": 8,
-     "quote": "allowed to bring and use only one full robot containing their controller(s)",
-     "used_for": "no spare chassis; repair parts only"},
-    {"source": "S4", "rule": "7.2", "page": 10,
-     "quote": "dimensions of a WRO mat are 2362 mm x 1143 mm",
-     "used_for": "AS-5 resolved; table tolerance +/-5mm; 50mm borders"},
-    {"source": "S4", "rule": "7.4", "page": 10,
-     "quote": "game elements for 2026 are built from the WRO Brick Set (no. 45811)",
-     "used_for": "Phase 4 re-scope - LEGO stud pitch is a known constant"},
-    {"source": "S4", "rule": "7.5", "page": 10,
-     "quote": "object has to fit within the 250 mm x 250 mm x 250 mm",
-     "used_for": "does not bind for Elementary 2026; noted for the Extra Task"},
-    {"source": "S4", "rule": "7.7", "page": 10,
-     "quote": "If an object is damaged, a potential score of the object does not count",
-     "used_for": "C2 - damaged => 0, a predicate above every mission block"},
-    {"source": "S4", "rule": "7.8", "page": 10,
-     "quote": "start area of the robot is exclusively the white area within a coloured border",
-     "used_for": "start_area definition (a definition, NOT a location)"},
-    {"source": "S4", "rule": "7.10", "page": 10,
-     "quote": "you should always expect some variability",
-     "used_for": "noise-model spec - 8 named sources become parameters"},
-    {"source": "S4", "rule": "9.3", "page": 12,
-     "quote": "Teams need to calibrate their robots during practice time, not directly before an attempt",
-     "used_for": "calibration must survive quarantine"},
-    {"source": "S4", "rule": "9.6", "page": 13,
-     "quote": "prepare the competition tables for the next round (including possible randomization of game objects)",
-     "used_for": "randomization AFTER quarantine => runtime sensing is mandatory"},
-    {"source": "S4", "rule": "9.7", "page": 13,
-     "quote": "Before the robot is placed in quarantine, the robot must be ready",
-     "used_for": "no post-randomization preparation"},
-    {"source": "S4", "rule": "10.1", "page": 13, "quote": "Each robot attempt is 2 minutes",
-     "used_for": "A4 - run length"},
-    {"source": "S4", "rule": "10.2", "page": 13,
-     "quote": "not allowed to enter data to a program by changing positions or orientation",
-     "used_for": "closes the manual randomization workaround a second time"},
-    {"source": "S4", "rule": "10.3", "page": 13,
-     "quote": "A start module / start frame can be used to adjust the starting position",
-     "used_for": "reduces initial-pose variance; interacts with ADR-014"},
-    {"source": "S4", "rule": "10.4", "page": 13,
-     "quote": "not allowed to lose the controller, motors or sensors",
-     "used_for": "part_detachment => 0 points and 120 seconds; a design constraint"},
-    {"source": "S4", "rule": "10.7", "page": 14,
-     "quote": "A robot attempt will end if the robot attempt time (2 minutes) has ended",
-     "used_for": "A4 - no return-to-start requirement anywhere in 10.7"},
-    {"source": "S4", "rule": "10.8", "page": 14,
-     "quote": "judge scores the attempt based on the situation on the field",
-     "used_for": "end-of-attempt field state; ADR-014 run-time initial pose"},
-    {"source": "S4", "rule": "10.10", "page": 14,
-     "quote": "If a team touches or changes the task objects during the attempt",
-     "used_for": "DQ for the round"},
-    {"source": "S4", "rule": "10.11", "page": 14,
-     "quote": "result in a robot attempt with the worst possible score",
-     "used_for": "DQ scoring and 120 seconds"},
-    {"source": "S4", "rule": "10.12", "page": 14,
-     "quote": "without having solved a (partial) task that yields positive points",
-     "used_for": "A8 - is a bonus-only run a solved task?"},
-    {"source": "S4", "rule": "10.13", "page": 14,
-     "quote": "same points, the ranking is decided by the record of time",
-     "used_for": "A4 - score first, then time"},
-
-    {"source": "S6", "rule": "QA/2026-05-14/voltage", "page": null,
-     "quote": "The maximum allowed battery voltage has been updated to 14.8V (nominal value)",
-     "used_for": "supersedes S4 5.2.3"},
-    {"source": "S6", "rule": "QA/2026-05-14/current", "page": null,
-     "quote": "The 4A current limit has been removed (General Rule 5.2.4)",
-     "used_for": "deletes S4 5.2.4"},
-    {"source": "S6", "rule": "QA/2026-06-17/bonus", "page": null,
-     "quote": "bonus points can be awarded even if the robot does not leave the Start Area",
-     "used_for": "C6 - 40 bonus points are a FLOOR, not a prize"},
-    {"source": "S6", "rule": "QA/2026-06-30/upright", "page": null,
-     "quote": "A microphone that is not fully touching the floor should not be considered upright",
-     "used_for": "C3 A5 resolved (partial tier), C4 A2 contact predicate, C5 A3 by implication"},
-
-    {"source": "S1", "rule": "p3/mat-placement", "page": 3,
-     "quote": "place the mat against the short wall close to the start area (right side)",
-     "used_for": "registration datum: X = right wall, Y = centred"},
-    {"source": "S1", "rule": "p7/randomization", "page": 7,
-     "quote": "randomly placed on the four light green squares at the upper end",
-     "used_for": "4! = 24 permutations; green and red fixed"},
-    {"source": "S1", "rule": "p8/cable-partial", "page": 8,
-     "quote": "Cable is only partly in the grey area or not upright",
-     "used_for": "C1 - cable partial credit is 5/15 = 33.3%, NOT 50%"},
-    {"source": "S1", "rule": "p9/completely-in", "page": 9,
-     "quote": "Completely means that the game object is touching the corresponding area and no other area",
-     "used_for": "ADR-013 - the predicate whose domain is undefined"},
-    {"source": "S1", "rule": "p10/mic-target", "page": 10,
-     "quote": "The microphone target area is the light green area on the stage",
-     "used_for": "identifies mic_target as #c3d82d"},
-    {"source": "S1", "rule": "p11/backstage", "page": 11,
-     "quote": "The backstage area is the pink area in the bottom left corner",
-     "used_for": "identifies backstage as #cf8fbb; EXCLUDES the grey border"},
-    {"source": "S1", "rule": "p13/moved", "page": 13,
-     "quote": "no longer touches its initial position and is no longer upright",
-     "used_for": "A1 - the AND wording that the same page's photos contradict"}
-  ]
+  }
 }

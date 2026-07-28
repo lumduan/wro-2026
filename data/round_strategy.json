@@ -4,6 +4,7 @@
     "breakeven_method": "bisection on P(collision), comparing E[max] of the run with the mission against the run without it. At N = 1 this reduces to the closed form in expected_score.json, E[points] / bonus_points_exposed.",
     "conditional_round_2": "E[max(X1, X2)] = E[X1] + E[(X2 - S1)+], so round 2 is a call option struck at the realised round-1 score S1: only the excess counts. A LOW round 1 argues for the SAFE strategy (almost anything beats it, so maximise P(beat S1)); a HIGH round 1 argues for the AGGRESSIVE one (only the tail can beat it). GATED: S4 9.3 permits code changes only during practice times, so switching needs a practice block BETWEEN the two rounds, which S4 does not promise.",
     "correlation_decomposition": "premium = sd * sqrt(1 - rho) / sqrt(pi) for N = 2, where sd is the SCORE standard deviation in POINTS, not the placement error in mm. Those are different quantities in different units: at placement sigma = 20 mm the score sd is 15.11 points, and using 20 in the formula overstates the premium by a third.",
+    "correlation_is_latent_not_measured": "The rho in sqrt(1 - rho) is the LATENT correlation of the coupling. A bounded discrete score distribution attenuates it, so the Pearson correlation anyone would MEASURE is lower: latent 0.9 realises as 0.868. Feeding a measured rho = 0.9 into the closed form gives +2.696 against an exact +2.175 — a 24% overstatement. Use sim.rounds.correlated_best_of_two once B5 has measured it. ADR-039.",
     "mulligan_free_rule": "Under best-of-N a round at or below your running best contributes nothing, so replacing it is weakly dominant — free. A run that does nothing scores exactly the 40-point bonus floor, so a 40 is always free to retake. AMBIGUITY(A10) qualifies this.",
     "mulligan_gamble_rule": "Above the running best, retake iff realised < E[max(running_best, fresh)] — the threshold tabulated per sigma.",
     "objective": "E[max(X1..XN)], from P(max <= k) = P(X <= k)**N",
@@ -23,7 +24,7 @@
     ],
     "tool": {
       "name": "build_round_strategy",
-      "version": "1.1.0"
+      "version": "1.2.0"
     }
   },
   "readings": {
@@ -55,16 +56,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 0.0
@@ -95,16 +105,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 1.0
@@ -135,16 +154,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 2.0
@@ -175,16 +203,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 3.0
@@ -215,16 +252,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 5.0
@@ -255,16 +301,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.69,
               "premium": 0.991,
-              "rho": 0.0
+              "premium_exact": 0.301,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.452,
               "premium": 0.701,
-              "rho": 0.5
+              "premium_exact": 0.249,
+              "rho": 0.5,
+              "rho_realised": 0.18
             },
             {
+              "analytic_overstates_by": 0.19,
               "premium": 0.313,
-              "rho": 0.9
+              "premium_exact": 0.123,
+              "rho": 0.9,
+              "rho_realised": 0.601
             }
           ],
           "sigma_mm": 7.5
@@ -299,16 +354,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.71,
               "premium": 3.157,
-              "rho": 0.0
+              "premium_exact": 2.447,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.501,
               "premium": 2.232,
-              "rho": 0.5
+              "premium_exact": 1.732,
+              "rho": 0.5,
+              "rho_realised": 0.359
             },
             {
+              "analytic_overstates_by": 0.223,
               "premium": 0.998,
-              "rho": 0.9
+              "premium_exact": 0.775,
+              "rho": 0.9,
+              "rho_realised": 0.751
             }
           ],
           "sigma_mm": 10.0
@@ -347,16 +411,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.193,
               "premium": 6.913,
-              "rho": 0.0
+              "premium_exact": 6.72,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.159,
               "premium": 4.888,
-              "rho": 0.5
+              "premium_exact": 4.729,
+              "rho": 0.5,
+              "rho_realised": 0.468
             },
             {
+              "analytic_overstates_by": 0.08,
               "premium": 2.186,
-              "rho": 0.9
+              "premium_exact": 2.106,
+              "rho": 0.9,
+              "rho_realised": 0.85
             }
           ],
           "sigma_mm": 15.0
@@ -395,16 +468,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.121,
               "premium": 8.527,
-              "rho": 0.0
+              "premium_exact": 8.406,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.098,
               "premium": 6.029,
-              "rho": 0.5
+              "premium_exact": 5.931,
+              "rho": 0.5,
+              "rho_realised": 0.482
             },
             {
+              "analytic_overstates_by": 0.049,
               "premium": 2.696,
-              "rho": 0.9
+              "premium_exact": 2.648,
+              "rho": 0.9,
+              "rho_realised": 0.868
             }
           ],
           "sigma_mm": 20.0
@@ -443,16 +525,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.092,
               "premium": 9.674,
-              "rho": 0.0
+              "premium_exact": 9.582,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.069,
               "premium": 6.841,
-              "rho": 0.5
+              "premium_exact": 6.772,
+              "rho": 0.5,
+              "rho_realised": 0.489
             },
             {
+              "analytic_overstates_by": 0.032,
               "premium": 3.059,
-              "rho": 0.9
+              "premium_exact": 3.027,
+              "rho": 0.9,
+              "rho_realised": 0.881
             }
           ],
           "sigma_mm": 30.0
@@ -491,16 +582,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.039,
               "premium": 10.592,
-              "rho": 0.0
+              "premium_exact": 10.553,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.031,
               "premium": 7.49,
-              "rho": 0.5
+              "premium_exact": 7.458,
+              "rho": 0.5,
+              "rho_realised": 0.495
             },
             {
+              "analytic_overstates_by": 0.015,
               "premium": 3.349,
-              "rho": 0.9
+              "premium_exact": 3.334,
+              "rho": 0.9,
+              "rho_realised": 0.892
             }
           ],
           "sigma_mm": 45.0
@@ -3809,16 +3909,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 0.0
@@ -3849,16 +3958,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.0
+              "premium_exact": 0.0,
+              "rho": 0.0,
+              "rho_realised": -0.056
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.5
+              "premium_exact": 0.0,
+              "rho": 0.5,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.0,
               "premium": 0.0,
-              "rho": 0.9
+              "premium_exact": 0.0,
+              "rho": 0.9,
+              "rho_realised": -0.143
             }
           ],
           "sigma_mm": 1.0
@@ -3889,16 +4007,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.168,
               "premium": 0.178,
-              "rho": 0.0
+              "premium_exact": 0.01,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.117,
               "premium": 0.126,
-              "rho": 0.5
+              "premium_exact": 0.009,
+              "rho": 0.5,
+              "rho_realised": 0.053
             },
             {
+              "analytic_overstates_by": 0.051,
               "premium": 0.056,
-              "rho": 0.9
+              "premium_exact": 0.006,
+              "rho": 0.9,
+              "rho_realised": 0.44
             }
           ],
           "sigma_mm": 2.0
@@ -3929,16 +4056,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.835,
               "premium": 1.515,
-              "rho": 0.0
+              "premium_exact": 0.68,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.542,
               "premium": 1.071,
-              "rho": 0.5
+              "premium_exact": 0.529,
+              "rho": 0.5,
+              "rho_realised": 0.238
             },
             {
+              "analytic_overstates_by": 0.228,
               "premium": 0.479,
-              "rho": 0.9
+              "premium_exact": 0.251,
+              "rho": 0.9,
+              "rho_realised": 0.652
             }
           ],
           "sigma_mm": 3.0
@@ -3977,16 +4113,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.346,
               "premium": 4.879,
-              "rho": 0.0
+              "premium_exact": 4.533,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.288,
               "premium": 3.45,
-              "rho": 0.5
+              "premium_exact": 3.162,
+              "rho": 0.5,
+              "rho_realised": 0.43
             },
             {
+              "analytic_overstates_by": 0.141,
               "premium": 1.543,
-              "rho": 0.9
+              "premium_exact": 1.402,
+              "rho": 0.9,
+              "rho_realised": 0.809
             }
           ],
           "sigma_mm": 5.0
@@ -4025,16 +4170,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.168,
               "premium": 6.672,
-              "rho": 0.0
+              "premium_exact": 6.504,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.141,
               "premium": 4.718,
-              "rho": 0.5
+              "premium_exact": 4.577,
+              "rho": 0.5,
+              "rho_realised": 0.468
             },
             {
+              "analytic_overstates_by": 0.072,
               "premium": 2.11,
-              "rho": 0.9
+              "premium_exact": 2.038,
+              "rho": 0.9,
+              "rho_realised": 0.846
             }
           ],
           "sigma_mm": 7.5
@@ -4073,16 +4227,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.142,
               "premium": 7.281,
-              "rho": 0.0
+              "premium_exact": 7.139,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.117,
               "premium": 5.149,
-              "rho": 0.5
+              "premium_exact": 5.032,
+              "rho": 0.5,
+              "rho_realised": 0.475
             },
             {
+              "analytic_overstates_by": 0.058,
               "premium": 2.302,
-              "rho": 0.9
+              "premium_exact": 2.244,
+              "rho": 0.9,
+              "rho_realised": 0.855
             }
           ],
           "sigma_mm": 10.0
@@ -4121,16 +4284,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.169,
               "premium": 7.277,
-              "rho": 0.0
+              "premium_exact": 7.108,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.127,
               "premium": 5.145,
-              "rho": 0.5
+              "premium_exact": 5.018,
+              "rho": 0.5,
+              "rho_realised": 0.475
             },
             {
+              "analytic_overstates_by": 0.06,
               "premium": 2.301,
-              "rho": 0.9
+              "premium_exact": 2.241,
+              "rho": 0.9,
+              "rho_realised": 0.855
             }
           ],
           "sigma_mm": 15.0
@@ -4169,16 +4341,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.185,
               "premium": 7.002,
-              "rho": 0.0
+              "premium_exact": 6.818,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.134,
               "premium": 4.951,
-              "rho": 0.5
+              "premium_exact": 4.818,
+              "rho": 0.5,
+              "rho_realised": 0.473
             },
             {
+              "analytic_overstates_by": 0.061,
               "premium": 2.214,
-              "rho": 0.9
+              "premium_exact": 2.153,
+              "rho": 0.9,
+              "rho_realised": 0.853
             }
           ],
           "sigma_mm": 20.0
@@ -4217,16 +4398,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.173,
               "premium": 6.917,
-              "rho": 0.0
+              "premium_exact": 6.745,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.113,
               "premium": 4.891,
-              "rho": 0.5
+              "premium_exact": 4.778,
+              "rho": 0.5,
+              "rho_realised": 0.479
             },
             {
+              "analytic_overstates_by": 0.047,
               "premium": 2.187,
-              "rho": 0.9
+              "premium_exact": 2.14,
+              "rho": 0.9,
+              "rho_realised": 0.863
             }
           ],
           "sigma_mm": 30.0
@@ -4265,16 +4455,25 @@
           ],
           "premium_at_rho": [
             {
+              "analytic_overstates_by": 0.076,
               "premium": 8.442,
-              "rho": 0.0
+              "premium_exact": 8.366,
+              "rho": 0.0,
+              "rho_realised": 0.0
             },
             {
+              "analytic_overstates_by": 0.051,
               "premium": 5.969,
-              "rho": 0.5
+              "premium_exact": 5.918,
+              "rho": 0.5,
+              "rho_realised": 0.492
             },
             {
+              "analytic_overstates_by": 0.022,
               "premium": 2.67,
-              "rho": 0.9
+              "premium_exact": 2.647,
+              "rho": 0.9,
+              "rho_realised": 0.887
             }
           ],
           "sigma_mm": 45.0

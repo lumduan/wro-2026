@@ -498,33 +498,105 @@ def test_the_variance_claim_is_narrowed_to_independent_variance(round_strategy):
 # S4 rules that do not exist, and rules that now have consumers
 # --------------------------------------------------------------------------- #
 
-#: Chapter 5 of S4 runs 5.1 / 5.2 / 5.2.1-5.2.22 / 5.3 / 5.4 and stops.
-#: These were asserted in a brief and are absent from the document (ADR-036).
-ABSENT_S4_RULES = tuple(f"5.{n}" for n in range(5, 14))
+#: Extraction defect ADR-038: page 9 of S4 lost 75% of its text to a spurious
+#: table, chapter 5's rules 5.5-5.13 went with it, and the absence was written
+#: up as a finding AND enforced by a test. The replacement guards the METHOD:
+#: no page may lose text between the spans and the markdown. It would have
+#: caught the defect on the day it appeared, and it encodes no conclusion.
+EXTRACTED = ROOT / "docs" / "extracted"
+
+#: Markdown re-flows and adds table pipes, so exact equality is not the test.
+#: The observed floor across 224 good pages is 0.94; the defect page sat at 0.25.
+PAGE_TEXT_FLOOR = 0.94
 
 
-#: Only an *S4* citation is a defect. CLAUDE.md has its own 5.x sections and
-#: this repo quotes them constantly, so the S4-ness has to be explicit or the
-#: guard fires on every "CLAUDE.md 5.7 anti-pattern" reference.
-ABSENT_S4_CITATION = re.compile(r"S4[^\n]{0,10}?§?5\.(?:5|6|7|8|9|1[0-3])(?![.\d])")
+def _tokens(text: str) -> list[str]:
+    return re.findall(r"[0-9a-z]+", text.lower())
 
 
-def test_no_document_cites_a_chapter_5_rule_that_does_not_exist():
-    """Chapter 5 ends at 5.4. Inventing a rule is worse than misquoting one."""
+def _span_text(page: dict) -> str:
+    out: list[str] = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            if isinstance(node.get("text"), str):
+                out.append(node["text"])
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(page)
+    return " ".join(out)
+
+
+def _extracted_docs() -> list[Path]:
+    if not EXTRACTED.exists():
+        return []
+    return [d for d in sorted(EXTRACTED.iterdir()) if (d / "text" / "spans.json").exists()]
+
+
+@pytest.mark.skipif(not _extracted_docs(), reason="extraction output is gitignored")
+def test_no_extracted_page_loses_text():
+    """Every page's markdown must retain the text the same run put in spans.json.
+
+    This is the precondition of every "the rules do not say X" claim in this
+    repo. Grepping the markdown cannot establish an absence unless the markdown
+    is known to be complete — see ADR-038, where it was not.
+    """
+    for doc in _extracted_docs():
+        spans = json.loads((doc / "text" / "spans.json").read_text(encoding="utf-8"))
+        for page in spans["pages"]:
+            number = page["page"]
+            md_path = doc / "text" / f"page_{number:03d}.md"
+            if not md_path.exists():
+                continue
+            want = _tokens(_span_text(page))
+            if not want:
+                continue
+            have: dict[str, int] = {}
+            for token in _tokens(md_path.read_text(encoding="utf-8")):
+                have[token] = have.get(token, 0) + 1
+            kept = 0
+            for token in want:
+                if have.get(token, 0) > 0:
+                    have[token] -= 1
+                    kept += 1
+            coverage = kept / len(want)
+            assert coverage >= PAGE_TEXT_FLOOR, (
+                f"{doc.name} page {number} lost {100 * (1 - coverage):.0f}% of its text "
+                f"between spans.json and the markdown — see ADR-038"
+            )
+
+
+@pytest.mark.skipif(not _extracted_docs(), reason="extraction output is gitignored")
+def test_every_rule_number_survives_into_the_markdown():
+    """The sharper form of the same precondition, for rule numbers specifically."""
+    rule = re.compile(r"\b(\d{1,2}\.\d{1,2}(?:\.\d{1,2})?)\.")
+    for doc in _extracted_docs():
+        spans = json.loads((doc / "text" / "spans.json").read_text(encoding="utf-8"))
+        md = " ".join(
+            (doc / "text" / f"page_{p['page']:03d}.md").read_text(encoding="utf-8")
+            for p in spans["pages"]
+            if (doc / "text" / f"page_{p['page']:03d}.md").exists()
+        )
+        in_spans = set(rule.findall(" ".join(_span_text(p) for p in spans["pages"])))
+        missing = sorted(in_spans - set(rule.findall(md)))
+        assert not missing, f"{doc.name}: rule numbers lost by the markdown: {missing}"
+
+
+def test_the_retracted_absence_claim_is_not_restated():
+    """ADR-038 retracts it. Nothing may re-assert that chapter 5 ends at 5.4."""
     for path in sorted((ROOT / "docs").glob("*.md")):
-        # these three name the absent numbers precisely in order to say they are absent
-        if path.name in {"DECISIONS.md", "RUN_PROCEDURE.md", "BRIEF_SYNC.md"}:
-            continue
-        hits = ABSENT_S4_CITATION.findall(path.read_text(encoding="utf-8"))
-        assert not hits, f"{path.name} cites an S4 chapter-5 rule that does not exist"
-
-
-def test_the_guard_would_actually_catch_a_fabricated_rule():
-    """A guard that cannot fail is not a guard."""
-    assert ABSENT_S4_CITATION.search("wireless off during runs — S4 §5.9")
-    assert not ABSENT_S4_CITATION.search("CLAUDE.md 5.7 anti-pattern #3")
-    assert not ABSENT_S4_CITATION.search("S4 §5.2.9 wheels and tracks")
-    assert not ABSENT_S4_CITATION.search("S4 §5.4 one full robot")
+        text = path.read_text(encoding="utf-8")
+        for claim in ("ends at 5.4", "ends at **5.4**", "do not exist", "absent document-wide"):
+            if claim not in text:
+                continue
+            window = text[max(0, text.index(claim) - 400):text.index(claim) + 400]
+            assert "ADR-038" in window or "retract" in window.lower(), (
+                f"{path.name} restates the retracted absence claim without naming ADR-038"
+            )
 
 
 def test_the_button_rule_reached_the_chassis_constraints():
@@ -555,4 +627,76 @@ def test_b1_separates_the_contract_question_from_the_platform_decision():
     assert "5.4" in text and "one full robot" in text
     assert "Which platform competes?" in text
     assert "before the twelve mission programs are written" in text
+
+
+# --------------------------------------------------------------------------- #
+# ADR-039 — the closed form is an upper bound, and latent rho is not measured rho
+# --------------------------------------------------------------------------- #
+
+
+def test_the_closed_form_is_an_upper_bound_at_every_rho(round_strategy):
+    """If the analytic premium ever came in BELOW the exact one, the claim that
+    it is a safe upper bound would be false and the safe default would flip."""
+    for reading, block in round_strategy["readings"].items():
+        for row in block["best_of"]:
+            for cell in row["premium_at_rho"]:
+                assert cell["premium"] >= cell["premium_exact"], (reading, row["sigma_mm"], cell)
+                assert cell["analytic_overstates_by"] >= 0.0, cell
+
+
+def test_latent_rho_is_reported_separately_from_realised(round_strategy):
+    """The trap ADR-039 exists to stop: measured rho fed into the closed form."""
+    row = _row(round_strategy, "contact", "best_of")
+    high = next(c for c in row["premium_at_rho"] if c["rho"] == 0.9)
+    assert high["rho_realised"] < high["rho"], "attenuation must be visible, not hidden"
+    note = round_strategy["formula"]["correlation_is_latent_not_measured"]
+    assert "24%" in note, "the overstatement at a measured rho must be stated as a number"
+    assert "correlated_best_of_two" in note, "the note must name the function that fixes it"
+
+
+def test_the_inverted_assumption_is_registered():
+    """AS-13 — the only assumption whose safe direction is the opposite of the rest."""
+    text = (ROOT / "docs" / "ASSUMPTIONS.md").read_text(encoding="utf-8")
+    assert "AS-13" in text
+    assert "Consequence if wrong" in text.split("## AS-13", 1)[1]
+    assert "3.2" in text.split("## AS-13", 1)[1], "the asymmetry needs its number"
+
+
+def test_the_conditional_round_two_rule_is_gated():
+    """ADR-027's tactic needs a practice block between rounds; say so in the ADR."""
+    adr = (ROOT / "docs" / "DECISIONS.md").read_text(encoding="utf-8")
+    body = adr.split("## ADR-027", 1)[1].split("## ADR-028", 1)[0]
+    assert "GATED" in body and "9.3" in body
+    assert "QUESTIONS.md` #2" in body or "QUESTIONS.md #2" in body
+
+
+# --------------------------------------------------------------------------- #
+# The recovered rules must reach a consumer, not just a quote
+# --------------------------------------------------------------------------- #
+
+
+def test_the_recovered_rules_have_design_consumers():
+    text = (ROOT / "docs" / "PHASE7_CONSTRAINTS.md").read_text(encoding="utf-8")
+    for rule in ("5.5", "5.6", "5.7", "5.8", "5.9", "5.10", "5.11", "5.12", "5.13"):
+        assert f"**{rule}**" in text or f"§{rule}" in text, f"S4 {rule} has no consumer"
+    assert "offline version" in text, "5.8 must reach the toolchain decision"
+    assert "boot from an SD card" in text or "boot card" in text, "5.10 must reach the EV3 path"
+    assert "abort card" in text, "5.13 must reach the printed-material decision"
+
+
+def test_the_two_ceilings_are_distinguished_wherever_both_appear():
+    """255 is the rule maximum; 225 is model coverage. Neither corrects the other."""
+    for name in ("README.md", "CLAUDE.md"):
+        text = (ROOT / name).read_text(encoding="utf-8")
+        if "225" not in text:
+            continue
+        assert "rule maximum" in text, f"{name} names 225 without naming what 255 is"
+        assert "coverage" in text.lower(), f"{name} names 225 without saying it is coverage"
+
+
+def test_s1_and_s4_carry_the_same_version_date():
+    citations = json.loads((ROOT / "docs" / "citations.json").read_text(encoding="utf-8"))
+    s1 = citations["sources"]["S1"]["version_line"]
+    s4 = citations["sources"]["S4"]["version_line"]
+    assert "January 15th 2026" in s1 and "JANUARY 15TH 2026" in s4
 

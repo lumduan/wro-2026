@@ -43,6 +43,7 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
+from statistics import NormalDist
 from typing import Any, Final, Iterable, Sequence
 
 import numpy as np
@@ -232,9 +233,88 @@ def premium_with_correlation(score_sd: float, rounds_n: int = 2,
         return effective / math.sqrt(math.pi)
     # E[max of n iid standard normals], Blom's approximation.
     alpha = 0.375
-    from statistics import NormalDist
     expected_max = NormalDist().inv_cdf((rounds_n - alpha) / (rounds_n - 2 * alpha + 1))
     return effective * expected_max
+
+
+#: Gauss-Hermite-style quadrature over the shared systematic factor. 401 nodes
+#: on +/-8 sd converges the premium to well under 0.001 points, which is an
+#: order of magnitude finer than ADR-008's 3-decimal emission.
+_SYSTEMATIC_NODES: Final = 401
+_SYSTEMATIC_SPAN: Final = 8.0
+
+
+def _phi(x: np.ndarray) -> np.ndarray:
+    """Standard normal CDF, vectorised. numpy has no erf and scipy is absent."""
+    return 0.5 * (1.0 + np.vectorize(math.erf)(x / math.sqrt(2.0)))
+
+
+def correlated_best_of_two(pmf: np.ndarray, rho: float) -> dict[str, float]:
+    """``E[max(X1, X2)]`` for two rounds coupled by a shared systematic factor.
+
+    ``premium_with_correlation`` scales the iid premium by ``sqrt(1 - rho)``.
+    That relation is a property of **bivariate normality**, not of the discrete
+    convolution this module actually computes, so it cannot be checked by
+    re-deriving it — it has to be compared against a correlated construction on
+    the real distribution. This is that construction.
+
+    The coupling is the physical story stated as arithmetic. A latent
+    ``Z = sqrt(rho) * S + sqrt(1 - rho) * E`` splits each round into a
+    systematic part ``S``, drawn **once** and shared by both rounds, and an
+    independent part ``E`` drawn afresh. Mapping ``Z`` through the marginal
+    quantile function preserves the marginal exactly, so this re-couples the
+    *same* score distribution rather than substituting a normal for it.
+
+    Conditional on ``S = s`` the two rounds are independent, so
+
+        E[max] = integral phi(s) * sum_k (1 - F_s(k)^2) ds
+
+    with ``F_s(k) = Phi((z_k - sqrt(rho) s) / sqrt(1 - rho))`` and
+    ``z_k = Phi^-1(F(k))``.
+
+    Returns the exact premium, the analytic one, and the **realised** Pearson
+    correlation — which is not ``rho``. ``rho`` is the *latent* correlation;
+    pushing it through a bounded discrete marginal attenuates it, and the gap is
+    reported rather than hidden.
+    """
+    if not 0.0 <= rho < 1.0:
+        raise ValueError(f"rho must be in [0, 1), got {rho!r}")
+
+    cdf = np.clip(np.cumsum(pmf), 1e-15, 1.0 - 1e-15)
+    nd = NormalDist()
+    z = np.array([nd.inv_cdf(float(u)) for u in cdf])
+
+    s = np.linspace(-_SYSTEMATIC_SPAN, _SYSTEMATIC_SPAN, _SYSTEMATIC_NODES)
+    weight = np.exp(-0.5 * s**2) / math.sqrt(2.0 * math.pi)
+    weight = weight / np.trapezoid(weight, s)          # renormalise the truncation
+
+    scale = math.sqrt(1.0 - rho)
+    shift = math.sqrt(rho)
+    # F_s[i, k]: the conditional cdf at systematic node i
+    f_s = _phi((z[None, :] - shift * s[:, None]) / scale)
+
+    scores = np.arange(pmf.size, dtype=float)
+    # E[max of two iid draws | s], via sum_k (1 - F_s(k)^2) over k = 0 .. K-1
+    e_max_given_s = np.sum(1.0 - f_s[:, :-1] ** 2, axis=1)
+    e_max = float(np.trapezoid(weight * e_max_given_s, s))
+
+    # conditional pmf, for the mean and the realised correlation
+    pmf_s = np.diff(f_s, axis=1, prepend=0.0)
+    mu_s = pmf_s @ scores
+    mean = float(np.trapezoid(weight * mu_s, s))
+    second = float(np.trapezoid(weight * (pmf_s @ scores**2), s))
+    cross = float(np.trapezoid(weight * mu_s**2, s))    # rounds are iid given s
+    var = second - mean**2
+
+    analytic = premium_with_correlation(float(stdev(pmf)), 2, rho)
+    return {
+        "rho_latent": rho,
+        "rho_realised": (cross - mean**2) / var if var > 0 else 0.0,
+        "e_max_exact": e_max,
+        "premium_exact": e_max - mean,
+        "premium_analytic": analytic,
+        "gap": (e_max - mean) - analytic,
+    }
 
 
 def conditional_gain(pmf: np.ndarray, realised: int) -> float:

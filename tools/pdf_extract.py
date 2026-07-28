@@ -53,7 +53,7 @@ import numpy as np
 # --------------------------------------------------------------------------- #
 
 TOOL_NAME: Final = "pdf_extract"
-TOOL_VERSION: Final = "1.0.0"
+TOOL_VERSION: Final = "1.1.0"
 SCHEMA_VERSION: Final = 1
 
 MM_PER_PT: Final = 25.4 / 72.0
@@ -775,51 +775,92 @@ def _gfm_table(rows: Sequence[Sequence[str | None]]) -> str:
     return "\n".join(lines)
 
 
+def _word_tokens(text: str) -> list[str]:
+    """Lowercased alphanumeric tokens — the unit the coverage check counts."""
+    return re.findall(r"[0-9a-z]+", text.lower())
+
+
+def _table_covers_suppressed_text(table_markdown: str, suppressed: Sequence[str]) -> float:
+    """Fraction of the suppressed prose that survives into the emitted table.
+
+    A text block whose centre falls inside a table's bbox is dropped on the
+    assumption it was already emitted *as* the table. That assumption is not
+    checked anywhere by PyMuPDF, and when ``find_tables()`` reports a spurious
+    table spanning most of a page the assumption is false: the block is
+    suppressed and never re-emitted, so the page silently loses text.
+
+    This is not hypothetical — it cost S4 page 9, which carries the whole of
+    5.5-5.13. 75 % of that page vanished and the absence read as "the rules do
+    not exist" (ADR-038).
+    """
+    want = _word_tokens(" ".join(suppressed))
+    if not want:
+        return 1.0
+    have: dict[str, int] = {}
+    for token in _word_tokens(table_markdown):
+        have[token] = have.get(token, 0) + 1
+    kept = 0
+    for token in want:
+        if have.get(token, 0) > 0:
+            have[token] -= 1
+            kept += 1
+    return kept / len(want)
+
+
+#: Below this, a detected table is judged spurious and discarded in favour of
+#: the prose it would otherwise swallow. Deliberately generous: a real table
+#: reproduces nearly every word of the blocks inside it, so the observed gap is
+#: between ~0.95 and ~0.2 rather than anywhere near the threshold.
+TABLE_COVERAGE_FLOOR: Final = 0.60
+
+
 def _page_markdown(
     page: fitz.Page, number: int, use_pdfplumber_tables: bool
 ) -> tuple[str, str, int]:
     """Return (markdown, table_engine, table_count) for one page."""
-    table_rects: list[fitz.Rect] = []
     renderables: list[tuple[float, float, str]] = []
     engine = "none"
 
     try:
         finder = page.find_tables()
-        tables = list(finder.tables)
+        tables = [(fitz.Rect(t.bbox), _gfm_table(t.extract())) for t in finder.tables]
     except Exception:
         tables = []
     if tables:
         engine = "pymupdf"
-        for table in tables:
-            rect = fitz.Rect(table.bbox)
-            table_rects.append(rect)
-            markdown = _gfm_table(table.extract())
-            if markdown:
-                renderables.append((rect.y0, rect.x0, markdown))
     elif use_pdfplumber_tables:
         extracted = _pdfplumber_tables(page)
         if extracted:
             engine = "pdfplumber"
-            for rect_tuple, rows in extracted:
-                rect = fitz.Rect(rect_tuple)
-                table_rects.append(rect)
-                markdown = _gfm_table(rows)
-                if markdown:
-                    renderables.append((rect.y0, rect.x0, markdown))
+            tables = [(fitz.Rect(rect), _gfm_table(rows)) for rect, rows in extracted]
 
+    blocks: list[tuple[float, float, fitz.Point, str]] = []
     for block in page.get_text("blocks", sort=True):
         x0, y0, x1, y1, content = block[0], block[1], block[2], block[3], block[4]
         if not isinstance(content, str) or not content.strip():
             continue
-        centre = fitz.Point((x0 + x1) / 2, (y0 + y1) / 2)
-        if any(rect.contains(centre) for rect in table_rects):
-            continue  # already emitted as part of a table
-        renderables.append((y0, x0, content.strip()))
+        blocks.append((y0, x0, fitz.Point((x0 + x1) / 2, (y0 + y1) / 2), content.strip()))
+
+    # Keep a table only if it actually reproduces the prose it displaces.
+    kept_tables: list[tuple[fitz.Rect, str]] = []
+    for rect, markdown in tables:
+        inside = [text for _, _, centre, text in blocks if rect.contains(centre)]
+        if markdown and _table_covers_suppressed_text(markdown, inside) >= TABLE_COVERAGE_FLOOR:
+            kept_tables.append((rect, markdown))
+    if not kept_tables:
+        engine = "none"
+
+    for rect, markdown in kept_tables:
+        renderables.append((rect.y0, rect.x0, markdown))
+    for y0, x0, centre, text in blocks:
+        if any(rect.contains(centre) for rect, _ in kept_tables):
+            continue  # genuinely emitted as part of a table
+        renderables.append((y0, x0, text))
 
     renderables.sort(key=lambda item: (round(item[0], 2), round(item[1], 2)))
     body = "\n\n".join(item[2] for item in renderables)
     header = f"# Page {number}\n"
-    return (f"{header}\n{body}\n" if body else f"{header}\n_(no text layer)_\n"), engine, len(table_rects)
+    return (f"{header}\n{body}\n" if body else f"{header}\n_(no text layer)_\n"), engine, len(kept_tables)
 
 
 def _pdfplumber_tables(page: fitz.Page) -> list[tuple[tuple[float, ...], list[list[str | None]]]]:

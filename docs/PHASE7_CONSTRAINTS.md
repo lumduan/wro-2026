@@ -202,6 +202,85 @@ forbids. Grip has to come from wheel compound and normal load, not from anything
 
 ---
 
+## 6c · The nine rules the extraction lost — §5.5 to §5.13
+
+Recovered 2026-07-28 (**ADR-038**). Quoted in `RUN_PROCEDURE.md`; here is what each one *costs or
+buys*. Three of them were being designed around blind.
+
+### §5.8 — an offline coding path is the **team's** responsibility
+
+> *"If a team uses a software that requires an online connection (e.g. a browser-based tool), the
+> team should check if there is an offline version for the competition day. The competition
+> organizer is not responsible for providing an online infrastructure (e.g. WiFi for everyone)."*
+
+**This lands directly on the B1 platform decision.**
+
+| toolchain | online dependency | offline path |
+|---|---|---|
+| **Pybricks** (SPIKE / EV3 via `pybricks-micropython`) | `code.pybricks.com` is **browser-based** | the firmware is installed once and the hub runs standalone; but the *editor* is the online tool. An offline path must be identified and **tested before the day**, not assumed |
+| **EV3 MicroPython (VS Code ext.)** | local install | native offline — but `TOOLCHAIN_ARCHIVE.md` records that its LEGO-hosted image is `manual_only` and **pybricks-micropython v4 does not cover EV3** |
+| **SPIKE App / EV3 Classroom** | local install | native offline |
+
+**Consequence:** the `docs/TOOLCHAIN_ARCHIVE.md` work stops being prudence and becomes a rule
+requirement — §5.8 says the organizer will not provide connectivity, so anything that needs a
+network on the day is the team's problem. The EV3 image is still `manual_only`; that is now a
+**rule-driven** deadline, not a convenience one.
+
+### §5.10 — storage hardware has a hard insertion deadline
+
+> *"Use of hardware (like SD cards or USB sticks) to store programs is allowed. The hardware must
+> be **inserted before the end of practice time** and **may not be removed until the next practice
+> time starts**."*
+
+**This is an EV3-specific operational constraint**, because `ev3dev` and the EV3 MicroPython image
+both **boot from an SD card**. Read against §9.5 (robots go to quarantine before practice ends)
+and §9.7 (the robot must be ready to go), the sequence is forced:
+
+```
+practice time  ──► card IN, program on it, robot ready
+               ──► §9.5 quarantine (card stays in)
+               ──► §9.6 judges check, tables randomized
+               ──► round 1 ──► round 2         (card still in — cannot be removed)
+               ──► next practice time ──► card may come out
+```
+
+**So on an EV3 build the boot card is committed for the whole practice→quarantine→rounds block.**
+There is no swap-the-card recovery between rounds. A SPIKE build has no card and no such deadline
+— a second, concrete asymmetry for the B1 platform decision, alongside §5.2.6's stop-button
+exception.
+
+### §5.13 — documentation at the table is **permitted**, and this settles an open question
+
+> *"Teams can bring supportive materials such as measuring tape (to check the robot size) or pens
+> and paper (to make notes). **Documentation about the robot and games and rules is allowed as
+> well.**"*
+
+`RUN_PROCEDURE.md` argued from §9.3's *"No laptops should be brought to the competition table"*
+that anything needed at the table must be on paper or in the robot. §5.13 confirms the paper half
+explicitly. Three artefacts this repo already produces are therefore **legal at the table**:
+
+| artefact | why it belongs on paper |
+|---|---|
+| **the abort card** — when to call STOP under §10.7.5 | the decision is time-critical and the run is 120 s; A5 makes held objects score the partial tier, so a deliberate STOP has real value |
+| **the randomization decision table** — the 24 permutations | §9.6 randomizes *after* quarantine, so the operator sees the draw for the first time at the table |
+| **the technical summary** (§6.1) | required on paper anyway |
+
+§5.13 also permits a **measuring tape** *"to check the robot size"* — the 250 mm envelope (§5.1)
+can be verified at the table rather than trusted.
+
+### The other six, briefly
+
+| § | what it constrains |
+|---|---|
+| **5.5** | tools must be **battery operated** and fit on the team table. No soldering iron ⇒ **no repair path for a wiring failure**; spares and mechanical fasteners only |
+| **5.6** | **no wireless between components *within* the robot** — closes any two-hub design that would talk over Bluetooth. A two-controller build must be **wired**, which composes badly with §5.2.6's single-button rule (§6b) |
+| **5.7** | no interference or assistance **after randomization** — the operator may not orient, nudge or signal. Reinforces that the 24 permutations are a **runtime sensing** problem (§5) |
+| **5.9** | wireless off **during check time and runs**, with the burden of proof on the team: *"If the team cannot [show how], it is assumed that the wireless transmission has not been deactivated."* Know the off-switch and be able to demonstrate it |
+| **5.11** | no sharing a laptop or a program between teams |
+| **5.12** | the robot **may be marked** — labels, ribbons, mini-flags. Useful for making the single §5.2.6 start/stop button *"obviously recognizable"* |
+
+---
+
 ## 7 · Placement tolerance — what the gripper actually has to hit
 
 `MEASURED(S3)`, 2026-07-26. The six notes, `mic` and `instrument_guitar` share one base:

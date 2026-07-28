@@ -8,7 +8,7 @@ Emitted assumptions also appear verbatim in the `notes` array of the relevant
 `docs/extracted/<pdf-stem>/manifest.json`, so the machine-readable record and this
 document cannot drift apart silently.
 
-`last_reviewed: 2026-07-26`
+`last_reviewed: 2026-07-28`
 
 | ID | Assumption | Source | Consequence if wrong |
 |---|---|---|---|
@@ -24,6 +24,7 @@ document cannot drift apart silently.
 | [AS-10](#as-10) | Placement outcomes are independent across the 12 missions | `sim.rounds` | run variance is understated, so the best-of-N premium is a **lower** bound — the conclusion is safe, the magnitude is not |
 | [AS-11](#as-11) | Travel is straight-line centre-to-centre, with no time for turns or pick/place | `sim.travel` | every distance and required speed is a **lower** bound; clearing it is necessary, never sufficient |
 | [AS-12](#as-12) | A truck object starts at one of the two vehicle **centroids** | `sim.travel.TruckGroup` | the enumerated bracket omits a measured 152–172 mm per-object residual; **B0 removes both** |
+| [AS-13](#as-13) | Between-round correlation ρ is **high**, not zero | `sim.rounds`, ADR-037/039 | **the only assumption here whose safe direction is INVERTED** — see below |
 
 ---
 
@@ -317,3 +318,47 @@ matters.
 both this residual and the 16-way vehicle choice to nothing. ADR-030 prices that: the vehicle
 choice alone is worth 2 327 mm of spread at capacity 1, more than twice the 999 mm the
 irreducible note randomization costs.
+
+---
+
+## AS-13
+
+### Between-round correlation ρ is high, not zero
+
+**What it is.** Under the confirmed best-of-2 format the objective is
+`E[max(X₁,X₂)] = μ + sd·√(1−ρ)/√π`, where ρ is the correlation between the two rounds' scores.
+Nothing measures ρ. Work order **B5** will, as the round-to-round repeatability of the same program
+on the same table.
+
+**The assumption.** Until measured, treat ρ as **high** (0.9 is the working figure).
+
+**Why this entry is unlike every other one in this file.** Every other assumption here is set to
+the value that *understates* the achievable score, because understating cannot mislead when the
+objective is a single run's mean. **ρ inverts that rule.** The score standard deviation enters the
+best-of-2 objective with a **positive** coefficient, so the pessimistic choice for ρ is the *high*
+one — and the convenient choice, the one the iid formula invites, is ρ = 0.
+
+| ρ | analytic premium | exact (correlated draws) |
+|---:|---:|---:|
+| 0.0 | +8.53 | **+8.41** |
+| 0.5 | +6.03 | **+5.93** |
+| 0.9 | +2.70 | **+2.65** |
+
+**Consequence if wrong — and it is asymmetric, which is the whole reason for the default.**
+
+- **If ρ is really low and we assumed high:** the second round was worth ~8 points more than
+  credited. A strategy chosen as slightly too safe. Points unclaimed, nothing broken.
+- **If ρ is really high and we assumed zero:** the premium was overstated by **3.2×**, and that
+  overstatement is what pays for a deliberately riskier strategy. The risk is taken, the variance
+  does **not** re-roll because it was systematic all along, and the mean it cost is lost in
+  **both** rounds. This is the direction in which the error compounds instead of cancelling.
+
+**The prior favours high.** Two rounds share one robot, one program, one calibration and one
+table. The burden of proof is on showing that something *re-rolls*, not that it repeats.
+
+**A second-order trap, recorded so it is not walked into** (ADR-039). The ρ in `√(1−ρ)` is a
+*latent* correlation; B5 will measure a *realised* Pearson correlation, and a bounded discrete
+score distribution attenuates one into the other. Feeding a measured ρ = 0.9 straight into the
+closed form gives **+2.70 against an exact +2.18 — a 24 % overstatement**, in the same optimistic
+direction as everything else here. Use `sim.rounds.correlated_best_of_two` once ρ is measured.
+

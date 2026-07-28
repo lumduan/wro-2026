@@ -43,7 +43,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pdf_extract import R, json_bytes, sha256_file  # noqa: E402
 from sim import rounds  # noqa: E402
 
-TOOL_VERSION: Final = "1.1.0"
+TOOL_VERSION: Final = "1.2.0"
 SCHEMA_VERSION: Final = 2
 
 DEFAULT_OUT: Final = Path("data/round_strategy.json")
@@ -123,6 +123,26 @@ def rounding_defect(spec: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _rho_cell(pmf, sd: float, rho: float) -> dict[str, Any]:
+    """Both premiums at one correlation, plus the correlation actually realised.
+
+    ``premium_analytic`` scales the iid gain by sqrt(1 - rho), which is a
+    property of bivariate normality and not of this discrete convolution.
+    ``premium_exact`` re-couples the real distribution through a shared
+    systematic factor. Emitting both makes the gap auditable rather than
+    assumed, and ADR-039 shows it is one-directional: the closed form is
+    optimistic at every rho, and is an UPPER BOUND rather than an estimate.
+    """
+    exact = rounds.correlated_best_of_two(pmf, rho)
+    return {
+        "rho": R(rho),
+        "rho_realised": R(exact["rho_realised"]),
+        "premium": R(exact["premium_analytic"]),
+        "premium_exact": R(exact["premium_exact"]),
+        "analytic_overstates_by": R(-exact["gap"]),
+    }
+
+
 def build() -> dict[str, Any]:
     spec, floor, maximum = rounds.load(SPECS["expected_score"], SPECS["scoring_model"])
 
@@ -157,9 +177,7 @@ def build() -> dict[str, Any]:
                     for n in rounds.DEFAULT_ROUND_COUNTS
                 ],
                 "premium_at_rho": [
-                    {"rho": R(rho),
-                     "premium": R(rounds.premium_with_correlation(sd, 2, rho))}
-                    for rho in RHO_GRID
+                    _rho_cell(pmf, sd, rho) for rho in RHO_GRID
                 ],
                 "conditional_round_2": [
                     {"round_1_scored": s1, "round_2_worth": R(rounds.conditional_gain(pmf, s1))}
@@ -258,6 +276,14 @@ def build() -> dict[str, Any]:
                 "calibration, so a systematic component repeats identically in both. "
                 "Systematic variance is pure cost with no best-of-2 upside — it "
                 "lowers the mean and does not re-roll. ADR-037 narrows ADR-027 here."
+            ),
+            "correlation_is_latent_not_measured": (
+                "The rho in sqrt(1 - rho) is the LATENT correlation of the coupling. "
+                "A bounded discrete score distribution attenuates it, so the Pearson "
+                "correlation anyone would MEASURE is lower: latent 0.9 realises as "
+                "0.868. Feeding a measured rho = 0.9 into the closed form gives "
+                "+2.696 against an exact +2.175 — a 24% overstatement. Use "
+                "sim.rounds.correlated_best_of_two once B5 has measured it. ADR-039."
             ),
             "correlation_decomposition": (
                 "premium = sd * sqrt(1 - rho) / sqrt(pi) for N = 2, where sd is the "
